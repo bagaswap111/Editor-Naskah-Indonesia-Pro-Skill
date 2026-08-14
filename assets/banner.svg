@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <circle cx="1100" cy="120" r="220" fill="#3b82f6" opacity="0.12"/>
+  <circle cx="160" cy="520" r="180" fill="#f59e0b" opacity="0.08"/>
+  <text x="80" y="200" font-family="Georgia, serif" font-size="72" font-weight="bold" fill="#ffffff">ENIP</text>
+  <text x="80" y="270" font-family="-apple-system, Segoe UI, sans-serif" font-size="40" fill="#93c5fd">Editor Naskah Indonesia Pro</text>
+  <text x="80" y="330" font-family="-apple-system, Segoe UI, sans-serif" font-size="26" fill="#cbd5e1">Senior Indonesian-language editing skill for AI agents</text>
+  <text x="80" y="375" font-family="-apple-system, Segoe UI, sans-serif" font-size="22" fill="#94a3b8">PUEBI · KBBI · 5 styles + hybrid · TEEL+ · 4 output modes · 7-dimension score</text>
+  <rect x="80" y="420" width="300" height="52" rx="26" fill="#3b82f6"/>
+  <text x="230" y="454" text-anchor="middle" font-family="-apple-system, Segoe UI, sans-serif" font-size="24" font-weight="600" fill="#ffffff">npx skills add …</text>
+  <text x="80" y="548" font-family="-apple-system, Segoe UI, sans-serif" font-size="20" fill="#64748b">Open Agent Skills (SKILL.md) — runs in Claude Code, Cursor, Codex, Cline,</text>
+  <text x="80" y="580" font-family="-apple-system, Segoe UI, sans-serif" font-size="20" fill="#64748b">Gemini CLI, OpenCode, Copilot, and 25+ agents. MIT licensed.</text>
+</svg>

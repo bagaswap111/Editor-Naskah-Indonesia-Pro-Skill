@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Node (hanya jika npx cache lokal)
+node_modules/
+
+# Direktori instalasi skill (hasil ./scripts/install.sh, bukan sumber)
+/.claude/
+/.cursor/
+/.agents/
+/.codex/
+/.opencode/
+/.gemini/
+/.cline/
+/.clinerules/
+/.agent/
