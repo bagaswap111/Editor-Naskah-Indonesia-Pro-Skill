@@ -109,6 +109,7 @@ Tiga varian (sesuai K5):
 | A1 sintetis + injeksi | 10 (2/gaya) | teks bersih ditulis template → lalu di-injeksi error PUEBI oleh script |
 | A2 sintetis bersih | 6 (kontrol) | teks yang sama tanpa injeksi → mengukur over-editing & stabilitas |
 | A3 semi-formal | 4 | register santai (gaya sosial media/blog) → uji transformasi gaya |
+| A4 set nyata (opsional) | 5 | sub-bab acak buku teknis populer `corpus/buku-kolaborasi-llm/` (3.4–5.3 rb kata; register populer-edukatif; tanpa LICENSE → fair use riset, hanya statistik yang dilaporkan) |
 
 **Katalog injeksi error (10 kategori, deterministik, seed tetap):**
 

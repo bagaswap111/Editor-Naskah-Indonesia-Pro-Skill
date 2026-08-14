@@ -1,0 +1,49 @@
+{
+  "source_repo": "https://github.com/bagaswap111/buku-kolaborasi-llm",
+  "source_path": "konten/",
+  "license": "TIDAK ADA LICENSE — all rights reserved (fair use riset; teks tidak diterbitkan ulang)",
+  "sampling": "random.sample(100 sub-bab, k=10), seed=20260814; ambil 5 non-kosong berurutan",
+  "skipped": [
+    [
+      "jilid-2/bab-10/sub-bab-9.md",
+      "file kosong di repo"
+    ]
+  ],
+  "files": [
+    {
+      "id": "jilid-2_bab-10_sub-bab-4",
+      "github_path": "konten/jilid-2/bab-10-etika/sub-bab-4.md",
+      "title": "Bab 10.4: Local vs Cloud",
+      "words": 5270,
+      "sha256": "dd4b1cabef56412ddf0f4deed281abf24533a415ef7d4c19241b0a4488151822"
+    },
+    {
+      "id": "jilid-2_bab-05_sub-bab-4",
+      "github_path": "konten/jilid-2/bab-05-inference/sub-bab-4.md",
+      "title": "Bab 5.4: Continuous Batching",
+      "words": 3979,
+      "sha256": "1c24c0ed6b465da280c13e2548dc9ade23200468d01668e1f5c7fd8e9573dbfc"
+    },
+    {
+      "id": "jilid-2_bab-08_sub-bab-8",
+      "github_path": "konten/jilid-2/bab-08-general/sub-bab-8.md",
+      "title": "Bab 8.8: Maintenance & Failover",
+      "words": 4614,
+      "sha256": "066673e90c471da596d84116412a8ae0fa142b4b1dfc970105fa76c8d72becdd"
+    },
+    {
+      "id": "jilid-2_bab-07_sub-bab-7",
+      "github_path": "konten/jilid-2/bab-07-small/sub-bab-7.md",
+      "title": "Bab 7.7: Resource Allocation",
+      "words": 3652,
+      "sha256": "3e02c011243b5235f1ceaa358d31bfec7e2bbc9df750f97152afe7b1e6b25734"
+    },
+    {
+      "id": "jilid-2_bab-10_sub-bab-5",
+      "github_path": "konten/jilid-2/bab-10-etika/sub-bab-5.md",
+      "title": "Bab 10.5: Green AI",
+      "words": 5295,
+      "sha256": "440fb732710a1d2fcd8fb8154077db4abd78a518d047dfa18139ba886a27e9b6"
+    }
+  ]
+}
