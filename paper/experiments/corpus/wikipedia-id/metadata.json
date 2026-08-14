@@ -1,0 +1,63 @@
+{
+  "source": {
+    "name": "Wikipedia Bahasa Indonesia (Kategori:Artikel pilihan)",
+    "url": "https://id.wikipedia.org/w/api.php",
+    "license": "CC BY-SA 4.0",
+    "register": "populer-ensiklopedis, semi-formal",
+    "note": "Teks via prop=extracts (explaintext=1); kalimat pertama = judul artikel"
+  },
+  "sampling": {
+    "seed": 20260814,
+    "k": 5,
+    "candidates_total": 458,
+    "method": "random.sample(sorted(kategori ns=0), k)"
+  },
+  "exported_at": "2026-08-14 11:35",
+  "items": [
+    {
+      "title": "Saqifah Bani Sa'idah",
+      "url": "https://id.wikipedia.org/wiki/Saqifah%20Bani%20Sa%27idah",
+      "license": "CC BY-SA 4.0 (default lisensi Wikipedia Indonesia; cek footer artikel per item)",
+      "id": "wikipedia-id_saqifah_bani_sa_idah",
+      "words": 4615,
+      "sha256": "aeff2e02909fdc9396fd917833e85907315bbb86a1e271628a99868292c80087",
+      "sample_index": 0
+    },
+    {
+      "title": "Jerman Nazi",
+      "url": "https://id.wikipedia.org/wiki/Jerman%20Nazi",
+      "license": "CC BY-SA 4.0 (default lisensi Wikipedia Indonesia; cek footer artikel per item)",
+      "id": "wikipedia-id_jerman_nazi",
+      "words": 15313,
+      "sha256": "659f500d1faaf1f12bd243ee2f282059981780c9b457b766669ee0ee4a9bae12",
+      "sample_index": 1
+    },
+    {
+      "title": "Slamet Rijadi",
+      "url": "https://id.wikipedia.org/wiki/Slamet%20Rijadi",
+      "license": "CC BY-SA 4.0 (default lisensi Wikipedia Indonesia; cek footer artikel per item)",
+      "id": "wikipedia-id_slamet_rijadi",
+      "words": 1052,
+      "sha256": "bc0d1b9ea74bf58053dcfd8c54f2901f77f21b45fdaf9da075e090980b9a4a48",
+      "sample_index": 2
+    },
+    {
+      "title": "Pengepungan Damaskus (1148)",
+      "url": "https://id.wikipedia.org/wiki/Pengepungan%20Damaskus%20%281148%29",
+      "license": "CC BY-SA 4.0 (default lisensi Wikipedia Indonesia; cek footer artikel per item)",
+      "id": "wikipedia-id_pengepungan_damaskus_1148",
+      "words": 1948,
+      "sha256": "9ff94a60433f6e33fbcf78057c98752e033174815b4150fcdbb8cd7ecfb92e6d",
+      "sample_index": 3
+    },
+    {
+      "title": "Nestor Lakoba",
+      "url": "https://id.wikipedia.org/wiki/Nestor%20Lakoba",
+      "license": "CC BY-SA 4.0 (default lisensi Wikipedia Indonesia; cek footer artikel per item)",
+      "id": "wikipedia-id_nestor_lakoba",
+      "words": 3959,
+      "sha256": "0c75aae3687d81c8df1719c5f70a9d49896ac236dbea215c3417329e5c530b87",
+      "sample_index": 4
+    }
+  ]
+}

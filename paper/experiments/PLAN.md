@@ -109,7 +109,13 @@ Tiga varian (sesuai K5):
 | A1 sintetis + injeksi | 10 (2/gaya) | teks bersih ditulis template → lalu di-injeksi error PUEBI oleh script |
 | A2 sintetis bersih | 6 (kontrol) | teks yang sama tanpa injeksi → mengukur over-editing & stabilitas |
 | A3 semi-formal | 4 | register santai (gaya sosial media/blog) → uji transformasi gaya |
-| A4 set nyata (opsional) | 5 | sub-bab acak buku teknis populer `corpus/buku-kolaborasi-llm/` (3.4–5.3 rb kata; register populer-edukatif; tanpa LICENSE → fair use riset, hanya statistik yang dilaporkan) |
+| A4 set nyata (tersedia) | 20 (5×4 set) | teks nyata berlisensi bersih, disampling acak seed tetap — lihat `corpus/README.md` per set: `buku-kolaborasi-llm` (populer-edukatif, 3.4–5.3 rb kata, tanpa LICENSE → fair use riset), `wikipedia-id` (populer-ensiklopedis, CC BY-SA 4.0), `voa-indonesia` (jurnalistik, public domain US), `the-conversation-id` (opini/argumentatif, CC BY-ND 4.0). Catatan: teks tidak diterbitkan ulang di paper, hanya statistik |
+
+Pengambil set nyata: `scripts/fetch_corpus.py {wikipedia,voa,tc}` —
+sampling `random.sample(sorted(kandidat), k)` seed `20260814`, dengan
+resampling sisa sampai `k` item valid (item gagal ekstrak dicatat di
+`metadata.json.sampling.skipped`). Naskah 3.4–5.3 rb kata (buku) dan
+0.8–0.9 rb kata (TC) melebihi target 300–600 → eksekutor dapat menyegmen.
 
 **Katalog injeksi error (10 kategori, deterministik, seed tetap):**
 

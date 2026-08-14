@@ -1,0 +1,74 @@
+{
+  "source": {
+    "name": "VOA Indonesia (kategori Berita)",
+    "url": "https://www.voaindonesia.com",
+    "license": "Public domain (US gov work)",
+    "register": "jurnalistik, berita",
+    "note": "Feed RSS kategori Berita (/api/zmgqol-…); item gagal ekstrak (video/laporan audio) dilewati dan dicatat"
+  },
+  "sampling": {
+    "seed": 20260814,
+    "k": 5,
+    "candidates_total": 20,
+    "skipped": [
+      "https://www.voaindonesia.com/a/laporan-voa-untuk-metro-tv-apakah-ekonomi-amerika-terancam-resesi-/8011261.html",
+      "https://www.voaindonesia.com/a/badan-meteorologi-peringatkan-potensi-tornado-di-amerika/8011542.html",
+      "https://www.voaindonesia.com/a/oracle-lirik-batam-jadi-pusat-data/8011548.html"
+    ],
+    "resample_rounds": 3,
+    "method": "random.sample(sorted(set(link RSS)), k) dengan resampling sisa sampai k valid"
+  },
+  "exported_at": "2026-08-14 11:37",
+  "items": [
+    {
+      "title": "Trump Bertekad Minta Pertanggungjawaban Pihak yang Menuntutnya",
+      "url": "https://www.voaindonesia.com/a/trump-bertekad-minta-pertanggungjawaban-pihak-yang-menuntutnya/8011524.html",
+      "license": "Public domain (karya Pemerintah AS - Voice of America)",
+      "note": "Ekstrak <div class=wsw>; boilerplate (nav/figure) dibuang",
+      "id": "voa-id_trump-bertekad-minta-pertanggungjawaban-pihak-yang-menuntutnya_8011524.html",
+      "words": 410,
+      "sha256": "081b9087ce4e17613c78b1d257287e19249a8aa3df859b90a568c3cfc5c7eec7",
+      "sample_index": 0
+    },
+    {
+      "title": "Militer Pakistan: Korban Tewas Pembajakan Kereta Api Bertambah Jadi 31 Orang",
+      "url": "https://www.voaindonesia.com/a/militer-pakistan-korban-tewas-pembajakan-kereta-api-bertambah-jadi-31-orang/8011268.html",
+      "license": "Public domain (karya Pemerintah AS - Voice of America)",
+      "note": "Ekstrak <div class=wsw>; boilerplate (nav/figure) dibuang",
+      "id": "voa-id_militer-pakistan-korban-tewas-pembajakan-kereta-api-bertambah-jadi-31-orang_8011268.html",
+      "words": 520,
+      "sha256": "d8453f041bf8ebbf1f6f7a34c496fe356f49cd8069dcf985aae8a24a56e71a61",
+      "sample_index": 1
+    },
+    {
+      "title": "Utusan AS: Hamas Salah Mengartikan Pembebasan Sandera",
+      "url": "https://www.voaindonesia.com/a/utusan-as-hamas-salah-mengartikan-pembebasan-sandera/8011260.html",
+      "license": "Public domain (karya Pemerintah AS - Voice of America)",
+      "note": "Ekstrak <div class=wsw>; boilerplate (nav/figure) dibuang",
+      "id": "voa-id_utusan-as-hamas-salah-mengartikan-pembebasan-sandera_8011260.html",
+      "words": 561,
+      "sha256": "94999d693ca91a69f4715795ee6cf1838433e7dd087f6d18358cb3678c18a521",
+      "sample_index": 2
+    },
+    {
+      "title": "Shutdown Kegiatan Pemerintah Amerika Kemungkinan Terhindari",
+      "url": "https://www.voaindonesia.com/a/shutdown-kegiatan-pemerintah-amerika-kemungkinan-terhindari/8011453.html",
+      "license": "Public domain (karya Pemerintah AS - Voice of America)",
+      "note": "Ekstrak <div class=wsw>; boilerplate (nav/figure) dibuang",
+      "id": "voa-id_shutdown-kegiatan-pemerintah-amerika-kemungkinan-terhindari_8011453.html",
+      "words": 674,
+      "sha256": "e30cca09637337cb20834c1497c69f8c01225c4012d26299e715572f3886352a",
+      "sample_index": 3
+    },
+    {
+      "title": "Irak: Pemimpin Kunci ISIS Tewas",
+      "url": "https://www.voaindonesia.com/a/irak-pemimpin-kunci-isis-tewas/8011274.html",
+      "license": "Public domain (karya Pemerintah AS - Voice of America)",
+      "note": "Ekstrak <div class=wsw>; boilerplate (nav/figure) dibuang",
+      "id": "voa-id_irak-pemimpin-kunci-isis-tewas_8011274.html",
+      "words": 432,
+      "sha256": "9ee9bb94e1d41787324a3a44e1c36d4115b88b31add63d043b534dc5b9488855",
+      "sample_index": 4
+    }
+  ]
+}

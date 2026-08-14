@@ -1,0 +1,70 @@
+{
+  "source": {
+    "name": "The Conversation Indonesia",
+    "url": "https://theconversation.com/id",
+    "license": "CC BY-ND 4.0",
+    "register": "opini/argumentatif populer-akademik",
+    "note": "Feed Atom /id/articles.atom; item gagal ekstrak dilewati dan dicatat"
+  },
+  "sampling": {
+    "seed": 20260814,
+    "k": 5,
+    "candidates_total": 50,
+    "skipped": [],
+    "resample_rounds": 1,
+    "method": "random.sample(sorted(set(link atom)), k) dengan resampling sisa sampai k valid"
+  },
+  "exported_at": "2026-08-14 11:37",
+  "items": [
+    {
+      "title": "Sudah tahu keliru, tapi tetap diulang: Alasan di balik kesalahan berpikir kita",
+      "url": "https://theconversation.com/sudah-tahu-keliru-tapi-tetap-diulang-alasan-di-balik-kesalahan-berpikir-kita-287972",
+      "license": "CC BY-ND 4.0",
+      "note": "Ekstrak JSON-LD articleBody (fallback: div artikelBody)",
+      "id": "theconversation-id_sudah-tahu-keliru-tapi-tetap-diulang-alasan-di-balik-kesalahan-berpikir-kita-287972",
+      "words": 867,
+      "sha256": "28dde59edc1b2d9ea300395d0882e91f95c029e2d8fe8b00a05d559646727037",
+      "sample_index": 0
+    },
+    {
+      "title": "Jejak jalur dagang ‘ilegal’ Palembang - Singapura, membantu Indonesia di awal kemerdekaan",
+      "url": "https://theconversation.com/jejak-jalur-dagang-ilegal-palembang-singapura-membantu-indonesia-di-awal-kemerdekaan-289509",
+      "license": "CC BY-ND 4.0",
+      "note": "Ekstrak JSON-LD articleBody (fallback: div artikelBody)",
+      "id": "theconversation-id_jejak-jalur-dagang-ilegal-palembang-singapura-membantu-indonesia-di-awal-kemerdekaan-289509",
+      "words": 875,
+      "sha256": "0986992086b5d6b983642fe670099b9893dee130947c36700bbbaab64c75a4de",
+      "sample_index": 1
+    },
+    {
+      "title": "Tekanan keuangan berkepanjangan membuat otak menyusut? Temuan dari studi 80 tahun",
+      "url": "https://theconversation.com/tekanan-keuangan-berkepanjangan-membuat-otak-menyusut-temuan-dari-studi-80-tahun-289191",
+      "license": "CC BY-ND 4.0",
+      "note": "Ekstrak JSON-LD articleBody (fallback: div artikelBody)",
+      "id": "theconversation-id_tekanan-keuangan-berkepanjangan-membuat-otak-menyusut-temuan-dari-studi-80-tahun-289191",
+      "words": 793,
+      "sha256": "240c73861a55a441e073c58831ec22b6bf5da864afa9076891617ffe6051f5ba",
+      "sample_index": 2
+    },
+    {
+      "title": "Realita kebun binatang kita: Dana operasional dikorupsi, hewan rentan mati, di mana pengawasan?",
+      "url": "https://theconversation.com/realita-kebun-binatang-kita-dana-operasional-dikorupsi-hewan-rentan-mati-di-mana-pengawasan-288385",
+      "license": "CC BY-ND 4.0",
+      "note": "Ekstrak JSON-LD articleBody (fallback: div artikelBody)",
+      "id": "theconversation-id_realita-kebun-binatang-kita-dana-operasional-dikorupsi-hewan-rentan-mati-di-mana-pengawasan-288385",
+      "words": 860,
+      "sha256": "52bf958c13db41a2c940eac36f6304313bf3d78a17d34dd6f81cab5575211541",
+      "sample_index": 3
+    },
+    {
+      "title": "Orang disabilitas juga berhak berwisata: Pelajaran dari Tamansari Yogyakarta",
+      "url": "https://theconversation.com/orang-disabilitas-juga-berhak-berwisata-pelajaran-dari-tamansari-yogyakarta-289361",
+      "license": "CC BY-ND 4.0",
+      "note": "Ekstrak JSON-LD articleBody (fallback: div artikelBody)",
+      "id": "theconversation-id_orang-disabilitas-juga-berhak-berwisata-pelajaran-dari-tamansari-yogyakarta-289361",
+      "words": 895,
+      "sha256": "8058899b7f7c2c3456e56c566df4ffa27e92984a11af4f86c76acbe208213aae",
+      "sample_index": 4
+    }
+  ]
+}
