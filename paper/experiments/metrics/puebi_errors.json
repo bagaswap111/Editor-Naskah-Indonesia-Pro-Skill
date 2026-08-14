@@ -1,0 +1,341 @@
+{
+  "input": {
+    "items": {
+      "aca_01": {
+        "n": 25,
+        "remaining": 25,
+        "fix_rate": 0.0,
+        "n_out_words": 340
+      },
+      "aca_02": {
+        "n": 25,
+        "remaining": 25,
+        "fix_rate": 0.0,
+        "n_out_words": 349
+      },
+      "jur_01": {
+        "n": 25,
+        "remaining": 25,
+        "fix_rate": 0.0,
+        "n_out_words": 336
+      },
+      "jur_02": {
+        "n": 25,
+        "remaining": 25,
+        "fix_rate": 0.0,
+        "n_out_words": 341
+      },
+      "sas_01": {
+        "n": 20,
+        "remaining": 20,
+        "fix_rate": 0.0,
+        "n_out_words": 316
+      },
+      "sas_02": {
+        "n": 25,
+        "remaining": 25,
+        "fix_rate": 0.0,
+        "n_out_words": 319
+      },
+      "pop_01": {
+        "n": 22,
+        "remaining": 22,
+        "fix_rate": 0.0,
+        "n_out_words": 323
+      },
+      "pop_02": {
+        "n": 21,
+        "remaining": 21,
+        "fix_rate": 0.0,
+        "n_out_words": 358
+      },
+      "per_01": {
+        "n": 25,
+        "remaining": 25,
+        "fix_rate": 0.0,
+        "n_out_words": 348
+      },
+      "per_02": {
+        "n": 25,
+        "remaining": 25,
+        "fix_rate": 0.0,
+        "n_out_words": 340
+      }
+    },
+    "category_totals": {
+      "E6": 34,
+      "E7": 11,
+      "E9": 15,
+      "E8": 60,
+      "E1": 36,
+      "E5": 15,
+      "E2": 35,
+      "E4": 18,
+      "E10": 4,
+      "E3": 10
+    },
+    "mean_fix_rate": 0.0,
+    "n_done": 10,
+    "n_total": 10
+  },
+  "b3": {
+    "items": {
+      "aca_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "b3 tanpa output teks"
+      },
+      "aca_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "b3 tanpa output teks"
+      },
+      "jur_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "b3 tanpa output teks"
+      },
+      "jur_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "b3 tanpa output teks"
+      },
+      "sas_01": {
+        "n": 20,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "b3 tanpa output teks"
+      },
+      "sas_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "b3 tanpa output teks"
+      },
+      "pop_01": {
+        "n": 22,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "b3 tanpa output teks"
+      },
+      "pop_02": {
+        "n": 21,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "b3 tanpa output teks"
+      },
+      "per_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "b3 tanpa output teks"
+      },
+      "per_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "b3 tanpa output teks"
+      }
+    },
+    "category_totals": {}
+  },
+  "enip": {
+    "items": {
+      "aca_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "aca_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "jur_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "jur_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "sas_01": {
+        "n": 20,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "sas_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "pop_01": {
+        "n": 22,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "pop_02": {
+        "n": 21,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "per_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "per_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      }
+    },
+    "category_totals": {}
+  },
+  "b1": {
+    "items": {
+      "aca_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "aca_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "jur_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "jur_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "sas_01": {
+        "n": 20,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "sas_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "pop_01": {
+        "n": 22,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "pop_02": {
+        "n": 21,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "per_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "per_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      }
+    },
+    "category_totals": {}
+  },
+  "b2": {
+    "items": {
+      "aca_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "aca_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "jur_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "jur_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "sas_01": {
+        "n": 20,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "sas_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "pop_01": {
+        "n": 22,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "pop_02": {
+        "n": 21,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "per_01": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      },
+      "per_02": {
+        "n": 25,
+        "remaining": null,
+        "fix_rate": null,
+        "note": "menunggu run"
+      }
+    },
+    "category_totals": {}
+  }
+}
