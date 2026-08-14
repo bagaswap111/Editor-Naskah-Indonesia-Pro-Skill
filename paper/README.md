@@ -10,6 +10,7 @@ Indonesian Manuscripts", dijalankan mengikuti pipeline
 |---|---|---|
 | Pre-flight | validasi input, densitas, konsistensi | ✅ LULUS (4/4 gates) |
 | **1. Outline** | `outline.json` | ✅ LULUS (validate_outline.py) |
+| **Eksperimen** | `experiments/` | 📋 PLAN siap eksekusi — lihat [experiments/PLAN.md](experiments/PLAN.md) |
 | 2. Plotting | `figures/*` | ⏸️ belum (paralel, butuh host+matplotlib/PaperBanana) |
 | 3. Lit Review | `drafts/intro_relwork.tex`, `refs.bib` | ⏸️ belum (~20–30 pencarian, web + Semantic Scholar) |
 | 3.5 Reconcile | `outline_reconciled.json` | ⏸️ menunggu Step 3 |
