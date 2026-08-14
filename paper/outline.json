@@ -1,0 +1,341 @@
+{
+  "plotting_plan": [
+    {
+      "figure_id": "fig_layered_competence_framework",
+      "title": "Three-Layer Editorial Competence Framework",
+      "plot_type": "diagram",
+      "data_source": "idea.md",
+      "objective": "Visual summary (Block Diagram) of the three-layer editorial competence framework: Layer 1 Mechanical (proofreading PUEBI/KBBI), Layer 2 Structural (TEEL+, transitions, depth model), Layer 3 Substantive (fact verification, style engine), with the layer-to-analogy mapping (bricklayer, architect, curator) from idea.md.",
+      "aspect_ratio": "16:9"
+    },
+    {
+      "figure_id": "fig_style_engine_hybrid",
+      "title": "Style Engine with Hybrid Weighting",
+      "plot_type": "diagram",
+      "data_source": "idea.md",
+      "objective": "Conceptual diagram (Flowchart) of the style engine: 5 base styles (Academic, Journalistic, Literary, Popular, Persuasive), hybrid mode with primary/secondary/tertiary weights 60/30/10, and the 7 micro parameters (formality 1-10, sentence length, technical density, analogy frequency, rhetorical questions, licentia poetica tolerance, narrative perspective) feeding the 7-stage workflow.",
+      "aspect_ratio": "16:9"
+    },
+    {
+      "figure_id": "fig_workflow_seven_stages",
+      "title": "Seven-Stage Editing Workflow",
+      "plot_type": "diagram",
+      "data_source": "idea.md",
+      "objective": "Visual summary (Flow Diagram) of the 7-stage workflow from idea.md: Intake & Diagnosis, Substantive Editing, Structural Editing, Sentence Editing, Proofreading, Enhancement, Output & Editor Notes, showing per-stage outputs including the 4 output modes and the 7-dimension quality score.",
+      "aspect_ratio": "21:9"
+    },
+    {
+      "figure_id": "fig_progressive_disclosure_tokens",
+      "title": "Progressive Disclosure Context Cost",
+      "plot_type": "plot",
+      "data_source": "both",
+      "objective": "Visual summary (Bar Chart) comparing estimated token cost of the three progressive disclosure levels from experimental_log.md Section 2.5: discovery (~100 tokens, frontmatter), activation (<5000 tokens, SKILL.md body), execution (per-file references loaded on demand), illustrating why the 173-line core keeps context lean.",
+      "aspect_ratio": "4:3"
+    },
+    {
+      "figure_id": "fig_quality_scores_worked_examples",
+      "title": "Self-Reported Quality Scores on Worked Examples",
+      "plot_type": "plot",
+      "data_source": "experimental_log.md",
+      "objective": "Visual summary (Radar Chart) of the 7-dimension self-reported quality scores for worked examples 1 (academic-popular hybrid) and 3 (literary) from experimental_log.md Table 2.2, annotated with the self-assessment bias caveat and the absence of scores in Clean output mode.",
+      "aspect_ratio": "1:1"
+    },
+    {
+      "figure_id": "fig_skill_artifact_metrics",
+      "title": "Verified Skill Artifact Characteristics",
+      "plot_type": "plot",
+      "data_source": "experimental_log.md",
+      "objective": "Visual summary (Bar Chart) of verified artifact characteristics from experimental_log.md Table 2.1: 173-line core SKILL.md, 1014/1024-character description, 6 reference files, 3 asset files, 9 project-level plus 8 global install paths, 0 validator warnings.",
+      "aspect_ratio": "4:3"
+    }
+  ],
+  "intro_related_work_plan": {
+    "introduction_strategy": {
+      "hook_hypothesis": "LLM-based text editing is ad hoc and English-centric; Indonesian-language manuscripts lack structured editorial support spanning the mechanical, structural, and substantive layers, and the emerging SKILL.md portable skill format has not yet been evaluated for a real editorial domain skill.",
+      "problem_gap_hypothesis": "No open, portable, skill-based editorial methodology for Indonesian exists that (i) formalizes PUEBI/KBBI rules for on-demand LLM loading, (ii) provides a style engine with hybrid styles and micro parameters, and (iii) reports measured artifact characteristics and a multi-runtime portability plan grounded in a verifiable experimental log.",
+      "search_directions": [
+        "Find surveys and highly cited papers establishing the state and real-world impact of automatic grammar checking and text revision for low-resource languages, especially Indonesian (search window up to 2026-08-31 only)",
+        "Search for published surveys on LLM-based text editing, style transfer, and text simplification",
+        "Identify foundational papers that established statistical and neural grammatical error correction (GEC)",
+        "Find foundational documentation and papers establishing agent skills and the Model Context Protocol (Anthropic Agent Skills, Open Agent Skills / SKILL.md specification, MCP) as emerging portable instruction formats",
+        "Search for papers on prompt engineering and system-prompt design for LLM writing assistance and its evaluation protocols"
+      ]
+    },
+    "related_work_strategy": {
+      "overview": "Investigate four distinct methodology clusters to build a research graph proving the necessity of a layered, PUEBI-grounded, portable editorial skill: automatic grammar checking & GEC, LLM-as-editor prompting, agent skill standards with progressive disclosure, and Indonesian language resources and editing tools.",
+      "subsections": [
+        {
+          "subsection_title": "2.1 Automatic Grammar Checking and Grammatical Error Correction",
+          "methodology_cluster": "Rule-based and neural grammatical error correction (GEC) systems",
+          "sota_investigation_mission": "Identify current SOTA GEC systems and grammar checkers (e.g., LanguageTool, transformer-based GEC) up to 2026-08-31; determine their coverage of structural and substantive editing layers and their support for the Indonesian language.",
+          "limitation_hypothesis": "These tools operate at the mechanical layer only (spelling and grammar); they cannot enforce PUEBI-specific conventions, style selection, coherence structure, or factual verification, and most are English-centric with limited Indonesian coverage.",
+          "limitation_search_queries": [
+            "grammar error correction low-resource languages limitations coverage",
+            "grammar checker stylistic coherence structural coverage evaluation",
+            "Indonesian grammar checker PUEBI rule coverage accuracy"
+          ],
+          "bridge_to_our_method": "ENIP encodes the mechanical layer as a modular PUEBI/KBBI rule reference and extends editing to the structural layer (TEEL+, transitions, depth model) and substantive layer (fact-verification protocol, style engine)."
+        },
+        {
+          "subsection_title": "2.2 LLM-as-Editor Prompting and Style Transfer",
+          "methodology_cluster": "Prompt-based text revision, style transfer, and editing instructions with LLMs",
+          "sota_investigation_mission": "Identify current approaches using LLMs for text revision, style transfer, and editing up to 2026-08-31; determine their evaluation protocols, especially how self-assessment bias is handled.",
+          "limitation_hypothesis": "Unguided or single-prompt LLM editing is ad hoc: no layered workflow, no PUEBI grounding, no transparent justification of significant changes, and quality is typically self-assessed without human editor validation.",
+          "limitation_search_queries": [
+            "LLM text editing evaluation self-assessment bias human evaluation",
+            "style transfer Indonesian language LLM evaluation",
+            "LLM proofreading multilingual evaluation protocol"
+          ],
+          "bridge_to_our_method": "ENIP provides a structured 7-stage workflow, a style engine with hybrid weighting, four output modes including Track Changes and Consultation, and a 7-dimension rubric designed for human editor validation."
+        },
+        {
+          "subsection_title": "2.3 Agent Skills and Portable Instruction Formats",
+          "methodology_cluster": "Agent skills, Model Context Protocol, and portable instruction formats (SKILL.md, AGENTS.md)",
+          "sota_investigation_mission": "Identify the Open Agent Skills (SKILL.md) specification, Anthropic Agent Skills, MCP, and AGENTS.md ecosystem up to 2026-08-31; determine native SKILL.md reader support across runtimes and the progressive disclosure mechanics.",
+          "limitation_hypothesis": "The skill ecosystem is young: no published evaluation of cross-runtime portability or context overhead for a real domain skill exists, and portable skills for Indonesian language editing are absent from public registries.",
+          "limitation_search_queries": [
+            "agent skills SKILL.md open specification portability evaluation",
+            "progressive disclosure context overhead agent skills measurement",
+            "MCP agent skills standardization adoption survey"
+          ],
+          "bridge_to_our_method": "ENIP is a SKILL.md skill with verified artifact characteristics (experimental_log.md Table 2.1) and a planned 8-runtime portability study with a deterministic installer and validator."
+        },
+        {
+          "subsection_title": "2.4 Indonesian Language Resources and Editing Tools",
+          "methodology_cluster": "Indonesian language technology and editorial resources (KBBI, PUEBI, Indonesian NLP toolkits)",
+          "sota_investigation_mission": "Identify Indonesian NLP resources and editing tools (KBBI dictionaries, Indonesian spell checkers, PUEBI-based tools, Indonesian NLP toolkits) up to 2026-08-31; determine their coverage and their integration difficulty into LLM workflows.",
+          "limitation_hypothesis": "Existing Indonesian editing tools cover only the mechanical checking layer and are not structured for on-demand LLM loading; their rule representations are neither modular nor portable across agent runtimes.",
+          "limitation_search_queries": [
+            "Indonesian NLP resources tools survey coverage",
+            "KBBI dictionary integration LLM workflows",
+            "PUEBI spelling checker Indonesian tools evaluation"
+          ],
+          "bridge_to_our_method": "ENIP formalizes PUEBI/KBBI rules into a modular reference file (references/PUEBI.md) loaded on demand by the skill, with uncertainty marked explicitly instead of guessed."
+        }
+      ]
+    }
+  },
+  "section_plan": [
+    {
+      "section_title": "0. Abstract",
+      "subsections": [],
+      "content_bullets": [
+        "State the problem: Indonesian manuscript editing lacks structured editorial support spanning mechanical, structural, and substantive layers.",
+        "Announce the contribution: ENIP, a portable SKILL.md skill encoding a three-layer editorial methodology with a PUEBI-grounded style engine and a 7-dimension quality protocol.",
+        "Summarize verified artifact characteristics from experimental_log.md Table 2.1 and the planned evaluation (baselines B1-B3, human editor validation, trigger reliability, context overhead)."
+      ],
+      "citation_hints": []
+    },
+    {
+      "section_title": "1. Introduction",
+      "subsections": [],
+      "content_bullets": [
+        "Open with the editorial pain point for Indonesian manuscripts: mechanical errors are partially covered by spell checkers while structural and substantive issues are unaddressed (idea.md Problem Statement items 1-2).",
+        "Motivate the emerging SKILL.md portable skill format as the delivery vehicle, noting the absence of public portability evaluations for domain skills (idea.md Problem Statement item 4).",
+        "State the core hypothesis: a layered editorial skill outperforms unguided LLM editing and mechanical checkers while staying portable (idea.md Core Hypothesis).",
+        "List the four expected contributions from idea.md: layered competence formalization, Indonesian style engine, open PUEBI rule base, portability study and evaluation protocol.",
+        "Scope the paper strictly to the artifact and data in experimental_log.md; do not over-claim generalization beyond the 20-manuscript planned evaluation target."
+      ],
+      "citation_hints": [
+        "research paper or technical report introducing 'Grammarly'",
+        "research paper or technical report introducing 'LanguageTool'",
+        "research paper or technical report introducing 'Agent Skills' (Anthropic)",
+        "research paper or technical report introducing 'Open Agent Skills specification' (SKILL.md)",
+        "research paper or technical report introducing 'Model Context Protocol'"
+      ]
+    },
+    {
+      "section_title": "2. Related Work",
+      "subsections": [
+        {
+          "subsection_title": "2.1 Automatic Grammar Checking and Grammatical Error Correction",
+          "content_bullets": [
+            "Summarize rule-based and neural GEC approaches and their mechanical-layer focus, referencing the limitation hypotheses from the research graph.",
+            "Document the English-centric bias and the absence of PUEBI-specific conventions in existing checkers."
+          ],
+          "citation_hints": [
+            "research paper or technical report introducing 'Grammatical Error Correction' as an NLP task",
+            "research paper or technical report introducing 'LanguageTool'"
+          ]
+        },
+        {
+          "subsection_title": "2.2 LLM-as-Editor Prompting and Style Transfer",
+          "content_bullets": [
+            "Review prompt-based text revision and style transfer with LLMs, including evaluation protocols.",
+            "Highlight the ad hoc nature of unguided LLM editing and the self-assessment bias in existing evaluations, motivating the human-validation rubric in Section 4.6."
+          ],
+          "citation_hints": [
+            "research paper or technical report introducing 'style transfer' for text",
+            "research paper or technical report introducing 'text simplification'"
+          ]
+        },
+        {
+          "subsection_title": "2.3 Agent Skills and Portable Instruction Formats",
+          "content_bullets": [
+            "Review the SKILL.md / Open Agent Skills specification, Anthropic Agent Skills, MCP, and AGENTS.md as portable instruction formats.",
+            "Establish that no published cross-runtime portability or context-overhead evaluation exists for a domain skill, positioning ENIP's measured artifact data as the evidence gap."
+          ],
+          "citation_hints": [
+            "research paper or technical report introducing 'Agent Skills' (Anthropic, 2025)",
+            "research paper or technical report introducing 'Open Agent Skills specification'",
+            "research paper or technical report introducing 'Model Context Protocol'"
+          ]
+        },
+        {
+          "subsection_title": "2.4 Indonesian Language Resources and Editing Tools",
+          "content_bullets": [
+            "Review Indonesian NLP resources (KBBI, Indonesian spell checkers, PUEBI-based tools) and their mechanical-layer coverage.",
+            "Conclude the gap: no modular, portable, LLM-loadable editorial rule base for Indonesian exists."
+          ],
+          "citation_hints": [
+            "research paper or technical report introducing 'Kamus Besar Bahasa Indonesia' (KBBI)",
+            "research paper or technical report introducing 'Pedoman Umum Ejaan Bahasa Indonesia' (PUEBI)"
+          ]
+        }
+      ]
+    },
+    {
+      "section_title": "3. Methodology",
+      "subsections": [
+        {
+          "subsection_title": "3.1 Three-Layer Editorial Competence",
+          "content_bullets": [
+            "Formalize the three competence layers from idea.md Proposed Methodology module 1, with the bricklayer/architect/curator analogies.",
+            "Specify Layer 1: PUEBI/KBBI rule categories (capitalization, italics, critical punctuation, word writing for di-/ke-/pun, loanwords, numbers) as encoded in references/PUEBI.md, and the rule that uncertain cases are flagged with ⚠️ rather than guessed.",
+            "Specify Layer 2: TEEL+ paragraph structure, the 7 transition types, idea progression patterns, and the 5-layer depth model (APA to MENGAPA to BAGAIMANA to CONTOH to IMPLIKASI) from references/WORKFLOW.md.",
+            "Specify Layer 3: fact-verification protocol with [Sumber?] and [Korelasi =/= Kausalitas?] markers, citation formats (APA 7, Chicago, IEEE, Vancouver, footnotes), and sensitivity handling, from references/FACT_CHECKING.md."
+          ],
+          "citation_hints": [
+            "research paper or technical report introducing 'Pedoman Umum Ejaan Bahasa Indonesia' (PUEBI)",
+            "research paper or technical report introducing 'Kamus Besar Bahasa Indonesia' (KBBI)",
+            "research paper or technical report describing 'IELTS writing band descriptors' (coherence and cohesion)"
+          ]
+        },
+        {
+          "subsection_title": "3.2 Style Engine",
+          "content_bullets": [
+            "Define the 5 base styles (Academic Formal, Journalistic, Literary, Popular-Educational, Persuasive-Argumentative) with their sentence structure, characteristic transitions, and editor notes from references/STYLE_GUIDE.md.",
+            "Formalize hybrid mode with primary/secondary/tertiary weights 60/30/10 and the recommended combinations table.",
+            "Specify the 7 micro parameters (formality 1-10, sentence length target, technical term density, analogy frequency, rhetorical question usage, licentia poetica tolerance, narrative perspective) and their defaults."
+          ],
+          "citation_hints": []
+        },
+        {
+          "subsection_title": "3.3 Seven-Stage Workflow, Output Modes, and Quality Scoring",
+          "content_bullets": [
+            "Present the 7-stage workflow from idea.md module 3: Intake & Diagnosis, Substantive Editing, Structural Editing, Sentence Editing, Proofreading, Enhancement, Output & Editor Notes.",
+            "Specify the 4 output modes (Clean Edit, Edit + Notes, Track Changes, Consultation) from references/OUTPUT_MODES.md, including the track-changes markup convention (strikethrough deletions, bold additions, [Catatan:] and ⚠️ markers).",
+            "Define the 7-dimension quality rubric (Clarity, Coherence, Depth, Accuracy, Style, Mechanics, Engagement) with scoring rules from references/QUALITY_METRICS.md, including the rule that Accuracy is capped at 8 while flagged claims remain unresolved."
+          ],
+          "citation_hints": []
+        },
+        {
+          "subsection_title": "3.4 Skill Packaging and Portability",
+          "content_bullets": [
+            "Describe the SKILL.md packaging constraints: kebab-case name matching the folder, description limited to 1024 characters, body under 500 lines, and progressive disclosure via references/ and assets/ directories.",
+            "Report verified artifact characteristics from experimental_log.md Table 2.1: 173-line core, 1014/1024-character description, 6 reference files, 3 asset files.",
+            "Describe the deterministic installer (install.sh) covering 9 project-level and 8 global install paths, and the validator (validate.sh) enforced by GitHub Actions CI."
+          ],
+          "citation_hints": [
+            "research paper or technical report introducing 'Open Agent Skills specification'"
+          ]
+        }
+      ]
+    },
+    {
+      "section_title": "4. Experiments",
+      "subsections": [
+        {
+          "subsection_title": "4.1 Experimental Setup",
+          "content_bullets": [
+            "Define the baselines from experimental_log.md Section 1: B1 unguided LLM editing, B2 single-shot self-contained prompt, B3 mechanical non-LLM checker.",
+            "Define evaluation metrics: 7-dimension quality score, human editor agreement (mean absolute delta and Cohen's kappa), trigger reliability (precision/re-call on 20 queries), context overhead in tokens, and PUEBI error rate per 1000 words on a 20-manuscript target corpus (5 per style)."
+          ],
+          "citation_hints": [
+            "research paper or technical report introducing 'Cohen's kappa' inter-rater agreement"
+          ]
+        },
+        {
+          "subsection_title": "4.2 Artifact Characteristics",
+          "content_bullets": [
+            "Present Table 2.1 data from experimental_log.md: line count, description length, reference/asset counts, install paths, validator warnings.",
+            "Discuss the validator's role in catching format violations (name-folder mismatch, description length) before CI, grounding the claim that deterministic checks complement instruction documents."
+          ],
+          "citation_hints": []
+        },
+        {
+          "subsection_title": "4.3 Quality Scores on Worked Examples",
+          "content_bullets": [
+            "Report the self-reported 7-dimension scores from experimental_log.md Table 2.2 for worked examples 1 (academic-popular hybrid) and 3 (literary), referencing fig_quality_scores_worked_examples.",
+            "State the self-assessment bias caveat explicitly and note that Clean output mode does not emit scores, limiting comparability across modes.",
+            "Ground example-specific editorial decisions (e.g., the glass-of-water analogy, preserved dialog register) in the worked examples in examples/."
+          ],
+          "citation_hints": []
+        },
+        {
+          "subsection_title": "4.4 Portability Study",
+          "content_bullets": [
+            "Describe the planned 8-runtime evaluation (Claude Code, Cursor 2.4+, OpenAI Codex, Cline, Gemini CLI, OpenCode, Google Antigravity, VS Code Copilot) with the binary load-without-modification metric and the activation mechanism per runtime.",
+            "Report which runtime activations are native SKILL.md readers versus installer-mediated, based on the ecosystem review in Section 2.3."
+          ],
+          "citation_hints": []
+        },
+        {
+          "subsection_title": "4.5 Trigger Reliability and Context Overhead",
+          "content_bullets": [
+            "Define the trigger evaluation: 10 should-trigger and 10 should-not-trigger queries with target precision and recall >= 0.9 from experimental_log.md Section 2.4.",
+            "Report planned context overhead measurement across the three disclosure levels (discovery ~100 tokens, activation <5000, execution per-file) from experimental_log.md Section 2.5, referencing fig_progressive_disclosure_tokens."
+          ],
+          "citation_hints": []
+        },
+        {
+          "subsection_title": "4.6 Human Editor Validation",
+          "content_bullets": [
+            "Describe the planned evaluation with 2-3 senior Indonesian editors scoring a subset of manuscripts on the same 7-dimension rubric.",
+            "Define agreement metrics: mean absolute delta between ENIP and editor scores, and Cohen's kappa among editors; define the acceptance threshold against the B1 baseline."
+          ],
+          "citation_hints": []
+        }
+      ]
+    },
+    {
+      "section_title": "5. Discussion",
+      "subsections": [],
+      "content_bullets": [
+        "Discuss mitigation of self-assessment bias via the human editor validation protocol and the accuracy cap rule in the rubric.",
+        "Analyze the trade-off between instruction richness and context cost implied by the progressive disclosure measurements.",
+        "Acknowledge design limitations from experimental_log.md Section 3: incomplete loanword list with ⚠️ fallback, dialog preserved verbatim by design, score absence in Clean mode.",
+        "Discuss implications for the wider skill ecosystem: portable domain skills for other under-resourced languages."
+      ],
+      "citation_hints": []
+    },
+    {
+      "section_title": "6. Conclusion",
+      "subsections": [],
+      "content_bullets": [
+        "Restate the four contributions and how each is evidenced by the artifact data and planned experiments.",
+        "State the concrete next steps: completing the 20-manuscript evaluation, human validation study, and KBBI API integration as future work."
+      ],
+      "citation_hints": []
+    },
+    {
+      "section_title": "7. Appendix: Skill Contents",
+      "subsections": [
+        {
+          "subsection_title": "7.1 Reference Files",
+          "content_bullets": [
+            "List the 6 reference files (PUEBI.md, STYLE_GUIDE.md, WORKFLOW.md, FACT_CHECKING.md, QUALITY_METRICS.md, OUTPUT_MODES.md) and their on-demand loading role."
+          ],
+          "citation_hints": []
+        },
+        {
+          "subsection_title": "7.2 Templates and Worked Examples",
+          "content_bullets": [
+            "Document assets/output-template.md, assets/style-sheet-template.md, and the three worked examples (academic-popular, journalistic, literary) used in Section 4.3."
+          ],
+          "citation_hints": []
+        }
+      ]
+    }
+  ]
+}

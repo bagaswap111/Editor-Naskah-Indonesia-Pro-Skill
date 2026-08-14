@@ -21,3 +21,6 @@ node_modules/
 /.cline/
 /.clinerules/
 /.agent/
+
+# Python venv workspace paper
+/paper/tools/.venv/
