@@ -1,0 +1,1645 @@
+{
+  "seed": 42,
+  "n": 20,
+  "error_catalog": "E1..E10 (lihat PLAN.md)",
+  "corpus": [
+    {
+      "id": "aca_01",
+      "title": "Korelasi Kebiasaan Membaca dan Prestasi Akademik",
+      "style": "aca",
+      "audience": "akademisi",
+      "words": 357,
+      "variant": "injected",
+      "clean_twin": "aca_03",
+      "injected_errors": [
+        {
+          "cat": "E6",
+          "offset": 142,
+          "wrong": "3",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E7",
+          "offset": 233,
+          "wrong": "2.024",
+          "right": "2024"
+        },
+        {
+          "cat": "E9",
+          "offset": 631,
+          "wrong": "platform",
+          "right": "*platform*"
+        },
+        {
+          "cat": "E8",
+          "offset": 648,
+          "wrong": "data",
+          "right": "Data"
+        },
+        {
+          "cat": "E1",
+          "offset": 730,
+          "wrong": " sedangkan",
+          "right": ", sedangkan"
+        },
+        {
+          "cat": "E7",
+          "offset": 812,
+          "wrong": "2.026",
+          "right": "2026"
+        },
+        {
+          "cat": "E9",
+          "offset": 855,
+          "wrong": "software",
+          "right": "*software*"
+        },
+        {
+          "cat": "E1",
+          "offset": 973,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E8",
+          "offset": 1042,
+          "wrong": "tiga",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E5",
+          "offset": 1170,
+          "wrong": "banyak para peneliti",
+          "right": "para peneliti"
+        },
+        {
+          "cat": "E8",
+          "offset": 1250,
+          "wrong": "kebiasaan",
+          "right": "Kebiasaan"
+        },
+        {
+          "cat": "E2",
+          "offset": 1273,
+          "wrong": "di ukur",
+          "right": "diukur"
+        },
+        {
+          "cat": "E4",
+          "offset": 1332,
+          "wrong": "resiko",
+          "right": "risiko"
+        },
+        {
+          "cat": "E10",
+          "offset": 1408,
+          "wrong": "disebabkan karena",
+          "right": "disebabkan oleh"
+        },
+        {
+          "cat": "E6",
+          "offset": 1469,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E5",
+          "offset": 1759,
+          "wrong": "agar supaya",
+          "right": "agar"
+        },
+        {
+          "cat": "E8",
+          "offset": 1846,
+          "wrong": "sumber",
+          "right": "Sumber"
+        },
+        {
+          "cat": "E8",
+          "offset": 2207,
+          "wrong": "pada",
+          "right": "Pada"
+        },
+        {
+          "cat": "E2",
+          "offset": 2312,
+          "wrong": "di pakai",
+          "right": "dipakai"
+        },
+        {
+          "cat": "E2",
+          "offset": 2321,
+          "wrong": "disekolah",
+          "right": "di sekolah"
+        },
+        {
+          "cat": "E4",
+          "offset": 2362,
+          "wrong": "kwalitas",
+          "right": "kualitas"
+        },
+        {
+          "cat": "E4",
+          "offset": 2392,
+          "wrong": "kwalitas",
+          "right": "kualitas"
+        },
+        {
+          "cat": "E8",
+          "offset": 2668,
+          "wrong": "implikasi",
+          "right": "Implikasi"
+        },
+        {
+          "cat": "E2",
+          "offset": 2708,
+          "wrong": "di terapkan",
+          "right": "diterapkan"
+        },
+        {
+          "cat": "E2",
+          "offset": 2720,
+          "wrong": "diperpustakaan",
+          "right": "di perpustakaan"
+        }
+      ]
+    },
+    {
+      "id": "aca_02",
+      "title": "Replikasi dalam Penelitian Ilmiah: Urgensi dan Tantangan",
+      "style": "aca",
+      "audience": "akademisi",
+      "words": 365,
+      "variant": "injected",
+      "clean_twin": "aca_04",
+      "injected_errors": [
+        {
+          "cat": "E8",
+          "offset": 92,
+          "wrong": "peneliti",
+          "right": "Peneliti"
+        },
+        {
+          "cat": "E1",
+          "offset": 180,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E8",
+          "offset": 246,
+          "wrong": "dua",
+          "right": "Dua"
+        },
+        {
+          "cat": "E8",
+          "offset": 332,
+          "wrong": "studi",
+          "right": "Studi"
+        },
+        {
+          "cat": "E9",
+          "offset": 359,
+          "wrong": "deadline",
+          "right": "*deadline*"
+        },
+        {
+          "cat": "E1",
+          "offset": 399,
+          "wrong": " sedangkan",
+          "right": ", sedangkan"
+        },
+        {
+          "cat": "E4",
+          "offset": 468,
+          "wrong": "kwalitas",
+          "right": "kualitas"
+        },
+        {
+          "cat": "E8",
+          "offset": 556,
+          "wrong": "kelompok",
+          "right": "Kelompok"
+        },
+        {
+          "cat": "E9",
+          "offset": 676,
+          "wrong": "deadline",
+          "right": "*deadline*"
+        },
+        {
+          "cat": "E4",
+          "offset": 942,
+          "wrong": "praktek",
+          "right": "praktik"
+        },
+        {
+          "cat": "E6",
+          "offset": 1021,
+          "wrong": "4",
+          "right": "Empat"
+        },
+        {
+          "cat": "E4",
+          "offset": 1279,
+          "wrong": "sistim",
+          "right": "sistem"
+        },
+        {
+          "cat": "E9",
+          "offset": 1513,
+          "wrong": "database",
+          "right": "*database*"
+        },
+        {
+          "cat": "E5",
+          "offset": 1530,
+          "wrong": "agar supaya",
+          "right": "agar"
+        },
+        {
+          "cat": "E6",
+          "offset": 1659,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E6",
+          "offset": 1779,
+          "wrong": "5",
+          "right": "Lima"
+        },
+        {
+          "cat": "E3",
+          "offset": 1839,
+          "wrong": "walau pun",
+          "right": "walaupun"
+        },
+        {
+          "cat": "E8",
+          "offset": 1911,
+          "wrong": "replikasi",
+          "right": "Replikasi"
+        },
+        {
+          "cat": "E1",
+          "offset": 1969,
+          "wrong": " melainkan",
+          "right": ", melainkan"
+        },
+        {
+          "cat": "E4",
+          "offset": 1998,
+          "wrong": "kwalitas",
+          "right": "kualitas"
+        },
+        {
+          "cat": "E4",
+          "offset": 2039,
+          "wrong": "kwalitas",
+          "right": "kualitas"
+        },
+        {
+          "cat": "E10",
+          "offset": 2096,
+          "wrong": "disebabkan karena",
+          "right": "disebabkan oleh"
+        },
+        {
+          "cat": "E8",
+          "offset": 2468,
+          "wrong": "empat",
+          "right": "Empat"
+        },
+        {
+          "cat": "E2",
+          "offset": 2534,
+          "wrong": "dilapangan",
+          "right": "di lapangan"
+        },
+        {
+          "cat": "E3",
+          "offset": 2568,
+          "wrong": "walau pun",
+          "right": "walaupun"
+        }
+      ]
+    },
+    {
+      "id": "jur_01",
+      "title": "Pameran Batik Nusantara Resmi Dibuka di Jakarta",
+      "style": "jur",
+      "audience": "pembaca umum (media massa)",
+      "words": 352,
+      "variant": "injected",
+      "clean_twin": "jur_03",
+      "injected_errors": [
+        {
+          "cat": "E7",
+          "offset": 18,
+          "wrong": "2.026",
+          "right": "2026"
+        },
+        {
+          "cat": "E8",
+          "offset": 97,
+          "wrong": "acara",
+          "right": "Acara"
+        },
+        {
+          "cat": "E8",
+          "offset": 308,
+          "wrong": "tiga",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E5",
+          "offset": 355,
+          "wrong": "agar supaya",
+          "right": "agar"
+        },
+        {
+          "cat": "E8",
+          "offset": 512,
+          "wrong": "menurut",
+          "right": "Menurut"
+        },
+        {
+          "cat": "E1",
+          "offset": 671,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E2",
+          "offset": 706,
+          "wrong": "dipintu",
+          "right": "di pintu"
+        },
+        {
+          "cat": "E6",
+          "offset": 721,
+          "wrong": "1",
+          "right": "Satu"
+        },
+        {
+          "cat": "E3",
+          "offset": 796,
+          "wrong": "walau pun",
+          "right": "walaupun"
+        },
+        {
+          "cat": "E7",
+          "offset": 929,
+          "wrong": "2.026",
+          "right": "2026"
+        },
+        {
+          "cat": "E6",
+          "offset": 936,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E5",
+          "offset": 1045,
+          "wrong": "banyak para perajin",
+          "right": "para perajin"
+        },
+        {
+          "cat": "E8",
+          "offset": 1244,
+          "wrong": "risiko",
+          "right": "Risiko"
+        },
+        {
+          "cat": "E4",
+          "offset": 1363,
+          "wrong": "sistim",
+          "right": "sistem"
+        },
+        {
+          "cat": "E8",
+          "offset": 1407,
+          "wrong": "kepala",
+          "right": "Kepala"
+        },
+        {
+          "cat": "E4",
+          "offset": 1452,
+          "wrong": "ijin",
+          "right": "izin"
+        },
+        {
+          "cat": "E9",
+          "offset": 1524,
+          "wrong": "online",
+          "right": "*online*"
+        },
+        {
+          "cat": "E6",
+          "offset": 1542,
+          "wrong": "4",
+          "right": "Empat"
+        },
+        {
+          "cat": "E9",
+          "offset": 1733,
+          "wrong": "workshop",
+          "right": "*workshop*"
+        },
+        {
+          "cat": "E6",
+          "offset": 1792,
+          "wrong": "3",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E4",
+          "offset": 1956,
+          "wrong": "kwalitas",
+          "right": "kualitas"
+        },
+        {
+          "cat": "E8",
+          "offset": 2033,
+          "wrong": "dukungan",
+          "right": "Dukungan"
+        },
+        {
+          "cat": "E1",
+          "offset": 2234,
+          "wrong": " sedangkan",
+          "right": ", sedangkan"
+        },
+        {
+          "cat": "E2",
+          "offset": 2259,
+          "wrong": "di buka",
+          "right": "dibuka"
+        },
+        {
+          "cat": "E6",
+          "offset": 2379,
+          "wrong": "4",
+          "right": "Empat"
+        }
+      ]
+    },
+    {
+      "id": "jur_02",
+      "title": "Kota Ramaikan Festival Kuliner dengan Dua Ratus UMKM",
+      "style": "jur",
+      "audience": "pembaca umum (media massa)",
+      "words": 356,
+      "variant": "injected",
+      "clean_twin": null,
+      "injected_errors": [
+        {
+          "cat": "E7",
+          "offset": 19,
+          "wrong": "2.026",
+          "right": "2026"
+        },
+        {
+          "cat": "E2",
+          "offset": 64,
+          "wrong": "di buka",
+          "right": "dibuka"
+        },
+        {
+          "cat": "E8",
+          "offset": 90,
+          "wrong": "acara",
+          "right": "Acara"
+        },
+        {
+          "cat": "E9",
+          "offset": 318,
+          "wrong": "marketplace",
+          "right": "*marketplace*"
+        },
+        {
+          "cat": "E6",
+          "offset": 338,
+          "wrong": "3",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E5",
+          "offset": 401,
+          "wrong": "agar supaya",
+          "right": "agar"
+        },
+        {
+          "cat": "E1",
+          "offset": 607,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E8",
+          "offset": 780,
+          "wrong": "satu",
+          "right": "Satu"
+        },
+        {
+          "cat": "E3",
+          "offset": 932,
+          "wrong": "walau pun",
+          "right": "walaupun"
+        },
+        {
+          "cat": "E2",
+          "offset": 971,
+          "wrong": "dipasar",
+          "right": "di pasar"
+        },
+        {
+          "cat": "E5",
+          "offset": 1040,
+          "wrong": "adalah merupakan",
+          "right": "merupakan"
+        },
+        {
+          "cat": "E8",
+          "offset": 1103,
+          "wrong": "pemerintah",
+          "right": "Pemerintah"
+        },
+        {
+          "cat": "E1",
+          "offset": 1162,
+          "wrong": " sedangkan",
+          "right": ", sedangkan"
+        },
+        {
+          "cat": "E8",
+          "offset": 1255,
+          "wrong": "walaupun",
+          "right": "Walaupun"
+        },
+        {
+          "cat": "E6",
+          "offset": 1350,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E5",
+          "offset": 1407,
+          "wrong": "agar supaya",
+          "right": "agar"
+        },
+        {
+          "cat": "E6",
+          "offset": 1530,
+          "wrong": "5",
+          "right": "Lima"
+        },
+        {
+          "cat": "E8",
+          "offset": 1618,
+          "wrong": "sistem",
+          "right": "Sistem"
+        },
+        {
+          "cat": "E9",
+          "offset": 1635,
+          "wrong": "online",
+          "right": "*online*"
+        },
+        {
+          "cat": "E8",
+          "offset": 1761,
+          "wrong": "pada",
+          "right": "Pada"
+        },
+        {
+          "cat": "E2",
+          "offset": 2246,
+          "wrong": "dilapangan",
+          "right": "di lapangan"
+        },
+        {
+          "cat": "E1",
+          "offset": 2331,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E2",
+          "offset": 2553,
+          "wrong": "dikota",
+          "right": "di kota"
+        },
+        {
+          "cat": "E3",
+          "offset": 2566,
+          "wrong": "walau pun",
+          "right": "walaupun"
+        },
+        {
+          "cat": "E7",
+          "offset": 2691,
+          "wrong": "2.026",
+          "right": "2026"
+        }
+      ]
+    },
+    {
+      "id": "sas_01",
+      "title": "Hujan di Senja",
+      "style": "sas",
+      "audience": "pembaca sastra",
+      "words": 331,
+      "variant": "injected",
+      "clean_twin": "sas_03",
+      "injected_errors": [
+        {
+          "cat": "E1",
+          "offset": 169,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E8",
+          "offset": 194,
+          "wrong": "selama",
+          "right": "Selama"
+        },
+        {
+          "cat": "E6",
+          "offset": 326,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E8",
+          "offset": 515,
+          "wrong": "siti",
+          "right": "Siti"
+        },
+        {
+          "cat": "E1",
+          "offset": 541,
+          "wrong": " melainkan",
+          "right": ", melainkan"
+        },
+        {
+          "cat": "E2",
+          "offset": 607,
+          "wrong": "dirumah",
+          "right": "di rumah"
+        },
+        {
+          "cat": "E5",
+          "offset": 668,
+          "wrong": "agar supaya",
+          "right": "agar"
+        },
+        {
+          "cat": "E8",
+          "offset": 707,
+          "wrong": "walaupun",
+          "right": "Walaupun"
+        },
+        {
+          "cat": "E8",
+          "offset": 797,
+          "wrong": "dua",
+          "right": "Dua"
+        },
+        {
+          "cat": "E2",
+          "offset": 867,
+          "wrong": "dijalan",
+          "right": "di jalan"
+        },
+        {
+          "cat": "E1",
+          "offset": 896,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E8",
+          "offset": 1070,
+          "wrong": "di",
+          "right": "Di"
+        },
+        {
+          "cat": "E2",
+          "offset": 1214,
+          "wrong": "dijalan",
+          "right": "di jalan"
+        },
+        {
+          "cat": "E2",
+          "offset": 1247,
+          "wrong": "dijalan",
+          "right": "di jalan"
+        },
+        {
+          "cat": "E1",
+          "offset": 1274,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E6",
+          "offset": 1436,
+          "wrong": "3",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E8",
+          "offset": 1523,
+          "wrong": "ia",
+          "right": "Ia"
+        },
+        {
+          "cat": "E1",
+          "offset": 1771,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E6",
+          "offset": 1806,
+          "wrong": "5",
+          "right": "Lima"
+        },
+        {
+          "cat": "E2",
+          "offset": 2008,
+          "wrong": "dirumah",
+          "right": "di rumah"
+        }
+      ]
+    },
+    {
+      "id": "sas_02",
+      "title": "Penjual Roti di Stasiun",
+      "style": "sas",
+      "audience": "pembaca sastra",
+      "words": 331,
+      "variant": "injected",
+      "clean_twin": null,
+      "injected_errors": [
+        {
+          "cat": "E8",
+          "offset": 0,
+          "wrong": "setiap",
+          "right": "Setiap"
+        },
+        {
+          "cat": "E6",
+          "offset": 150,
+          "wrong": "3",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E6",
+          "offset": 403,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E1",
+          "offset": 510,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E8",
+          "offset": 557,
+          "wrong": "pak",
+          "right": "Pak"
+        },
+        {
+          "cat": "E8",
+          "offset": 597,
+          "wrong": "ia",
+          "right": "Ia"
+        },
+        {
+          "cat": "E4",
+          "offset": 653,
+          "wrong": "kwalitas",
+          "right": "kualitas"
+        },
+        {
+          "cat": "E8",
+          "offset": 704,
+          "wrong": "istri",
+          "right": "Istri"
+        },
+        {
+          "cat": "E5",
+          "offset": 732,
+          "wrong": "agar supaya",
+          "right": "agar"
+        },
+        {
+          "cat": "E9",
+          "offset": 772,
+          "wrong": "online",
+          "right": "*online*"
+        },
+        {
+          "cat": "E1",
+          "offset": 778,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E6",
+          "offset": 842,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E4",
+          "offset": 886,
+          "wrong": "ijin",
+          "right": "izin"
+        },
+        {
+          "cat": "E2",
+          "offset": 953,
+          "wrong": "distasiun",
+          "right": "di stasiun"
+        },
+        {
+          "cat": "E6",
+          "offset": 1022,
+          "wrong": "4",
+          "right": "Empat"
+        },
+        {
+          "cat": "E3",
+          "offset": 1072,
+          "wrong": "walau pun",
+          "right": "walaupun"
+        },
+        {
+          "cat": "E3",
+          "offset": 1395,
+          "wrong": "walau pun",
+          "right": "walaupun"
+        },
+        {
+          "cat": "E6",
+          "offset": 1589,
+          "wrong": "3",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E1",
+          "offset": 1703,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E8",
+          "offset": 1762,
+          "wrong": "tiga",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E2",
+          "offset": 1772,
+          "wrong": "dipasar",
+          "right": "di pasar"
+        },
+        {
+          "cat": "E7",
+          "offset": 1864,
+          "wrong": "2.025",
+          "right": "2025"
+        },
+        {
+          "cat": "E3",
+          "offset": 1929,
+          "wrong": "walau pun",
+          "right": "walaupun"
+        },
+        {
+          "cat": "E8",
+          "offset": 1983,
+          "wrong": "roti",
+          "right": "Roti"
+        },
+        {
+          "cat": "E1",
+          "offset": 2066,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        }
+      ]
+    },
+    {
+      "id": "pop_01",
+      "title": "Mengapa Kita Lupa: Ilmu di Balik Memori",
+      "style": "pop",
+      "audience": "pembaca umum (populer-edukatif)",
+      "words": 330,
+      "variant": "injected",
+      "clean_twin": "pop_03",
+      "injected_errors": [
+        {
+          "cat": "E8",
+          "offset": 0,
+          "wrong": "pernahkah",
+          "right": "Pernahkah"
+        },
+        {
+          "cat": "E1",
+          "offset": 53,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E2",
+          "offset": 90,
+          "wrong": "di ambil",
+          "right": "diambil"
+        },
+        {
+          "cat": "E8",
+          "offset": 100,
+          "wrong": "fenomena",
+          "right": "Fenomena"
+        },
+        {
+          "cat": "E1",
+          "offset": 136,
+          "wrong": " melainkan",
+          "right": ", melainkan"
+        },
+        {
+          "cat": "E1",
+          "offset": 270,
+          "wrong": " melainkan",
+          "right": ", melainkan"
+        },
+        {
+          "cat": "E8",
+          "offset": 324,
+          "wrong": "proses",
+          "right": "Proses"
+        },
+        {
+          "cat": "E8",
+          "offset": 414,
+          "wrong": "dua",
+          "right": "Dua"
+        },
+        {
+          "cat": "E1",
+          "offset": 465,
+          "wrong": " sedangkan",
+          "right": ", sedangkan"
+        },
+        {
+          "cat": "E6",
+          "offset": 687,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E8",
+          "offset": 834,
+          "wrong": "walaupun",
+          "right": "Walaupun"
+        },
+        {
+          "cat": "E6",
+          "offset": 932,
+          "wrong": "4",
+          "right": "Empat"
+        },
+        {
+          "cat": "E6",
+          "offset": 1035,
+          "wrong": "5",
+          "right": "Lima"
+        },
+        {
+          "cat": "E5",
+          "offset": 1112,
+          "wrong": "banyak para ahli",
+          "right": "para ahli"
+        },
+        {
+          "cat": "E5",
+          "offset": 1446,
+          "wrong": "agar supaya",
+          "right": "agar"
+        },
+        {
+          "cat": "E3",
+          "offset": 1763,
+          "wrong": "walau pun",
+          "right": "walaupun"
+        },
+        {
+          "cat": "E9",
+          "offset": 1846,
+          "wrong": "tip-of-the-tongue",
+          "right": "*tip-of-the-tongue*"
+        },
+        {
+          "cat": "E1",
+          "offset": 1917,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E9",
+          "offset": 2109,
+          "wrong": "refresh",
+          "right": "*refresh*"
+        },
+        {
+          "cat": "E8",
+          "offset": 2124,
+          "wrong": "yang",
+          "right": "Yang"
+        },
+        {
+          "cat": "E4",
+          "offset": 2342,
+          "wrong": "kwalitas",
+          "right": "kualitas"
+        },
+        {
+          "cat": "E2",
+          "offset": 2425,
+          "wrong": "di kelola",
+          "right": "dikelola"
+        }
+      ]
+    },
+    {
+      "id": "pop_02",
+      "title": "Rahasia Kopi: Dari Biji ke Cangkir",
+      "style": "pop",
+      "audience": "pembaca umum (populer-edukatif)",
+      "words": 371,
+      "variant": "injected",
+      "clean_twin": null,
+      "injected_errors": [
+        {
+          "cat": "E1",
+          "offset": 26,
+          "wrong": " melainkan",
+          "right": ", melainkan"
+        },
+        {
+          "cat": "E8",
+          "offset": 159,
+          "wrong": "proses",
+          "right": "Proses"
+        },
+        {
+          "cat": "E6",
+          "offset": 357,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E6",
+          "offset": 464,
+          "wrong": "3",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E8",
+          "offset": 582,
+          "wrong": "alat",
+          "right": "Alat"
+        },
+        {
+          "cat": "E9",
+          "offset": 595,
+          "wrong": "pour-over",
+          "right": "*pour-over*"
+        },
+        {
+          "cat": "E1",
+          "offset": 657,
+          "wrong": " sedangkan",
+          "right": ", sedangkan"
+        },
+        {
+          "cat": "E8",
+          "offset": 825,
+          "wrong": "walaupun",
+          "right": "Walaupun"
+        },
+        {
+          "cat": "E8",
+          "offset": 908,
+          "wrong": "risiko",
+          "right": "Risiko"
+        },
+        {
+          "cat": "E6",
+          "offset": 1000,
+          "wrong": "1",
+          "right": "Satu"
+        },
+        {
+          "cat": "E6",
+          "offset": 1082,
+          "wrong": "4",
+          "right": "Empat"
+        },
+        {
+          "cat": "E4",
+          "offset": 1236,
+          "wrong": "kwalitas",
+          "right": "kualitas"
+        },
+        {
+          "cat": "E8",
+          "offset": 1515,
+          "wrong": "kebiasaan",
+          "right": "Kebiasaan"
+        },
+        {
+          "cat": "E6",
+          "offset": 1584,
+          "wrong": "4",
+          "right": "Empat"
+        },
+        {
+          "cat": "E2",
+          "offset": 1605,
+          "wrong": "dikota",
+          "right": "di kota"
+        },
+        {
+          "cat": "E6",
+          "offset": 1693,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E1",
+          "offset": 1864,
+          "wrong": " melainkan",
+          "right": ", melainkan"
+        },
+        {
+          "cat": "E2",
+          "offset": 2228,
+          "wrong": "dirumah",
+          "right": "di rumah"
+        },
+        {
+          "cat": "E8",
+          "offset": 2302,
+          "wrong": "dua",
+          "right": "Dua"
+        },
+        {
+          "cat": "E3",
+          "offset": 2487,
+          "wrong": "walau pun",
+          "right": "walaupun"
+        },
+        {
+          "cat": "E7",
+          "offset": 2574,
+          "wrong": "2.026",
+          "right": "2026"
+        }
+      ]
+    },
+    {
+      "id": "per_01",
+      "title": "Literasi Keuangan Bukan Pilihan, Melainkan Kebutuhan",
+      "style": "per",
+      "audience": "pembaca umum (opini/advokasi)",
+      "words": 363,
+      "variant": "injected",
+      "clean_twin": "per_03",
+      "injected_errors": [
+        {
+          "cat": "E8",
+          "offset": 0,
+          "wrong": "literasi",
+          "right": "Literasi"
+        },
+        {
+          "cat": "E2",
+          "offset": 30,
+          "wrong": "di anggap",
+          "right": "dianggap"
+        },
+        {
+          "cat": "E2",
+          "offset": 81,
+          "wrong": "dikantor",
+          "right": "di kantor"
+        },
+        {
+          "cat": "E1",
+          "offset": 111,
+          "wrong": " melainkan",
+          "right": ", melainkan"
+        },
+        {
+          "cat": "E8",
+          "offset": 290,
+          "wrong": "data",
+          "right": "Data"
+        },
+        {
+          "cat": "E8",
+          "offset": 421,
+          "wrong": "kondisi",
+          "right": "Kondisi"
+        },
+        {
+          "cat": "E9",
+          "offset": 474,
+          "wrong": "online",
+          "right": "*online*"
+        },
+        {
+          "cat": "E4",
+          "offset": 527,
+          "wrong": "resiko",
+          "right": "risiko"
+        },
+        {
+          "cat": "E6",
+          "offset": 535,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E2",
+          "offset": 555,
+          "wrong": "dikampus",
+          "right": "di kampus"
+        },
+        {
+          "cat": "E8",
+          "offset": 746,
+          "wrong": "sekolah",
+          "right": "Sekolah"
+        },
+        {
+          "cat": "E6",
+          "offset": 972,
+          "wrong": "4",
+          "right": "Empat"
+        },
+        {
+          "cat": "E8",
+          "offset": 1178,
+          "wrong": "tiga",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E1",
+          "offset": 1387,
+          "wrong": " sedangkan",
+          "right": ", sedangkan"
+        },
+        {
+          "cat": "E7",
+          "offset": 1757,
+          "wrong": "2.026",
+          "right": "2026"
+        },
+        {
+          "cat": "E2",
+          "offset": 1882,
+          "wrong": "di bangun",
+          "right": "dibangun"
+        },
+        {
+          "cat": "E4",
+          "offset": 1897,
+          "wrong": "praktek",
+          "right": "praktik"
+        },
+        {
+          "cat": "E5",
+          "offset": 2065,
+          "wrong": "adalah merupakan",
+          "right": "merupakan"
+        },
+        {
+          "cat": "E8",
+          "offset": 2168,
+          "wrong": "dibutuhkan",
+          "right": "Dibutuhkan"
+        },
+        {
+          "cat": "E1",
+          "offset": 2203,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E1",
+          "offset": 2345,
+          "wrong": " melainkan",
+          "right": ", melainkan"
+        },
+        {
+          "cat": "E2",
+          "offset": 2424,
+          "wrong": "disekolah",
+          "right": "di sekolah"
+        },
+        {
+          "cat": "E2",
+          "offset": 2482,
+          "wrong": "dikota",
+          "right": "di kota"
+        },
+        {
+          "cat": "E7",
+          "offset": 2516,
+          "wrong": "2.026",
+          "right": "2026"
+        },
+        {
+          "cat": "E10",
+          "offset": 2725,
+          "wrong": "disebabkan karena",
+          "right": "disebabkan oleh"
+        }
+      ]
+    },
+    {
+      "id": "per_02",
+      "title": "Urbanisasi dan Masa Depan Desa",
+      "style": "per",
+      "audience": "pembaca umum (opini/advokasi)",
+      "words": 354,
+      "variant": "injected",
+      "clean_twin": null,
+      "injected_errors": [
+        {
+          "cat": "E1",
+          "offset": 115,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E6",
+          "offset": 182,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E2",
+          "offset": 257,
+          "wrong": "didesa",
+          "right": "di desa"
+        },
+        {
+          "cat": "E2",
+          "offset": 290,
+          "wrong": "dikota",
+          "right": "di kota"
+        },
+        {
+          "cat": "E8",
+          "offset": 298,
+          "wrong": "walaupun",
+          "right": "Walaupun"
+        },
+        {
+          "cat": "E8",
+          "offset": 674,
+          "wrong": "pemerintah",
+          "right": "Pemerintah"
+        },
+        {
+          "cat": "E2",
+          "offset": 731,
+          "wrong": "didesa",
+          "right": "di desa"
+        },
+        {
+          "cat": "E4",
+          "offset": 805,
+          "wrong": "ijin",
+          "right": "izin"
+        },
+        {
+          "cat": "E5",
+          "offset": 909,
+          "wrong": "banyak para pengamat",
+          "right": "para pengamat"
+        },
+        {
+          "cat": "E8",
+          "offset": 999,
+          "wrong": "lima",
+          "right": "Lima"
+        },
+        {
+          "cat": "E8",
+          "offset": 1155,
+          "wrong": "tiga",
+          "right": "Tiga"
+        },
+        {
+          "cat": "E1",
+          "offset": 1343,
+          "wrong": " melainkan",
+          "right": ", melainkan"
+        },
+        {
+          "cat": "E5",
+          "offset": 1438,
+          "wrong": "agar supaya",
+          "right": "agar"
+        },
+        {
+          "cat": "E8",
+          "offset": 1479,
+          "wrong": "investasi",
+          "right": "Investasi"
+        },
+        {
+          "cat": "E2",
+          "offset": 1489,
+          "wrong": "didesa",
+          "right": "di desa"
+        },
+        {
+          "cat": "E2",
+          "offset": 1508,
+          "wrong": "di anggap",
+          "right": "dianggap"
+        },
+        {
+          "cat": "E1",
+          "offset": 1537,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E9",
+          "offset": 1786,
+          "wrong": "online",
+          "right": "*online*"
+        },
+        {
+          "cat": "E2",
+          "offset": 1916,
+          "wrong": "dilapangan",
+          "right": "di lapangan"
+        },
+        {
+          "cat": "E8",
+          "offset": 2035,
+          "wrong": "perubahan",
+          "right": "Perubahan"
+        },
+        {
+          "cat": "E1",
+          "offset": 2081,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E1",
+          "offset": 2169,
+          "wrong": " tetapi",
+          "right": ", tetapi"
+        },
+        {
+          "cat": "E6",
+          "offset": 2248,
+          "wrong": "2",
+          "right": "Dua"
+        },
+        {
+          "cat": "E7",
+          "offset": 2360,
+          "wrong": "2.026",
+          "right": "2026"
+        },
+        {
+          "cat": "E10",
+          "offset": 2451,
+          "wrong": "disebabkan karena",
+          "right": "disebabkan oleh"
+        }
+      ]
+    },
+    {
+      "id": "aca_03",
+      "title": "Korelasi Kebiasaan Membaca dan Prestasi Akademik",
+      "style": "aca",
+      "audience": "akademisi",
+      "words": 357,
+      "variant": "clean",
+      "clean_twin": "aca_01",
+      "injected_errors": []
+    },
+    {
+      "id": "aca_04",
+      "title": "Replikasi dalam Penelitian Ilmiah: Urgensi dan Tantangan",
+      "style": "aca",
+      "audience": "akademisi",
+      "words": 365,
+      "variant": "clean",
+      "clean_twin": "aca_02",
+      "injected_errors": []
+    },
+    {
+      "id": "jur_03",
+      "title": "Pameran Batik Nusantara Resmi Dibuka di Jakarta",
+      "style": "jur",
+      "audience": "pembaca umum (media massa)",
+      "words": 352,
+      "variant": "clean",
+      "clean_twin": "jur_01",
+      "injected_errors": []
+    },
+    {
+      "id": "sas_03",
+      "title": "Hujan di Senja",
+      "style": "sas",
+      "audience": "pembaca sastra",
+      "words": 331,
+      "variant": "clean",
+      "clean_twin": "sas_01",
+      "injected_errors": []
+    },
+    {
+      "id": "pop_03",
+      "title": "Mengapa Kita Lupa: Ilmu di Balik Memori",
+      "style": "pop",
+      "audience": "pembaca umum (populer-edukatif)",
+      "words": 330,
+      "variant": "clean",
+      "clean_twin": "pop_01",
+      "injected_errors": []
+    },
+    {
+      "id": "per_03",
+      "title": "Literasi Keuangan Bukan Pilihan, Melainkan Kebutuhan",
+      "style": "per",
+      "audience": "pembaca umum (opini/advokasi)",
+      "words": 363,
+      "variant": "clean",
+      "clean_twin": "per_01",
+      "injected_errors": []
+    },
+    {
+      "id": "sf_01",
+      "title": "Catatan Pindah Kota: Laporan Pertama",
+      "style": "sf",
+      "audience": "pembaca media sosial/blog",
+      "words": 305,
+      "variant": "semiformal",
+      "clean_twin": null,
+      "injected_errors": []
+    },
+    {
+      "id": "sf_02",
+      "title": "Belajar Bahasa di Era Streaming",
+      "style": "sf",
+      "audience": "pembaca media sosial/blog",
+      "words": 314,
+      "variant": "semiformal",
+      "clean_twin": null,
+      "injected_errors": []
+    },
+    {
+      "id": "sf_03",
+      "title": "Weekend Produktif Tanpa Stres",
+      "style": "sf",
+      "audience": "pembaca media sosial/blog",
+      "words": 301,
+      "variant": "semiformal",
+      "clean_twin": null,
+      "injected_errors": []
+    },
+    {
+      "id": "sf_04",
+      "title": "Review: Drama Korea yang Bikin Mikir",
+      "style": "sf",
+      "audience": "pembaca media sosial/blog",
+      "words": 313,
+      "variant": "semiformal",
+      "clean_twin": null,
+      "injected_errors": []
+    }
+  ]
+}
