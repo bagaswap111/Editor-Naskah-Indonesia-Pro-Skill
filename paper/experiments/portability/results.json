@@ -1,0 +1,10 @@
+[
+  {"runtime": "Claude Code", "install_method": "agent install script", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL: jalankan dengan skill terpasang, minta edit 1 naskah uji (saran: pop_01)"},
+  {"runtime": "OpenCode", "install_method": "opencode skill", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL: runtime utama eksperimen (lihat trigger/) — isi hasil di sini"},
+  {"runtime": "Cursor 2.4+", "install_method": "rules/skill folder", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"},
+  {"runtime": "OpenAI Codex", "install_method": "skill folder", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"},
+  {"runtime": "Cline", "install_method": "CLAUDE.md / skill", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"},
+  {"runtime": "Gemini CLI", "install_method": "skill folder", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"},
+  {"runtime": "Google Antigravity", "install_method": "skill folder", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"},
+  {"runtime": "VS Code Copilot", "install_method": "agent skill", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"}
+]

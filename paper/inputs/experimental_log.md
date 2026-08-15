@@ -64,7 +64,15 @@ angka yang boleh dikarang.*
 | Mekanik | 10 | — | 10 |
 | Engagement | 8 | — | 9 |
 
-### 2.3 Hasil eksperimen formal terhadap baselines [DI-RENCANAKAN — belum dijalankan]
+### 2.3 Hasil eksperimen formal terhadap baselines [DI-TUNDA — menunggu API key LLM]
+
+Status 2026-08-15: Fase A selesai (korpus 20 sintetis + 20 nyata;
+`paper/experiments/`). B3 berjalan (hunspell id-ID — LanguageTool tidak
+mendukung bahasa Indonesia, lihat `experiments/README.md` §deviasi).
+B1/B2/ENIP + judge menunggu env API key; runner siap
+(`experiments/scripts/run_api.py`). Angka di bawah akan mengisi TBD
+setelah eksekusi — semua angka wajib berasal dari
+`experiments/metrics/*.json` + `experiments/runs/`, tanpa hitung manual.
 
 | Metrik | ENIP | B1 (LLM polos) | B2 (prompt sekali) | B3 (mekanik) |
 |---|---|---|---|---|
@@ -72,6 +80,9 @@ angka yang boleh dikarang.*
 | PUEBI error rate /1000 kata | TBD | TBD | TBD | TBD |
 | Coverage lapisan (mekanik/struktural/substantif) | TBD | TBD | TBD | TBD |
 | Waktu penyuntingan per naskah (menit) | TBD | TBD | TBD | TBD |
+
+Referensi data siap: `paper/experiments/metrics/puebi_errors.json`,
+`metrics/proxies.json`, `metrics/overhead.json`, `runs/b3/`.
 
 ### 2.4 Trigger reliability [DI-RENCANAKAN]
 

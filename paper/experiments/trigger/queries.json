@@ -1,0 +1,22 @@
+[
+  {"id": "trig_01", "query": "Perbaiki kalimat ini, ada typo: 'Dia pergi kepasar membeli buku.'", "expect_trigger": true},
+  {"id": "trig_02", "query": "Tolong sunting naskah skripsi saya sesuai PUEBI.", "expect_trigger": true},
+  {"id": "trig_03", "query": "Koreksi ejaan dan tanda baca pada paragraf ini.", "expect_trigger": true},
+  {"id": "trig_04", "query": "Rapikan tulisan berita ini agar lebih jurnalistik.", "expect_trigger": true},
+  {"id": "trig_05", "query": "Jadikan teks ini lebih akademis dan formal.", "expect_trigger": true},
+  {"id": "trig_06", "query": "Bahasa Indonesianya kurang baku, perbaiki dong.", "expect_trigger": true},
+  {"id": "trig_07", "query": "Edit cerpen ini: alurnya lompat-lompat, perbaiki.", "expect_trigger": true},
+  {"id": "trig_08", "query": "Pendalaman ide paragraf ini kurang, edit bagian itu.", "expect_trigger": true},
+  {"id": "trig_09", "query": "Cek fakta dan referensi di artikel ini lalu sarankan perbaikan.", "expect_trigger": true},
+  {"id": "trig_10", "query": "Saya mau kirim naskah opini, minta disunting dulu.", "expect_trigger": true},
+  {"id": "trig_11", "query": "Tulis kode python untuk menghitung fibonaci.", "expect_trigger": false},
+  {"id": "trig_12", "query": "Jelaskan cara kerja CPU secara sederhana.", "expect_trigger": false},
+  {"id": "trig_13", "query": "Buatkan saya daftar belanja mingguan.", "expect_trigger": false},
+  {"id": "trig_14", "query": "Berapa harga tiket kereta Jakarta-Surabaya?", "expect_trigger": false},
+  {"id": "trig_15", "query": "Rangkum berita ekonomi minggu ini dalam lima poin.", "expect_trigger": false},
+  {"id": "trig_16", "query": "Buatkan gambar logo untuk toko kopi.", "expect_trigger": false},
+  {"id": "trig_17", "query": "Jadwalkan meeting tim besok jam 10 pagi.", "expect_trigger": false},
+  {"id": "trig_18", "query": "Terjemahkan kalimat ini ke bahasa Inggris.", "expect_trigger": false},
+  {"id": "trig_19", "query": "Apa arti kata 'ekosistem' dalam biologi?", "expect_trigger": false},
+  {"id": "trig_20", "query": "Tolong cari resep rendang yang mudah.", "expect_trigger": false}
+]

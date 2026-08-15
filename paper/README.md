@@ -41,6 +41,10 @@ Indonesian Manuscripts", dijalankan mengikuti pipeline
   (karakteristik artefak, skor diri worked examples) vs
   **[DI-RENCANAKAN]** (eksperimen formal, portabilitas, evaluasi
   manusia) — TBD diisi saat eksperimen dijalankan.
+- **Status eksperimen 2026-08-15**: Fase A ✅ (korpus), B3 ✅ (mekanik),
+  D3 ✅ (overhead, 10.589 token bundle penuh), C1/C4 baseline ✅; B1/B2/
+  ENIP + judge ⏳ menunggu API key (runner siap di `experiments/`).
+  Lihat `EXPERIMENT_RESULTS.md` + `experiments/README.md`.
 - Semua angka di paper final WAJIB grounded ke log ini
   (`claim_evidence_gate.py` memeriksanya di Step 5).
 - Anti-leakage prompt (App. D.4) diterapkan: makalah anonim, dibangun

@@ -1,0 +1,28 @@
+{
+  "encoder": "cl100k_base",
+  "discovery": {
+    "frontmatter_full": 382,
+    "name_description": 360,
+    "note": "progressive disclosure: hanya frontmatter yang ter-petakan di discovery"
+  },
+  "activation": {
+    "SKILL.md_body": 2266
+  },
+  "execution": {
+    "references/FACT_CHECKING.md": 646,
+    "references/OUTPUT_MODES.md": 492,
+    "references/PUEBI.md": 1326,
+    "references/QUALITY_METRICS.md": 559,
+    "references/STYLE_GUIDE.md": 1431,
+    "references/WORKFLOW.md": 1659,
+    "assets/example-edit.md": 1020,
+    "assets/output-template.md": 399,
+    "assets/style-sheet-template.md": 409
+  },
+  "totals": {
+    "full_bundle": 10589,
+    "discovery_only": 382,
+    "execution_all_references_assets": 7941,
+    "note": "runtime agent memuat hanya file yang dibutuhkan; angka ini = worst case seluruh file dimuat"
+  }
+}
