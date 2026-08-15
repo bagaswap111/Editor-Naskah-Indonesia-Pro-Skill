@@ -56,18 +56,28 @@ def stats(text):
 def main():
     meta = json.loads((CORPUS / "metadata.json").read_text(encoding="utf-8"))
     out = {}
-    for cond in ["input"]:
+    for cond in ["input", "b1", "b2", "enip"]:
         per = {}
         for item in meta["corpus"]:
             tid = item["id"]
-            text = (CORPUS / "texts" / f"{tid}.txt").read_text(encoding="utf-8")
+            if cond == "input":
+                text = (CORPUS / "texts" / f"{tid}.txt").read_text(encoding="utf-8")
+            else:
+                p = RUNS / cond / f"{tid}.md"
+                if not p.exists():
+                    continue
+                text = p.read_text(encoding="utf-8")
             per[tid] = stats(text)
-        out[cond] = per
+        if per:
+            out[cond] = per
     (METRICS / "proxies.json").write_text(
         json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-    ms = [v["sent_len_cv"] for v in out["input"].values() if v["sent_len_cv"]]
-    print(f"Proksi input (baseline) untuk {len(out['input'])} naskah:")
-    print(f"  CV panjang kalimat: mean {sum(ms)/len(ms):.3f}")
+    for cond, per in out.items():
+        ms = [v["sent_len_cv"] for v in per.values() if v["sent_len_cv"]]
+        print(f"Proksi {cond} ({len(per)} naskah):"
+              f" CV kalimat mean {sum(ms)/len(ms):.3f}"
+              f" | konjungsi variety {sum(v['conj_variety_ratio'] or 0 for v in per.values())/len(per):.3f}"
+              f" | top10 leksikal {sum(v['lexical_top10_share'] or 0 for v in per.values())/len(per):.3f}")
     print("  Lihat metrics/proxies.json untuk rincian per naskah.")
 
 

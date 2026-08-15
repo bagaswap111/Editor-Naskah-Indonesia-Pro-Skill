@@ -1,0 +1,23 @@
+**(a) Naskah Hasil Editan:**
+
+Kopi bukan sekadar minuman, melainkan ritual pagi bagi jutaan orang. Di balik secangkir kopi, terdapat perjalanan panjang yang dimulai dari biji di pegunungan. Proses pengolahan kopi terbagi menjadi beberapa tahap, dan setiap tahap menentukan rasa akhir di cangkir. Petani memetik buah kopi pada waktu tertentu, kemudian menjemurnya di bawah sinar matahari. Dua tahap penting dalam pengolahan adalah fermentasi dan pengeringan, yang keduanya memengaruhi profil rasa. Tiga metode pengolahan kini populer, yaitu metode basah, kering, dan semi-basah.
+
+Metode penyeduhan juga berperan besar. Alat seperti _pour-over_ dan _french press_ menghasilkan tekstur yang berbeda, sedangkan mengekstraksi rasa dengan tekanan tinggi. Barista terlatih memperhatikan suhu air, karena air yang terlalu panas dapat menghasilkan rasa pahit. Walaupun sederhana, proses ini menuntut konsistensi dalam setiap langkah. Risiko utama penyeduhan adalah ekstraksi berlebih, yang membuat kopi terasa membakar. Satu kesalahan kecil, seperti gilingan yang terlalu halus, dapat mengubah segalanya. Empat barista yang diwawancarai sepakat bahwa kontrol suhu adalah kunci utama.
+
+Banyak orang bertanya mengapa harga kopi bervariasi. Jawabannya terletak pada kualitas biji, kualitas kebun, dan metode panen. Kopi yang dipetik dengan tangan, misalnya, dihargai lebih tinggi karena hanya buah matang yang dikumpulkan. Sistem perdagangan langsung antara petani dan _roaster_ juga mulai populer, karena memberikan keuntungan yang lebih adil. Kebiasaan ini dikonsumsi oleh konsumen yang peduli pada keberlanjutan. Empat dari lima pria di kota besar, menurut kotamadya, bersedia membayar lebih untuk kopi yang ramah lingkungan. Dua koperasi di Sumatra bahkan telah mengekspor kopi organik ke pasar Eropa.
+
+Pada akhirnya, menikmati kopi adalah soal keseimbangan. Tidak ada metode terbaik secara mutlak, melainkan metode yang sesuai dengan selera masing-masing. Setiap cangkir membawa cerita yang dimulai dari kebun hingga meja kita. Dengan memahami prosesnya, kita dapat menghargai setiap tegukan, dan mungkin, mencoba variasi baru dengan keberanian yang lebih besar. Panduan ini diharapkan dapat membantu pembaca memulai perjalanan kopi mereka sendiri, baik di rumah maupun di kedai.
+
+Ada kabar baik bagi pecinta kopi lokal. Dua kedai kecil di Semarang bahkan memulai kelas seduh terbuka, sehingga konsumen dapat belajar langsung dari barista. Kualitas biji lokal pun meningkat seiring permintaan yang stabil, walaupun tantangan cuaca muncul di musim hujan. Evaluasi pada tahun 2026 akan memperlihatkan yang lebih jelas, dan harganya pun akan lebih mudah diprediksi.
+
+**(b) Daftar Perubahan Signifikan:**
+
+1. Koreksi ejaan dan tanda baca sesuai PUEBI.
+2. Perbaikan kalimat rancu dan ambigu.
+3. Penggunaan kata penghubung yang bervariasi.
+4. Penulisan istilah asing dengan miring.
+5. Koreksi kesalahan mekanik seperti penulisan angka dan tahun.
+
+**(c) Skor Kualitas:**
+
+{"clarity":8,"coherence":9,"depth":7,"accuracy":8,"style":8,"mechanics":9,"engagement":8}

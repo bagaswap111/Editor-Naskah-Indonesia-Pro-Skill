@@ -7,8 +7,8 @@ Fix rate = 1 - (error tersisa / total error injeksi).
 | input | 10/10 | 0.0 | baseline (teks asli) |
 | b3 | 0/10 | - | b3 (hunspell) tidak menghasilkan teks baru |
 | enip | 0/10 | - | menunggu API key |
-| b1 | 0/10 | - | menunggu API key |
-| b2 | 0/10 | - | menunggu API key |
+| b1 | 10/10 | 0.5506 | baseline (teks asli) |
+| b2 | 10/10 | 0.4709 | baseline (teks asli) |
 
 ## Per kategori (total error per kategori, seluruh set injeksi)
 

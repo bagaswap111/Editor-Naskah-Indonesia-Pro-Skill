@@ -1,0 +1,372 @@
+[
+  {
+    "condition": "b1",
+    "id": "aca_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:29:12",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:29:16",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "jur_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:29:19",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "jur_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:29:53",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:29:56",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:30:02",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:30:06",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:30:10",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "per_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:30:15",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "per_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:30:18",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:30:23",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_04",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:30:27",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "jur_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:30:31",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:31:06",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:31:09",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "per_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:31:12",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:31:15",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:31:19",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:31:22",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_04",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:31:55",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:32:06",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:32:10",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:32:43",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:32:47",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:32:50",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:33:23",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:33:26",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:33:29",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "per_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:33:33",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "per_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:34:06",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:34:09",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_04",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:34:12",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:34:15",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:34:49",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:34:52",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "per_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:34:55",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:34:58",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_02",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:35:32",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_03",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:35:35",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_04",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-15T22:35:38",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_01",
+    "provider": "groq",
+    "model": "llama-3.3-70b-versatile",
+    "temperature": 0,
+    "timestamp": "2026-08-16T02:19:30",
+    "prompt_hash": "backfill-mtime",
+    "note": "backfilled dari mtime (crash sebelum log inkremental)"
+  }
+]

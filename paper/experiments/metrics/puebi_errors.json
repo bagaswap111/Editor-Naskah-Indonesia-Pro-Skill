@@ -212,130 +212,158 @@
     "items": {
       "aca_01": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 10,
+        "fix_rate": 0.6,
+        "n_out_words": 370
       },
       "aca_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 15,
+        "fix_rate": 0.4,
+        "n_out_words": 364
       },
       "jur_01": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 13,
+        "fix_rate": 0.48,
+        "n_out_words": 365
       },
       "jur_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 10,
+        "fix_rate": 0.6,
+        "n_out_words": 364
       },
       "sas_01": {
         "n": 20,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 8,
+        "fix_rate": 0.6,
+        "n_out_words": 341
       },
       "sas_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 12,
+        "fix_rate": 0.52,
+        "n_out_words": 334
       },
       "pop_01": {
         "n": 22,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 12,
+        "fix_rate": 0.4545,
+        "n_out_words": 345
       },
       "pop_02": {
         "n": 21,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 9,
+        "fix_rate": 0.5714,
+        "n_out_words": 379
       },
       "per_01": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 8,
+        "fix_rate": 0.68,
+        "n_out_words": 367
       },
       "per_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 10,
+        "fix_rate": 0.6,
+        "n_out_words": 364
       }
     },
-    "category_totals": {}
+    "category_totals": {
+      "E6": 34,
+      "E7": 11,
+      "E9": 15,
+      "E8": 60,
+      "E1": 36,
+      "E5": 15,
+      "E2": 35,
+      "E4": 18,
+      "E10": 4,
+      "E3": 10
+    },
+    "mean_fix_rate": 0.5506,
+    "n_done": 10,
+    "n_total": 10
   },
   "b2": {
     "items": {
       "aca_01": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 10,
+        "fix_rate": 0.6,
+        "n_out_words": 403
       },
       "aca_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 16,
+        "fix_rate": 0.36,
+        "n_out_words": 401
       },
       "jur_01": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 13,
+        "fix_rate": 0.48,
+        "n_out_words": 406
       },
       "jur_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 12,
+        "fix_rate": 0.52,
+        "n_out_words": 399
       },
       "sas_01": {
         "n": 20,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 11,
+        "fix_rate": 0.45,
+        "n_out_words": 375
       },
       "sas_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 15,
+        "fix_rate": 0.4,
+        "n_out_words": 364
       },
       "pop_01": {
         "n": 22,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 15,
+        "fix_rate": 0.3182,
+        "n_out_words": 380
       },
       "pop_02": {
         "n": 21,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 13,
+        "fix_rate": 0.381,
+        "n_out_words": 408
       },
       "per_01": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 9,
+        "fix_rate": 0.64,
+        "n_out_words": 396
       },
       "per_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "remaining": 11,
+        "fix_rate": 0.56,
+        "n_out_words": 394
       }
     },
-    "category_totals": {}
+    "category_totals": {
+      "E6": 34,
+      "E7": 11,
+      "E9": 15,
+      "E8": 60,
+      "E1": 36,
+      "E5": 15,
+      "E2": 35,
+      "E4": 18,
+      "E10": 4,
+      "E3": 10
+    },
+    "mean_fix_rate": 0.4709,
+    "n_done": 10,
+    "n_total": 10
   }
 }
