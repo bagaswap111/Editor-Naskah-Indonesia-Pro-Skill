@@ -38,11 +38,14 @@ SESSION = ("Parameter sesi: gaya sesuai gaya naskah (metadata.style), "
            "format referensi APA 7.")
 INSTRUCTION = "Perbaiki naskah ini sesuai PUEBI."
 
+# Deviasi #6 (2026-08-22): llama-3.3-70b-versatile decommissioned di Groq.
+# Editor baru: openai/gpt-oss-120b — B1/B2/ENIP di-re-run ulang dgn model ini
+# agar aturan "satu model dasar utk semua kondisi" tetap terpenuhi.
 DEFAULT_MODEL = {
     "anthropic": "claude-sonnet-4-5",
     "openai": "gpt-4o",
     "gemini": "gemini-2.5-pro",
-    "groq": "llama-3.3-70b-versatile",
+    "groq": "openai/gpt-oss-120b",
 }
 
 
@@ -60,11 +63,13 @@ def load_env():
 
 
 def build_enip_system():
+    # Deviasi #7 (2026-08-22): free tier Groq membatasi TPM 8K token/request;
+    # bundle penuh (10.589 token) mustahil lewat di SEMUA model Groq gratis.
+    # ENIP via API memakai lapisan aktivasi saja (body SKILL.md) — setara
+    # tahap 2 progressive disclosure yang dijamin selalu dimuat runtime;
+    # references/assets bersifat on-demand dan tak dapat dieksekusi oleh
+    # model dalam satu panggilan API. Keterbatasan dicatat di paper.
     parts = [(SKILL / "SKILL.md").read_text(encoding="utf-8")]
-    for sub in ("references", "assets"):
-        for f in sorted((SKILL / sub).glob("*")):
-            parts.append(f"\n\n===== FILE: {sub}/{f.name} =====\n"
-                         + f.read_text(encoding="utf-8"))
     parts.append(f"\n\n===== PARAMETER SESI EKSPERIMEN =====\n{SESSION}")
     return "\n".join(parts)
 
@@ -109,12 +114,19 @@ class Provider:
             last = None
             for attempt in range(6):
                 try:
+                    body = {"model": self.model, "temperature": 0,
+                            # 3500: request total (prompt+cap) wajib < TPM
+                            # 8K free tier; output historis <=1000 token
+                            "max_tokens": 3500, "messages": msgs}
+                    if self.model.startswith("openai/gpt-oss"):
+                        # gpt-oss = model reasoning; token reasoning masuk
+                        # kuota completion → effort rendah + headroom besar
+                        body["reasoning_effort"] = "low"
                     r = requests.post(
                         "https://api.groq.com/openai/v1/chat/completions",
                         headers={"Authorization":
                                  f"Bearer {os.environ['GROQ_API_KEY']}"},
-                        json={"model": self.model, "temperature": 0,
-                              "max_tokens": 4096, "messages": msgs},
+                        json=body,
                         timeout=600)
                     if r.status_code == 429:
                         last = f"429 rate limit"

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Fase C2 — juri kualitas untuk output editor B1/B2/ENIP.
 
-Juri (K2, berbeda dari editor K1=llama-3.3-70b-versatile):
-  J1: deepseek-r1-distill-llama-70b  (Groq)   — juri utama, trial 0 & 0.7
-  J2: llama-3.1-8b-instant           (Groq)   — uji sensitivitas model lemah
-  J3: gemini-2.5-flash               (Google) — uji sensitivitas lintas-penyedia
+Juri (K2, berbeda dari editor K1=openai/gpt-oss-120b):
+  J1: qwen/qwen3.6-27b             (Groq)   — juri utama, trial 0 & 0.7
+  J2: openai/gpt-oss-20b           (Groq)   — uji sensitivitas model lemah
+  J3: gemini-3.5-flash             (Google) — uji sensitivitas lintas-penyedia
 
 Penilaian ANONIM: juri hanya melihat "naskah asli" + "hasil editan" dengan
 label acak (OUT-####) — kondisi B1/B2/ENIP tidak pernah disebut. Peta label
@@ -50,7 +50,9 @@ DIMENSI = ["Kejelasan", "Koherensi", "Kedalaman", "Akurasi", "Gaya",
 JUDGES = {
     "J1": {"provider": "groq", "model": "qwen/qwen3.6-27b",
            "trials": [0, 0.7]},
-    "J2": {"provider": "groq", "model": "llama-3.1-8b-instant",
+    # Deviasi #6/#7: llama-3.1-8b-instant decommissioned → gpt-oss-20b
+    # (satu family dgn editor — dicatat sebagai keterbatasan)
+    "J2": {"provider": "groq", "model": "openai/gpt-oss-20b",
            "trials": [0, 0.7]},
     "J3": {"provider": "gemini", "model": "gemini-3.5-flash", "trials": [0]},
 }
@@ -93,7 +95,11 @@ def call(provider, model, messages, temperature, timeout=600):
         raise ValueError(f"juri tak dikenal: {provider}")
     headers = {"Authorization": f"Bearer {key}"}
     payload = {"model": model, "temperature": temperature,
+               # 2048: total request (rubric+naskah+cap) aman di TPM 8K
                "max_tokens": 2048, "messages": messages}
+    if model.startswith("openai/gpt-oss"):
+        # model reasoning — token reasoning masuk completion
+        payload["reasoning_effort"] = "low"
     last = None
     for attempt in range(8):
         r = requests.post(url, headers=headers, json=payload,

@@ -368,5 +368,563 @@
     "timestamp": "2026-08-16T02:19:30",
     "prompt_hash": "backfill-mtime",
     "note": "backfilled dari mtime (crash sebelum log inkremental)"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:41:15",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:42:11",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:42:53",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:43:26",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "jur_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:43:29",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "jur_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:43:31",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:44:05",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:44:09",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:44:11",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:44:45",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "per_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:44:48",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "per_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:44:51",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:44:55",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_04",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:45:28",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "jur_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:45:31",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:45:34",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:46:07",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "per_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:46:10",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:46:13",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:46:16",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:46:49",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_04",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:46:51",
+    "prompt_hash": "e3b0c44298fc"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:46:56",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:46:59",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:47:33",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:47:37",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:47:41",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:48:15",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:48:18",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:48:22",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "per_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:48:56",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "per_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:48:59",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:49:03",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_04",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:49:38",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:49:41",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:49:45",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:50:18",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "per_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:50:21",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:50:25",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:50:59",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:51:03",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_04",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:51:07",
+    "prompt_hash": "0fa1afb9e17a"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:51:44",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:52:21",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:52:58",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:53:35",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:54:12",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:54:48",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:55:24",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:56:00",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "per_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:56:38",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "per_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:57:14",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:57:52",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_04",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:58:28",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:58:34",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:59:10",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:59:45",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "per_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T02:59:51",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_01",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T03:00:27",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_02",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T03:01:04",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_03",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T03:01:40",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_04",
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0,
+    "timestamp": "2026-08-23T03:01:48",
+    "prompt_hash": "8d2541f87c17"
   }
 ]

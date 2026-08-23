@@ -256,14 +256,20 @@ def inject(text, rng, min_errors=15, max_errors=25):
     if len(chosen) < min_errors:
         raise RuntimeError(f"kandidat tidak cukup: {len(chosen)} < {min_errors}")
     chosen.sort(key=lambda c: c[0])
+    # Terapkan kanan-ke-kiri agar offset awal tetap valid pada string yang
+    # belum tersentuh (bug lama: kiri-ke-kanan dengan offset asli menghasil-
+    # kan splice di posisi salah, mis. "kualkwalitasf" — 65% injeksi korup).
     out = text
-    delta = 0
-    errors = []
-    for start, end, cat, wrong, right in chosen:
-        final_pos = start + delta
+    for start, end, cat, wrong, right in reversed(chosen):
         out = out[:start] + wrong + out[end:]
-        delta += len(wrong) - (end - start)
-        errors.append({"cat": cat, "offset": final_pos, "wrong": wrong, "right": right})
+    # Offset final (di teks hasil injeksi) = posisi asli + akumulasi
+    # pergeseran dari semua penggantian DI KIRINYA.
+    errors = []
+    for i, (start, end, cat, wrong, right) in enumerate(chosen):
+        delta = sum(len(w) - (e - s)
+                    for s, e, _, w, _ in chosen[:i])
+        errors.append({"cat": cat, "offset": start + delta,
+                       "wrong": wrong, "right": right})
     return out, errors
 
 # ---------------------------------------------------------------- build

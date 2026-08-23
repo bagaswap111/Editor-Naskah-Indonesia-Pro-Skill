@@ -13,6 +13,8 @@ import re
 from collections import Counter
 from pathlib import Path
 
+from output_body import extract_body
+
 ROOT = Path(__file__).resolve().parents[1]
 CORPUS = ROOT / "corpus"
 RUNS = ROOT / "runs"
@@ -66,7 +68,9 @@ def main():
                 p = RUNS / cond / f"{tid}.md"
                 if not p.exists():
                     continue
-                text = p.read_text(encoding="utf-8")
+                # badan naskah saja — header/catatan output terstruktur
+                # (ENIP) bukan bagian dari koherensi prosa
+                text = extract_body(p.read_text(encoding="utf-8"))
             per[tid] = stats(text)
         if per:
             out[cond] = per

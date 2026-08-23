@@ -1,74 +1,61 @@
-# EXPERIMENT_RESULTS — Status Eksekusi (2026-08-15)
+# EXPERIMENT_RESULTS — Status Eksekusi (2026-08-23)
 
 Ringkasan jujur hasil eksekusi PLAN.md. Angka hanya dari
 `paper/experiments/metrics/*` dan `runs/`; tidak ada perhitungan manual.
 
-## Keputusan eksekusi (K1–K6)
+**Status besar: pipeline teruji end-to-end; menunggu satu hari kuota
+untuk re-run final di atas korpus bersih** (lihat "Blokir eksplisit").
 
-K1 **llama-3.3-70b-versatile (Groq)** · K2 J1=qwen/qwen3.6-27b, J2=llama-3.1-8b-instant, J3=gemini-3.5-flash · K3 API temp 0
-· K4 Full 20 · K5 sesuai plan · K6 tidak ada editor -> ENIP + judge
-**berjalan bertahap** (batas free tier: Groq 100k token/hari/model;
-Gemini 20 request/hari/model — lihat `experiments/README.md` Deviasi #4).
+## Keputusan eksekusi (K1–K6, terbaru)
 
-Deviasi utama: **B3 = LanguageTool tidak feasible** (tidak mendukung
-id-ID, diverifikasi public API + standalone 6.6) → diganti **hunspell +
-kamus id-ID** LibreOffice, keterbatasan diakui (hanya kata di luar
-kamus; varian non-baku seperti "resiko" ada di kamus → tidak terdeteksi).
-Detail: `paper/experiments/README.md`.
+K1 **openai/gpt-oss-120b (Groq)** — migrasi dari llama-3.3-70b yang
+di-decommission Groq · K2 J1=qwen/qwen3.6-27b, J2=openai/gpt-oss-20b,
+J3=gemini-3.5-flash · K3 API temp 0 · K4 Full 20 · K5 sesuai plan ·
+K6 tidak ada editor → Fase E SKIP.
 
-## Hasil yang sudah ada
+Deviasi utama (detail: `experiments/README.md` Deviasi #1–#8):
 
-### RQ4 — Context overhead (D3, selesai; `metrics/overhead.json`)
+1. B3 = hunspell id-ID (LanguageTool tidak mendukung bahasa Indonesia).
+2. Batas free tier Groq aktual: **TPM 8K / TPD 200K per model**.
+3. ENIP via API = **lapisan aktivasi (SKILL.md)** saja — bundle penuh
+   10.589 token mustahil lewat TPM 8K; setara tahap 2 progressive
+   disclosure yang selalu dimuat runtime.
+4. **Bug korpus diperbaiki**: 65% injeksi lama korup (splice offset);
+   korpus v2 tervalidasi 238/238 error tepat posisi & bentuk.
 
-| Komponen | Token (cl100k_base) |
-|---|---|
-| Discovery (frontmatter name+description) | 382 |
-| Aktivasi (body SKILL.md) | 2.266 |
-| Eksekusi — total references + assets (worst case full load) | 7.941 |
-| Bundle penuh | 10.589 |
+## Infrastruktur yang sudah tervalidasi (pilot era gpt-oss-120b)
 
-### C1 — PUEBI error rate (`metrics/puebi_errors.json`, 2026-08-16)
+- Runner API: b1/b2/enip masing-masing **20/20 tuntas < 1 jam**
+  (±154rb token dari TPD 200K) — nol kegagalan permanen.
+- C1 detektor v2 (`scripts/puebi_errors.py` + `output_body.py`):
+  occurrence-ratio per kategori di badan naskah hasil edit;
+  tervalidasi **nol kategori ter-skip**, baseline input tepat 0.0,
+  E7 tidak lagi tertelan titik akhir kalimat.
+- C4 proksi koherensi memakai ekstraksi badan yang sama (output
+  terstruktur ENIP tidak lagi mengotori statistik prosa).
+- D3 overhead ✅: discovery 382 · aktivasi 2.266 · refs+assets 7.941 ·
+  bundle penuh 10.589 token (`metrics/overhead.json`).
 
-| Kondisi | Fix rate (mean) | Catatan |
-|---|---|---|
-| input (baseline) | 0.0 | teks asli — seluruh 238 error injeksi masih ada |
-| b3 (hunspell) | n/a | tidak menghasilkan teks baru (hanya flag kata) |
-| b1 (instruksi polos) | **0.5506** | 10 naskah injeksi, temp 0 |
-| b2 (system prompt) | **0.4709** | 10 naskah injeksi, temp 0 |
-| enip | — | berjalan bertahap (1/20 per 2026-08-16) |
-
-Total error injeksi: **238** di 10 naskah (15–25/naskah; sebaran
-E1–E10: 36/35/10/18/15/34/11/60/15/4).
-
-### C4 — Proksi koherensi (`metrics/proxies.json`, 2026-08-16)
-
-| Kondisi | CV kalimat (mean) | Variasi konjungsi | Top-10 leksikal |
-|---|---|---|---|
-| input | 0.364 | 0.494 | 0.171 |
-| b1 | 0.446 | 0.449 | 0.189 |
-| b2 | 0.394 | 0.411 | 0.171 |
-| enip | — | — | — |
-
-### Fase B3 (selesai, `runs/b3/`)
-
-20 naskah di-periksa hunspell id-ID: total **421 kata di luar kamus**
-(sebagian besar dari sf_* — slang santai tidak ada di kamus; ini
-menunjukkan batas mekanik, bukan klaim kualitas teks).
+Angka C1/C4 yang beredar saat ini dihitung atas run pilot di teks
+korup — **jangan dikutip**; akan ditimpa setelah re-run.
 
 ## Belum selesai (blokir eksplisit)
 
-- **ENIP 19/20 + judge (C2, C3, RQ5)**: jalan bertahap karena batas
-  free tier (Groq TPD 100k/hari/model; Gemini 20 req/hari/model) —
-  resume: `experiments/README.md` "Cara menyelesaikan LLM".
-- **D1 portability (8 runtime)** dan **D2 trigger (20 query)**: butuh
-  interaksi GUI runtime lokal — skema & berkas siap.
-- **Fase E**: SKIP (K6) — protokol terdokumentasi di PLAN.md §7.
+1. **Re-run editor (b1/b2/enip ×20) di korpus v2** — menunggu reset
+   TPD harian; perintah siap di `experiments/README.md` §"Cara
+   menyelesaikan LLM" (Tahap 1–2, ±1 jam proses).
+2. **Judge C2 (J1–J3)** + C3 delta self-score + `analyze.py`
+   (bootstrap paired, korelasi antar-judge) — setelah Tahap 1.
+3. **D1 portability (8 runtime)** dan **D2 trigger (20 query)**:
+   butuh interaksi GUI runtime lokal — skema & berkas siap.
+4. **Fase E**: SKIP (K6) — protokol terdokumentasi di PLAN.md §7.
 
 ## Batasan yang harus dikutip di paper
 
-1. B3 bukan LanguageTool (tidak ada dukungan id-ID di ekosistem
-   LanguageTool); hasil mekanik hanya kata di luar kamus.
-2. ENIP dijalankan via API dengan bundle penuh (SKILL.md + refs +
-   assets); overhead aktual progressive disclosure diukur D3, efek
-   prompting tetap terukur dengan jelas sebagai sistem-prompt eksplisit.
-3. RQ1/RQ2/RQ3 belum final — tabel hasil resmi akan mengikuti run LLM.
+1. B3 bukan LanguageTool (tidak ada dukungan id-ID); hanya flag kata
+   di luar kamus hunspell.
+2. ENIP via API memuat SKILL.md saja (keterbatasan TPM free tier);
+   references/assets tidak tersedia bagi model dalam mode single-shot.
+3. J2 satu family dengan editor (gpt-oss); keduanya OpenAI open-weight.
+4. Judge & metrik final menyusul re-run; klaim RQ1–RQ5 menunggu angka
+   resmi dari `metrics/*.json`.

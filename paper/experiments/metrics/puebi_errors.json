@@ -3,76 +3,574 @@
     "items": {
       "aca_01": {
         "n": 25,
-        "remaining": 25,
         "fix_rate": 0.0,
-        "n_out_words": 340
+        "per_category": {
+          "E1": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E2": {
+            "n": 5,
+            "in": 5,
+            "out": 5,
+            "fix_rate": 0.0
+          },
+          "E4": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          }
+        }
       },
       "aca_02": {
         "n": 25,
-        "remaining": 25,
         "fix_rate": 0.0,
-        "n_out_words": 349
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E2": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E3": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E4": {
+            "n": 5,
+            "in": 5,
+            "out": 5,
+            "fix_rate": 0.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E9": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          }
+        }
       },
       "jur_01": {
         "n": 25,
-        "remaining": 25,
         "fix_rate": 0.0,
-        "n_out_words": 336
+        "per_category": {
+          "E1": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E4": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E6": {
+            "n": 5,
+            "in": 5,
+            "out": 5,
+            "fix_rate": 0.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          }
+        }
       },
       "jur_02": {
         "n": 25,
-        "remaining": 25,
         "fix_rate": 0.0,
-        "n_out_words": 341
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E2": {
+            "n": 4,
+            "in": 4,
+            "out": 4,
+            "fix_rate": 0.0
+          },
+          "E3": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E5": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          }
+        }
       },
       "sas_01": {
         "n": 20,
-        "remaining": 20,
         "fix_rate": 0.0,
-        "n_out_words": 316
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 5,
+            "fix_rate": 0.0
+          },
+          "E2": {
+            "n": 5,
+            "in": 5,
+            "out": 5,
+            "fix_rate": 0.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          }
+        }
       },
       "sas_02": {
         "n": 25,
-        "remaining": 25,
         "fix_rate": 0.0,
-        "n_out_words": 319
+        "per_category": {
+          "E1": {
+            "n": 4,
+            "in": 4,
+            "out": 4,
+            "fix_rate": 0.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E3": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E4": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E6": {
+            "n": 5,
+            "in": 5,
+            "out": 5,
+            "fix_rate": 0.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          }
+        }
       },
       "pop_01": {
         "n": 22,
-        "remaining": 22,
         "fix_rate": 0.0,
-        "n_out_words": 323
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 5,
+            "fix_rate": 0.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          }
+        }
       },
       "pop_02": {
         "n": 21,
-        "remaining": 21,
         "fix_rate": 0.0,
-        "n_out_words": 358
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E6": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          }
+        }
       },
       "per_01": {
         "n": 25,
-        "remaining": 25,
         "fix_rate": 0.0,
-        "n_out_words": 348
+        "per_category": {
+          "E1": {
+            "n": 4,
+            "in": 4,
+            "out": 4,
+            "fix_rate": 0.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E2": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E4": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          }
+        }
       },
       "per_02": {
         "n": 25,
-        "remaining": 25,
         "fix_rate": 0.0,
-        "n_out_words": 340
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 5,
+            "fix_rate": 0.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E2": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 2,
+            "fix_rate": 0.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 6,
+            "fix_rate": 0.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          }
+        }
       }
     },
-    "category_totals": {
-      "E6": 34,
-      "E7": 11,
-      "E9": 15,
-      "E8": 60,
-      "E1": 36,
-      "E5": 15,
-      "E2": 35,
-      "E4": 18,
-      "E10": 4,
-      "E3": 10
+    "per_category": {
+      "E1": 0.0,
+      "E10": 0.0,
+      "E2": 0.0,
+      "E3": 0.0,
+      "E4": 0.0,
+      "E5": 0.0,
+      "E6": 0.0,
+      "E7": 0.0,
+      "E8": 0.0,
+      "E9": 0.0
     },
     "mean_fix_rate": 0.0,
     "n_done": 10,
@@ -82,208 +580,1208 @@
     "items": {
       "aca_01": {
         "n": 25,
-        "remaining": null,
         "fix_rate": null,
         "note": "b3 tanpa output teks"
       },
       "aca_02": {
         "n": 25,
-        "remaining": null,
         "fix_rate": null,
         "note": "b3 tanpa output teks"
       },
       "jur_01": {
         "n": 25,
-        "remaining": null,
         "fix_rate": null,
         "note": "b3 tanpa output teks"
       },
       "jur_02": {
         "n": 25,
-        "remaining": null,
         "fix_rate": null,
         "note": "b3 tanpa output teks"
       },
       "sas_01": {
         "n": 20,
-        "remaining": null,
         "fix_rate": null,
         "note": "b3 tanpa output teks"
       },
       "sas_02": {
         "n": 25,
-        "remaining": null,
         "fix_rate": null,
         "note": "b3 tanpa output teks"
       },
       "pop_01": {
         "n": 22,
-        "remaining": null,
         "fix_rate": null,
         "note": "b3 tanpa output teks"
       },
       "pop_02": {
         "n": 21,
-        "remaining": null,
         "fix_rate": null,
         "note": "b3 tanpa output teks"
       },
       "per_01": {
         "n": 25,
-        "remaining": null,
         "fix_rate": null,
         "note": "b3 tanpa output teks"
       },
       "per_02": {
         "n": 25,
-        "remaining": null,
         "fix_rate": null,
         "note": "b3 tanpa output teks"
       }
     },
-    "category_totals": {}
+    "per_category": {}
   },
   "enip": {
     "items": {
       "aca_01": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "aca_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "jur_01": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "fix_rate": 0.96,
+        "per_category": {
+          "E1": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 1,
+            "fix_rate": 0.5
+          }
+        }
       },
       "jur_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "fix_rate": 0.96,
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 4,
+            "in": 4,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 1,
+            "fix_rate": 0.5
+          }
+        }
       },
       "sas_01": {
         "n": 20,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "sas_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 4,
+            "in": 4,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "pop_01": {
         "n": 22,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "fix_rate": 0.9091,
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 1,
+            "fix_rate": 0.8
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 1,
+            "fix_rate": 0.5
+          }
+        }
       },
       "pop_02": {
         "n": 21,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "fix_rate": 0.9524,
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 1,
+            "fix_rate": 0.5
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "per_01": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "fix_rate": 0.94,
+        "per_category": {
+          "E1": {
+            "n": 4,
+            "in": 4,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 6,
+            "in": 6,
+            "out": 1,
+            "fix_rate": 0.8333
+          },
+          "E4": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 2,
+            "out": 1,
+            "fix_rate": 0.5
+          }
+        }
       },
       "per_02": {
         "n": 25,
-        "remaining": null,
-        "fix_rate": null,
-        "note": "menunggu run"
+        "fix_rate": 0.96,
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          }
+        }
       }
     },
-    "category_totals": {}
+    "per_category": {
+      "E1": 0.9722,
+      "E10": 1.0,
+      "E2": 0.9429,
+      "E3": 1.0,
+      "E4": 1.0,
+      "E5": 1.0,
+      "E6": 1.0,
+      "E7": 1.0,
+      "E8": 1.0,
+      "E9": 0.7
+    },
+    "mean_fix_rate": 0.9681,
+    "n_done": 10,
+    "n_total": 10
   },
   "b1": {
     "items": {
       "aca_01": {
         "n": 25,
-        "remaining": 10,
-        "fix_rate": 0.6,
-        "n_out_words": 370
+        "fix_rate": 0.92,
+        "per_category": {
+          "E1": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 3,
+            "fix_rate": 0.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "aca_02": {
         "n": 25,
-        "remaining": 15,
-        "fix_rate": 0.4,
-        "n_out_words": 364
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "jur_01": {
         "n": 25,
-        "remaining": 13,
-        "fix_rate": 0.48,
-        "n_out_words": 365
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "jur_02": {
         "n": 25,
-        "remaining": 10,
-        "fix_rate": 0.6,
-        "n_out_words": 364
+        "fix_rate": 0.96,
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 4,
+            "in": 4,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 1,
+            "fix_rate": 0.5
+          }
+        }
       },
       "sas_01": {
         "n": 20,
-        "remaining": 8,
-        "fix_rate": 0.6,
-        "n_out_words": 341
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "sas_02": {
         "n": 25,
-        "remaining": 12,
-        "fix_rate": 0.52,
-        "n_out_words": 334
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 4,
+            "in": 4,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "pop_01": {
         "n": 22,
-        "remaining": 12,
-        "fix_rate": 0.4545,
-        "n_out_words": 345
+        "fix_rate": 0.9545,
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 1,
+            "fix_rate": 0.8
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "pop_02": {
         "n": 21,
-        "remaining": 9,
-        "fix_rate": 0.5714,
-        "n_out_words": 379
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "per_01": {
         "n": 25,
-        "remaining": 8,
-        "fix_rate": 0.68,
-        "n_out_words": 367
+        "fix_rate": 0.98,
+        "per_category": {
+          "E1": {
+            "n": 4,
+            "in": 4,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 2,
+            "out": 1,
+            "fix_rate": 0.5
+          }
+        }
       },
       "per_02": {
         "n": 25,
-        "remaining": 10,
-        "fix_rate": 0.6,
-        "n_out_words": 364
+        "fix_rate": 0.96,
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 1,
+            "fix_rate": 0.8
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       }
     },
-    "category_totals": {
-      "E6": 34,
-      "E7": 11,
-      "E9": 15,
-      "E8": 60,
-      "E1": 36,
-      "E5": 15,
-      "E2": 35,
-      "E4": 18,
-      "E10": 4,
-      "E3": 10
+    "per_category": {
+      "E1": 0.9444,
+      "E10": 1.0,
+      "E2": 1.0,
+      "E3": 1.0,
+      "E4": 1.0,
+      "E5": 1.0,
+      "E6": 0.9412,
+      "E7": 1.0,
+      "E8": 1.0,
+      "E9": 0.9
     },
-    "mean_fix_rate": 0.5506,
+    "mean_fix_rate": 0.9774,
     "n_done": 10,
     "n_total": 10
   },
@@ -291,78 +1789,576 @@
     "items": {
       "aca_01": {
         "n": 25,
-        "remaining": 10,
-        "fix_rate": 0.6,
-        "n_out_words": 403
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "aca_02": {
         "n": 25,
-        "remaining": 16,
-        "fix_rate": 0.36,
-        "n_out_words": 401
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "jur_01": {
         "n": 25,
-        "remaining": 13,
-        "fix_rate": 0.48,
-        "n_out_words": 406
+        "fix_rate": 0.96,
+        "per_category": {
+          "E1": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 1,
+            "fix_rate": 0.5
+          }
+        }
       },
       "jur_02": {
         "n": 25,
-        "remaining": 12,
-        "fix_rate": 0.52,
-        "n_out_words": 399
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 4,
+            "in": 4,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "sas_01": {
         "n": 20,
-        "remaining": 11,
-        "fix_rate": 0.45,
-        "n_out_words": 375
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "sas_02": {
         "n": 25,
-        "remaining": 15,
-        "fix_rate": 0.4,
-        "n_out_words": 364
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 4,
+            "in": 4,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 5,
+            "in": 5,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "pop_01": {
         "n": 22,
-        "remaining": 15,
-        "fix_rate": 0.3182,
-        "n_out_words": 380
+        "fix_rate": 0.9091,
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 1,
+            "fix_rate": 0.8
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 2,
+            "in": 2,
+            "out": 1,
+            "fix_rate": 0.5
+          }
+        }
       },
       "pop_02": {
         "n": 21,
-        "remaining": 13,
-        "fix_rate": 0.381,
-        "n_out_words": 408
+        "fix_rate": 1.0,
+        "per_category": {
+          "E1": {
+            "n": 3,
+            "in": 3,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E3": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          }
+        }
       },
       "per_01": {
         "n": 25,
-        "remaining": 9,
-        "fix_rate": 0.64,
-        "n_out_words": 396
+        "fix_rate": 0.98,
+        "per_category": {
+          "E1": {
+            "n": 4,
+            "in": 4,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 2,
+            "out": 1,
+            "fix_rate": 0.5
+          }
+        }
       },
       "per_02": {
         "n": 25,
-        "remaining": 11,
-        "fix_rate": 0.56,
-        "n_out_words": 394
+        "fix_rate": 0.92,
+        "per_category": {
+          "E1": {
+            "n": 5,
+            "in": 5,
+            "out": 1,
+            "fix_rate": 0.8
+          },
+          "E10": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E2": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E4": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E5": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E6": {
+            "n": 2,
+            "in": 2,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E7": {
+            "n": 1,
+            "in": 1,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E8": {
+            "n": 6,
+            "in": 6,
+            "out": 0,
+            "fix_rate": 1.0
+          },
+          "E9": {
+            "n": 1,
+            "in": 1,
+            "out": 1,
+            "fix_rate": 0.0
+          }
+        }
       }
     },
-    "category_totals": {
-      "E6": 34,
-      "E7": 11,
-      "E9": 15,
-      "E8": 60,
-      "E1": 36,
-      "E5": 15,
-      "E2": 35,
-      "E4": 18,
-      "E10": 4,
-      "E3": 10
+    "per_category": {
+      "E1": 0.9444,
+      "E10": 1.0,
+      "E2": 1.0,
+      "E3": 1.0,
+      "E4": 1.0,
+      "E5": 1.0,
+      "E6": 1.0,
+      "E7": 1.0,
+      "E8": 1.0,
+      "E9": 0.7667
     },
-    "mean_fix_rate": 0.4709,
+    "mean_fix_rate": 0.9769,
     "n_done": 10,
     "n_total": 10
   }
