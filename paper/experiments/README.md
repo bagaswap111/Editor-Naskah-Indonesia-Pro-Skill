@@ -71,8 +71,8 @@ yang Harus Diambil Saat Eksekusi"). Tanggal sesi: 2026-08-15/16.
 | Fase | Status | Catatan |
 |---|---|---|
 | A korpus | ✅ (v2 bersih) | Bug offset diperbaiki; 238/238 error terverifikasi di teks (Deviasi #8) |
-| B runner | ⏳ re-run | Pipeline teruji end-to-end via gpt-oss-120b (pilot 20/20/20 tuntas <1 jam); re-run final menunggu reset TPD di atas korpus bersih |
-| C metrik | ⏳ | C1 detektor v2 (occurrence-ratio + ekstraksi badan naskah) tervalidasi: nol kategori ter-skip, baseline 0.0; angka final menunggu re-run |
+| B runner | ✅ final | Re-run gpt-oss-120b di korpus v2 tuntas 2026-08-23 (20/20 per kondisi) |
+| C metrik | 🔶 sebagian final | C1 fix rate final (enip 0.9681 < b1 0.9774 ≈ b2 0.9769); C4 final; **C2 judge berjalan bertahap** (kuota harian: J2 live, J1 tunggu refund TPD rolling, J3 tunggu reset harian); C3+analyze.py siap, jalankan setelah scores lengkap |
 | D1 portability | ⏳ manual | skema + 8 runtime siap; butuh interaksi GUI |
 | D2 trigger | ⏳ manual | 20 query siap; butuh runtime lokal |
 | D3 overhead | ✅ | discovery 382, aktivasi 2266, refs+assets 7941, bundle 10589 token |
@@ -81,26 +81,24 @@ yang Harus Diambil Saat Eksekusi"). Tanggal sesi: 2026-08-15/16.
 
 ## Cara menyelesaikan LLM (resume, kapan saja)
 
-**Urutan wajib setelah regenerasi korpus (Deviasi #8)** — re-run penuh
-dengan `--force` agar semua output konsisten dengan teks bersih:
+Tahap 1–2 (editor + metrik otomatis) **sudah tuntas** di korpus v2
+(2026-08-23). Sisa pekerjaan = judge C2 bertahap + analisis:
 
 ```bash
 # .env di paper/experiments/ berisi GROQ_API_KEY + GEMINI_API_KEY (gitignored)
 cd paper/experiments
 
-# Tahap 1 — editor (±154rb token dari TPD 200K/model/hari; muat 1 hari):
-python3 scripts/run_api.py --condition b1 --provider groq --force
-python3 scripts/run_api.py --condition b2 --provider groq --force
-python3 scripts/run_api.py --condition enip --provider groq --force
-# Semua idempotent (skip file ada, kecuali --force). Jika kena TPD/TPM,
-# ulangi perintah yang sama di sesi berikutnya.
+# Tahap 3 — judge (idempotent; jalankan berulang sampai lengkap):
+python3 scripts/judge.py --judges J2   # Groq gpt-oss-20b — bucket TPD longgar
+python3 scripts/judge.py --judges J1   # Groq qwen3.6-27b — tunggu refund TPD rolling (malam)
+python3 scripts/judge.py --judges J3   # Gemini 20 req/hari → sekali/hari
 
-# Tahap 2 — metrik otomatis (lokal, instan):
-python3 scripts/puebi_errors.py && python3 scripts/proxies.py
-
-# Tahap 3 — judge (idempotent; J3 hanya 20 req/hari → jalankan sekali/hari):
-python3 scripts/judge.py --judges J1,J2   # Groq, kuota model masing-masing
-python3 scripts/judge.py --judges J3      # Gemini, sisa 58 penilaian
+# Tahap 4 — analisis & laporan (lokal, instan):
+python3 scripts/analyze.py             # → metrics/analysis.json + analysis_report.md
 ```
+
+Catatan infrastruktur judge: pacing per model (`JUDGE_MIN_INTERVAL`,
+default 32 s) menghindari tabrakan TPM 8K; scores.json ditulis atomik
++ merge antar proses sehingga beberapa juri boleh paralel.
 
 Semua output mentah wajib disimpan di runs/ tanpa retouch dan di-commit.

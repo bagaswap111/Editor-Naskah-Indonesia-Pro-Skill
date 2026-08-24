@@ -1,0 +1,76 @@
+{
+  "ringkasan": {
+    "b1": {
+      "n_naskah": 13,
+      "overall": {
+        "mean": 7.495,
+        "std": 1.5
+      },
+      "per_dimensi": {
+        "Kejelasan": {
+          "mean": 7.615,
+          "std": 1.981,
+          "n": 13
+        },
+        "Koherensi": {
+          "mean": 8.0,
+          "std": 1.528,
+          "n": 13
+        },
+        "Kedalaman": {
+          "mean": 7.385,
+          "std": 0.961,
+          "n": 13
+        },
+        "Akurasi": {
+          "mean": 7.154,
+          "std": 1.951,
+          "n": 13
+        },
+        "Gaya": {
+          "mean": 7.769,
+          "std": 1.536,
+          "n": 13
+        },
+        "Mekanik": {
+          "mean": 7.231,
+          "std": 1.739,
+          "n": 13
+        },
+        "Engagement": {
+          "mean": 7.308,
+          "std": 1.494,
+          "n": 13
+        }
+      },
+      "per_sel": {
+        "J3@t0": {
+          "Kejelasan": 7.615,
+          "Koherensi": 8.0,
+          "Kedalaman": 7.385,
+          "Akurasi": 7.154,
+          "Gaya": 7.769,
+          "Mekanik": 7.231,
+          "Engagement": 7.308
+        }
+      }
+    }
+  },
+  "uji_paired_bootstrap": {},
+  "korelasi_antar_judge": {},
+  "c3_delta_self_score": {
+    "n": 0,
+    "coverage_per_dimensi": {
+      "Kejelasan": 0,
+      "Koherensi": 0,
+      "Kedalaman": 0,
+      "Akurasi": 0,
+      "Gaya": 0,
+      "Mekanik": 0,
+      "Engagement": 0
+    },
+    "mean_abs_delta": {},
+    "bias_signed": {}
+  },
+  "c3_detail_per_naskah": []
+}

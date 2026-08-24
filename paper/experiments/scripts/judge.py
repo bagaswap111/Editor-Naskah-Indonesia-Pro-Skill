@@ -83,6 +83,37 @@ TEMPLATE_USER = (
 )
 
 
+def parse_duration(s):
+    """Groq memakai durasi seperti '120ms', '1m26.4s', '1h10m'."""
+    if not s:
+        return None
+    try:
+        return float(s)
+    except ValueError:
+        pass
+    total = 0.0
+    for num, u in re.findall(r"(\d+(?:\.\d+)?)\s*(ms|s|m|h)", s):
+        total += float(num) * {"ms": 0.001, "s": 1, "m": 60,
+                               "h": 3600}[u]
+    return total or None
+
+
+_model_last = {}
+_model_gate = threading.Lock()
+
+
+def _reserve_slot(gkey):
+    """Pesan satu slot waktu (atomik), lalu tidur sampai giliran itu."""
+    interval = float(os.environ.get("JUDGE_MIN_INTERVAL", "32"))
+    with _model_gate:
+        now = time.time()
+        start = max(_model_last.get(gkey, 0.0), now)
+        _model_last[gkey] = start + interval
+    wait = start - now
+    if wait > 0:
+        time.sleep(wait)
+
+
 def call(provider, model, messages, temperature, timeout=600):
     import requests
     if provider == "groq":
@@ -95,20 +126,30 @@ def call(provider, model, messages, temperature, timeout=600):
         raise ValueError(f"juri tak dikenal: {provider}")
     headers = {"Authorization": f"Bearer {key}"}
     payload = {"model": model, "temperature": temperature,
-               # 2048: total request (rubric+naskah+cap) aman di TPM 8K
-               "max_tokens": 2048, "messages": messages}
+               # 2048 cukup untuk JSON; qwen thinking butuh ruang lebih
+               "max_tokens": 3072 if "qwen" in model else 2048,
+               "messages": messages}
     if model.startswith("openai/gpt-oss"):
         # model reasoning — token reasoning masuk completion
         payload["reasoning_effort"] = "low"
+    gkey = (provider, model)
+    _reserve_slot(gkey)
     last = None
     for attempt in range(8):
         r = requests.post(url, headers=headers, json=payload,
                           timeout=timeout)
         if r.status_code == 429:
+            body = (r.text or "").lower()
+            # kuota HARIAN: percuma diulang hari ini — gagal cepat,
+            # putaran berikutnya (judge_loop) yang mengisi ulang
+            if "tokens per day" in body or "tpd" in body or \
+                    "exceeded your current quota" in body:
+                raise RuntimeError(f"HARD_QUOTA {provider} {model}")
             last = "429"
-            wa = r.headers.get("retry-after")
-            sleep_s = max(float(wa), 20.0) if wa else 30.0 * (attempt + 1)
-            time.sleep(min(sleep_s, 300.0))
+            reset = parse_duration(
+                r.headers.get("retry-after")
+                or r.headers.get("x-ratelimit-reset-tokens"))
+            time.sleep(min(max(reset or 20.0, 15.0), 90.0))
             continue
         r.raise_for_status()
         return r.json()["choices"][0]["message"]["content"] or ""
@@ -116,11 +157,21 @@ def call(provider, model, messages, temperature, timeout=600):
 
 
 def parse_json(text):
+    # qwen3 hybrid-thinking menyisipkan <think>…</think> (bisa memuat
+    # kurung kurawal) di dalam content — buang sebelum parsing.
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.S)
     text = re.sub(r"^```(?:json)?|```$", "", text.strip(), flags=re.M)
-    start, end = text.find("{"), text.rfind("}")
-    if start == -1 or end == -1:
-        raise ValueError(f"tidak ada JSON: {text[:300]!r}")
-    return json.loads(text[start:end + 1])
+    dec = json.JSONDecoder()
+    for i, ch in enumerate(text):
+        if ch != "{":
+            continue
+        try:
+            obj, _end = dec.raw_decode(text[i:])
+            if isinstance(obj, dict):
+                return obj
+        except json.JSONDecodeError:
+            continue
+    raise ValueError(f"tidak ada JSON: {text[:300]!r}")
 
 
 def norm_skor(obj):
@@ -164,6 +215,31 @@ def load(seed, conditions=("b1", "b2", "enip")):
     return tasks
 
 
+def save_rows(rows):
+    """Tulis scores.json dengan MERGE dari isi file saat ini.
+
+    Beberapa proses juri (Groq & Gemini) bisa berjalan paralel pada
+    file yang sama; tanpa merge, penulis cepat menimpa baris proses
+    lain. Kunci unik: (condition, id, judge, trial).
+    """
+    merged = {}
+    if SCORES.exists():
+        try:
+            for row in json.loads(SCORES.read_text(encoding="utf-8")):
+                merged[(row["condition"], row["id"], row["judge"],
+                        row["trial"])] = row
+        except (json.JSONDecodeError, KeyError):
+            pass
+    for row in rows:
+        merged[(row["condition"], row["id"], row["judge"],
+                row["trial"])] = row
+    tmp = SCORES.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(list(merged.values()),
+                              ensure_ascii=False, indent=2),
+                   encoding="utf-8")
+    os.replace(tmp, SCORES)  # atomik: pembaca tak pernah lihat file parsial
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--judges", default="J1,J2,J3")
@@ -194,7 +270,11 @@ def main():
     existing = set()
     rows = []
     if not a.full and SCORES.exists():
-        rows = json.loads(SCORES.read_text(encoding="utf-8"))
+        try:
+            rows = json.loads(SCORES.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            print("PERINGATAN: scores.json tak terbaca — mulai kosong",
+                  flush=True)
         for row in rows:
             existing.add((row["condition"], row["id"], row["judge"],
                           row["trial"]))
@@ -223,12 +303,16 @@ def main():
                 with lock:
                     rows.append(row)
                     done += 1
+                    # simpan inkremental + merge: aman dihentikan kapan pun
+                    save_rows(rows)
                     print(f"  [{cond}/{cid}] {jname} t={trial} → "
                           f"{sum(skor.values())/7:.1f} ({done}/{total})",
                           flush=True)
                 return row
             except Exception as e:
                 last = e
+                if "HARD_QUOTA" in str(e):
+                    break  # kuota harian habis — jangan buang waktu
                 if "429" in str(e):
                     time.sleep(30 * (attempt + 1))
                 else:
@@ -237,23 +321,29 @@ def main():
             print(f"  GAGAL ({last}) {cond}/{cid} {jname} t={trial}", flush=True)
         return None
 
-    groq_futures = []
-    workers = 1 if all(JUDGES[j]["provider"] == "gemini" for j in judges) else 4
+    # TPM 8K free tier: antrean per model diselingi agar model lambat
+    # (mis. TPD rolling) tidak menghambat model lain
+    workers = int(os.environ.get("JUDGE_WORKERS",
+                                 "6" if any(JUDGES[j]["provider"] == "groq"
+                                            for j in judges) else 1))
+    antrian = {j: [] for j in judges}
+    for cond, cid, src, out, anon in tasks:
+        for jname in judges:
+            for trial in JUDGES[jname]["trials"]:
+                antrian[jname].append((cond, cid, src, out, anon,
+                                       jname, trial))
+    jobs = []
+    while any(antrian.values()):
+        for jname in judges:
+            if antrian[jname]:
+                jobs.append(antrian[jname].pop(0))
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        for cond, cid, src, out, anon in tasks:
-            for jname in judges:
-                for trial in JUDGES[jname]["trials"]:
-                    f = pool.submit(judge_task, cond, cid, src, out, anon,
-                                    jname, trial)
-                    groq_futures.append(f)
-                    if JUDGES[jname]["provider"] == "gemini":
-                        f.result()
-                        time.sleep(15)
-        concurrent.futures.wait(groq_futures)
+        futs = [pool.submit(judge_task, *job) for job in jobs]
+        concurrent.futures.wait(futs)
 
     METRICS.mkdir(exist_ok=True)
-    SCORES.write_text(json.dumps(rows, ensure_ascii=False, indent=2),
-                      encoding="utf-8")
+    save_rows(rows)
+    rows = json.loads(SCORES.read_text(encoding="utf-8"))
     by_cond = {}
     for r in rows:
         by_cond.setdefault(r["condition"], []).append(r)
