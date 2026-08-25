@@ -1,10 +1,66 @@
 [
-  {"runtime": "Claude Code", "install_method": "agent install script", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL: jalankan dengan skill terpasang, minta edit 1 naskah uji (saran: pop_01)"},
-  {"runtime": "OpenCode", "install_method": "opencode skill", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL: runtime utama eksperimen (lihat trigger/) — isi hasil di sini"},
-  {"runtime": "Cursor 2.4+", "install_method": "rules/skill folder", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"},
-  {"runtime": "OpenAI Codex", "install_method": "skill folder", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"},
-  {"runtime": "Cline", "install_method": "CLAUDE.md / skill", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"},
-  {"runtime": "Gemini CLI", "install_method": "skill folder", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"},
-  {"runtime": "Google Antigravity", "install_method": "skill folder", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"},
-  {"runtime": "VS Code Copilot", "install_method": "agent skill", "loads_without_modification": null, "activation_mechanism": null, "output_received": null, "notes": "MANUAL"}
+  {
+    "runtime": "Claude Code",
+    "install_method": "agent install script",
+    "loads_without_modification": null,
+    "activation_mechanism": null,
+    "output_received": null,
+    "notes": "BLOKIR: kredensial tidak tersedia ('Invalid API key · Please run /login') saat diuji 2026-08-25 — skill terpasang di .claude/skills/enip-editor (proyek); ulangi setelah login: claude -p \"<prompt pop_03>\""
+  },
+  {
+    "runtime": "OpenCode",
+    "install_method": "opencode skill",
+    "loads_without_modification": true,
+    "activation_mechanism": "Otomatis — kecocokan deskripsi skill memicu tool Skill (telemetri: '→ Skill \"enip-editor\"'), lalu progressive disclosure: Read references/PUEBI.md, STYLE_GUIDE.md, WORKFLOW.md, QUALITY_METRICS.md, assets/output-template.md, style-sheet-template.md",
+    "output_received": true,
+    "notes": "Dieksekusi 2026-08-25 via `opencode run` (v1.18.18, model mimo-v2.5-free) pada pop_03; output terstruktur ENIP (Diagnosis Awal, edit naskah, catatan). Bukti mentah: portability/logs/opencode_pop03.out"
+  },
+  {
+    "runtime": "Cursor 2.4+",
+    "install_method": "rules/skill folder",
+    "loads_without_modification": null,
+    "activation_mechanism": null,
+    "output_received": null,
+    "notes": "MANUAL"
+  },
+  {
+    "runtime": "OpenAI Codex",
+    "install_method": "skill folder",
+    "loads_without_modification": null,
+    "activation_mechanism": null,
+    "output_received": null,
+    "notes": "MANUAL"
+  },
+  {
+    "runtime": "Cline",
+    "install_method": "CLAUDE.md / skill",
+    "loads_without_modification": null,
+    "activation_mechanism": null,
+    "output_received": null,
+    "notes": "MANUAL"
+  },
+  {
+    "runtime": "Gemini CLI",
+    "install_method": "skill folder",
+    "loads_without_modification": null,
+    "activation_mechanism": null,
+    "output_received": null,
+    "notes": "MANUAL"
+  },
+  {
+    "runtime": "Google Antigravity",
+    "install_method": "skill folder",
+    "loads_without_modification": null,
+    "activation_mechanism": null,
+    "output_received": null,
+    "notes": "MANUAL"
+  },
+  {
+    "runtime": "VS Code Copilot",
+    "install_method": "agent skill",
+    "loads_without_modification": null,
+    "activation_mechanism": null,
+    "output_received": null,
+    "notes": "MANUAL"
+  }
 ]

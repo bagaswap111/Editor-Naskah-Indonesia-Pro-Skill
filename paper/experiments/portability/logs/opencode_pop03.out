@@ -1,0 +1,76 @@
+[0m
+> build · mimo-v2.5-free
+[0m
+[0m→ [0mSkill "enip-editor"
+[0m→ [0mRead /Users/bagaskorosaputro/.agents/skills/enip-editor/references/PUEBI.md
+[0m→ [0mRead /Users/bagaskorosaputro/.agents/skills/enip-editor/references/STYLE_GUIDE.md
+[0m→ [0mRead /Users/bagaskorosaputro/.agents/skills/enip-editor/assets/output-template.md
+[0m→ [0mRead /Users/bagaskorosaputro/.agents/skills/enip-editor/references/WORKFLOW.md
+[0m→ [0mRead /Users/bagaskorosaputro/.agents/skills/enip-editor/references/QUALITY_METRICS.md
+[0m→ [0mRead /Users/bagaskorosaputro/.agents/skills/enip-editor/assets/style-sheet-template.md
+## Diagnosis Awal
+
+Naskah sudah menunjukkan gaya populer-edukatif yang konsisten dengan hook kuat di paragraf pembuka dan struktur logis tiga tahap memori. Kelemahan utama: beberapa transisi antarparagraf masih kaku, analogi "hard disk" bisa lebih relatif untuk pembaca umum, dan ada redundansi kecil ("menulis ulang membantu memperkuat jejak memori" muncul dua kali secara tersirat). Editing berfokus pada penguatan analogi, perapian transisi, dan penyesuaian mekanik sesuai PUEBI.
+
+---
+
+## Naskah Hasil Editan
+
+Pernahkah Anda masuk ke dapur untuk mengambil sesuatu, tetapi kemudian lupa apa yang ingin diambil? Fenomena ini bukan sekadar kebetulan, melainkan bagian dari cara kerja memori manusia. Para ilmuwan menjelaskan bahwa otak kita tidak menyimpan ingatan seperti *hard disk*—begitu data masuk, langsung tersimpan rapi. Sebaliknya, ingatan dirangkai ulang setiap kali dibutuhkan. Proses ini melibatkan tiga tahap, yaitu penyandian, penyimpanan, dan pemanggilan kembali. Dua tahap pertama sering berjalan tanpa kita sadari, sedangkan tahap terakhir—pemanggilan kembali—adalah yang paling sering bermasalah.
+
+Tahap penyandian terjadi ketika informasi baru masuk. Semakin kuat perhatian yang diberikan, semakin besar kemungkinan informasi tersebut disimpan dengan baik. Dua penelitian di Jepang menunjukkan bahwa peserta yang membagi perhatian saat belajar mengingat 40 persen lebih sedikit daripada mereka yang fokus. Meskipun studi tersebut hanya mengukur satu kondisi, dampaknya sangat terasa dalam kehidupan sehari-hari—empat dari lima orang dewasa mengaku pernah lupa nama orang yang baru dikenal dalam situasi serupa. Lima percobaan tambahan di universitas lain menghasilkan pola yang serupa, sehingga para ahli mulai menyusun panduan praktis.
+
+Selain perhatian, emosi juga memengaruhi ingatan. Peristiwa yang memicu emosi kuat, seperti pernikahan atau kecelakaan, umumnya diingat lebih jelas. Namun, ingatan emosional juga rentan terhadap distorsi, sehingga kesaksian saksi mata sering kali tidak akurat. Para ahli menyarankan agar orang mencatat informasi penting, karena menulis ulang membantu memperkuat jejak memori sekaligus menekan risiko salah ingat. Pada praktiknya, kebiasaan mencatat kecil ini terbukti efektif bagi siswa dan pekerja profesional. Sistem pengingat berbasis aplikasi kini juga banyak digunakan, walaupun efektivitasnya masih diperdebatkan.
+
+Ada juga fenomena yang disebut efek *tip-of-the-tongue*—kondisi ketika informasi terasa di ujung lidah, tetapi tidak berhasil diucapkan. Kondisi ini meningkat seiring bertambahnya usia, namun tidak selalu menandakan gangguan serius. Otak yang sehat tetap melewati proses ini sebagai bagian dari *refresh* alami. Yang penting adalah memahami cara kerja memori, sehingga kita tidak mudah panik ketika lupa. Sistem latihan mengingat, seperti pengulangan berjarak, dapat membantu menjaga daya ingat—mirip dengan cara kita melatih otot agar tetap kuat. Dengan pendekatan yang sederhana, kualitas hidup kita pun meningkat, dan kebiasaan lupa yang membuat frustrasi dapat dikelola dengan lebih tenang.
+
+---
+
+## Catatan Editor
+
+1. **Analogi hard disk diperjelas** — Kalimat asli "otak kita tidak menyimpan ingatan seperti *hard disk*, melainkan merakitnya kembali setiap kali dibutuhkan" dipecah menjadi dua kalimat dengan kontras eksplisit ("begitu data masuk, langsung tersimpan rapi. Sebaliknya…") agar pembaca memahami perbedaannya secara instan.
+2. **Transisi antarparagraf diperkuat** — Paragraf 2→3: menambahkan "Pada praktiknya…" untuk menjembatani data penelitian dengan aplikasi nyata. Paragraf 3→4: menggunakan "Ada juga fenomena…" sebagai jembatan alami ke topik baru.
+3. **Redundansi dihilangkan** — Kalimat "sehingga kesaksian saksi mata sering kali tidak akurat. Para ahli menyarankan agar orang mencatat informasi penting, karena menulis ulang membantu memperkuat jejak memori. Risiko salah ingat pun dapat ditekan dengan cara ini" dirangkum menjadi satu kalimat yang mengalir: "…sehingga kesaksian saksi mata sering kali tidak akurat. Para ahli menyarankan agar orang mencatat informasi penting, karena menulis ulang membantu memperkuat jejak memori sekaligus menekan risiko salah ingat."
+4. **Analogi "otot" ditambahkan** — Pada penutup, menambahkan analogi "mirip dengan cara kita melatih otot agar tetap kuat" untuk memperjelas konsep pengulangan berjarak dalam konteks populer-edukatif.
+5. **Koreksi mekanik PUEBI** — Menambahkan koma sebelum "sehingga" di paragraf pertama (aturan: koma sebelum anak kalimat penghubung); mengganti "yaitu kondisi" dengan tanda pisah "—yaitu kondisi" untuk konsistensi; menambahkan "Meskipun" (kapital) di awal kalimat paragraf kedua.
+
+---
+
+## Style Sheet
+
+| Istilah | Keputusan | Keterangan |
+|---|---|---|
+| *hard disk* | italic, dua kata | Istilah asing belum diserap penuh |
+| *tip-of-the-tongue* | italic, tanda hubung | Istilah psikologi umum, belum ada padanan baku |
+| *refresh* | italic | Istilah teknis umum dalam konteks memori |
+| penyandian | tegak | Istilah baku psikologi kognitif |
+| pengulangan berjarak | tegak | Istilah baku (*spaced repetition*) |
+| persentase | angka + % | 40%, 85% — sesuai PUEBI |
+| analisis | bentuk baku | Bukan "analisa" |
+| risiko | bentuk baku | Bukan "resiko" |
+
+---
+
+## Skor Kualitas
+
+| Dimensi | Skor |
+|---|---|
+| Kejelasan | 9 |
+| Koherensi | 9 |
+| Kedalaman | 7 |
+| Akurasi | 7 (klaim penelitian di Jepang dan "empat dari lima" belum diverifikasi dari sumber) |
+| Gaya | 9 |
+| Mekanik | 10 |
+| Engagement | 9 |
+
+---
+
+## Saran Pengembangan
+
+1. **Verifikasi referensi** — Klaim "Dua penelitian di Jepang" dan "Empat dari lima orang dewasa mengaku pernah lupa nama" idealnya dilengkapi rujukan (judul jurnal atau institusi) agar skor Akurasi naik.
+2. **Analogi lebih kontekstual** — Analogi *hard disk* sudah baik; bisa dipertimbangkan padanan lokal seperti "buku catatan" untuk pembaca yang kurang familiar dengan teknologi.
+3. **Penutup bisa lebih kuat** — Kalimat penutup sudah solid; alternatif: menambahkan satu contoh singkat kebiasaan sehari-hari yang menunjukkan manfaat pengulangan berjarak (misalnya, "Coba ingat nama lima orang yang Anda temui hari ini sebelum tidur.").
+
+---
+
+Apakah ada bagian yang ingin didalami lebih lanjut, misalnya menambahkan analogi, memperketat argumen di paragraf tertentu, atau menurunkan formalitas lebih jauh?

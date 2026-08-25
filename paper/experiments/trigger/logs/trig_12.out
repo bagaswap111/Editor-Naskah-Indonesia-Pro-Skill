@@ -1,0 +1,7 @@
+CPU (Central Processing Unit) bekerja seperti otak komputer dengan 3 langkah utama:
+
+1. **Fetch** — Mengambil instruksi dari memori (RAM)
+2. **Decode** — Menerjemahkan instruksi menjadi sinyal yang dipahami
+3. **Execute** — Menjalankan instruksi (perhitungan, perbandingan, pemindahan data)
+
+Siklus ini berulang miliaran kali per detik (dalam GHz). Semakin tinggi clock speed, semakin cepat siklusnya. Semakin banyak *core*, semakin banyak tugas yang bisa dijalankan bersamaan.

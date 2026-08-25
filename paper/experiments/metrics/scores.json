@@ -1953,5 +1953,1310 @@
       "Gaya": "Gaya fiksi ilmiah yang dicantumkan di bawah judul sama sekali tidak diterapkan dalam isi teks yang tetap berupa ulasan drama realis konvensional."
     },
     "timestamp": "2026-08-24T14:47:35"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_01",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0018",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T15:16:50"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_02",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T15:17:22"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_02",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T15:17:54"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_03",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0008",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T16:36:24"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_03",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0008",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T16:36:56"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_04",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0001",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T16:38:00"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_04",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0001",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T17:55:28"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_01",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T17:56:32"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0017",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T19:10:50"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_01",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T19:14:30"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_02",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Tidak ada penambahan data atau contoh konkret yang meningkatkan kedalaman analisis."
+    },
+    "timestamp": "2026-08-24T19:15:01"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0018",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 7,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Konten berfokus pada narasi harian dan tips praktis, sehingga belum menyentuh analisis konseptual yang lebih mendalam.",
+      "Gaya": "Pergeseran ke bahasa baku membuat naskah terasa kaku dan kurang sesuai dengan register blog pribadi yang santai.",
+      "Mekanik": "Terdapat penggunaan kata 'kompak' yang kurang tepat secara leksikal serta variasi tanda hubung yang tidak sepenuhnya mengikuti kaidah baku.",
+      "Engagement": "Ritme baca menjadi lebih datar akibat formalisasi berlebihan, sehingga daya tarik emosional pembaca sedikit berkurang."
+    },
+    "timestamp": "2026-08-24T20:29:21"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_02",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T20:32:27"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_01",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0020",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Tidak ada data atau contoh konkret yang memperdalam narasi."
+    },
+    "timestamp": "2026-08-24T20:33:32"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_02",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 5,
+      "Koherensi": 6,
+      "Kedalaman": 7,
+      "Akurasi": 5,
+      "Gaya": 6,
+      "Mekanik": 6,
+      "Engagement": 6
+    },
+    "justifikasi": {
+      "Kejelasan": "Penghilangan kata kunci penting seperti 'dosen' menjadi 'senior' dan hilangnya kata 'draf' membuat beberapa kalimat menjadi ambigu.",
+      "Koherensi": "Alur logika terganggu akibat rusaknya struktur kalimat pertentangan pada bagian kesimpulan.",
+      "Akurasi": "Penghilangan kata 'tidak boleh' pada kalimat kesimpulan mengubah makna asli naskah secara drastis menjadi sebaliknya.",
+      "Gaya": "Diksi terasa janggal dan kurang profesional akibat penghilangan kata-kata spesifik seperti 'dosen' dan 'asosiasi'.",
+      "Mekanik": "Terdapat kesalahan tata bahasa pada struktur kalimat 'melainkan' yang tidak didahului oleh kata negasi.",
+      "Engagement": "Kesalahan logika dan hilangnya kata-kata penting sangat mengganggu ritme membaca dan kenyamanan pembaca."
+    },
+    "timestamp": "2026-08-24T21:17:06"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_01",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0020",
+    "skor": {
+      "Kejelasan": 7,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 6,
+      "Gaya": 8,
+      "Mekanik": 7,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T21:17:50"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_03",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0004",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T21:34:11"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_03",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0017",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 8,
+      "Engagement": 9
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T21:35:31"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_01",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0020",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T21:49:53"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_02",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0002",
+    "skor": {
+      "Kejelasan": 7,
+      "Koherensi": 6,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 7,
+      "Mekanik": 8,
+      "Engagement": 6
+    },
+    "justifikasi": {
+      "Koherensi": "Alur antar‑paragraf masih terputus karena beberapa kalimat tidak terhubung secara logis.",
+      "Engagement": "Hook dan ritme tidak cukup kuat untuk mempertahankan minat pembaca."
+    },
+    "timestamp": "2026-08-24T21:50:57"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0018",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah bersifat narasi pribadi singkat sehingga tidak berkembang ke analisis mendalam atau lapisan argumen yang lebih kompleks."
+    },
+    "timestamp": "2026-08-24T23:03:09"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_02",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0002",
+    "skor": {
+      "Kejelasan": 7,
+      "Koherensi": 6,
+      "Kedalaman": 5,
+      "Akurasi": 7,
+      "Gaya": 7,
+      "Mekanik": 8,
+      "Engagement": 6
+    },
+    "justifikasi": {
+      "Koherensi": "Alur antar‑paragraf masih terputus dan kalimat berulang membuat pembaca tersesat.",
+      "Kedalaman": "Tidak ada data tambahan, kutipan atau contoh konkret yang memperkaya narasi.",
+      "Engagement": "Hook awal tidak kuat dan tidak ada unsur visual atau interaktif yang menarik pembaca."
+    },
+    "timestamp": "2026-08-24T23:07:52"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_01",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 10,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-24T23:08:23"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_01",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T00:25:17"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_02",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T00:26:21"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_02",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T01:42:11"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_01",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 7,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Informasi faktual masih bersifat umum dan tidak disertai referensi yang konkret."
+    },
+    "timestamp": "2026-08-25T01:43:14"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_03",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0008",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T02:31:58"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_01",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Konten masih bersifat umum dan belum disertai contoh konkret atau referensi ilmiah."
+    },
+    "timestamp": "2026-08-25T03:00:08"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_02",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T03:00:40"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_02",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T04:17:33"
+  },
+  {
+    "condition": "enip",
+    "id": "per_01",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 7,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T04:18:05"
+  },
+  {
+    "condition": "enip",
+    "id": "per_02",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 7,
+      "Gaya": 8,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T04:19:41"
+  },
+  {
+    "condition": "enip",
+    "id": "per_01",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T05:34:58"
+  },
+  {
+    "condition": "enip",
+    "id": "per_02",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 10,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T05:35:30"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_03",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0012",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T06:53:28"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_03",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0012",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T06:54:00"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_04",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0011",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T08:10:53"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_04",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0011",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T08:11:25"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_03",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0004",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T09:28:19"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_03",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0004",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T09:28:50"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_03",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0003",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T10:45:43"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_03",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0003",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T10:46:15"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_03",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0017",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T12:03:12"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_03",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0017",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T12:03:42"
+  },
+  {
+    "condition": "enip",
+    "id": "per_03",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0005",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T12:04:16"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_02",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0002",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 7,
+      "Kedalaman": 8,
+      "Akurasi": 6,
+      "Gaya": 7,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Hasil editan mengubah beberapa informasi faktual dari naskah asli tanpa alasan jelas, seperti mengubah durasi festival dari 'dua minggu' menjadi 'dua hari' dan mengubah demonstrasi memasak menjadi 'secara daring'."
+    },
+    "timestamp": "2026-08-25T12:36:06"
+  },
+  {
+    "condition": "enip",
+    "id": "per_03",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0005",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T13:21:51"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_01",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0018",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 8,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kejelasan": "Kalimat dipersingkat namun masih ada beberapa kalimat yang panjang.",
+      "Koherensi": "Transisi antar paragraf cukup lancar, namun beberapa hubungan logis masih terasa ringan.",
+      "Kedalaman": "Penjelasan cukup, namun belum mencapai lapisan 4–5 dengan contoh konkret.",
+      "Gaya": "Nada santai dipertahankan, namun bahasa baku mengurangi keaslian suara penulis.",
+      "Engagement": "Hook kuat, namun ritme narasi bisa lebih dinamis."
+    },
+    "timestamp": "2026-08-25T13:22:24"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_03",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0008",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T13:25:04"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0008",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 7,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T13:27:59"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_04",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0001",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-25T14:03:07"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_01",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0018",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 7,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T14:41:37"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_02",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 7,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T14:42:09"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0003",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 6,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Narasi bersifat deskriptif sederhana tanpa eksplorasi tema, konflik batin, atau lapisan makna yang lebih dalam."
+    },
+    "timestamp": "2026-08-25T15:37:50"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_02",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 8,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Tidak ada contoh konkret atau analogi yang mendalam, sehingga kedalaman tetap berada di level 4–5."
+    },
+    "timestamp": "2026-08-25T15:59:37"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_03",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0008",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 8,
+      "Mekanik": 10,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T16:00:09"
+  },
+  {
+    "condition": "enip",
+    "id": "per_02",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T16:41:27"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_04",
+    "judge": "J2",
+    "trial": 0,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0001",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 8,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T17:16:00"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_04",
+    "judge": "J2",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "anon": "OUT-0001",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T17:16:32"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T18:10:03"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_04",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0011",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-25T19:11:32"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-25T19:24:17"
   }
 ]

@@ -43,20 +43,30 @@ Deviasi utama (detail: `experiments/README.md` Deviasi #1–#8):
 
 ## Belum selesai (blokir eksplisit)
 
-1. **C2 judge** — progres per 2026-08-24 siang: J2 berjalan (bucket
-   TPD-nya longgar); **J1 (qwen) menunggu refund TPD rolling** —
-   ±154rb token re-run editor 2026-08-23 ~03:00 WIB kedaluwarsa dari
-   jendela malam ini; **J3 (gemini) menunggu reset kuota harian**
-   (±14:00 WIB). Semua idempotent: ulangi
-   `python3 scripts/judge.py --judges JX` kapan pun.
-2. **C3 delta self-score + statistik** — `scripts/analyze.py` sudah
-   ditulis (paired bootstrap antar naskah, korelasi Pearson/Spearman
-   antar-judge, pemetaan self-score → rubrik 7 dimensi); jalankan
-   setelah scores.json lengkap: `python3 scripts/analyze.py`.
-3. **D1 portability (8 runtime)** dan **D2 trigger (20 query)**:
-   butuh interaksi GUI runtime lokal — skema & berkas siap.
+1. **C2 judge** — 25 Agu: J2 selesai **120/120**; J3 mengikuti reset
+   harian Gemini; J1 terkendala TPD rolling Groq (biaya ±4–5rb token
+   per evaluasi → sisa ±110 evaluasi ≈ 3 hari kuota 200K) — tuntas
+   ±27 Agu. Semua idempotent via `scripts/judge_loop.sh`.
+2. **C3 delta self-score + statistik** — `scripts/analyze.py` siap;
+   jalankan setelah scores.json = 300.
+3. **D1 portability** — 🔶 **OpenCode ✅ (1/8)**: skill aktif tanpa
+   modifikasi, telemetri progressive disclosure terekam
+   (`portability/logs/opencode_pop03.out`). Claude Code: skill
+   terpasang di `.claude/skills/` tetapi kredensial tidak ada
+   (`/login` dulu). 6 runtime lain: butuh aplikasi GUI pengguna.
+   **D2 trigger ✅ (RQ3 jawab)**: precision **1.0**, recall **0.9**
+   (1 FN: trig_05 dijawab generik bahasa Inggris); TN 10/10; log
+   `trigger/logs/`, hasil `trigger/results.json`.
 4. **Fase E**: SKIP (K6) — protokol tetap di PLAN.md §7.
 5. **F konsolidasi paper** — setelah analysis_report.md final.
+
+## Temuan audit sementara (data parsial, jangan dikutip)
+
+- Judge memberi **Mekanik=10 pada 26% penilaian** padahal C1
+  mendeteksi sisa error pada mayoritas output — divergensi judge vs
+  detektor deterministik; ENIP justru paling sering dapat 10 (22/41).
+- **J3 lebih tajam** dari J2 (semua skor terendah miliknya, min 4.4);
+  reliabilitas intra-judge antar-trial r=0.56; J2–J3 r=0.55 (n=25).
 
 ## Batasan yang harus dikutip di paper
 

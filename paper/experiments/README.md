@@ -73,8 +73,8 @@ yang Harus Diambil Saat Eksekusi"). Tanggal sesi: 2026-08-15/16.
 | A korpus | ✅ (v2 bersih) | Bug offset diperbaiki; 238/238 error terverifikasi di teks (Deviasi #8) |
 | B runner | ✅ final | Re-run gpt-oss-120b di korpus v2 tuntas 2026-08-23 (20/20 per kondisi) |
 | C metrik | 🔶 sebagian final | C1 fix rate final (enip 0.9681 < b1 0.9774 ≈ b2 0.9769); C4 final; **C2 judge berjalan bertahap** (kuota harian: J2 live, J1 tunggu refund TPD rolling, J3 tunggu reset harian); C3+analyze.py siap, jalankan setelah scores lengkap |
-| D1 portability | ⏳ manual | skema + 8 runtime siap; butuh interaksi GUI |
-| D2 trigger | ⏳ manual | 20 query siap; butuh runtime lokal |
+| D1 portability | 🔶 1/8 | OpenCode ✅ telemetri progressive disclosure; Claude Code menunggu `/login`; 6 runtime lain manual GUI |
+| D2 trigger | ✅ | precision 1.0 · recall 0.9 (1 FN) — `trigger/results.json` + logs/ |
 | D3 overhead | ✅ | discovery 382, aktivasi 2266, refs+assets 7941, bundle 10589 token |
 | E human | SKIP | editor tidak tersedia (K6); protokol tetap di PLAN.md §7 |
 | F konsolidasi | ⏳ | EXPERIMENT_RESULTS.md menyusul setelah re-run |

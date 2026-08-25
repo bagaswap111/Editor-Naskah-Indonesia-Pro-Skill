@@ -22,11 +22,20 @@ Semua TPD Groq itu **jendela rolling 24 jam** — token kembali tepat
 24 jam setelah dipakai. Gemini reset kuota harian tiap tengah malam
 Pacific (±14:00 WIB).
 
-| Judge | Model | Sisa | Kapan kuota kembali |
+Biaya per evaluasi ±4–5 ribu token (rubrik + naskah + thinking +
+cap). Karena TPD Groq = 200K/hari/model, **J1 sisa ±111 evaluasi
+≈ 550rb token ≈ 3 hari kuota** — tidak mungkin tuntas sehari.
+
+| Judge | Model | Sisa | Perkiraan tuntas |
 |---|---|---|---|
-| J1 | qwen/qwen3.6-27b | 117 | **2026-08-25 ±10:45–12:30 WIB** (pemakaian 24 Agu 10:45–12:30 kedaluwarsa) |
-| J2 | openai/gpt-oss-20b | 47 | **2026-08-25 ±12:47–14:00 WIB** |
-| J3 | gemini-3.5-flash | 43 | reset harian; setelah 14:00 WIB 24 Agu kapasitas terisi cepat |
+| J1 | qwen/qwen3.6-27b | 111 | **±27 Agu** (loop mengisi tiap kali jendela mengembalikan token) |
+| J2 | openai/gpt-oss-20b | 4 | segera setelah ada ruang (25 Agu) |
+| J3 | gemini-3.5-flash | 36 | tergantung pagu harian Gemini; cek bertahap tiap reset 14:00 WIB |
+
+Tanda "GAGAL (HARD_QUOTA ...)" di log = normal saat menunggu kuota;
+loop otomatis mengulang tiap 15 menit. Probe kecil (max_tokens 5)
+SELALU terlihat berhasil walau kuota sesak — jangan jadi patokan;
+cek pesan 429 ukuran penuh untuk angka "Used X / Limit 200000".
 
 ## Langkah sesi berikutnya (jalankan berurutan)
 
@@ -51,9 +60,8 @@ EOF
 tail -5 judge_loop.local.log   # GAGAL HARD_QUOTA = masih menunggu kuota, normal
 ```
 
-- J1+J2 diperkirakan lengkap **siang 25 Agu** (refund rolling).
-- J3 mengikuti reset harian Gemini; bila suatu hari J3 macet
-  (< 20 sukses/hari), biarkan — loop otomatis mengisi lagi esoknya.
+- J1+J2 diperkirakan lengkap **25–27 Agu** (batas TPD harian Groq);
+  loop mengisi otomatis — cukup pantau sekali sehari.
 
 ### 2. Verifikasi LENGKAP (jangan lewati)
 
