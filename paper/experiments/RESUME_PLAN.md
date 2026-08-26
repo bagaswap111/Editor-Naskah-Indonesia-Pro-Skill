@@ -26,11 +26,11 @@ Biaya per evaluasi ±4–5 ribu token (rubrik + naskah + thinking +
 cap). Karena TPD Groq = 200K/hari/model, **J1 sisa ±111 evaluasi
 ≈ 550rb token ≈ 3 hari kuota** — tidak mungkin tuntas sehari.
 
-| Judge | Model | Sisa | Perkiraan tuntas |
+| Judge | Model | Sisa (26 Agu 14:21) | Perkiraan tuntas |
 |---|---|---|---|
-| J1 | qwen/qwen3.6-27b | 111 | **±27 Agu** (loop mengisi tiap kali jendela mengembalikan token) |
-| J2 | openai/gpt-oss-20b | 4 | segera setelah ada ruang (25 Agu) |
-| J3 | gemini-3.5-flash | 36 | tergantung pagu harian Gemini; cek bertahap tiap reset 14:00 WIB |
+| J1 | qwen/qwen3.6-27b | 102 | **±28–29 Agu** — laju maksimum TPD ≈ 43 evaluasi/hari (200K ÷ ±4,6rb); loop sudah menguras tiap jendela |
+| J2 | openai/gpt-oss-20b | 0 | ✅ selesai 120/120 (25 Agu) |
+| J3 | gemini-3.5-flash | 19 | ±26–27 Agu via reset harian 14:00 WIB |
 
 Tanda "GAGAL (HARD_QUOTA ...)" di log = normal saat menunggu kuota;
 loop otomatis mengulang tiap 15 menit. Probe kecil (max_tokens 5)
@@ -51,13 +51,7 @@ pgrep caffeinate || nohup caffeinate -i -s > /dev/null 2>&1 &
 ### 1. Pantau sampai lengkap (target: 300)
 
 ```bash
-python3 - <<'EOF'
-import json
-from collections import Counter
-rows = json.load(open("metrics/scores.json"))
-print("total:", len(rows), "/300 |", dict(Counter(r["judge"] for r in rows)))
-EOF
-tail -5 judge_loop.local.log   # GAGAL HARD_QUOTA = masih menunggu kuota, normal
+bash scripts/status.sh   # ringkas: skor, yang kurang, loop, caffeinate
 ```
 
 - J1+J2 diperkirakan lengkap **25–27 Agu** (batas TPD harian Groq);
