@@ -3720,5 +3720,705 @@
     },
     "justifikasi": {},
     "timestamp": "2026-08-26T14:19:36"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_01",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0018",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 5,
+      "Mekanik": 7,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Editor salah mengidentifikasi genre naskah sebagai fiksi sains dan memberikan saran pengembangan yang tidak relevan dengan konteks cerita pribadi.",
+      "Gaya": "Terjadi ketidakkonsistenan gaya akibat pergantian kata ganti dari 'gue' di awal naskah menjadi 'aku' di pertengahan, serta perpaduan kaku antara bahasa baku dan slang.",
+      "Mekanik": "Terdapat kesalahan mekanis berupa inkonsistensi penggunaan kata ganti ('gue' dan 'aku') serta penggunaan karakter tanda hubung non-standar pada kata ulang."
+    },
+    "timestamp": "2026-08-26T16:43:09"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-26T17:29:26"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0003",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Narasi ini bersifat deskriptif sederhana dan tidak mengembangkan latar belakang karakter atau tema secara mendalam."
+    },
+    "timestamp": "2026-08-26T18:48:28"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_02",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 7,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 7,
+      "Gaya": 8,
+      "Mekanik": 7,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-26T18:53:16"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0003",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-26T21:05:45"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0012",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 6,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Mekanik": "Catatan perbaikan memuat beberapa klaim penerapan PUEBI yang keliru, seperti penggunaan tanda hubung pada kata berimbuhan dan penjelasan awalan di- yang bertentangan dengan kaidah baku."
+    },
+    "timestamp": "2026-08-27T01:08:26"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0012",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T01:09:15"
+  },
+  {
+    "condition": "b1",
+    "id": "jur_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0004",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 5,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 6
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah hanya menyajikan fakta permukaan berita tanpa analisis mendalam, analogi, atau contoh konkret yang memperkaya pemahaman pembaca.",
+      "Engagement": "Gaya bahasa sangat standar layaknya siaran pers sehingga kurang memiliki daya tarik atau ritme yang membuat pembaca ingin terus membaca."
+    },
+    "timestamp": "2026-08-27T01:09:44"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_03",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0004",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T01:10:38"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_03",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0012",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T01:17:24"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_01",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 8,
+      "Mekanik": 7,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T02:12:05"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 9,
+      "Gaya": 5,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "...",
+      "Gaya": "..."
+    },
+    "timestamp": "2026-08-27T03:24:59"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_03",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0003",
+    "skor": {
+      "Kejelasan": 6,
+      "Koherensi": 7,
+      "Kedalaman": 6,
+      "Akurasi": 6,
+      "Gaya": 7,
+      "Mekanik": 5,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T04:37:08"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0008",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T05:36:52"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0008",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T07:47:42"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0004",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan hanya bersifat faktual dan permukaan tanpa analisis mendalam, analogi, atau contoh konkret yang memperkaya pemahaman pembaca."
+    },
+    "timestamp": "2026-08-27T11:33:03"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_02",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 6,
+      "Koherensi": 7,
+      "Kedalaman": 8,
+      "Akurasi": 6,
+      "Gaya": 6,
+      "Mekanik": 6,
+      "Engagement": 6
+    },
+    "justifikasi": {
+      "Kejelasan": "Kesalahan edit seperti 'menanti kemasan' dan 'dua-dua penumpang' membuat beberapa kalimat membingungkan dan sulit dipahami dalam sekali baca.",
+      "Akurasi": "Hasil editan mengubah informasi asli secara keliru, seperti mengubah tindakan 'mengganti kemasan' menjadi 'menanti kemasan'.",
+      "Gaya": "Penggunaan tanda hubung yang tidak lazim pada kata seperti 'Istri-nya', 'Dua-dua', dan 'Empat-empat' merusak konsistensi dan estetika gaya penulisan.",
+      "Mekanik": "Terdapat kesalahan mekanik yang nyata seperti penggunaan tanda hubung pada klitika 'Istri-nya' dan hilangnya kata 'kemasan' setelah kata 'kualitas'.",
+      "Engagement": "Banyaknya kesalahan ketik dan keanehan pilihan kata baru sangat mengganggu ritme membaca dan menurunkan daya tarik cerita."
+    },
+    "timestamp": "2026-08-27T14:11:42"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_01",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0018",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 7,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T14:14:29"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_04",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0001",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T14:14:54"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_01",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 5,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Akurasi": "Skor rendah karena editor mengubah data konkret dari naskah asli secara sepihak, seperti mengubah proporsi 'tiga dari empat' (75%) menjadi 'tiga puluh persen' dan tahun '2024' menjadi '2022'."
+    },
+    "timestamp": "2026-08-27T14:15:26"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_01",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 7,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 7,
+      "Mekanik": 6,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Mekanik": "Terdapat kesalahan mekanik baru seperti penggunaan tanda hubung yang tidak tepat pada kata majemuk ('kelabu-tua', 'ibu-tua') serta repetisi kata 'di rumah' yang mengganggu struktur kalimat."
+    },
+    "timestamp": "2026-08-27T14:17:34"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_02",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 3,
+      "Koherensi": 4,
+      "Kedalaman": 4,
+      "Akurasi": 4,
+      "Gaya": 4,
+      "Mekanik": 3,
+      "Engagement": 3
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T14:18:40"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_01",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 6,
+      "Gaya": 9,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T14:19:14"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_02",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 4,
+      "Koherensi": 5,
+      "Kedalaman": 5,
+      "Akurasi": 4,
+      "Gaya": 5,
+      "Mekanik": 3,
+      "Engagement": 4
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T14:19:48"
+  },
+  {
+    "condition": "enip",
+    "id": "per_01",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 7,
+      "Koherensi": 7,
+      "Kedalaman": 7,
+      "Akurasi": 7,
+      "Gaya": 8,
+      "Mekanik": 7,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T14:21:12"
+  },
+  {
+    "condition": "enip",
+    "id": "per_03",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0005",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 7,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T14:24:05"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_02",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan mengenai tips belajar bahasa asing masih bersifat permukaan dan belum menyajikan analisis atau metodologi praktis yang mendalam."
+    },
+    "timestamp": "2026-08-27T14:25:38"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_03",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0008",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 9,
+      "Gaya": 7,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan mengenai produktivitas dan istirahat masih sangat permukaan serta hanya mengandalkan refleksi personal tanpa adanya kupasan konsep yang lebih mendalam."
+    },
+    "timestamp": "2026-08-27T14:26:12"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_04",
+    "judge": "J3",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash",
+    "anon": "OUT-0001",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Ulasan drama masih berada di permukaan tanpa analisis karakter yang mendalam atau penggunaan analogi yang kuat."
+    },
+    "timestamp": "2026-08-27T14:28:10"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-27T15:09:17"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0017",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-27T15:53:00"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan masih berada pada permukaan studi deskriptif tanpa analisis teoritis lapis mendalam atau contoh konkret yang kaya."
+    },
+    "timestamp": "2026-08-27T17:15:52"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0017",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-27T17:59:36"
   }
 ]
