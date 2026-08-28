@@ -42,10 +42,10 @@
   {
     "runtime": "Gemini CLI",
     "install_method": "skill folder",
-    "loads_without_modification": null,
-    "activation_mechanism": null,
-    "output_received": null,
-    "notes": "MANUAL"
+    "loads_without_modification": true,
+    "activation_mechanism": "Otomatis — kecocokan deskripsi skill (global ~/.agents/skills/enip-editor [Enabled]); dijalankan dengan --skip-trust di direktori eksperimen",
+    "output_received": true,
+    "notes": "Dieksekusi 2026-08-28 via `npx @google/gemini-cli --skip-trust -p` (model default Gemini) pada pop_03; output terstruktur ENIP ('Naskah Hasil Editan'). Bukti: portability/logs/gemini_pop03.out"
   },
   {
     "runtime": "Google Antigravity",

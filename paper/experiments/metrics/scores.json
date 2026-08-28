@@ -4532,5 +4532,71 @@
       "<nm_dimensi>": "satu kalimat"
     },
     "timestamp": "2026-08-28T06:23:46"
+  },
+  {
+    "condition": "b2",
+    "id": "per_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-28T11:40:30"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0018",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-28T16:57:16"
+  },
+  {
+    "condition": "b2",
+    "id": "per_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-28T17:41:02"
   }
 ]
