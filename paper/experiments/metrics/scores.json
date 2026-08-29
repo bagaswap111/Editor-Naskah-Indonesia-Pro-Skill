@@ -4598,5 +4598,202 @@
       "<nm_dimensi>": "satu kalimat"
     },
     "timestamp": "2026-08-28T17:41:02"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0003",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 6,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Narasi hanya menyajikan rangkaian peristiwa permukaan tanpa eksplorasi psikologis atau tematik yang lebih mendalam.",
+      "Mekanik": "Penggunaan tanda hubung pada frasa 'kelabu-tua' dan 'ibu-tua' melanggar kaidah PUEBI karena kedua frasa tersebut bukan merupakan kata majemuk."
+    },
+    "timestamp": "2026-08-28T23:45:40"
+  },
+  {
+    "condition": "b2",
+    "id": "per_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-29T00:23:08"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 6,
+      "Koherensi": 5,
+      "Kedalaman": 6,
+      "Akurasi": 6,
+      "Gaya": 6,
+      "Mekanik": 6,
+      "Engagement": 6
+    },
+    "justifikasi": {
+      "Kejelasan": "Beberapa perubahan kata seperti \"menanti\" menggantikan \"mengganti\" dan \"tiga orang\" menggantikan \"tiga kali\" menimbulkan ambiguitas makna yang mengganggu pemahaman pembaca.",
+      "Koherensi": "Alur cerita terputus akibat perubahan makna kata kunci yang tidak sesuai konteks, sehingga hubungan antarparagraf dan antar kalimat menjadi kurang logis.",
+      "Kedalaman": "Naskah tidak mengembangkan karakter atau tema secara lebih mendalam, melainkan hanya mengubah beberapa frasa yang justru mengurangi kekayaan deskripsi dan nuansa cerita asli.",
+      "Akurasi": "Beberapa perubahan kata mengubah fakta dan makna cerita asli secara tidak akurat, seperti penggantian kata kerja dan keterangan jumlah yang tidak sesuai dengan konteks narasi.",
+      "Gaya": "Diksi dan struktur kalimat yang diubah tidak konsisten dengan gaya naratif yang diharapkan, sehingga menimbulkan kesan kaku dan kurang alami dalam penyampaian cerita.",
+      "Mekanik": "Terdapat kesalahan mekanik seperti penggunaan tanda hubung yang tidak tepat pada \"Kembalian‑nya\" dan penulisan \"Dua‑dua\" yang tidak sesuai kaidah bahasa Indonesia baku.",
+      "Engagement": "Ketidakkonsistenan makna dan diksi yang kaku mengurangi daya tarik cerita, sehingga pembaca cenderung terdistraksi dari alur narasi yang seharusnya mengalir."
+    },
+    "timestamp": "2026-08-29T01:57:41"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-29T02:53:47"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 6,
+      "Koherensi": 7,
+      "Kedalaman": 7,
+      "Akurasi": 6,
+      "Gaya": 8,
+      "Mekanik": 5,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kejelasan": "Penggunaan frasa 'Lima-persepuluh' dan 'Dua-dua' menimbulkan ambiguitas makna yang mengganggu pemahaman pembaca.",
+      "Akurasi": "Konversi angka '5 percobaan' menjadi 'Lima-persepuluh' mengubah fakta menjadi pecahan matematika yang tidak relevan.",
+      "Mekanik": "Terdapat kesalahan tata bahasa dan PUEBI seperti 'Dua-dua tahap pertama' serta penulisan angka yang tidak sesuai kaidah."
+    },
+    "timestamp": "2026-08-29T05:40:25"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-29T08:25:27"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 2,
+      "Koherensi": 2,
+      "Kedalaman": 3,
+      "Akurasi": 2,
+      "Gaya": 3,
+      "Mekanik": 1,
+      "Engagement": 2
+    },
+    "justifikasi": {
+      "Kejelasan": "Banyak kalimat kehilangan subjek atau kata kunci, serta terdapat artefak format yang membuat makna menjadi tidak jelas.",
+      "Koherensi": "Alur logis terputus akibat penghapusan kata kunci dan penggantian frasa yang tidak sesuai konteks.",
+      "Kedalaman": "Penjelasan menjadi dangkal karena penghilangan istilah teknis dan konteks penting selama proses editing.",
+      "Akurasi": "Klaim faktual dan data menjadi tidak akurat atau tidak masuk akal akibat kesalahan penggantian kata yang masif.",
+      "Gaya": "Gaya penulisan tidak konsisten dan terganggu oleh artefak format serta diksi yang tidak tepat register.",
+      "Mekanik": "Terdapat banyak kesalahan ejaan, tata bahasa, dan artefak format yang melanggar kaidah PUEBI secara signifikan.",
+      "Engagement": "Pembaca akan kehilangan minat karena teks yang patah-patah dan penuh kesalahan yang mengganggu alur baca."
+    },
+    "timestamp": "2026-08-29T09:19:56"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 4,
+      "Koherensi": 4,
+      "Kedalaman": 5,
+      "Akurasi": 4,
+      "Gaya": 5,
+      "Mekanik": 3,
+      "Engagement": 4
+    },
+    "justifikasi": {
+      "Kejelasan": "...",
+      "Koherensi": "...",
+      "Kedalaman": "...",
+      "Akurasi": "...",
+      "Gaya": "...",
+      "Mekanik": "...",
+      "Engagement": "..."
+    },
+    "timestamp": "2026-08-29T12:01:48"
   }
 ]
