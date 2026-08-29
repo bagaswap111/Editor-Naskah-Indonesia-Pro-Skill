@@ -1,11 +1,9 @@
-# EXPERIMENT_RESULTS — Status Eksekusi (2026-08-24)
+# EXPERIMENT_RESULTS — Status Eksekusi (2026-08-29 19:24)
 
 Ringkasan jujur hasil eksekusi PLAN.md. Angka hanya dari
 `paper/experiments/metrics/*` dan `runs/`; tidak ada perhitungan manual.
 
-**Status besar: re-run editor selesai di korpus bersih (gpt-oss-120b,
-20/20/20); C1/C4 final terbit; judge C2 berjalan bertahap mengikuti
-kuota harian free tier** (lihat "Blokir eksplisit").
+**Status besar: 2026-08-29 — judge C2 228/300 (J1 48/120, J2 120/120 ✅, J3 60/60 ✅); sisa 72 J1 diblokir TPD rolling Groq (loop hidup). C1/C4/D3 FINAL, D2 ✅, D1 2/8 (OpenCode+Gemini).** Detail blokir lihat bawah.
 
 ## Keputusan eksekusi (K1–K6, terbaru)
 
@@ -41,32 +39,23 @@ Deviasi utama (detail: `experiments/README.md` Deviasi #1–#8):
 - **D3 overhead ✅**: discovery 382 · aktivasi 2.266 · refs+assets
   7.941 · bundle penuh 10.589 token (`metrics/overhead.json`).
 
-## Belum selesai (blokir eksplisit)
+## Belum selesai (blokir eksplisit — update 2026-08-29)
 
-1. **C2 judge** — 25 Agu: J2 selesai **120/120**; J3 mengikuti reset
-   harian Gemini; J1 terkendala TPD rolling Groq (biaya ±4–5rb token
-   per evaluasi → sisa ±110 evaluasi ≈ 3 hari kuota 200K) — tuntas
-   ±27 Agu. Semua idempotent via `scripts/judge_loop.sh`.
-2. **C3 delta self-score + statistik** — `scripts/analyze.py` siap;
-   jalankan setelah scores.json = 300.
-3. **D1 portability** — 🔶 **OpenCode ✅ (1/8)**: skill aktif tanpa
-   modifikasi, telemetri progressive disclosure terekam
-   (`portability/logs/opencode_pop03.out`). Claude Code: skill
-   terpasang di `.claude/skills/` tetapi kredensial tidak ada
-   (`/login` dulu). 6 runtime lain: butuh aplikasi GUI pengguna.
-   **D2 trigger ✅ (RQ3 jawab)**: precision **1.0**, recall **0.9**
-   (1 FN: trig_05 dijawab generik bahasa Inggris); TN 10/10; log
-   `trigger/logs/`, hasil `trigger/results.json`.
+1. **C2 judge — 228/300 (kurang 72 J1)** — J2 120/120 (25 Agu) ✅, J3 60/60 (27 Agu) ✅, J1 48/120 🔶.
+   Hari ini (19:23 WIB) `judge_loop.sh` PID 80255 masih hidup, `caffeinate` aktif, log terakhir `HARD_QUOTA groq qwen/qwen3.6-27b`.
+   Estimasi rolling TPD: last success 2026-08-29 12:01 → next window 2026-08-30 12:01 (+16.6 jam); butuh ~1.5–2 hari lagi @ ~43 eval/hari (200K TPD ÷ 4.6K/eval). Cek `bash scripts/status.sh`.
+2. **C3 + statistik interim** — `metrics/analysis_report.md` (228) sudah di-refresh: `enip_vs_b1 Δ -0.12 p=0.425` (n.s.), `enip_vs_b2 Δ -0.28 p=0.024 *` ; `J1-J2 r=0.629, J1-J3 r=0.685` — **jangan dikutip final** sampai 300/300. Final `python3 scripts/analyze.py` setelah lengkap.
+3. **D1 portability — 2/8 ✅** — `OpenCode ✅` (25 Agu, telemetri progressive disclosure) + `Gemini CLI ✅` (28 Agu, `portability/logs/gemini_pop03.out`) — `portability/results.json`.
+   Sisa 6 manual: Claude Code (butuh `/login`), Cursor, Codex, Cline, Antigravity, VS Code Copilot (butuh GUI).
+   **D2 trigger ✅ (RQ3)**: precision **1.0**, recall **0.9** (FN trig_05), `trigger/results.json` + `trigger/logs/`.
 4. **Fase E**: SKIP (K6) — protokol tetap di PLAN.md §7.
-5. **F konsolidasi paper** — setelah analysis_report.md final.
+5. **F konsolidasi paper** — TBD di `paper/inputs/experimental_log.md` (tabel 7 dimensi, PUEBI rate) menunggu 300; `validate_consistency.py` saat ini PASS interim — re-run setelah TBD terisi.
 
-## Temuan audit sementara (data parsial, jangan dikutip)
+## Temuan audit interim (228/300 — jangan dikutip final)
 
-- Judge memberi **Mekanik=10 pada 26% penilaian** padahal C1
-  mendeteksi sisa error pada mayoritas output — divergensi judge vs
-  detektor deterministik; ENIP justru paling sering dapat 10 (22/41).
-- **J3 lebih tajam** dari J2 (semua skor terendah miliknya, min 4.4);
-  reliabilitas intra-judge antar-trial r=0.56; J2–J3 r=0.55 (n=25).
+- Interim 228: `b1 8.06±0.87, b2 8.22±0.32, enip 7.95±0.72` — ENIP sedikit di bawah B1/B2 overall; per dimensi ENIP unggul tipis Akurasi (+0.16 vs B1) & Mekanik (+0.03 vs B1) tapi kalah Koherensi (-0.33) & Kedalaman (-0.33) — lihat `metrics/analysis_report.md`.
+- Korelasi antar-judge menguat di 228: `J1-J2 r=0.629 ρ=0.614 (n=19), J1-J3 r=0.685, J2-J3 r=0.593` vs r=0.55 parsial lama.
+- Divergensi tetap: C1 fix_rate mekanik tinggi (ENIP 0.9681) tapi judge masih variatif Mekanik (std 0.91 ENIP).
 
 ## Batasan yang harus dikutip di paper
 
