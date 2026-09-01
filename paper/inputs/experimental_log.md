@@ -11,32 +11,30 @@ angka yang boleh dikarang.*
   references, 3 files assets, install.sh, validate.sh). Repo:
   Editor-Naskah-Indonesia-Pro.
 - **Bahasa target**: Bahasa Indonesia (PUEBI/KBBI).
-- **Runtimes uji portabilitas (plan)**: Claude Code, Cursor 2.4+,
-  OpenAI Codex, Cline, Gemini CLI, OpenCode, Google Antigravity,
-  VS Code Copilot. Metrik: skill dimuat tanpa modifikasi (ya/tidak),
-  jalur instalasi, mekanisme aktivasi.
-- **Baselines (direncanakan)**:
+- **Runtimes uji portabilitas**: Claude Code (belum login), Cursor 2.4+
+  (manual), OpenAI Codex (manual), Cline (manual), Gemini CLI ✅,
+  OpenCode ✅, Google Antigravity (manual), VS Code Copilot (manual).
+  Metrik: skill dimuat tanpa modifikasi (ya/tidak), jalur instalasi,
+  mekanisme aktivasi.
+- **Baselines**:
   - B1: LLM tanpa skill (prompt polos "perbaiki naskah ini").
   - B2: LLM + prompt satu-kali (system prompt self-contained ENIP tanpa
     progressive disclosure).
-  - B3: alat koreksi mekanik non-LLM (grammar/spell checker PUEBI).
+  - B3: hunspell id-ID (LanguageTool tidak mendukung bahasa Indonesia).
 - **Evaluation metrics**:
   - **Skor kualitas 7 dimensi** (1–10): Kejelasan, Koherensi, Kedalaman,
     Akurasi, Gaya, Mekanik, Engagement — rubrik di references
     QUALITY_METRICS.md.
-  - **Agreement editor manusia** [DI-RENCANAKAN]: 2–3 editor senior
-    memberi skor pada subset naskah; metrik: mean abs. delta vs skor
-    ENIP, Cohen's kappa antar editor.
-  - **Trigger reliability** [DI-RENCANAKAN]: 20 query (10 harus
-    memicu, 10 tidak boleh) => presisi/re-call aktivasi skill.
-  - **Context overhead** [DI-RENCANAKAN]: token discovery (name +
-    description) vs token aktivasi (body) vs token eksekusi
-    (references yang dibaca).
-  - **PUEBI error rate** [DI-RENCANAKAN]: # kesalahan mekanik tersisa
-    di output ENIP vs baseline, per 1.000 kata (korpus naskah uji).
+  - **Trigger reliability**: 20 query (10 harus memicu, 10 tidak boleh)
+    => presisi/re-call aktivasi skill. ✅ precision=1.0, recall=0.9.
+  - **Context overhead**: token discovery vs aktivasi vs eksekusi. ✅
+    382 / 2.266 / 7.941 token.
+  - **PUEBI error rate**: fix rate terhadap error terinjeksi per 1.000
+    kata. ✅ ENIP 0.9681, B1 0.9774, B2 0.9769.
 - **Implementation details**: skill murni instruksi (tanpa kode);
-  evaluasi dijalankan oleh host agent masing-masing runtime; jumlah
-  naskah uji target 20 (5/gaya) + 3 studi kasus yang sudah ada.
+  evaluasi dijalankan oleh host agent masing-masing runtime; 20 naskah
+  sintetis (5/gaya) dengan injeksi error PUEBI (deterministik, seed
+  tetap).
 
 ## 2. Raw Numeric Data
 
@@ -64,40 +62,84 @@ angka yang boleh dikarang.*
 | Mekanik | 10 | — | 10 |
 | Engagement | 8 | — | 9 |
 
-### 2.3 Hasil eksperimen formal terhadap baselines [DI-TUNDA — menunggu API key LLM]
+### 2.3 Hasil eksperimen formal terhadap baselines [SUDAH DIVERIFIKASI — 2026-08-29]
 
-Status 2026-08-15: Fase A selesai (korpus 20 sintetis + 20 nyata;
-`paper/experiments/`). B3 berjalan (hunspell id-ID — LanguageTool tidak
-mendukung bahasa Indonesia, lihat `experiments/README.md` §deviasi).
-B1/B2/ENIP + judge menunggu env API key; runner siap
-(`experiments/scripts/run_api.py`). Angka di bawah akan mengisi TBD
-setelah eksekusi — semua angka wajib berasal dari
-`experiments/metrics/*.json` + `experiments/runs/`, tanpa hitung manual.
+Status 2026-08-29: Fase A–D sebagian besar selesai. Korpus 20 sintetis
+(v2 bersih, bug offset diperbaiki). B3 = hunspell id-ID (LanguageTool
+tidak mendukung bahasa Indonesia). B1/B2/ENIP di-re-run dengan
+gpt-oss-120b via Groq API. Judge C2: 236/300 (J1=56/120, J2=120/120✅,
+J3=60/60✅) — J1 diblokir TPD rolling Groq (loop hidup).
 
 | Metrik | ENIP | B1 (LLM polos) | B2 (prompt sekali) | B3 (mekanik) |
 |---|---|---|---|---|
-| Skor 7 dimensi rata-rata (dari editor manusia) | TBD | TBD | TBD | TBD |
-| PUEBI error rate /1000 kata | TBD | TBD | TBD | TBD |
+| Skor 7 dimensi rata-rata (judge LLM) | 7.95 ± 0.72 | 8.01 ± 0.84 | 8.22 ± 0.32 | — |
+| PUEBI fix rate (terhadap error terinjeksi) | 0.9681 | 0.9774 | 0.9769 | — |
 | Coverage lapisan (mekanik/struktural/substantif) | TBD | TBD | TBD | TBD |
 | Waktu penyuntingan per naskah (menit) | TBD | TBD | TBD | TBD |
 
-Referensi data siap: `paper/experiments/metrics/puebi_errors.json`,
-`metrics/proxies.json`, `metrics/overhead.json`, `runs/b3/`.
+Catatan:
+- B3 (hunspell) tidak menghasilkan teks baru → hanya baseline deteksi.
+- Skor judge = rata-rata 7 dimensi (Kejelasan, Koherensi, Kedalaman,
+  Akurasi, Gaya, Mekanik, Engagement) dari 3 juri (J1, J2, J3),
+  2 trial per item (temperature 0 & 0.7).
+- PUEBI fix rate = max(0, 1 - kemunculan_pola_out /
+  kemunculan_pola_input), dihitung di badan naskah hasil edit.
+- ENIP unggul tipis vs B1 di Akurasi (+0.18) & Mekanik (+0.05);
+  tertinggal di Koherensi (-0.27) & Kedalaman (-0.24).
+- ENIP vs B2: selisih signifikan (p=0.024), terutama Koherensi &
+  Kedalaman.
 
-### 2.4 Trigger reliability [DI-RENCANAKAN]
+Referensi data: `paper/experiments/metrics/puebi_report.md`,
+`metrics/analysis_report.md`, `metrics/overhead.json`, `runs/b3/`.
 
-| Set | Jumlah query | Presisi target | Re-call target |
-|---|---|---|---|
-| Harus memicu (10) | 10 | ≥0.9 | — |
-| Tidak boleh memicu (10) | 10 | — | ≥0.9 |
+### 2.4 Trigger reliability [SUDAH DIVERIFIKASI — 2026-08-25]
 
-### 2.5 Context overhead [DI-RENCANAKAN]
+Dieksekusi di OpenCode v1.18.18 (model mimo-v2.5-free). Kriteria
+aktivasi: peran editor diadopsi / deklarasi eksplisit skill / kosakata
+khas SKILL.md.
 
-| Level disclosure | Token estimasi |
+| Metrik | Nilai |
 |---|---|
-| Discovery (frontmatter) | ~100 |
-| Aktivasi (body SKILL.md) | <5000 |
-| Eksekusi (references termuat on-demand) | per-file |
+| Precision (memicu benar / memicu total) | 1.0 |
+| Recall (memicu benar / harus memicu) | 0.9 |
+| True Positive | 9 |
+| False Negative | 1 (trig_05: "Jadikan teks ini lebih akademis dan formal") |
+| True Negative | 10 |
+| False Positive | 0 |
+
+Catatan:
+- trig_05 (FN): model menjawab dalam bahasa Inggris secara generik,
+  persona editor tidak muncul.
+- Semua TN benar tidak memicu skill (kode, belanja, jadwal, dll.).
+- Log mentah: `trigger/logs/trig_NN.out`
+
+### 2.5 Context overhead [SUDAH DIVERIFIKASI — 2026-08-23]
+
+Token diukur via tiktoken (cl100k_base). Progressive disclosure: hanya
+frontmatter yang ter-petakan di discovery.
+
+| Level disclosure | Token |
+|---|---|
+| Discovery (frontmatter: name + description) | 382 |
+| Aktivasi (body SKILL.md) | 2.266 |
+| Eksekusi (semua references + assets) | 7.941 |
+| Full bundle (semua file) | 10.589 |
+
+Rincian eksekusi:
+- references/FACT_CHECKING.md: 646
+- references/OUTPUT_MODES.md: 492
+- references/PUEBI.md: 1.326
+- references/QUALITY_METRICS.md: 559
+- references/STYLE_GUIDE.md: 1.431
+- references/WORKFLOW.md: 1.659
+- assets/example-edit.md: 1.020
+- assets/output-template.md: 399
+- assets/style-sheet-template.md: 409
+
+Catatan: runtime agent memuat hanya file yang dibutuhkan; angka
+eksekusi = worst case seluruh file dimuat. Angka discovery/activation
+diukur dari SKILL.md; eksekusi dari indeks file di folder
+references/ dan assets/.
 
 ## 3. Qualitative Observations [SUDAH DIVERIFIKASI — faktual dari pengembangan]
 

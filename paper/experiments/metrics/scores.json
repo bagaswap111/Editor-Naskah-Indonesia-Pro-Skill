@@ -4795,5 +4795,185 @@
       "Engagement": "..."
     },
     "timestamp": "2026-08-29T12:01:48"
+  },
+  {
+    "condition": "b1",
+    "id": "per_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-29T21:49:27"
+  },
+  {
+    "condition": "b1",
+    "id": "per_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-29T22:42:22"
+  },
+  {
+    "condition": "b1",
+    "id": "per_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-08-29T23:34:44"
+  },
+  {
+    "condition": "b1",
+    "id": "per_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Analisis kebijakan masih bersifat permukaan tanpa eksplorasi akar masalah struktural atau analogi yang memperkaya narasi."
+    },
+    "timestamp": "2026-08-30T04:45:40"
+  },
+  {
+    "condition": "b1",
+    "id": "aca_04",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0011",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 7,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-30T08:10:50"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0018",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 5,
+      "Akurasi": 7,
+      "Gaya": 4,
+      "Mekanik": 9,
+      "Engagement": 6
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah hanya menyajikan pengalaman pribadi dan tips dasar tanpa analisis mendalam, analogi yang relevan, atau contoh konkret yang memperkaya wawasan.",
+      "Gaya": "Klaim gaya fiksi ilmiah pada header sama sekali tidak tercermin dalam konten yang hanya berupa catatan harian pribadi yang diformalisasi secara kaku.",
+      "Engagement": "Pergeseran kata ganti dari 'gue' ke 'saya' membuat naskah kehilangan keakraban awal, sehingga daya tarik dan ritme baca menjadi berkurang."
+    },
+    "timestamp": "2026-08-30T13:05:41"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0017",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kejelasan": "Setiap kalimat disusun dengan struktur yang lugas sehingga mudah dipahami tanpa perlu baca ulang.",
+      "Koherensi": "Alur pembahasan dari fenomena lupa hingga mekanisme memori dan solusi praktis mengalir natural tanpa loncatan logika.",
+      "Kedalaman": "Penjelasan mencakup tahap memori dan faktor pengaruhnya, namun belum mengupas mekanisme neurobiologis atau kognitif yang lebih mendalam.",
+      "Akurasi": "Klaim ilmiah selaras dengan konsensus psikologi kognitif dan tidak terdapat catatan verifikasi yang tertunda.",
+      "Gaya": "Bahasa populer sains diterapkan secara konsisten dengan diksi yang sesuai register dan mudah dicerna pembaca awam.",
+      "Mekanik": "Tidak ditemukan kesalahan ejaan, penulisan angka, atau penggunaan tanda baca yang menyimpang dari kaidah PUEBI.",
+      "Engagement": "Hook awal sangat relevan dengan pengalaman sehari-hari, namun variasi kalimat di paragraf penutup cenderung sedikit monoton."
+    },
+    "timestamp": "2026-08-31T13:18:42"
+  },
+  {
+    "condition": "b1",
+    "id": "pop_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0017",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-08-31T14:58:03"
   }
 ]

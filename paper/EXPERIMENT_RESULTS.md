@@ -1,9 +1,9 @@
-# EXPERIMENT_RESULTS — Status Eksekusi (2026-08-29 19:24)
+# EXPERIMENT_RESULTS — Status Eksekusi (2026-09-01 11:06)
 
 Ringkasan jujur hasil eksekusi PLAN.md. Angka hanya dari
 `paper/experiments/metrics/*` dan `runs/`; tidak ada perhitungan manual.
 
-**Status besar: 2026-08-29 — judge C2 228/300 (J1 48/120, J2 120/120 ✅, J3 60/60 ✅); sisa 72 J1 diblokir TPD rolling Groq (loop hidup). C1/C4/D3 FINAL, D2 ✅, D1 2/8 (OpenCode+Gemini).** Detail blokir lihat bawah.
+**Status besar: 2026-09-01 — judge C2 236/300 (J1 56/120, J2 120/120 ✅, J3 60/60 ✅); sisa 64 J1 diblokir TPD rolling Groq (loop hidup). C1/C4/D3 FINAL, D2 ✅, D1 2/8 (OpenCode+Gemini).** Detail blokir lihat bawah.
 
 ## Keputusan eksekusi (K1–K6, terbaru)
 
@@ -51,10 +51,10 @@ Deviasi utama (detail: `experiments/README.md` Deviasi #1–#8):
 4. **Fase E**: SKIP (K6) — protokol tetap di PLAN.md §7.
 5. **F konsolidasi paper** — TBD di `paper/inputs/experimental_log.md` (tabel 7 dimensi, PUEBI rate) menunggu 300; `validate_consistency.py` saat ini PASS interim — re-run setelah TBD terisi.
 
-## Temuan audit interim (228/300 — jangan dikutip final)
+## Temuan audit interim (236/300 — jangan dikutip final)
 
-- Interim 228: `b1 8.06±0.87, b2 8.22±0.32, enip 7.95±0.72` — ENIP sedikit di bawah B1/B2 overall; per dimensi ENIP unggul tipis Akurasi (+0.16 vs B1) & Mekanik (+0.03 vs B1) tapi kalah Koherensi (-0.33) & Kedalaman (-0.33) — lihat `metrics/analysis_report.md`.
-- Korelasi antar-judge menguat di 228: `J1-J2 r=0.629 ρ=0.614 (n=19), J1-J3 r=0.685, J2-J3 r=0.593` vs r=0.55 parsial lama.
+- Interim 236: `b1 8.01±0.84, b2 8.22±0.32, enip 7.95±0.72` — ENIP sedikit di bawah B1/B2 overall; per dimensi ENIP unggul tipis Akurasi (+0.18 vs B1) & Mekanik (+0.05 vs B1) tapi kalah Koherensi (-0.27) & Kedalaman (-0.24) — lihat `metrics/analysis_report.md`.
+- Korelasi antar-judge menguat di 236: `J1-J2 r=0.646 ρ=0.669 (n=19), J1-J3 r=0.698, J2-J3 r=0.593`.
 - Divergensi tetap: C1 fix_rate mekanik tinggi (ENIP 0.9681) tapi judge masih variatif Mekanik (std 0.91 ENIP).
 
 ## Batasan yang harus dikutip di paper
