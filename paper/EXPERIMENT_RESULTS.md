@@ -1,18 +1,18 @@
-# EXPERIMENT_RESULTS — Status Eksekusi (2026-09-01 11:06)
+# EXPERIMENT_RESULTS — Status Eksekusi (2026-09-06 23:06)
 
 Ringkasan jujur hasil eksekusi PLAN.md. Angka hanya dari
 `paper/experiments/metrics/*` dan `runs/`; tidak ada perhitungan manual.
 
-**Status besar: 2026-09-01 — judge C2 236/300 (J1 56/120, J2 120/120 ✅, J3 60/60 ✅); sisa 64 J1 diblokir TPD rolling Groq (loop hidup). C1/C4/D3 FINAL, D2 ✅, D1 2/8 (OpenCode+Gemini).** Detail blokir lihat bawah.
+**Status besar: 2026-09-06 — judge C2 300/300 ✅ FINAL. C1/C4/D3 FINAL, D2 ✅, D1 2/8 (OpenCode+Gemini).**
 
 ## Keputusan eksekusi (K1–K6, terbaru)
 
 K1 **openai/gpt-oss-120b (Groq)** — migrasi dari llama-3.3-70b yang
-di-decommission Groq · K2 J1=qwen/qwen3.6-27b, J2=openai/gpt-oss-20b,
-J3=gemini-3.5-flash · K3 API temp 0 · K4 Full 20 · K5 sesuai plan ·
+di-decommission Groq · K2 J1=qwen/qwen3.8-27b (Deviasi #9: qwen3.6 OTPM exceeded),
+J2=openai/gpt-oss-20b, J3=gemini-3.5-flash · K3 API temp 0 · K4 Full 20 · K5 sesuai plan ·
 K6 tidak ada editor → Fase E SKIP.
 
-Deviasi utama (detail: `experiments/README.md` Deviasi #1–#8):
+Deviasi utama (detail: `experiments/README.md` Deviasi #1–#9):
 
 1. B3 = hunspell id-ID (LanguageTool tidak mendukung bahasa Indonesia).
 2. Batas free tier Groq aktual: **TPM 8K / TPD 200K per model**
@@ -25,8 +25,10 @@ Deviasi utama (detail: `experiments/README.md` Deviasi #1–#8):
 5. Qwen3.6 (J1) menyisipkan `<think>` di content → parser JSON judge
    diperkeras; label dimensi self-score ENIP bervariasi → analyze.py
    memetakan via aturan kata-kunci, baris tak terpetakan dilaporkan.
+6. **qwen3.6-27b thinking tokens melebihi OTPM 1000 Groq** → migrasi ke
+   **qwen3.8-27b** (tanpa thinking overhead, 237 token per evaluasi).
 
-## Hasil final Fase A/B/C1/C4/D3 (korpus bersih, gpt-oss-120b)
+## Hasil final Fase A/B/C1/C2/C4/D3
 
 - Re-run editor tuntas 2026-08-23 02:00–03:01 WIB: b1/b2/enip
   masing-masing **20/20**, nol kegagalan permanen (±154rb token).
@@ -35,27 +37,48 @@ Deviasi utama (detail: `experiments/README.md` Deviasi #1–#8):
   Per kategori: ENIP unggul E1 (0.972 vs 0.944); tertinggal di E9
   (0.70 vs 0.90/0.77) dan E2/E6. B3 (hunspell) tidak menghasilkan
   teks baru → hanya baseline deteksi.
+- **C2 judge (FINAL)**: 300/300 penilaian selesai 2026-09-06.
+  `metrics/analysis.json` + `analysis_report.md`.
 - **C4 proksi koherensi (final)**: `metrics/proxies.json`.
 - **D3 overhead ✅**: discovery 382 · aktivasi 2.266 · refs+assets
   7.941 · bundle penuh 10.589 token (`metrics/overhead.json`).
 
-## Belum selesai (blokir eksplisit — update 2026-08-29)
+## Hasil C2 Judge FINAL (300/300)
 
-1. **C2 judge — 228/300 (kurang 72 J1)** — J2 120/120 (25 Agu) ✅, J3 60/60 (27 Agu) ✅, J1 48/120 🔶.
-   Hari ini (19:23 WIB) `judge_loop.sh` PID 80255 masih hidup, `caffeinate` aktif, log terakhir `HARD_QUOTA groq qwen/qwen3.6-27b`.
-   Estimasi rolling TPD: last success 2026-08-29 12:01 → next window 2026-08-30 12:01 (+16.6 jam); butuh ~1.5–2 hari lagi @ ~43 eval/hari (200K TPD ÷ 4.6K/eval). Cek `bash scripts/status.sh`.
-2. **C3 + statistik interim** — `metrics/analysis_report.md` (228) sudah di-refresh: `enip_vs_b1 Δ -0.12 p=0.425` (n.s.), `enip_vs_b2 Δ -0.28 p=0.024 *` ; `J1-J2 r=0.629, J1-J3 r=0.685` — **jangan dikutip final** sampai 300/300. Final `python3 scripts/analyze.py` setelah lengkap.
-3. **D1 portability — 2/8 ✅** — `OpenCode ✅` (25 Agu, telemetri progressive disclosure) + `Gemini CLI ✅` (28 Agu, `portability/logs/gemini_pop03.out`) — `portability/results.json`.
-   Sisa 6 manual: Claude Code (butuh `/login`), Cursor, Codex, Cline, Antigravity, VS Code Copilot (butuh GUI).
-   **D2 trigger ✅ (RQ3)**: precision **1.0**, recall **0.9** (FN trig_05), `trigger/results.json` + `trigger/logs/`.
-4. **Fase E**: SKIP (K6) — protokol tetap di PLAN.md §7.
-5. **F konsolidasi paper** — TBD di `paper/inputs/experimental_log.md` (tabel 7 dimensi, PUEBI rate) menunggu 300; `validate_consistency.py` saat ini PASS interim — re-run setelah TBD terisi.
+### Ringkasan skor (rata-rata 7 dimensi)
 
-## Temuan audit interim (236/300 — jangan dikutip final)
+| Kondisi | n | Mean | Std |
+|---|---|---|---|
+| b1 | 20 | 7.99 | 0.85 |
+| b2 | 20 | 8.22 | 0.32 |
+| enip | 20 | 7.84 | 0.89 |
 
-- Interim 236: `b1 8.01±0.84, b2 8.22±0.32, enip 7.95±0.72` — ENIP sedikit di bawah B1/B2 overall; per dimensi ENIP unggul tipis Akurasi (+0.18 vs B1) & Mekanik (+0.05 vs B1) tapi kalah Koherensi (-0.27) & Kedalaman (-0.24) — lihat `metrics/analysis_report.md`.
-- Korelasi antar-judge menguat di 236: `J1-J2 r=0.646 ρ=0.669 (n=19), J1-J3 r=0.698, J2-J3 r=0.593`.
-- Divergensi tetap: C1 fix_rate mekanik tinggi (ENIP 0.9681) tapi judge masih variatif Mekanik (std 0.91 ENIP).
+### Per dimensi (mean antar naskah)
+
+| Dimensi | b1 | b2 | enip |
+|---|---|---|---|
+| Kejelasan | 8.42±0.99 | 8.63±0.43 | 8.21±1.22 |
+| Koherensi | 8.46±0.94 | 8.75±0.32 | 8.12±1.09 |
+| Kedalaman | 7.01±0.59 | 7.52±0.29 | 6.77±0.42 |
+| Akurasi | 8.09±1.06 | 8.19±0.82 | 8.00±1.11 |
+| Gaya | 8.09±1.11 | 8.09±0.36 | 8.03±0.89 |
+| Mekanik | 8.54±1.14 | 8.74±0.42 | 8.41±1.22 |
+| Engagement | 7.32±0.75 | 7.59±0.38 | 7.31±0.80 |
+
+### Uji berpasangan (paired bootstrap, delta = ENIP − basis)
+
+| Pasangan | Δ overall | CI 95% | p |
+|---|---|---|---|
+| enip_vs_b1 | -0.15 | [-0.45, +0.11] | 0.286 (n.s.) |
+| enip_vs_b2 | -0.38 | [-0.70, -0.10] | 0.005 * |
+
+### Korelasi antar-judge
+
+| Pasangan | Pearson | Spearman |
+|---|---|---|
+| J1_vs_J2 | 0.804 | 0.766 |
+| J1_vs_J3 | 0.854 | 0.737 |
+| J2_vs_J3 | 0.593 | 0.552 |
 
 ## Batasan yang harus dikutip di paper
 
@@ -64,6 +87,15 @@ Deviasi utama (detail: `experiments/README.md` Deviasi #1–#8):
 2. ENIP via API memuat SKILL.md saja (keterbatasan TPM free tier);
    references/assets tidak tersedia bagi model dalam mode single-shot.
 3. J2 satu family dengan editor (gpt-oss); keduanya OpenAI open-weight.
-4. Label dimensi pada tabel Skor Kualitas ENIP tidak selalu persis
+4. J1 beralih dari qwen3.6-27b ke qwen3.8-27b (Deviasi #9) karena
+   thinking tokens qwen3.6 melebihi OTPM 1000 Groq.
+5. Label dimensi pada tabel Skor Kualitas ENIP tidak selalu persis
    rubrik (mis. "Koherensi & Kohesi", ada yang hilang) — delta
    self-score (RQ5) dilaporkan dengan liputan per dimensi.
+
+## Belum selesai
+
+1. **D1 portability — 2/8 ✅** — `OpenCode ✅` + `Gemini CLI ✅`.
+   Sisa 6 manual: Claude Code, Cursor, Codex, Cline, Antigravity, VS Code Copilot.
+2. **F konsolidasi paper** — TBD di `paper/inputs/experimental_log.md`
+   (tabel 7 dimensi, PUEBI rate) → `validate_consistency.py` saat ini PASS.

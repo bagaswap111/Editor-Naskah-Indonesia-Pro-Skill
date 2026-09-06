@@ -3,43 +3,43 @@
     "b1": {
       "n_naskah": 20,
       "overall": {
-        "mean": 8.005,
-        "std": 0.844
+        "mean": 7.99,
+        "std": 0.846
       },
       "per_dimensi": {
         "Kejelasan": {
-          "mean": 8.412,
-          "std": 0.989,
+          "mean": 8.42,
+          "std": 0.99,
           "n": 20
         },
         "Koherensi": {
-          "mean": 8.453,
-          "std": 0.937,
+          "mean": 8.46,
+          "std": 0.938,
           "n": 20
         },
         "Kedalaman": {
-          "mean": 7.048,
-          "std": 0.564,
+          "mean": 7.01,
+          "std": 0.586,
           "n": 20
         },
         "Akurasi": {
-          "mean": 8.11,
-          "std": 1.064,
+          "mean": 8.09,
+          "std": 1.057,
           "n": 20
         },
         "Gaya": {
-          "mean": 8.152,
-          "std": 1.014,
+          "mean": 8.09,
+          "std": 1.112,
           "n": 20
         },
         "Mekanik": {
-          "mean": 8.544,
-          "std": 1.134,
+          "mean": 8.54,
+          "std": 1.135,
           "n": 20
         },
         "Engagement": {
-          "mean": 7.318,
-          "std": 0.751,
+          "mean": 7.32,
+          "std": 0.747,
           "n": 20
         }
       },
@@ -72,65 +72,65 @@
           "Engagement": 7.6
         },
         "J1@t0": {
-          "Kejelasan": 7.733,
-          "Koherensi": 7.6,
-          "Kedalaman": 6.6,
-          "Akurasi": 7.533,
-          "Gaya": 7.733,
-          "Mekanik": 7.8,
-          "Engagement": 6.667
+          "Kejelasan": 8.05,
+          "Koherensi": 7.95,
+          "Kedalaman": 6.5,
+          "Akurasi": 7.75,
+          "Gaya": 7.4,
+          "Mekanik": 8.1,
+          "Engagement": 6.85
         },
         "J1@t0.7": {
-          "Kejelasan": 8.211,
-          "Koherensi": 8.263,
-          "Kedalaman": 6.368,
-          "Akurasi": 8.053,
-          "Gaya": 7.842,
-          "Mekanik": 8.474,
-          "Engagement": 6.947
+          "Kejelasan": 8.25,
+          "Koherensi": 8.3,
+          "Kedalaman": 6.45,
+          "Akurasi": 8.05,
+          "Gaya": 7.9,
+          "Mekanik": 8.5,
+          "Engagement": 7.0
         }
       }
     },
     "b2": {
       "n_naskah": 20,
       "overall": {
-        "mean": 8.225,
-        "std": 0.315
+        "mean": 8.216,
+        "std": 0.32
       },
       "per_dimensi": {
         "Kejelasan": {
-          "mean": 8.668,
-          "std": 0.429,
+          "mean": 8.63,
+          "std": 0.432,
           "n": 20
         },
         "Koherensi": {
-          "mean": 8.77,
-          "std": 0.33,
+          "mean": 8.75,
+          "std": 0.324,
           "n": 20
         },
         "Kedalaman": {
-          "mean": 7.542,
-          "std": 0.325,
+          "mean": 7.52,
+          "std": 0.286,
           "n": 20
         },
         "Akurasi": {
-          "mean": 8.293,
-          "std": 0.739,
+          "mean": 8.19,
+          "std": 0.822,
           "n": 20
         },
         "Gaya": {
-          "mean": 7.987,
-          "std": 0.316,
+          "mean": 8.09,
+          "std": 0.364,
           "n": 20
         },
         "Mekanik": {
-          "mean": 8.768,
-          "std": 0.408,
+          "mean": 8.74,
+          "std": 0.416,
           "n": 20
         },
         "Engagement": {
-          "mean": 7.545,
-          "std": 0.42,
+          "mean": 7.59,
+          "std": 0.375,
           "n": 20
         }
       },
@@ -162,66 +162,66 @@
           "Mekanik": 8.0,
           "Engagement": 7.7
         },
-        "J1@t0.7": {
-          "Kejelasan": 8.143,
-          "Koherensi": 8.286,
-          "Kedalaman": 7.0,
-          "Akurasi": 8.0,
-          "Gaya": 8.0,
-          "Mekanik": 8.714,
-          "Engagement": 7.143
-        },
         "J1@t0": {
-          "Kejelasan": 8.5,
+          "Kejelasan": 8.65,
+          "Koherensi": 8.7,
+          "Kedalaman": 7.45,
+          "Akurasi": 8.05,
+          "Gaya": 8.35,
+          "Mekanik": 8.95,
+          "Engagement": 7.6
+        },
+        "J1@t0.7": {
+          "Kejelasan": 8.25,
           "Koherensi": 8.5,
-          "Kedalaman": 6.833,
-          "Akurasi": 8.667,
-          "Gaya": 7.667,
-          "Mekanik": 8.833,
-          "Engagement": 7.333
+          "Kedalaman": 7.2,
+          "Akurasi": 7.9,
+          "Gaya": 8.05,
+          "Mekanik": 8.4,
+          "Engagement": 7.5
         }
       }
     },
     "enip": {
       "n_naskah": 20,
       "overall": {
-        "mean": 7.947,
-        "std": 0.718
+        "mean": 7.836,
+        "std": 0.893
       },
       "per_dimensi": {
         "Kejelasan": {
-          "mean": 8.346,
-          "std": 0.872,
+          "mean": 8.21,
+          "std": 1.215,
           "n": 20
         },
         "Koherensi": {
-          "mean": 8.182,
-          "std": 0.868,
+          "mean": 8.12,
+          "std": 1.094,
           "n": 20
         },
         "Kedalaman": {
-          "mean": 6.811,
-          "std": 0.505,
+          "mean": 6.77,
+          "std": 0.417,
           "n": 20
         },
         "Akurasi": {
-          "mean": 8.294,
-          "std": 0.995,
+          "mean": 8.0,
+          "std": 1.114,
           "n": 20
         },
         "Gaya": {
-          "mean": 8.069,
-          "std": 0.781,
+          "mean": 8.03,
+          "std": 0.89,
           "n": 20
         },
         "Mekanik": {
-          "mean": 8.594,
-          "std": 0.91,
+          "mean": 8.41,
+          "std": 1.223,
           "n": 20
         },
         "Engagement": {
-          "mean": 7.334,
-          "std": 0.767,
+          "mean": 7.31,
+          "std": 0.804,
           "n": 20
         }
       },
@@ -253,23 +253,23 @@
           "Mekanik": 7.0,
           "Engagement": 7.05
         },
-        "J1@t0.7": {
-          "Kejelasan": 8.75,
-          "Koherensi": 8.75,
-          "Kedalaman": 6.25,
-          "Akurasi": 8.5,
-          "Gaya": 8.0,
-          "Mekanik": 9.0,
-          "Engagement": 7.5
-        },
         "J1@t0": {
-          "Kejelasan": 8.8,
-          "Koherensi": 8.8,
-          "Kedalaman": 6.2,
-          "Akurasi": 8.4,
+          "Kejelasan": 8.15,
+          "Koherensi": 8.1,
+          "Kedalaman": 6.5,
+          "Akurasi": 7.55,
+          "Gaya": 7.95,
+          "Mekanik": 8.05,
+          "Engagement": 7.25
+        },
+        "J1@t0.7": {
+          "Kejelasan": 7.9,
+          "Koherensi": 8.0,
+          "Kedalaman": 6.7,
+          "Akurasi": 7.45,
           "Gaya": 8.0,
-          "Mekanik": 8.2,
-          "Engagement": 7.6
+          "Mekanik": 8.1,
+          "Engagement": 7.25
         }
       }
     }
@@ -277,138 +277,138 @@
   "uji_paired_bootstrap": {
     "enip_vs_b1": {
       "overall": {
-        "delta": -0.058,
-        "p": 0.672,
+        "delta": -0.154,
+        "p": 0.286,
         "ci95": [
-          -0.326,
-          0.225
+          -0.446,
+          0.111
         ],
         "n": 20
       },
       "per_dimensi": {
         "Kejelasan": {
-          "delta": -0.067,
-          "p": 0.6794,
+          "delta": -0.21,
+          "p": 0.3202,
           "ci95": [
-            -0.382,
-            0.248
+            -0.64,
+            0.17
           ]
         },
         "Koherensi": {
-          "delta": -0.271,
-          "p": 0.1006,
+          "delta": -0.34,
+          "p": 0.0536,
           "ci95": [
-            -0.585,
-            0.058
+            -0.71,
+            0.0
           ]
         },
         "Kedalaman": {
-          "delta": -0.238,
-          "p": 0.0372,
+          "delta": -0.24,
+          "p": 0.0192,
           "ci95": [
-            -0.444,
-            -0.015
+            -0.41,
+            -0.05
           ]
         },
         "Akurasi": {
-          "delta": 0.184,
-          "p": 0.294,
+          "delta": -0.09,
+          "p": 0.5824,
           "ci95": [
-            -0.154,
-            0.538
+            -0.41,
+            0.21
           ]
         },
         "Gaya": {
-          "delta": -0.083,
-          "p": 0.6798,
+          "delta": -0.06,
+          "p": 0.784,
           "ci95": [
-            -0.466,
-            0.297
+            -0.47,
+            0.35
           ]
         },
         "Mekanik": {
-          "delta": 0.05,
-          "p": 0.8514,
+          "delta": -0.13,
+          "p": 0.5522,
           "ci95": [
-            -0.343,
-            0.493
+            -0.54,
+            0.26
           ]
         },
         "Engagement": {
-          "delta": 0.016,
-          "p": 0.883,
+          "delta": -0.01,
+          "p": 0.9934,
           "ci95": [
-            -0.251,
-            0.268
+            -0.27,
+            0.23
           ]
         }
       }
     },
     "enip_vs_b2": {
       "overall": {
-        "delta": -0.278,
-        "p": 0.024,
+        "delta": -0.38,
+        "p": 0.005,
         "ci95": [
-          -0.556,
-          -0.034
+          -0.701,
+          -0.099
         ],
         "n": 20
       },
       "per_dimensi": {
         "Kejelasan": {
-          "delta": -0.322,
-          "p": 0.0302,
+          "delta": -0.42,
+          "p": 0.0336,
           "ci95": [
-            -0.659,
-            -0.027
+            -0.85,
+            -0.03
           ]
         },
         "Koherensi": {
-          "delta": -0.588,
+          "delta": -0.63,
           "p": 0.0,
           "ci95": [
-            -0.918,
-            -0.294
+            -1.04,
+            -0.27
           ]
         },
         "Kedalaman": {
-          "delta": -0.732,
+          "delta": -0.75,
           "p": 0.0,
           "ci95": [
-            -1.002,
-            -0.482
+            -0.95,
+            -0.55
           ]
         },
         "Akurasi": {
-          "delta": 0.001,
-          "p": 0.995,
+          "delta": -0.19,
+          "p": 0.1806,
           "ci95": [
-            -0.308,
-            0.322
+            -0.49,
+            0.08
           ]
         },
         "Gaya": {
-          "delta": 0.082,
-          "p": 0.5818,
+          "delta": -0.06,
+          "p": 0.764,
           "ci95": [
-            -0.215,
-            0.375
+            -0.4,
+            0.26
           ]
         },
         "Mekanik": {
-          "delta": -0.173,
-          "p": 0.2802,
+          "delta": -0.33,
+          "p": 0.1172,
           "ci95": [
-            -0.507,
-            0.126
+            -0.82,
+            0.06
           ]
         },
         "Engagement": {
-          "delta": -0.211,
-          "p": 0.249,
+          "delta": -0.28,
+          "p": 0.085,
           "ci95": [
-            -0.593,
-            0.128
+            -0.63,
+            0.03
           ]
         }
       }
@@ -416,14 +416,14 @@
   },
   "korelasi_antar_judge": {
     "J1_vs_J2": {
-      "pearson": 0.646,
-      "spearman": 0.669,
-      "n": 19
+      "pearson": 0.804,
+      "spearman": 0.766,
+      "n": 20
     },
     "J1_vs_J3": {
-      "pearson": 0.698,
-      "spearman": 0.592,
-      "n": 19
+      "pearson": 0.854,
+      "spearman": 0.737,
+      "n": 20
     },
     "J2_vs_J3": {
       "pearson": 0.593,
@@ -443,24 +443,24 @@
       "Engagement": 8
     },
     "mean_abs_delta": {
-      "Kejelasan": 0.713,
-      "Koherensi": 0.832,
-      "Kedalaman": 0.307,
-      "Akurasi": 0.6,
-      "Gaya": 0.769,
-      "Mekanik": 0.626,
-      "Engagement": 0.748,
-      "SEMUA": 0.67
+      "Kejelasan": 0.91,
+      "Koherensi": 0.98,
+      "Kedalaman": 0.32,
+      "Akurasi": 0.64,
+      "Gaya": 0.85,
+      "Mekanik": 0.77,
+      "Engagement": 0.65,
+      "SEMUA": 0.772
     },
     "bias_signed": {
-      "Kejelasan": -0.246,
-      "Koherensi": -0.382,
-      "Kedalaman": 0.102,
-      "Akurasi": -0.6,
-      "Gaya": -0.469,
-      "Mekanik": 0.506,
-      "Engagement": 0.581,
-      "SEMUA": -0.08
+      "Kejelasan": -0.11,
+      "Koherensi": -0.32,
+      "Kedalaman": 0.133,
+      "Akurasi": -0.4,
+      "Gaya": -0.43,
+      "Mekanik": 0.69,
+      "Engagement": 0.55,
+      "SEMUA": 0.009
     }
   },
   "c3_detail_per_naskah": [
@@ -481,11 +481,11 @@
         ]
       ],
       "delta_self_minus_judge": {
-        "Kejelasan": -0.667,
-        "Koherensi": -0.667,
-        "Kedalaman": -0.333,
+        "Kejelasan": -0.8,
+        "Koherensi": -0.8,
+        "Kedalaman": 0.0,
         "Akurasi": -1.0,
-        "Gaya": -1.333,
+        "Gaya": -1.6,
         "Mekanik": 0.0
       }
     },
@@ -509,11 +509,11 @@
         ]
       ],
       "delta_self_minus_judge": {
-        "Kejelasan": -0.333,
-        "Koherensi": -1.0,
-        "Kedalaman": 0.0,
-        "Gaya": -0.667,
-        "Mekanik": 0.333
+        "Kejelasan": -0.6,
+        "Koherensi": -1.2,
+        "Kedalaman": 0.2,
+        "Gaya": -0.8,
+        "Mekanik": 0.2
       }
     },
     {
@@ -542,7 +542,7 @@
         "Kejelasan": -1.0,
         "Koherensi": -1.0,
         "Gaya": 0.0,
-        "Mekanik": -0.333
+        "Mekanik": -0.2
       }
     },
     {
@@ -568,8 +568,8 @@
         "Kejelasan": -1.0,
         "Koherensi": -1.0,
         "Kedalaman": 0.0,
-        "Gaya": -1.0,
-        "Mekanik": 0.333
+        "Gaya": -0.8,
+        "Mekanik": 0.6
       }
     },
     {
@@ -589,12 +589,12 @@
         ]
       ],
       "delta_self_minus_judge": {
-        "Kejelasan": -0.333,
-        "Koherensi": -0.667,
-        "Kedalaman": -0.333,
-        "Akurasi": -0.667,
-        "Gaya": -1.667,
-        "Mekanik": 0.333
+        "Kejelasan": -0.6,
+        "Koherensi": -0.4,
+        "Kedalaman": -0.2,
+        "Akurasi": -0.2,
+        "Gaya": -1.4,
+        "Mekanik": 0.2
       }
     },
     {
@@ -610,13 +610,13 @@
       },
       "unmapped": [],
       "delta_self_minus_judge": {
-        "Kejelasan": 1.667,
-        "Koherensi": 1.333,
-        "Kedalaman": 0.333,
-        "Akurasi": -0.333,
-        "Gaya": 0.667,
+        "Kejelasan": 2.6,
+        "Koherensi": 2.0,
+        "Kedalaman": 0.0,
+        "Akurasi": 0.6,
+        "Gaya": 0.6,
         "Mekanik": 2.0,
-        "Engagement": 2.667
+        "Engagement": 2.6
       }
     },
     {
@@ -663,12 +663,12 @@
         ]
       ],
       "delta_self_minus_judge": {
-        "Kejelasan": -0.333,
-        "Koherensi": 0.333,
-        "Kedalaman": 0.0,
-        "Akurasi": -0.333,
+        "Kejelasan": 0.6,
+        "Koherensi": 0.6,
+        "Kedalaman": 0.2,
+        "Akurasi": -0.6,
         "Gaya": 0.0,
-        "Mekanik": 0.667
+        "Mekanik": 0.6
       }
     },
     {
@@ -689,11 +689,11 @@
       ],
       "delta_self_minus_judge": {
         "Kejelasan": 0.0,
-        "Koherensi": -0.333,
-        "Kedalaman": 0.0,
-        "Akurasi": -0.667,
-        "Gaya": -0.333,
-        "Mekanik": 0.0
+        "Koherensi": -0.6,
+        "Kedalaman": -0.2,
+        "Akurasi": -0.8,
+        "Gaya": -0.6,
+        "Mekanik": 0.2
       }
     },
     {
@@ -716,11 +716,11 @@
         ]
       ],
       "delta_self_minus_judge": {
-        "Kejelasan": -1.0,
-        "Koherensi": -1.333,
-        "Kedalaman": -0.333,
-        "Gaya": -1.0,
-        "Mekanik": 0.333
+        "Kejelasan": -0.8,
+        "Koherensi": -1.2,
+        "Kedalaman": -0.2,
+        "Gaya": -0.8,
+        "Mekanik": 0.6
       }
     },
     {
@@ -743,11 +743,11 @@
         ]
       ],
       "delta_self_minus_judge": {
-        "Kejelasan": -0.333,
-        "Koherensi": -1.0,
-        "Kedalaman": -0.333,
-        "Gaya": -0.667,
-        "Mekanik": 0.333
+        "Kejelasan": -0.6,
+        "Koherensi": -1.4,
+        "Kedalaman": -0.6,
+        "Gaya": -0.8,
+        "Mekanik": 0.2
       }
     },
     {
@@ -770,11 +770,11 @@
         ]
       ],
       "delta_self_minus_judge": {
-        "Kejelasan": 1.333,
-        "Koherensi": 1.0,
-        "Kedalaman": 0.667,
-        "Gaya": 1.0,
-        "Mekanik": 2.0
+        "Kejelasan": 2.2,
+        "Koherensi": 1.6,
+        "Kedalaman": 0.8,
+        "Gaya": 1.8,
+        "Mekanik": 3.6
       }
     },
     {
@@ -825,10 +825,10 @@
       ],
       "delta_self_minus_judge": {
         "Kejelasan": 0.0,
-        "Koherensi": 0.0,
+        "Koherensi": -0.4,
         "Gaya": -1.0,
         "Mekanik": 1.0,
-        "Engagement": 0.667
+        "Engagement": 0.4
       }
     },
     {
@@ -851,11 +851,11 @@
         ]
       ],
       "delta_self_minus_judge": {
-        "Kejelasan": 1.667,
-        "Koherensi": 1.333,
+        "Kejelasan": 2.6,
+        "Koherensi": 2.0,
         "Kedalaman": 1.0,
-        "Gaya": 1.333,
-        "Mekanik": 2.333
+        "Gaya": 1.8,
+        "Mekanik": 3.8
       }
     },
     {
@@ -878,11 +878,11 @@
         ]
       ],
       "delta_self_minus_judge": {
-        "Kejelasan": -0.25,
-        "Koherensi": 0.5,
-        "Gaya": -0.25,
-        "Mekanik": 1.25,
-        "Engagement": 0.25
+        "Kejelasan": -0.4,
+        "Koherensi": 0.4,
+        "Gaya": -0.4,
+        "Mekanik": 1.0,
+        "Engagement": 0.2
       }
     },
     {
@@ -929,12 +929,12 @@
         ]
       ],
       "delta_self_minus_judge": {
-        "Kejelasan": -0.667,
-        "Koherensi": -0.667,
-        "Kedalaman": 0.333,
-        "Gaya": -0.667,
-        "Mekanik": -0.667,
-        "Engagement": 0.333
+        "Kejelasan": -0.8,
+        "Koherensi": -0.8,
+        "Kedalaman": 0.2,
+        "Gaya": -0.8,
+        "Mekanik": -0.4,
+        "Engagement": 0.2
       }
     },
     {
@@ -979,12 +979,12 @@
         ]
       ],
       "delta_self_minus_judge": {
-        "Kejelasan": -0.667,
-        "Koherensi": -0.667,
-        "Kedalaman": 0.333,
+        "Kejelasan": -0.6,
+        "Koherensi": -0.4,
+        "Kedalaman": 0.6,
         "Gaya": -1.0,
-        "Mekanik": 0.0,
-        "Engagement": -0.667
+        "Mekanik": 0.2,
+        "Engagement": -0.4
       }
     }
   ]

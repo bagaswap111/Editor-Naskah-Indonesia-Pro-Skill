@@ -48,7 +48,8 @@ DIMENSI = ["Kejelasan", "Koherensi", "Kedalaman", "Akurasi", "Gaya",
            "Mekanik", "Engagement"]
 
 JUDGES = {
-    "J1": {"provider": "groq", "model": "qwen/qwen3.6-27b",
+    # Deviasi #9: qwen3.6-27b thinking tokens > OTPM 1000 limit → switch to qwen3.8-27b
+    "J1": {"provider": "groq", "model": "qwen/qwen3.8-27b",
            "trials": [0, 0.7]},
     # Deviasi #6/#7: llama-3.1-8b-instant decommissioned → gpt-oss-20b
     # (satu family dgn editor — dicatat sebagai keterbatasan)
@@ -126,8 +127,8 @@ def call(provider, model, messages, temperature, timeout=600):
         raise ValueError(f"juri tak dikenal: {provider}")
     headers = {"Authorization": f"Bearer {key}"}
     payload = {"model": model, "temperature": temperature,
-               # 2048 cukup untuk JSON; qwen thinking butuh ruang lebih
-               "max_tokens": 3072 if "qwen" in model else 2048,
+                # 2048 cukup untuk JSON; qwen thinking butuh ruang lebih
+                "max_tokens": 3072 if "qwen" in model else 2048,
                "messages": messages}
     if model.startswith("openai/gpt-oss"):
         # model reasoning — token reasoning masuk completion

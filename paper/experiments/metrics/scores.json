@@ -5104,5 +5104,1333 @@
       "Akurasi": "Perubahan data faktual tanpa dasar (misalnya 'tiga dari empat siswa' diubah menjadi 'tiga puluh persen' dan tahun '2.024' menjadi '2022') mengurangi keandalan naskah."
     },
     "timestamp": "2026-09-01T20:17:30"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-09-06T22:24:29"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-09-06T22:25:36"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "<nm_dimensi>": "satu kalimat"
+    },
+    "timestamp": "2026-09-06T22:31:44"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0020",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi maksimal 8 karena terdapat perubahan substansial yang mengubah fakta naskah asli (misalnya mengubah 'datang sejak pagi' menjadi 'datang se-sesuai jadwal' dan menghilangkan detail kuantitatif '3 stan' menjadi 'stan khusus')."
+    },
+    "timestamp": "2026-09-06T22:35:59"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-06T22:36:31"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0020",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi 8 karena adanya penghapusan detail faktual (jumlah stan, jumlah pertemuan) dan penambahan atribut baru ('pintu sempit') yang tidak ada di naskah asli, sehingga mengubah fakta."
+    },
+    "timestamp": "2026-09-06T22:37:03"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0002",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 4,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Akurasi": "Terjadi distorsi fakta yang signifikan di mana durasi festival diubah dari 'dua minggu' menjadi 'dua hari' dan istilah 'demonstrasi memasak' diubah menjadi 'secara daring' yang tidak sesuai konteks acara fisik."
+    },
+    "timestamp": "2026-09-06T22:37:35"
+  },
+  {
+    "condition": "b1",
+    "id": "sas_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-06T22:38:07"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0002",
+    "skor": {
+      "Kejelasan": 7,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 4,
+      "Gaya": 7,
+      "Mekanik": 6,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kejelasan": "Penyederhanaan frasa 'operator marketplace daring' menjadi '*operatomarketplace*' justru membuat istilah menjadi tidak lazim dan membingungkan bagi pembaca.",
+      "Akurasi": "Editan mengubah fakta durasi acara dari 'dua minggu' menjadi 'dua hari' dan menghilangkan detail 'tersendiri' pada program pemulihan, sehingga mengubah substansi informasi asli.",
+      "Gaya": "Penggunaan istilah '*operatomarketplace*' yang rancu dan penghapusan kata 'koperasi' pada frasa 'pelaku usaha' menyebabkan gaya bahasa menjadi tidak konsisten dan kurang profesional.",
+      "Mekanik": "Penulisan '*operatomarketplace*' sebagai satu kata miring merupakan kesalahan format penulisan istilah asing yang seharusnya dipisahkan atau ditulis sesuai ejaan yang benar."
+    },
+    "timestamp": "2026-09-06T22:38:39"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Mekanik": "Terjadi kesalahan sintaksis yang signifikan pada kalimat 'Sampai di rumah, di rumah ditemukan adiknya tertidur pulas' yang bersifat rancu dan tidak gramatikal."
+    },
+    "timestamp": "2026-09-06T22:39:11"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kejelasan": "Frasa 'Dua-dua penumpang' dan 'Empat-empat tetap setia' menimbulkan ambiguitas makna yang tidak ada di naskah asli.",
+      "Koherensi": "Perubahan '4 penumpang' menjadi 'Empat-empat' dan 'istri Pak Karta' menjadi 'ia' (dalam konteks keponakan) sedikit mengaburkan subjek kalimat.",
+      "Kedalaman": "Naskah tetap bersifat naratif ringan tanpa penambahan lapisan analisis atau analogi yang signifikan dari naskah asli.",
+      "Akurasi": "Terjadi distorsi makna pada beberapa frasa seperti 'Dua-dua penumpang' dan perubahan subjek 'istrinya' menjadi 'ia' yang merujuk ambigu.",
+      "Gaya": "Gaya bahasa konsisten, namun penggunaan tanda hubung pada angka ('Dua-dua') terasa tidak natural dalam konteks narasi.",
+      "Mekanik": "Penulisan 'Dua-dua' dan 'Empat-empat' dengan tanda hubung tidak sesuai kaidah PUEBI untuk penulisan angka dalam kalimat naratif."
+    },
+    "timestamp": "2026-09-06T22:39:44"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi maksimal 8 karena naskah memuat klaim statistik spesifik (40%, 4 dari 5) tanpa referensi sumber yang dapat diverifikasi."
+    },
+    "timestamp": "2026-09-06T22:40:15"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 6,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Pernyataan 'Empat-lima orang dewasa' merupakan distorsi data dari '4 dari lima' (80%) yang mengubah makna statistik menjadi tidak jelas atau salah."
+    },
+    "timestamp": "2026-09-06T22:40:47"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi maksimal 8 karena terdapat perubahan makna yang signifikan dan tidak akurat pada kalimat 'Empat dari lima pria' (aslinya 'konsumen') serta 'kedai rumah' (aslinya 'kedai favorit')."
+    },
+    "timestamp": "2026-09-06T22:41:19"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 7,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 7,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kejelasan": "Frasa 'tekanan tinggi mengekstraksi rasa' kehilangan subjek alat (espresso) sehingga kalimat menjadi ambigu dan rujukannya tidak jelas.",
+      "Akurasi": "Perubahan 'konsumen' menjadi 'pria' dan 'kedai favorit' menjadi 'kedai rumah' merupakan distorsi fakta yang signifikan terhadap naskah asli.",
+      "Kedalaman": "Penyederhanaan deskripsi alat seduh mengurangi detail teknis yang ada di naskah asli, sehingga lapisan informasi menjadi lebih dangkal dari yang diharapkan.",
+      "Mekanik": "Penulisan 'French press' tidak konsisten dengan aturan PUEBI untuk istilah asing (seharusnya dicetak miring seluruhnya atau disesuaikan), serta penggunaan spasi normal pada 'semi-basah' kurang tepat dibanding tanda hubung."
+    },
+    "timestamp": "2026-09-06T22:41:51"
+  },
+  {
+    "condition": "b2",
+    "id": "per_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi 8 karena klaim spesifik mengenai jumlah desa di Kabupaten Gowa dan rekomendasi lembaga penelitian tidak disertai referensi sumber yang valid atau terverifikasi."
+    },
+    "timestamp": "2026-09-06T22:42:23"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0012",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi maksimal 8 karena naskah memuat klaim faktual spesifik (konsorsium 2024, data 2026) yang tidak disertai referensi atau tanda verifikasi sumber.",
+      "Engagement": "Naskah bersifat akademis formal sehingga kurang memiliki elemen hook atau ritme naratif yang kuat untuk mempertahankan minat pembaca umum."
+    },
+    "timestamp": "2026-09-06T22:42:55"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0012",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Engagement": "Naskah bersifat teknis dan lugas sehingga kurang memiliki daya tarik emosional atau hook yang kuat untuk mempertahankan perhatian pembaca awam."
+    },
+    "timestamp": "2026-09-06T22:43:27"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_04",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0011",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi maksimal 8 karena naskah memuat klaim spesifik (seperti 'Lima negara di Asia Tenggara' dan 'Evaluasi 2026') yang tidak disertai referensi atau tanda verifikasi, sehingga validitas faktualnya belum dapat dipastikan sepenuhnya."
+    },
+    "timestamp": "2026-09-06T22:43:59"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_04",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0011",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 7,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Mekanik": "Penulisan angka menjadi huruf (enam puluh, empat puluh lima) melanggar PUEBI karena angka 10 atau lebih harus ditulis dengan angka, sehingga terdapat kesalahan mekanik yang jelas."
+    },
+    "timestamp": "2026-09-06T22:44:31"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0004",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-06T22:45:02"
+  },
+  {
+    "condition": "b2",
+    "id": "jur_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0004",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-06T22:45:35"
+  },
+  {
+    "condition": "b2",
+    "id": "sas_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0003",
+    "skor": {
+      "Kejelasan": 7,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 6,
+      "Mekanik": 5,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kejelasan": "Penggunaan kata 'melainkan' dalam kalimat 'Siti membeli dua buah roti, melainkan hanya memakan satu' keliru secara tata bahasa karena seharusnya menggunakan 'tetapi' atau 'namun', sehingga membingungkan logika kalimat.",
+      "Gaya": "Penggantian 'seorang' menjadi 'tidak ada yang' dalam kalimat 'tidak ada yang mempedulikannya' menghasilkan frasa yang canggung dan tidak lazim secara stilistika dalam narasi fiksi.",
+      "Mekanik": "Terdapat kesalahan penggunaan kata hubung (melainkan) dan penambahan tanda hubung yang tidak perlu pada kata 'seolah-olah' yang menurut PUEBI tidak memakai tanda hubung, serta inkonsistensi penulisan nama stasiun."
+    },
+    "timestamp": "2026-09-06T22:46:07"
+  },
+  {
+    "condition": "b2",
+    "id": "pop_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0017",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi maksimal 8 karena naskah memuat klaim statistik spesifik (40%, 4 dari 5 orang) tanpa referensi sumber yang tercantum atau ditandai untuk verifikasi."
+    },
+    "timestamp": "2026-09-06T22:46:39"
+  },
+  {
+    "condition": "b2",
+    "id": "per_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0005",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi maksimal 8 karena klaim data spesifik (seperti 'delapan dari sepuluh mahasiswa') tidak disertai referensi sumber yang dapat diverifikasi dalam naskah."
+    },
+    "timestamp": "2026-09-06T22:47:11"
+  },
+  {
+    "condition": "b2",
+    "id": "per_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0005",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi pada 8 karena naskah memuat klaim data spesifik (seperti 'delapan dari sepuluh mahasiswa' dan 'empat sekolah di Yogyakarta') yang tidak disertai sumber referensi valid dalam teks hasil editan."
+    },
+    "timestamp": "2026-09-06T22:47:43"
+  },
+  {
+    "condition": "b2",
+    "id": "sf_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0008",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-06T22:48:14"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi maksimal 8 karena terdapat perubahan data kuantitatif yang bersifat asumsi (mengubah 'tiga dari empat' menjadi 'tiga puluh persen') tanpa sumber verifikasi yang jelas."
+    },
+    "timestamp": "2026-09-06T22:48:47"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 6,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah masih bersifat deskriptif dan ringkas tanpa analisis statistik mendalam (misalnya nilai r atau p) atau elaborasi teoretis yang cukup untuk mencapai skor tinggi.",
+      "Akurasi": "Klaim 'tiga puluh persen' merupakan asumsi editor yang mengubah makna orisinal ('tiga dari empat') dan belum disertai sumber referensi yang valid."
+    },
+    "timestamp": "2026-09-06T22:49:19"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah hanya menyajikan ringkasan studi tanpa analisis kritis mendalam atau contoh konkret yang memadai untuk mencapai lapisan kedalaman 4-5.",
+      "Engagement": "Gaya penulisan yang sangat formal dan kaku membuat ritme baca terasa monoton dan kurang menarik bagi pembaca umum."
+    },
+    "timestamp": "2026-09-06T22:49:51"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi karena catatan editor menyatakan tidak perlu sumber, padahal naskah memuat klaim spesifik (jumlah negara, lembaga) yang idealnya perlu verifikasi atau penandaan.",
+      "Mekanik": "Terdapat inkonsistensi penggunaan tanda hubung pada 'akhir-akhir' (menggunakan non-breaking hyphen) dan kapitalisasi 'Studi' di tengah kalimat yang tidak sesuai kaidah PUEBI.",
+      "Engagement": "Naskah bersifat informatif dan kaku tanpa elemen hook atau variasi ritme yang menarik minat pembaca untuk terus melaju."
+    },
+    "timestamp": "2026-09-06T22:50:23"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0020",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah bersifat deskriptif-jurnalistik standar tanpa analisis mendalam atau data pendukung yang signifikan.",
+      "Engagement": "Gaya bahasa formal dan datar khas berita membuat alur kurang menarik bagi pembaca umum."
+    },
+    "timestamp": "2026-09-06T22:50:56"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0020",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 7,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Penyisipan frasa 'tanpa risiko' dalam kalimat tentang transaksi digital mengubah makna asli naskah (dari laporan fakta menjadi klaim absolut) dan menimbulkan inkonsistensi logis dengan kalimat berikutnya yang menyatakan risiko pemalsuan tetap menjadi perhatian utama.",
+      "Mekanik": "Terdapat inkonsistensi penggunaan tanda baca (titik koma) yang bertentangan dengan Style Sheet yang menyatakan 'tidak dipakai', serta penggunaan istilah 'daring online' yang redundan."
+    },
+    "timestamp": "2026-09-06T22:51:27"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0002",
+    "skor": {
+      "Kejelasan": 5,
+      "Koherensi": 4,
+      "Kedalaman": 6,
+      "Akurasi": 4,
+      "Gaya": 5,
+      "Mekanik": 6,
+      "Engagement": 5
+    },
+    "justifikasi": {
+      "Kejelasan": "Terdapat kesalahan fatal dalam interpretasi durasi festival ('dua pada gu') dan penggantian kata yang mengubah makna ('tenda canggih' dari 'tenda cadangan').",
+      "Koherensi": "Alur logis terputus karena kalimat tentang insentif dan cuaca hujan digabung secara tidak relevan dalam satu kalimat yang membingungkan.",
+      "Kedalaman": "Penjelasan tetap dangkal dan tidak ada penambahan substansi baru, hanya perbaikan mekanis yang sebagian besar gagal.",
+      "Akurasi": "Fakta durasi festival diubah secara salah (dari dua minggu menjadi dua hari) dan istilah teknis diganti dengan kata yang tidak tepat.",
+      "Gaya": "Gaya jurnalistik rusak akibat penggunaan kata yang tidak lazim dalam konteks berita (seperti 'sistematis' untuk demonstrasi memasak) dan struktur kalimat yang canggung.",
+      "Mekanik": "Masih terdapat kesalahan ejaan dan tata bahasa yang signifikan, seperti penggunaan kata 'pada' yang salah tempat dan frasa 'dua pada gu'.",
+      "Engagement": "Pembaca akan kehilangan minat karena informasi yang disampaikan tidak akurat dan kalimatnya sulit dipahami."
+    },
+    "timestamp": "2026-09-06T22:51:59"
+  },
+  {
+    "condition": "enip",
+    "id": "jur_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0002",
+    "skor": {
+      "Kejelasan": 3,
+      "Koherensi": 4,
+      "Kedalaman": 7,
+      "Akurasi": 4,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 6
+    },
+    "justifikasi": {
+      "Kejelasan": "Penyunting mengubah 'dua minggu' menjadi frasa rancu 'dua pada gu (dua hari)' yang membingungkan durasi acara.",
+      "Koherensi": "Struktur paragraf tentang kebijakan pemerintah terputus karena kata 'walaupun' menggantikan konjungsi 'sedangkan' sehingga logika kalimat menjadi tidak nyambung.",
+      "Akurasi": "Terjadi distorsi fakta signifikan seperti mengubah 'tenda cadangan' menjadi 'tenda canggih' dan mengubah durasi 'dua minggu' menjadi 'dua hari'.",
+      "Engagement": "Kesalahan interpretasi durasi acara merusak kredibilitas narasi dan membuat pembaca kehilangan minat terhadap informasi faktual."
+    },
+    "timestamp": "2026-09-06T22:52:31"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Mekanik": "Penulisan 'pul-as' dengan tanda hubung tidak sesuai kaidah PUEBI untuk kata 'pulas' yang utuh, serta penggunaan tanda hubung pada 'kelabu-tua' dan 'gedung-gedung' kurang tepat secara gramatikal."
+    },
+    "timestamp": "2026-09-06T22:53:03"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Mekanik": "Penulisan 'pul-as' dengan tanda hubung tidak sesuai kaidah PUEBI karena kata tersebut bukan kata majemuk melainkan kata tunggal yang utuh."
+    },
+    "timestamp": "2026-09-06T22:53:35"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 4,
+      "Koherensi": 5,
+      "Kedalaman": 6,
+      "Akurasi": 5,
+      "Gaya": 6,
+      "Mekanik": 3,
+      "Engagement": 5
+    },
+    "justifikasi": {
+      "Kejelasan": "Frasa 'Dua-dua penumpang' dan 'Empat-empat tetap setia' sangat membingungkan dan tidak lazim dalam bahasa Indonesia.",
+      "Koherensi": "Kalimat 'Ia menanti kemasan roti' mengubah makna asli 'mengganti' sehingga alur logika tindakan menjadi tidak masuk akal.",
+      "Kedalaman": "Perubahan kata 'menanti' dari 'mengganti' dan penghapusan kata 'berjualan' dalam 'izin jualan' membuat deskripsi tindakan menjadi dangkal dan tidak jelas.",
+      "Akurasi": "Editor mengubah fakta '3 kali ia terlambat' menjadi 'Tiga kakak terlambat', yang merupakan kesalahan faktual besar terhadap naskah asli.",
+      "Gaya": "Penggunaan kata 'Dua-dua' dan 'Empat-empat' merusak nuansa sastrawi dan terdengar seperti kesalahan terjemahan atau typo yang tidak diperbaiki.",
+      "Mekanik": "Terdapat banyak kesalahan PUEBI yang baru diperkenalkan, seperti 'Istri nya' (harusnya 'istrinya'), 'di pasar ni' (typo), dan 'walaupun pula pun' (redundan dan salah struktur).",
+      "Engagement": "Kesalahan mekanik dan perubahan makna yang aneh (seperti 'Tiga kakak') mengganggu imersi pembaca dan menurunkan kualitas narasi."
+    },
+    "timestamp": "2026-09-06T22:54:07"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 4,
+      "Koherensi": 5,
+      "Kedalaman": 6,
+      "Akurasi": 5,
+      "Gaya": 5,
+      "Mekanik": 3,
+      "Engagement": 5
+    },
+    "justifikasi": {
+      "Kejelasan": "Frasa 'Dua-dua penumpang' dan 'Empat-empat' sangat membingungkan dan mengubah makna asli menjadi tidak logis.",
+      "Koherensi": "Kata penghubung 'walaupun pula' tidak baku dan merusak alur logika kalimat, serta perubahan 'menganti kemasan' menjadi 'menanti kemasan' mengubah aksi menjadi pasif yang janggal.",
+      "Kedalaman": "Perubahan semantik yang buruk (seperti 'menanti kemasan') mengurangi kekayaan deskriptif naskah asli.",
+      "Akurasi": "Penyebutan 'Tiga kakak' sebagai pengganti 'Tiga kali' adalah kesalahan fakta yang fatal dan mengubah konteks cerita.",
+      "Gaya": "Penggunaan kata 'menanti' untuk menggantikan 'mengganti' dan frasa 'walaupun pula' merusak gaya bahasa yang seharusnya natural.",
+      "Mekanik": "Adalah kesalahan ejaan yang parah dengan kata yang tidak ada dalam KBBI seperti 'Dua-dua', 'Empat-empat', dan 'walaupun pula'."
+    },
+    "timestamp": "2026-09-06T22:54:39"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi maksimal 8 karena naskah memuat klaim statistik (40%, 4 dari 5 orang) tanpa referensi spesifik yang tercantum dalam teks hasil editan.",
+      "Mekanik": "Skor 9 diberikan karena meskipun perbaikan signifikan, terdapat potensi inkonsistensi minor dalam penerapan aturan PUEBI untuk penulisan angka (misalnya 'Empat-lima' vs '40%') yang memerlukan verifikasi ketat."
+    },
+    "timestamp": "2026-09-06T22:55:11"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan mengenai mekanisme memori masih bersifat umum dan kurang mendalam karena tidak menyertakan referensi ilmiah atau data spesifik yang valid untuk mendukung klaim."
+    },
+    "timestamp": "2026-09-06T22:55:43"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 5,
+      "Koherensi": 6,
+      "Kedalaman": 6,
+      "Akurasi": 4,
+      "Gaya": 5,
+      "Mekanik": 4,
+      "Engagement": 6
+    },
+    "justifikasi": {
+      "Kejelasan": "Terdapat banyak kata yang tidak bermakna atau salah eja (seperti 'utrisiko', 'keda-dirumah', 'Semaradu') yang membuat kalimat sulit dipahami.",
+      "Koherensi": "Struktur paragraf terganggu oleh penyisipan kata yang tidak relevan dan perubahan makna yang tidak logis pada beberapa kalimat.",
+      "Kedalaman": "Penjelasan teknis menjadi dangkal karena penghapusan atau penggantian kata kunci yang mengubah substansi informasi asli.",
+      "Akurasi": "Editan mengubah fakta menjadi tidak masuk akal (misalnya 'Sumatra' menjadi 'Sumatra' tapi 'Semarang' menjadi 'Semaradu') dan menghilangkan konteks data statistik.",
+      "Gaya": "Gaya bahasa rusak akibat penggunaan istilah yang salah dan tidak konsisten, sehingga tidak lagi mencerminkan gaya populer yang baik.",
+      "Mekanik": "Banyak kesalahan ejaan fatal dan penulisan kata majemuk yang salah (seperti 'keda-dirumah') yang melanggar PUEBI secara signifikan."
+    },
+    "timestamp": "2026-09-06T22:56:15"
+  },
+  {
+    "condition": "enip",
+    "id": "pop_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 4,
+      "Koherensi": 5,
+      "Kedalaman": 6,
+      "Akurasi": 4,
+      "Gaya": 5,
+      "Mekanik": 2,
+      "Engagement": 5
+    },
+    "justifikasi": {
+      "Kejelasan": "Banyak kata hasil editan tidak bermakna atau salah eja (misalnya 'utrisiko', 'keda-dirumah', 'menurut kota ei') sehingga kalimat menjadi tidak dapat dipahami.",
+      "Koherensi": "Struktur paragraf terputus-putus karena adanya kata-kata asing atau typo yang mengganggu alur logis narasi.",
+      "Kedalaman": "Penjelasan teknis menjadi dangkal dan kacau akibat kesalahan penggantian kata yang mengubah substansi kalimat asli.",
+      "Akurasi": "Terjadi distorsi fakta dan penyisipan entitas fiktif atau salah eja ('Semaradu', 'kota ei') yang merusak validitas konten.",
+      "Gaya": "Konsistensi gaya popular hancur karena disisipkan banyak token acak dan typo yang tidak sesuai dengan register bahasa Indonesia yang baik.",
+      "Mekanik": "Naskah memuat banyak kesalahan fatal PUEBI dan ejaan yang tidak terduga, sehingga skor sangat rendah."
+    },
+    "timestamp": "2026-09-06T22:56:47"
+  },
+  {
+    "condition": "enip",
+    "id": "per_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 6,
+      "Koherensi": 7,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kejelasan": "Kalimat kedua paragraf pertama menjadi tidak koheren dan sulit dipahami karena penggabungan frasa 'risiko atau gagal bayar di kampus' yang memutus alur logika.",
+      "Kedalaman": "Penjelasan masih bersifat umum dan klaim faktual (seperti data survei) tidak disertai referensi spesifik sehingga kedalaman analisis terasa dangkal."
+    },
+    "timestamp": "2026-09-06T22:57:19"
+  },
+  {
+    "condition": "enip",
+    "id": "per_01",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 6,
+      "Koherensi": 7,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kejelasan": "Kalimat di paragraf pertama menjadi tidak koheren dan sulit dipahami akibat penggabungan frasa 'risiko atau gagal bayar di kampus' yang memutus alur logika kalimat sebelumnya.",
+      "Mekanik": "Penulisan 'bank sentral' dan 'kelas keuangan' tidak memerlukan tanda hubung karena bukan kata majemuk tertutup, sehingga melanggar pedoman PUEBI."
+    },
+    "timestamp": "2026-09-06T22:57:51"
+  },
+  {
+    "condition": "enip",
+    "id": "per_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan masih bersifat umum dan kurang memberikan data kuantitatif atau analisis mendalam mengenai dampak spesifik dari kebijakan yang diusulkan."
+    },
+    "timestamp": "2026-09-06T22:58:23"
+  },
+  {
+    "condition": "enip",
+    "id": "per_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi maksimal 8 karena klaim spesifik tentang 'lima desa di Kabupaten Gowa' dan 'tiga desa lainnya' tidak disertai sumber referensi yang dapat diverifikasi."
+    },
+    "timestamp": "2026-09-06T22:58:55"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0012",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan teoretis masih bersifat umum dan tidak mencapai lapisan analitis yang lebih dalam atau memberikan contoh konkret yang kuat.",
+      "Engagement": "Gaya penulisan yang sangat formal dan kaku membuat ritme baca menjadi monoton sehingga kurang mampu mempertahankan minat pembaca secara emosional."
+    },
+    "timestamp": "2026-09-06T22:59:27"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0012",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan masih berhenti pada permukaan tanpa analogi atau contoh konkret yang memperkaya pemahaman pembaca."
+    },
+    "timestamp": "2026-09-06T22:59:59"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_04",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0011",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah tetap pada level deskriptif tanpa penambahan data, referensi, atau analisis kritis yang lebih mendalam."
+    },
+    "timestamp": "2026-09-06T23:00:31"
+  },
+  {
+    "condition": "enip",
+    "id": "aca_04",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0011",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah masih dangkal karena hanya menyajikan ringkasan studi tanpa analisis kritis mendalam atau contoh konkret yang memadai.",
+      "Engagement": "Ritme naskah cenderung datar dan kurang menarik karena minimnya elemen naratif atau hook yang kuat untuk mempertahankan perhatian pembaca."
+    },
+    "timestamp": "2026-09-06T23:01:03"
+  },
+  {
+    "condition": "enip",
+    "id": "sas_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0003",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah tetap pada permukaan peristiwa tanpa penambahan latar belakang atau konflik batin yang signifikan untuk memperdalam karakter."
+    },
+    "timestamp": "2026-09-06T23:01:35"
+  },
+  {
+    "condition": "enip",
+    "id": "per_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0005",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan masih bersifat umum dan kurang menyajikan analogi atau contoh konkret yang mendalam untuk mencapai lapisan pemahaman 4-5."
+    },
+    "timestamp": "2026-09-06T23:02:07"
+  },
+  {
+    "condition": "enip",
+    "id": "per_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0005",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 8,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 7,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Mekanik": "Hasil editan mengandung kesalahan PUEBI yang signifikan, seperti penambahan tanda hubung yang tidak perlu pada 'pendaftar-nya' dan 'anak-cucu' (seharusnya 'pendaftarannya' dan 'anak cucu') serta penggunaan titik koma yang tidak tepat sebelum konjungsi 'sedangkan'."
+    },
+    "timestamp": "2026-09-06T23:02:39"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah tetap bersifat anekdotal dan tidak menambahkan lapisan analisis atau contoh konkret baru yang signifikan di luar teks asli.",
+      "Akurasi": "Skor dibatasi karena diagnosis awal salah mengidentifikasi genre naskah sebagai fiksi ilmiah, padahal naskah asli adalah esai personal/informal.",
+      "Gaya": "Penggunaan istilah 'formalitas 5' dalam catatan editor tidak lazim dan menunjukkan inkonsistensi dalam penerapan pedoman gaya yang jelas.",
+      "Mekanik": "Terdapat inkonsistensi minor dalam penggunaan tanda baca dan format penomoran tabel yang tidak seragam (misalnya spasi pada nomor 10-18)."
+    },
+    "timestamp": "2026-09-06T23:03:11"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_02",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "Skor dibatasi maksimal 8 karena naskah sumber bersifat anekdotal dan tidak menyertakan referensi faktual untuk klaim kemajuan belajar.",
+      "Kedalaman": "Naskah hanya mempertahankan kedalaman ide asli tanpa penambahan contoh konkret atau data pendukung baru.",
+      "Gaya": "Pengubahan total dari bahasa informal ('gue') menjadi formal baku ('saya') mengurangi keaslian suara penulis dan sedikit memecah konsistensi register untuk audiens muda."
+    },
+    "timestamp": "2026-09-06T23:03:43"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_04",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0001",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 8,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah tetap bersifat deskriptif ringan tanpa penambahan analisis atau contoh konkret yang signifikan dari naskah asli."
+    },
+    "timestamp": "2026-09-06T23:04:15"
+  },
+  {
+    "condition": "enip",
+    "id": "sf_04",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.8-27b",
+    "anon": "OUT-0001",
+    "skor": {
+      "Kejelasan": 8,
+      "Koherensi": 7,
+      "Kedalaman": 6,
+      "Akurasi": 6,
+      "Gaya": 8,
+      "Mekanik": 8,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah hanya berisi opini subjektif ringan tanpa analisis mendalam atau konteks tambahan.",
+      "Akurasi": "Editor salah mengidentifikasi genre naskah sebagai fiksi ilmiah padahal naskah asli adalah ulasan drama, serta menggunakan placeholder [nama drama] yang tidak ada di sumber.",
+      "Mekanik": "Penggunaan tanda hubung pada kata ulang seperti 'komentar-komentar' dan 'adegan-adegan' tidak sesuai PUEBI (seharusnya tanpa tanda hubung)."
+    },
+    "timestamp": "2026-09-06T23:04:47"
   }
 ]
