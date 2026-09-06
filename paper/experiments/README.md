@@ -8,7 +8,7 @@ yang Harus Diambil Saat Eksekusi"). Tanggal sesi: 2026-08-15/16.
 | ID | Keputusan | Status |
 |---|---|---|
 | K1 | Editor (B1/B2/ENIP): **openai/gpt-oss-120b via Groq API** (migrasi dari llama-3.3-70b yang decommissioned — Deviasi #6) | ⏳ re-run penuh di korpus bersih; pilot 60/60 tuntas |
-| K2 | Judge (beda family dari editor): **J1 = qwen/qwen3.6-27b** (utama, trial 0 & 0.7); J2 = **openai/gpt-oss-20b** (lemah, Deviasi #6); J3 = gemini-3.5-flash (lintas-penyedia) | ⏳ menunggu re-run editor |
+| K2 | Judge (beda family dari editor): **J1 = qwen/qwen3.8-27b** (Deviasi #9: qwen3.6 OTPM exceeded); J2 = **openai/gpt-oss-20b** (lemah, Deviasi #6); J3 = gemini-3.5-flash (lintas-penyedia) | ✅ 300/300 complete |
 | K3 | Runs via API, temperature 0 (editor); judge trial 0 & 0.7 | ✅ |
 | K4 | Ukuran korpus: Full 20 | ✅ korpus 20 sintetis (v2 bersih) + 20 nyata (4 set) |
 | K5 | Komposisi: 10 injeksi + 6 kontrol + 4 semi-formal | ✅ Fase A selesai |
@@ -62,9 +62,13 @@ yang Harus Diambil Saat Eksekusi"). Tanggal sesi: 2026-08-15/16.
    teks ASLI pada string yang sudah berubah panjang → 65% injeksi
    (156/238) menghasilkan splice salah (mis. "kualkwalitasf"). Fix:
    penggantian kanan-ke-kiri + offset final dihitung dari delta kiri.
-   Korpus diregenerasi (seed sama): 238/238 offset kini tepat menunjuk
-   bentuk salah; distribusi kategori identik. **Seluruh run LLM harus
-   dilakukan ulang** di atas teks bersih (run sebelumnya = pilot).
+    Korpus diregenerasi (seed sama): 238/238 offset kini tepat menunjuk
+    bentuk salah; distribusi kategori identik. **Seluruh run LLM harus
+    dilakukan ulang** di atas teks bersih (run sebelumnya = pilot).
+9. **qwen3.6-27b thinking tokens melebihi OTPM 1000 Groq (2026-09-06)**:
+    `<think>` thinking tokens pada qwen3.6-27b menghasilkan 609 completion
+    token untuk prompt sederhana, melebihi batas OTPM 1000. Switch ke
+    **qwen3.8-27b** (237 token/eval, tanpa thinking overhead).
 
 ## Status per fase
 
@@ -72,8 +76,8 @@ yang Harus Diambil Saat Eksekusi"). Tanggal sesi: 2026-08-15/16.
 |---|---|---|
 | A korpus | ✅ (v2 bersih) | Bug offset diperbaiki; 238/238 error terverifikasi di teks (Deviasi #8) |
 | B runner | ✅ final | Re-run gpt-oss-120b di korpus v2 tuntas 2026-08-23 (20/20 per kondisi) |
-| C metrik | 🔶 sebagian final | C1 fix rate final (enip 0.9681 < b1 0.9774 ≈ b2 0.9769); C4 final; **C2 judge berjalan bertahap** (kuota harian: J2 live, J1 tunggu refund TPD rolling, J3 tunggu reset harian); C3+analyze.py siap, jalankan setelah scores lengkap |
-| D1 portability | 🔶 1/8 | OpenCode ✅ telemetri progressive disclosure; Claude Code menunggu `/login`; 6 runtime lain manual GUI |
+| C metrik | ✅ final | C1 fix rate final; C2 judge 300/300 FINAL; C3+C4 final; analyze.py selesai |
+| D1 portability | 🔶 2/8 | OpenCode ✅ + Gemini CLI ✅; Claude Code, Cursor, Codex, Cline, Antigravity, VS Code Copilot manual |
 | D2 trigger | ✅ | precision 1.0 · recall 0.9 (1 FN) — `trigger/results.json` + logs/ |
 | D3 overhead | ✅ | discovery 382, aktivasi 2266, refs+assets 7941, bundle 10589 token |
 | E human | SKIP | editor tidak tersedia (K6); protokol tetap di PLAN.md §7 |
