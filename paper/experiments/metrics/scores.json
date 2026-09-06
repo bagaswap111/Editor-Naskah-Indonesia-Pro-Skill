@@ -4975,5 +4975,134 @@
     },
     "justifikasi": {},
     "timestamp": "2026-08-31T14:58:03"
+  },
+  {
+    "condition": "b1",
+    "id": "per_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0005",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-01T13:54:49"
+  },
+  {
+    "condition": "b1",
+    "id": "per_03",
+    "judge": "J1",
+    "trial": 0.7,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0005",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-01T15:32:05"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0018",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 5,
+      "Akurasi": 8,
+      "Gaya": 4,
+      "Mekanik": 7,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah hanya menyajikan pengalaman pribadi dan tips dasar tanpa analisis mendalam atau contoh konkret yang memperkaya wawasan pembaca.",
+      "Gaya": "Klaim gaya fiksi ilmiah di judul tidak sesuai dengan isi naskah yang tetap berupa catatan harian pribadi tanpa unsur imajinatif atau ilmiah.",
+      "Mekanik": "Terdapat beberapa kata serapan yang tidak disesuaikan dengan ejaan baku (misalnya \"kompak\" dan \"eksplor\") serta penggunaan tanda hubung yang tidak konsisten dengan PUEBI."
+    },
+    "timestamp": "2026-09-01T17:08:19"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 5,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-01T18:43:59"
+  },
+  {
+    "condition": "b1",
+    "id": "sf_04",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0001",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 6,
+      "Akurasi": 8,
+      "Gaya": 5,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan masih bersifat permukaan dan tidak mengembangkan analisis lebih lanjut mengenai tema atau teknik sinematografi yang dibahas.",
+      "Gaya": "Gaya yang dideklarasikan sebagai fiksi ilmiah tidak sesuai dengan konten ulasan drama Korea yang bersifat nonfiksi dan reflektif."
+    },
+    "timestamp": "2026-09-01T19:31:01"
+  },
+  {
+    "condition": "b2",
+    "id": "aca_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "groq",
+    "model": "qwen/qwen3.6-27b",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 6,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 7
+    },
+    "justifikasi": {
+      "Akurasi": "Perubahan data faktual tanpa dasar (misalnya 'tiga dari empat siswa' diubah menjadi 'tiga puluh persen' dan tahun '2.024' menjadi '2022') mengurangi keandalan naskah."
+    },
+    "timestamp": "2026-09-01T20:17:30"
   }
 ]
