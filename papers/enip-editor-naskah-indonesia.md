@@ -309,28 +309,33 @@ This paper presented ENIP, a portable three-layer editorial skill for Indonesian
 - Shows Layer 1 Mechanical (PUEBI/KBBI), Layer 2 Structural (TEEL+, transitions, depth model), Layer 3 Substantive (fact verification, style engine)
 - Includes layer-to-analogy mapping: bricklayer, architect, curator
 - Aspect ratio: 16:9
+- Files: `paper/figures/fig1_three_layer_framework.png`, `paper/figures/fig1_three_layer_framework.pdf`
 
 **Figure 2**: Style Engine with Hybrid Weighting (Flowchart)
 - Shows 5 base styles (Academic, Journalistic, Literary, Popular, Persuasive)
 - Hybrid mode with primary/secondary/tertiary weights 60/30/10
 - 7 micro parameters: formality 1-10, sentence length, technical density, analogy frequency, rhetorical questions, licentia poetica tolerance, narrative perspective
 - Aspect ratio: 16:9
+- Files: `paper/figures/fig2_style_engine.png`, `paper/figures/fig2_style_engine.pdf`
 
 **Figure 3**: Seven-Stage Editing Workflow (Flow Diagram)
 - Shows 7 stages: Intake & Diagnosis → Substantive Editing → Structural Editing → Sentence Editing → Proofreading → Enhancement → Output & Editor Notes
 - Per-stage outputs including 4 output modes and 7-dimension quality score
 - Aspect ratio: 21:9
+- Files: `paper/figures/fig3_workflow.png`, `paper/figures/fig3_workflow.pdf`
 
 **Figure 4**: Progressive Disclosure Context Cost (Bar Chart)
 - Compares token cost: discovery (~382 tokens), activation (~2,266 tokens), execution (~7,941 tokens)
 - Shows why 173-line core keeps context lean
 - Aspect ratio: 4:3
+- Files: `paper/figures/fig4_progressive_disclosure.png`, `paper/figures/fig4_progressive_disclosure.pdf`
 
 **Figure 5**: Self-Reported Quality Scores on Worked Examples (Radar Chart)
 - 7-dimension scores for worked examples 1 (academic-popular) and 3 (literary)
 - Annotated with self-assessment bias caveat
 - Note: Clean output mode does not emit scores
 - Aspect ratio: 1:1
+- Files: `paper/figures/fig5_quality_scores_radar.png`, `paper/figures/fig5_quality_scores_radar.pdf`
 
 **Figure 6**: Verified Skill Artifact Characteristics (Bar Chart)
 - 173-line core SKILL.md
@@ -339,6 +344,7 @@ This paper presented ENIP, a portable three-layer editorial skill for Indonesian
 - 9 project-level plus 8 global install paths
 - 0 validator warnings
 - Aspect ratio: 4:3
+- Files: `paper/figures/fig6_artifact_characteristics.png`, `paper/figures/fig6_artifact_characteristics.pdf`
 
 ## References
 
