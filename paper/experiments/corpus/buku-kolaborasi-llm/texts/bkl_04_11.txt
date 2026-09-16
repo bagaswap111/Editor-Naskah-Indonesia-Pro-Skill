@@ -1,0 +1,27 @@
+Pelajaran. CPU-only adalah solusi yang layak dan jujur untuk model ≤14B di kantor kecil — responsif, murah, dan hemat energi. Untuk model lebih besar, GPU tetap diperlukan; tetapi dengan ceruk yang jujur ini, banyak organisasi kecil bisa menikmati LLM lokal tanpa membayar harga sebuah mobil. Keputusan mereka ditutup dengan prinsip sederhana: biarkan CPU melakukan yang bisa dilakukan CPU dengan baik, dan simpan anggaran GPU untuk masalah yang benar-benar membutuhkannya — sebuah prinsip pembagian tugas yang akan kita temui kembali dalam bentuk yang lebih rumit di bab eGPU & Multi-GPU.
+
+Pelajaran terakhir. Kisah startup ini bukan kisah tentang hardware, melainkan tentang memetakan kebutuhan dengan jujur. Mereka tidak bertanya "GPU mana yang terbaik?" — pertanyaan yang memaksa jawaban mahal — melainkan "model berapa yang benar-benar kami butuhkan, dan seberapa cepat?" Jawabannya — Qwen 2.5 (14B), ≤14B, interaktif — mengarahkan mereka ke Xeon CPU-only dengan sendirinya. Jika kebutuhan mereka adalah agentic coding 70B untuk seluruh tim, jawaban hardware-nya akan berbeda. Peta yang tepat menghemat uang; peta yang salah menghabiskan dua kali lipat.
+
+Yang juga tidak kalah penting: mereka menjadwalkan pekerjaan batch di luar jam kantor. Pada pukul 02.00, server 150W yang "pelan" adalah sahabat terbaik anggaran — biaya listrik sama, tetapi tugas berat selesai tanpa mengganggu siapa pun. Dengan pola off-hour batch ini, server CPU-only bukan sekadar solusi "darurat tanpa GPU", melainkan bagian sah dari arsitektur layanan — dan pembahasan rinci tentang biaya listriknya akan dibuka penuh di Bab 2.7, Power Consumption, bab penutup seri hardware ini.
+
+### Paper Jurnal/Konferensi
+
+[1] Wang, H., et al. (2024). Efficient LLM Inference on CPUs. Conference on Machine Learning and Systems (MLSys). DOI: 10.48550/arXiv.2311.00502
+
+[2] Na, S., Jeong, G., Ahn, B.H., Jezghani, A., Young, J., Hughes, C.J., Krishna, T., & Kim, H. (2025). FlexInfer: Flexible LLM Inference with CPU Computations. Proceedings of Machine Learning and Systems (MLSys). DOI: 10.48550/arXiv.2412.12345 ⚠️ ID placeholder — ganti dengan ID asli sebelum rilis.
+
+[3] Zhang, W., et al. (2024). Inference Performance Optimization for Large Language Models on CPUs. arXiv:2407.07304. DOI: 10.48550/arXiv.2407.07304
+
+[4] Na, S., et al. (2024). LLM Inference Characterization on Latest CPUs. IEEE International Symposium on Workload Characterization (IISWC). PDF
+
+[5] Li, Z., et al. (2025). Sandwich: A Hardware-Centric CPU-Based LLM Serving Engine. European Conference on Computer Systems (EuroSys). DOI: 10.48550/arXiv.2507.18454
+
+### Referensi Pendukung
+
+[6] Intel. Intel Extension for PyTorch (IPEX). https://github.com/intel/intel-extension-for-pytorch
+
+[7] Intel. xFasterTransformer. https://github.com/intel/xFasterTransformer
+
+[8] llama.cpp. CPU Build Guide. https://github.com/ggerganov/llama.cpp
+
+[9] Intel. AMX Introduction — Advanced Matrix Extensions. https://www.intel.com/content/www/us/en/products/docs/accelerator-engines/advanced-matrix-extensions.html

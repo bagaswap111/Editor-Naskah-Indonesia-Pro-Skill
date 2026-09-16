@@ -1,0 +1,25 @@
+Tabel 2 menunjukkan bagaimana pilihan arsitektur sangat tergantung pada skenario penggunaan. Tidak ada arsitektur yang unggul dalam semua situasi — setiap pilihan melibatkan trade-off yang perlu dipertimbangkan berdasarkan prioritas Anda.
+
+### Performa per FLOP yang Superior
+
+Keunggulan utama MoE adalah kemampuannya mencapai performa yang lebih tinggi per FLOP. MoE dengan 13 miliar parameter aktif dapat mencapai performa yang setara dengan dense model 30 miliar parameter atau lebih pada benchmark reasoning dan knowledge. Fenomena ini terjadi karena parameter "ekstra" — expert yang tidak aktif untuk token tertentu — tetap berkontribusi selama proses pelatihan. Model melihat representasi yang lebih kaya dari 1,6 triliun parameter, tetapi saat inference, hanya 50 miliar yang diperlukan. Ini adalah "free lunch" dalam trade-off komputasi versus kualitas.
+
+Studi oleh Dey et al. (2024) [6] menunjukkan bahwa MoE 6,4B dengan 32 expert (hanya 1,4B aktif) melampaui dense 6,4B dalam semua metrik, dan MoE 12,8B (2,8B aktif) mendekati performa dense 30B. Rasio 4:1 hingga 5:1 antara parameter efektif dan parameter aktif adalah angka yang konsisten di berbagai skala model.
+
+### Throughput Serving yang Lebih Tinggi
+
+Dalam skenario serving dengan banyak permintaan concurrent, MoE unggul secara signifikan. Karena FLOP per token lebih rendah, GPU dapat memproses lebih banyak token per detik secara total. Mixtral 8x7B dengan 13B aktif mencapai sekitar 180 token per detik pada batch 8 dalam format Q4_K_M, dibandingkan Llama-3 70B yang hanya sekitar 15 TPS pada kondisi yang sama. Untuk 8 pengguna concurrent, ini berarti latency 5 kali lebih rendah dengan kualitas yang hampir setara — perbedaan yang sangat terasa dalam pengalaman pengguna.
+
+### Skalabilitas ke Parameter Triliunan
+
+Arsitektur MoE memungkinkan skala model hingga triliunan parameter tanpa peningkatan FLOP yang sebanding. DeepSeek V4 Pro dengan 1,6 triliun parameter total hanya membutuhkan komputasi setara dense model sekitar 50 miliar parameter saat inference. Tanpa MoE, dense model 1,6T akan membutuhkan sekitar 3.200 GB VRAM dalam presisi FP16 — jumlah yang tidak realistis untuk semua organisasi kecuali raksasa teknologi — dan sekitar 13 kali lebih banyak komputasi per token. MoE membuka jalan ke model dengan kapasitas pengetahuan yang sangat besar tanpa kebutuhan hardware yang tidak realistis.
+
+### Efisiensi Biaya di Cloud
+
+Provider API seperti OpenAI, Anthropic, dan DeepSeek hampir pasti menggunakan arsitektur MoE untuk model besar mereka. Dengan MoE, biaya inference per token lebih rendah untuk provider, yang berarti harga API bisa lebih murah untuk pengguna akhir. DeepSeek V4 Pro adalah contoh paling ekstrem: dengan sparsity ratio hanya 3,1%, biaya komputasi per token hanya sekitar 5% dari dense model dengan parameter setara. Efisiensi ini diteruskan ke harga API yang sangat kompetitif — $0,14 per juta token input untuk DeepSeek V4 Pro dibandingkan $2,50 per juta token input untuk GPT-4o.
+
+### Keunggulan untuk Batch Processing dan RAG
+
+Pipeline RAG (Retrieval-Augmented Generation) dengan batch processing besar — misalnya, memproses ratusan dokumen secara simultan — mendapat manfaat signifikan dari efisiensi per FLOP MoE. Untuk workload seperti embedding massal atau reranking dokumen, MoE memproses banyak input dengan biaya per token yang lebih rendah. Namun, perlu dicatat bahwa keunggulan ini berkurang drastis untuk batch kecil atau skenario single-user chatting — sebuah trade-off yang akan dibahas di bagian berikutnya.
+
+### Kebutuhan VRAM yang Besar

@@ -1,0 +1,18 @@
+# Bab 5.1: vLLM
+
+Setelah membaca sub-bab ini, Anda akan mampu:
+
+- Menerangkan cara vLLM mengalokasikan dan membebaskan memori GPU secara dinamis melalui block table dan KV Cache Manager
+- Membedakan strategi preemption berbasis swap ke CPU versus recomputation, beserta konsekuensi latensinya
+- Mengonfigurasi parameter inti vLLM (--block-size, --max-num-seqs, --gpu-memory-utilization) untuk kebutuhan produksi
+- Men-deploy server vLLM yang kompatibel dengan API OpenAI dan membaca metriknya
+
+Setiap permintaan ke LLM melewati dua fase yang sifatnya bertolak belakang. Fase prefill membaca seluruh prompt sekaligus dan menghasilkan token pertama — fase ini rakus komputasi tetapi hanya terjadi sekali. Fase decode kemudian menghasilkan token berikutnya satu per satu secara autoregressive — setiap token baru bergantung pada seluruh token sebelumnya. Masalahnya, agar model bisa "mengingat" konteks, setiap token yang sudah diproses harus disimpan dalam bentuk pasangan tensor key dan value untuk tiap lapisan attention. Kumpulan tensor inilah yang disebut KV-cache, dan ukurannya tumbuh linear terhadap panjang percakapan serta jumlah lapisan model.
+
+Di sinilah letak ironi serving model bahasa: bobot model memang statis (sekali dimuat di GPU, ukurannya tetap), tetapi KV-cache tumbuh dinamis setiap token diproduksi. Pada model besar dengan konteks panjang, KV-cache bisa memakan sebagian besar VRAM yang tersedia — bahkan lebih besar dari bobot model itu sendiri. Dengan kata lain, ketika Anda menambah pengguna, yang pertama kali kehabisan bukanlah komputasi GPU, melainkan memori untuk menyimpan "memori" tiap percakapan.
+
+Lebih rumit lagi, ukuran KV-cache per request tidak bisa diketahui sebelumnya: model menentukan panjang jawaban saat berjalan, dan pengguna bisa menambah konteks kapan saja. Sistem alokasi yang kaku — reservasi penuh di awal — terpaksa bermain aman dengan mengunci kapasitas maksimum. Padahal mayoritas percakapan nyata hanya memakai sebagian kecil dari batas itu; sisanya menganggur, tetapi tetap terhitung sebagai "terpakai" di mata GPU. Inilah akar dari angka-angka pemborosan yang akan kita lihat pada Tabel 1: bukan kekurangan kapasitas, melainkan ketidakmampuan memakai kapasitas yang sebenarnya sudah tersedia.
+
+Sayangnya, sekadar menyediakan memori saja tidak cukup — cara sistem konvensional mengalokasikan memori itu juga bermasalah. Bayangkan sebuah request yang boleh menghasilkan maksimal 2.048 token. Sistem lama seperti Hugging Face Transformers akan langsung mereservasi ruang untuk 2.048 token itu sejak awal, padahal percakapan sering berakhir di 100-200 token. Ruang sisanya terlanjur dikunci dan tidak bisa dipakai request lain — inilah fragmenasi internal (reservasi maksimum). Di sisi lain, KV-cache lama ditempatkan pada blok memori yang harus contiguous (berurutan); jika sisa memori hanya tersedia dalam potongan-potongan kecil berserakan, alokasi gagal walau total ruang masih cukup — inilah fragmenasi eksternal.
+
+Akibat dua jenis fragmenasi ini, pengukuran pada paper PagedAttention menunjukkan utilisasi memori KV-cache hanya 20-40% — artinya 60-80% memori terbuang sebagai waste [1]. Sistem serving seperti Hugging Face Transformers bahkan mencatat pemborosan hingga ~80%, sementara FasterTransformer dan Orca masih ~60% dan ~50%. Hampir semua keuntungan continuous batching — yang memungkinkan banyak request berbagi satu GPU — tergerus habis oleh manajemen memori yang boros. Persis seperti perpustakaan yang menolak meminjamkan setengah meja yang kosong, GPU pun dipaksa menolak pekerjaan yang sebenarnya masih muat.

@@ -1,0 +1,34 @@
+| Aspek | Local (On-premise) | Cloud API | Hybrid |
+|:---|:---:|:---:|:---:|
+| Biaya Awal (CAPEX) | Rp 30-250jt | Rp 0 | Rp 15-150jt |
+| Biaya Bulanan (OPEX) | Rp 1-5jt (listrik) | Rp 5-100jt (token) | Rp 1-30jt |
+| Privasi Data | Sangat Tinggi | Tergantung provider | Tinggi |
+| Kualitas Model | Meningkat drastis (DS V4 Pro, Mistral Large 3) | Tertinggi (GPT-5.5, Fable 5) | Optimal |
+| Latency | 50-500ms (lokal) | 500-3000ms (network) | 50-2000ms |
+| Skalabilitas | Terbatas hardware | Unlimited | Sedang |
+| Maintenance | Tinggi (tim internal) | None (provider) | Sedang |
+| Compliance (UU PDP) | Mudah | Perlu DPA | Perlu DPA parsial |
+| Best For | Data sensitif, traffic tetap | Startup, traffic spike | Perusahaan menengah-besar |
+| Model Open-Weight Unggulan | DS V4 Pro (49B, 1M ctx), Mistral Large 3 (41B, 256K), Qwen3.7-Max | GPT-5.5, Claude Fable 5, Gemini 2.5 Pro | Kombinasi optimal |
+
+Tabel 3 membuktikan bahwa tidak ada kolom yang menang mutlak. Cloud unggul di CAPEX, skalabilitas, dan kualitas; lokal unggul di privasi, latency, dan kepatuhan; hybrid mengambil tengah secara selektif — "Tinggi" untuk privasi, "Sedang" untuk skalabilitas — karena memang dirancang untuk meminimalkan kelemahan kedua sisi. Perhatikan juga baris Best For: pilihan deployment bukan soal mana yang "lebih canggih", melainkan mana yang sesuai profil traffic dan sensitivitas data Anda.
+
+### Gambar 2: Arsitektur Hybrid Local-Cloud
+
+Diagram berikut memetakan alur permintaan pada arsitektur hybrid: satu router menjadi gerbang tunggal, memisahkan lalu lintas sensitif/sederhana ke lokal dan kompleks/non-sensitif ke cloud, dengan response cache di tengah yang melayani permintaan berulang tanpa menyentuh keduanya.
+
+Perhatikan Decision Logic di dalam subgraph: ini adalah tiga aturan yang sebenarnya menentukan perilaku sistem. PII Detected memaksa lalu lintas ke lokal apa pun kompleksitasnya — kepatuhan mengalahkan efisiensi. Low Confidence adalah escalation path yang mengizinkan lokal menyerah kepada cloud saat ragu. Dan Cache Hit memotong seluruh rantai komputasi untuk permintaan yang sudah pernah dijawab. Dengan ketiga aturan ini, sistem secara otomatis menjaga privasi (lokal menangani PII), kualitas (cloud menangkap kasus sulit), dan biaya (cache menekan volume token cloud).
+
+### Klasifikasi Sensitivitas Data Berjenjang
+
+Keamanan hybrid dimulai dari klasifikasi data tiga tier. Tier 1: data wajib lokal — PII, data medis, data transaksi finansial, rahasia dagang; tidak boleh keluar jaringan, apa pun alasannya. Tier 2: data yang boleh hybrid dengan masking — dapat dikirim ke cloud setelah PII di-scrub, hasilnya di-re-identify kembali di sisi lokal. Tier 3: data aman untuk cloud — pertanyaan produk, konten publik, edukasi. Klasifikasi ini harus tertanam di router (lihat Langkah 1), bukan sekadar kebijakan di kertas.
+
+### Anonymization
+
+Untuk tier 2, anonymization menjadi proses wajib: sebelum request dikirim ke cloud, seluruh PII — NIK, nomor telepon, email, nama — direduksi menjadi placeholder (misalnya [NIK]), dan setelah respons kembali, placeholder dipetakan ulang ke nilai asli. Teknik ini dikenal sebagai scrub & re-identify. Penting ditekankan: anonymization bukan pengganti menjaga data, melainkan lapisan pengaman tambahan — jika pun data bocor di sisi cloud, nilai yang bocor sudah tidak bermakna. Langkah 3 memberikan implementasi lengkapnya.
+
+### Enkripsi dan Zero-Trust
+
+Koneksi antara lokal dan cloud wajib TLS in-transit dalam arsitektur zero-trust: setiap request diautentikasi dan diautorisasi secara eksplisit, tidak ada kepercayaan implisit terhadap jaringan internal. API key disimpan di secret manager, bukan di kode. Bagi organisasi yang lebih ketat, pertimbangkan private endpoint atau VPC peering ke region cloud tertentu agar lalu lintas tidak melintas internet publik sama sekali.
+
+### Audit Log

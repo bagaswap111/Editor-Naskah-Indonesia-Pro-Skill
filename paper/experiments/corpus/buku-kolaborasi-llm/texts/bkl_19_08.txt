@@ -1,0 +1,30 @@
+Dua pertanyaan, tiga jawaban. Pertanyaan pertama menegakkan kepatuhan — data sensitif tidak pernah ditawar. Pertanyaan kedua melakukan kalkulasi — seberapa besar volume Anda relatif terhadap titik break-even pada Tabel 2. Jika volume di bawah break-even: cloud, selesai, tidak perlu membeli hardware. Jika di atas: hybrid, karena lokal menanggung volume rutin yang murah sementara cloud menjaga kualitas untuk kasus kompleks dan spike yang sesekali datang.
+
+### Langkah 1: Setup Hybrid Router dengan LiteLLM
+
+Langkah ini membangun router hybrid minimal: permintaan berangkat ke model lokal (Ollama) dengan fallback otomatis ke cloud ketika lokal gagal. Install LiteLLM terlebih dahulu dengan pip install litellm, lalu simpan skrip berikut sebagai hybrid_router.py.
+
+Perhatikan dua desain penting. Pertama, fungsi classify_query mengembalikan "llama-local" di kedua cabang — ini implementasi local-first yang disengaja: daftar pola sensitif hanya untuk keamanan, bukan untuk memilih cloud. Kedua, try/except adalah fallback: jika Ollama mati atau GPU kehabisan memori, permintaan otomatis diarahkan ke cloud sehingga layanan tidak pernah terputus. Untuk produksi, ganti daftar pola statis dengan classifier berbasis model kecil atau layanan PII-detection.
+
+### Langkah 2: Menghitung Break-even Point
+
+Kalkulator berikut menurunkan break-even point langsung dari tiga angka masukan: CAPEX hardware, biaya lokal per token, dan biaya cloud per token. Simpan sebagai breakeven.py dan jalankan untuk profil organisasi Anda sendiri.
+
+Logika di balik kalkulator ini membentuk monthly_hw_cost + token × local = token × cloud, yang disederhanakan menjadi token = monthly_hw_cost / (cloud - local). Uji sensitivitasnya: naikkan biaya listrik (Rp 2.500/kWh), atau bandingkan dengan GPT-5.5 (Rp 75.000/juta token) — Anda akan melihat break-even bergeser drastis, membuktikan bahwa keputusan deployment harus dihitung ulang setiap kali asumsi berubah. Amati juga guard if savings_per_token <= 0 — ia mengingatkan bahwa di skala mikro, cloud memang lebih murah, dan tidak ada rasa malu untuk tetap di cloud.
+
+### Langkah 3: Pipeline Anonymization untuk Hybrid
+
+Langkah terakhir melengkapi sisi keamanan: scrub PII sebelum data tier 2 dikirim ke cloud, dan re-identify setelah respons kembali. Simpan sebagai anonymize.py.
+
+Versi sederhana ini cukup untuk memahami pola; untuk produksi, lengkapi dengan pemetaan placeholder → nilai asli yang disimpan aman di sisi lokal (itulah original_map pada fungsi deanonimize, yang dalam contoh di atas perlu dibangun bersama proses masking), dan perkuat pola regex NAMA agar tidak menangkap kata umum. Ingat aturan praktisnya: yang keluar jaringan hanya teks yang sudah tidak bermakna, dan hanya untuk data tier 2 — data tier 1 tidak pernah melewati fungsi ini karena tidak akan pernah dikirim ke cloud.
+
+Skenario. Sebuah bank digital dengan 1 juta nasabah ingin menghadirkan asisten AI untuk customer service 24/7. Tiga persyaratan mengikat: (1) semua data transaksi wajib diproses lokal sesuai UU PDP, (2) pertanyaan umum boleh berjalan hybrid, dan (3) latency rata-rata harus di bawah 2 detik. Dengan 1 juta nasabah, perkiraan lalu lintas awal adalah puluhan ribu pertanyaan per hari — terlalu mahal jika semuanya dilempar ke cloud frontier.
+
+Analisis pilihan. Opsi cloud-only dihitung Rp 45 juta/bulan — mayoritas dari percakapan rutin ("cek saldo", "cara transfer", "status mutasi") yang sebenarnya tidak memerlukan model frontier. Opsi lokal murni dianggap gagal untuk pertanyaan educative yang membutuhkan kualitas penjelasan tinggi. Keputusan jatuh pada hybrid: kelas pertanyaan ditentukan oleh isi, bukan oleh jenis pengguna.
+
+Langkah solusi.
+
+- Lokal: 2x RTX 4090 (NVLink) + vLLM melayani Llama 3.1 70B Q3_K_M untuk query transaksi dan data nasabah — data sensitif tidak pernah meninggalkan jaringan bank.
+- Cloud: GPT-4o untuk pertanyaan produk, edukasi keuangan, dan informasi umum — tidak ada PII di dalamnya.
+- Router: klasifikasi otomatis berbasis kata kunci — query mengandung "saldo", "transfer", "mutasi" → lokal; lainnya → cloud.
+- Anonymization: seluruh PII di-scrub sebelum request ke cloud, dan respons di-re-identify kembali di sisi lokal.

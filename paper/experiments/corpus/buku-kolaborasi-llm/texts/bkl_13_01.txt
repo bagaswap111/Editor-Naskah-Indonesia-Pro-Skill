@@ -1,0 +1,37 @@
+# Bab 7.1: Karakteristik Sistem
+
+Setelah membaca sub-bab ini, Anda akan mampu:
+
+- Menyusun peta komponen sistem: vLLM, Tabby/Continue, Open WebUI, Qdrant/ChromaDB, dan Authentik/Authelia
+- Membangun topologi jaringan kantor dengan reverse proxy, VLAN, dan VPN WireGuard yang aman
+
+### Antara Rumah dan Enterprise
+
+Di Jilid 2 Bab 6, kita merawat server di rumah dengan 4-8 pengguna keluarga. Di Bab 8, kita akan membangun infrastruktur enterprise dengan 50+ pengguna dan high availability. Small office berada tepat di tengah: kantor atau startup dengan 9-20 pengguna, dan mayoritas dari mereka adalah developer atau engineer. Ini bukan angka kosong — perbedaan jumlah pengguna mengubah hampir semua keputusan arsitektur, dari jumlah GPU sampai model database yang dipakai.
+
+Yang paling membedakan small office dari home setup adalah sifat kegunaannya. Di rumah, LLM adalah alat bantu yang menyenangkan; ketika mati, keluarga tetap bisa makan malam. Di kantor kecil, LLM adalah platform produktivitas tim — tempat developer menyimpan konteks pekerjaan, menanyakan SOP, dan menyelesaikan code review. Ketika platform ini mati di tengah jam kerja, 18 orang berhenti bekerja. Karena itu uptime bukan lagi "sekitar 16 jam sehari" seperti di rumah, melainkan *24/7 dengan status mission-critical.
+
+### Bukan Sekadar LLM Bersama
+
+Banyak pemilik kantor membuat kesalahan dengan menganggap small office cukup "satu Ollama di server, semua orang akses". Padahal yang dibutuhkan bukan sekadar LLM bersama, melainkan platform dengan shared context**. Artinya: riwayat percakapan antar rekan kerja tersimpan dan bisa dirujuk, workspace per tim terpisah rapi, pengetahuan yang sudah dijawab model tidak perlu ditanyakan ulang oleh orang lain, dan kode yang ditulis satu developer bisa dibantu direview oleh model yang sama yang dipakai rekan kerjanya.
+
+Dari sinilah muncul tiga pilar desain yang akan kita bahas di seksi berikutnya: data privacy (kode dan dokumen tidak keluar kantor), kolaborasi tim (semua orang berbagi satu platform, bukan 20 akun SaaS terpisah), dan integrasi coding (asisten kode terpusat yang memahami repo internal). Ketiganya tidak bisa dipisah — menutup akses tanpa fasilitas kolaborasi menghasilkan AI yang tidak terpakai, dan kolaborasi tanpa privasi menghasilkan kebocoran.
+
+### Profil Beban yang Jujur
+
+Small office memiliki profil beban yang khas dan bisa diprediksi. Pada puncak jam kerja, 5-10 developer mem-prompt secara bersamaan — sebuah concurrency yang masih mudah ditangani satu workstation kelas atas, tapi sudah mustahil untuk laptop. Prioritas latensinya ketat: di bawah 2 detik untuk code completion yang terasa instan di IDE, dan bahkan di bawah 0,5 detik jika kita serius mereplikasi pengalaman GitHub Copilot. Artinya, model harus berada di server lokal dengan interconnect cepat, bukan di cloud yang menambah latensi jaringan. Bab 7.2 akan membahas bagaimana dua GPU kelas consumer menyediakan ruang untuk concurrency ini; Bab 7.3 membahas wajah kolaboratifnya; Bab 7.4 membahas otak RAG-nya.
+
+### Tabel 1: Perbandingan Skala Deployment
+
+Tabel berikut membandingkan tiga skala sekaligus — home, small office, dan enterprise — agar keputusan tim kecil tidak salah meniru arsitektur raksasa yang mahal dan tidak relevan.
+
+| Karakteristik | Home (4-8 User) | Small Office (9-20 User) | Enterprise (50+ User) |
+|:---|:---|:---|:---|
+| Concurrency Peak | 2-3 | 5-10 | 50-200 |
+| Uptime Target | ~16 jam/hari | 24/7 | 24/7 with HA |
+| Power Budget | ~30-100W idle | ~300-600W | 2kW+ |
+| Storage (Vector DB) | ~100-500 GB | ~1-5 TB | 10TB+ |
+| Backup | Backup mingguan | Backup harian otomatis + offsite | DR + replication |
+| IAM | Family account | SSO/OAuth + RBAC | SAML + SCIM + LDAP |
+| Code Integration | Opsional | Wajib (Tabby/Continue) | Wajib + CI/CD pipeline |
+| Biaya Estimasi | ~Rp 25-45jt | ~Rp 60-120jt | Rp 500jt+ |

@@ -1,0 +1,27 @@
+Rentang daya dan biaya ketiga skala ini lebih mudah dibaca sebagai batang — perhatikan bagaimana Home Assistant justru duduk di tengah, jauh lebih ringan dari Small Office namun lebih besar dari sistem personal.
+
+!Perbandingan power budget dan biaya estimasi antar skala deployment
+
+Gambar 6.1-1 — Rentang power budget dan biaya estimasi Personal, Home Assistant, dan Small Office. Home Assistant menuntut idle serendah 30-100W dan biaya ~Rp 25-45jt — jauh di bawah beban dan anggaran kantor, tetapi lebih besar dari sistem satu pengguna.
+
+Perhatikan dua kolom yang paling sering salah dikelola. Pertama, power budget: dari ~100-300W saat running pada sistem personal, Home Assistant menuntut idle rendah 30-100W — tuntutan yang tidak pernah ada di kantor 300-600W. Kedua, IAM: keluarga cukup dengan family account sederhana, sementara kantor butuh SSO/OAuth. Artinya, membeli solusi kantor lalu "mengecilkannya" untuk rumah adalah kesalahan arah — yang benar adalah mendesain dari kebutuhan rumah itu sendiri. Studi Small Language Models: Survey, Measurements, and Insights [3] menegaskan bahwa karakterisasi beban kerja yang tepat (token/s, memory footprint, konsumsi energi) menentukan kelayakan edge deployment — dan keluarga adalah kasus penggunaan edge paling jujur.
+
+### Gambar 1: Arsitektur Home AI Assistant
+
+Berikut peta lengkap sistem yang sedang kita rancang — perangkat keluarga di kiri, server rumah di tengah, dan internet hanya sebagai aksesori opsional.
+
+Yang langsung terlihat dari diagram ini adalah prinsip local-first: garis putus-putus menuju internet hanyalah aksesori — untuk update model atau pembaruan sistem — bukan jalur utama. Tablet, laptop, dan smart speaker berkomunikasi langsung dengan Ollama/vLLM di dalam LAN; TV dan perangkat rumah berkolaborasi lewat Home Assistant; dan seluruh percakapan berpotongan di vector store ChromaDB saat jawaban membutuhkan konteks dokumen keluarga. Tidak ada satu pun busur yang keluar rumah — tepat seperti yang dijanjikan pilar High Privacy.
+
+Dari sudut pandang pengguna, diagram ini bisa disederhanakan menjadi satu kalimat: apa pun perangkatnya, keluarga selalu "berbicara" dengan satu pintu yang sama di dalam rumah. Konsistensi ini bukan kebetulan — ia lahir dari keputusan desain bahwa semua user device berbicara dalam satu protokol (HTTP/WebSocket ke Open WebUI atau REST API lokal), sehingga menambah perangkat baru (smartwatch anak, tablet kedua) tidak pernah menuntut perubahan arsitektur. Sistem yang dirancang baik adalah sistem yang membuat pengguna tidak perlu tahu cara kerjanya.
+
+Lima pilar berikut adalah konstitusi dari setiap Home AI Assistant yang sehat. Jika satu pilar dilanggar, sistem akan terasa "salah" — seperti resep masakan yang bahannya benar, tetapi takarannya keliru.
+
+### Low Power: 15-30W saat Idle
+
+Server kantor diam-diam menyedot 300W selama 24 jam — sekitar 7,2 kWh per hari hanya untuk "berpikir kosong". Di rumah, server seperti itu akan tampak begitu menyakitkan di tagihan listrik bulanan. Karena itu pilar pertama menuntut konsumsi 15-30W saat idle, dengan GPU tidur (sleep) di malam hari. Dampak praktisnya: arsitektur hardware harus hemat daya sejak awal, dan auto shutdown GPU pada jam tidur keluarga adalah fitur wajib, bukan kemewahan.
+
+### High Privacy: Semua Data Tinggal di Rumah
+
+Pilar kedua adalah privasi tinggi: data keluarga — percakapan anak, catatan medis, dokumen pajak, jadwal kerja orang tua — tidak boleh meninggalkan rumah. Inilah pembeda paling kontras dengan asisten cloud: risiko data leakage bukan lagi tanggung jawab vendor di luar sana, melainkan sepenuhnya menjadi keunggulan arsitektur. Dengan inference lokal, tidak ada yang "mendengarkan" percakapan dapur, karena gelombang suara hanya berubah jadi tensor di dalam server keluarga.
+
+### Local-first Networking: Tidak Bergantung Internet

@@ -1,0 +1,27 @@
+# Bab 10.1: Mitigasi Halusinasi
+
+Setelah membaca sub-bab ini, Anda akan mampu:
+
+- Menerapkan teknik grounding utama: RAG, Knowledge Graph Augmentation, Constrained Decoding, dan Self-Correction
+- Membangun pipeline evaluasi akurasi yang terukur untuk aplikasi bisnis seperti ERP, CRM, dan customer support
+- Menafsirkan angka hallucination rate model terbaru (Claude Fable 5, GPT-5.5, DeepSeek V4, Mistral Large 3, Qwen3.7-Max) sebelum memutuskan adopsi
+
+Bayangkan Anda mempekerjakan seorang analis yang luar biasa rajin, fasih berbicara, tetapi sesekali mengarang angka tanpa sepengetahuan siapa pun — dan melakukannya dengan nada suara yang sama meyakinkannya seperti ketika ia menyampaikan fakta yang benar. Itulah gambaran paling jujur tentang LLM yang berhalusinasi. Secara teknis, hallucination didefinisikan sebagai konten yang dihasilkan model dan tampak faktual, tetapi tidak berdasar pada data yang terverifikasi — definisi yang dirumuskan Huang et al. dalam survei komprehensifnya [1][5]. Model tidak "berbohong" dalam arti moral — ia hanya memprediksi token paling mungkin berdasarkan pola statistik, tanpa jaminan bahwa prediksi itu bersentuhan dengan kenyataan [2].
+
+Dampaknya terhadap bisnis tidak main-main. Satu jawaban salah pada sistem customer service bisa berujung komplain beruntun; satu klausul yang dikarang oleh model pada review kontrak bisa membatalkan perjanjian senilai miliaran rupiah; satu kode produksi yang mengandung bug dari asisten coding bisa merusak sistem yang sedang berjalan. Risiko ini nyata di tingkat industri: Gartner memprediksi *lebih dari 40% proyek agentic AI akan dibatalkan pada akhir 2027 karena biaya yang membengkak, nilai bisnis yang tidak jelas, atau kontrol risiko yang tidak memadai [17] — pola yang kerap bermula dari output model yang tidak dapat dipertanggungjawabkan, mencakup kerugian langsung, upaya remediasi, hingga kerusakan reputasi merek. Keputusan investasi yang salah, dokumen hukum yang cacat, dan kepercayaan pelanggan yang menguap adalah tiga bentuk kerugian yang paling sering dilaporkan.
+
+Yang membuat masalah ini rumit adalah deteksinya. Halusinasi tidak selalu berbentuk jawaban yang jelas-jelas absurd; yang paling berbahaya justru yang plausible — angka yang masuk akal, tanggal yang cocok, nama pejabat yang nyata tetapi pernyataannya keliru. Karena fluency (kelancaran bahasa) model sangat tinggi, manusia cenderung menerima output begitu saja tanpa verifikasi — sebuah bias yang dimanfaatkan oleh kelemahan teknis ini. Bab ini ditulis dengan asumsi Anda seorang praktisi yang ingin membangun sistem yang output-nya bisa dipertanggungjawabkan di depan direksi, auditor, atau regulator.
+
+### Tabel 1: Perbandingan Teknik Mitigasi Halusinasi
+
+Berikut peta lengkap tujuh teknik mitigasi — mulai dari yang termurah hingga termahal, beserta use case terbaiknya:
+
+| Teknik | Kategori | Kompleksitas Implementasi | Efektivitas | Biaya Tambahan | Use Case Terbaik |
+|:---|:---|:---:|:---:|:---:|:---|
+| RAG (Retrieval-Augmented Generation) | Retrieval-based | Sedang | Sangat Tinggi | Medium (vector DB + retriever) | QA dokumen bisnis, customer support |
+| Knowledge Graph Augmentation | Retrieval-based | Tinggi | Tinggi | Tinggi (KG construction) | Data relasional, knowledge management |
+| Constrained Decoding | Decoding-based | Rendah-Sedang | Sedang-Tinggi | Rendah | Output terstruktur (JSON, format laporan) |
+| Self-Correction / Self-Refine | Reasoning-based | Rendah | Sedang | Rendah (extra inference pass) | Creative writing, analisis kompleks |
+| Fine-tuning on Grounded Data | Training-based | Tinggi | Tinggi | Tinggi (dataset + training) | Domain spesifik (legal, medis) |
+| Guardrails / Content Filters | Post-processing | Rendah | Rendah-Sedang | Rendah | Safety-critical applications |
+| Constitutional Classifiers (Fable 5) | Built-in | Rendah (built-in) | Sangat Tinggi | Tidak ada | Fintech, legal, medis |

@@ -1,0 +1,37 @@
+Analisis: pilihan metode pada dasarnya adalah trade-off antara kemudahan dan kendali. Varian :ollama adalah jalan pintas terbaik untuk pengguna rumahan — satu perintah sudah membawa frontend dan mesin inferensi sekaligus. Namun, menyatukan Ollama di dalam container berarti upgrade Ollama harus mengikuti release image Open WebUI. Sebaliknya, :main dengan Ollama terpisah di host memberi kebebasan upgrade independen, dan standalone CUDA :cuda menjadi pilihan bagi pengguna NVIDIA yang ingin memaksimalkan komputasi GPU. Kubernetes relevan hanya bila Anda sudah memiliki cluster; untuk kebanyakan tim, Docker Compose adalah titik manis antara kesederhanaan dan ketahanan.
+
+### Memilih Image yang Tepat
+
+Cara termudah menjalankan Open WebUI adalah Docker, dan pemilihan image menentukan kemudahan setup Anda. Terdapat tiga varian utama [7]:
+
+| Varian | Isi |
+|:---|:---|
+| ghcr.io/open-webui/open-webui:main | Open WebUI standalone tanpa mesin inferensi — cocok bila Ollama sudah terpasang terpisah |
+| ghcr.io/open-webui/open-webui:ollama | Sudah membundel Ollama di dalam container — setup all-in-one paling mudah |
+| ghcr.io/open-webui/open-webui:cuda | Dilengkapi dukungan CUDA native untuk GPU NVIDIA |
+
+### Volume dan GPU Passthrough
+
+Dua hal yang tidak boleh dilupakan saat mendeploy: persistensi data dan akses GPU. Persistensi dilakukan dengan volume mount — -v open-webui:/app/backend/data menyimpan database, riwayat percakapan, dan knowledge base Anda, sementara -v ollama:/root/.ollama menyimpan model-model Ollama. Tanpa volume ini, seluruh data akan hilang saat container dihapus.
+
+Akses GPU diberikan melalui flag --gpus=all yang meneruskan seluruh GPU host ke dalam container. Tanpa flag ini, model akan berjalan di CPU — jauh lebih lambat. Kombinasi kedua flag itulah yang menjadi perintah deployment standar:
+
+Setelah perintah ini, antarmuka dapat diakses di http://localhost:3000 — port 3000 di host dipetakan ke port 8080 di dalam container. Flag --restart always memastikan layanan bangkit kembali otomatis jika server reboot, sebuah detail kecil yang sangat berarti untuk deployment jangka panjang.
+
+### Pendekatan Production dengan Docker Compose
+
+Untuk kebutuhan production, cara docker run satu baris mulai terasa rapuh. Di sinilah Docker Compose unggul: seluruh konfigurasi — image, port, volume, variabel lingkungan, dan restart policy — ditulis sebagai file YAML yang versi-kontrol dan dapat direplikasi di mesin lain. Perlu dicatat, pendekatan Compose juga menjadi fondasi untuk skenario lanjutan seperti load balancing dan pemisahan layanan yang dibahas dalam konteks sistem serving berskala [4].
+
+### Alur Retrieval-Augmented Generation
+
+Sekadar mengobrol dengan model lokal mungkin sudah memuaskan, tetapi bagaimana jika Anda ingin model menjawab pertanyaan berdasarkan 200 dokumen PDF perusahaan Anda? Inilah pekerjaan RAG (Retrieval-Augmented Generation) — arsitektur yang menggabungkan retrieval dokumen relevan dengan generation jawaban oleh LLM [2]. Open WebUI mengemas seluruh pipeline ini menjadi fitur Knowledge Base yang konfigurasinya dapat dilakukan dari Admin Panel tanpa menulis kode.
+
+Alur RAG di Open WebUI dapat diuraikan dalam enam tahap: document loading, chunking, embedding, penyimpanan vektor, pencarian, dan generation.
+
+### Document Loading dan Chunking
+
+Tahap pertama adalah memuat dokumen. Open WebUI menerima berbagai format: PDF, DOCX, TXT, Markdown, hingga HTML. Saat dokumen diunggah, parser internal (berbasis library seperti Tika dan Docling, dengan dukungan OCR untuk dokumen hasil scan) mengekstrak teks mentah dari format-format tersebut.
+
+Teks yang panjang tidak bisa langsung dimasukkan ke model — model hanya melihat sejumlah token dalam satu waktu. Karena itu teks dipecah menjadi potongan-potongan yang disebut chunk. Ukuran chunk dan overlap bersifat configurable: pada konfigurasi standar, chunk size 1000 token dengan chunk overlap 200 token. Overlap sengaja dipertahankan agar kalimat yang terpotong di ujung satu chunk tidak kehilangan konteksnya saat diembed secara terpisah — seperti menyambung kaset yang ujungnya saling tumpang tindih agar tidak ada suku kata yang hilang.
+
+### Embedding dan Vector Database

@@ -1,0 +1,28 @@
+Satu pertanyaan yang sering muncul: bolehkah menggabungkan beberapa metode? Justru dianjurkan — inilah defense in depth. Rumah yang sehat memakai LAN langsung untuk TV dan speaker (perangkat yang tidak menyimpan data), Open WebUI dengan API key untuk laptop anak, dan Tailscale untuk perangkat orang tua di luar rumah. Campuran ini bukan kebocoran desain, melainkan penerjemahan langsung dari tingkat kepercayaan yang berbeda-beda terhadap setiap perangkat: semakin pribadi datanya, semakin ketat jalannya.
+
+### Gambar 2: Alur Koneksi Remote via Tailscale
+
+Untuk memahami "keajaiban" Tailscale, ikuti perjalanan satu permintaan dari HP di luar kota:
+
+Perhatikan bahwa koordinator Tailscale hanya mempertemukan kedua perangkat — data tidak pernah mengalir melalui server Tailscale. Setelah handshake, Ayah dan server rumah berbicara langsung melalui terowongan WireGuard, dengan enkripsi end-to-end. Ini adalah pola zero-trust: tidak ada satu pun pihak ketiga yang bisa membaca percakapan, dan tidak ada satu pun port router yang terbuka [4].
+
+Satu kebiasaan keluarga yang harus dipupuk sejak dini: jangan pernah berbagi akun Tailscale antar anggota keluarga. Buat akun terpisah per orang dewasa, dan beri tag perangkat anak (tag:kids) pada hari pertama. Berbagi akun mungkin terasa nyaman di awal, tetapi setiap perangkat yang login berarti satu pintu lagi menuju jaringan pribadi — kebiasaan ini jauh lebih mudah ditanamkan saat jaringan masih kecil daripada dibereskan setelah tumbuh besar.
+
+Sebuah rumah hanya punya satu pintu depan, tetapi kamar-kamar di dalamnya bisa dikunci masing-masing. VLAN adalah pembatas tak terlihat itu: segmen jaringan yang terisolasi secara logis di router OpenWrt, pfSense, atau MikroTik.
+
+Desain standar untuk keluarga: VLAN 10 untuk orang tua — akses penuh ke LLM server dan internet tanpa filter; VLAN 20 untuk anak — akses terbatas, DNS terfilter (misalnya AdGuard), dan tidak bisa SSH ke server; serta VLAN 30 untuk tamu — isolasi total, internet saja. Aturan firewall-nya sederhana namun tegas: allow akses VLAN 20 ke server LLM hanya melalui port tertentu (misalnya port Open WebUI), blokir sisanya.
+
+Konteks keamanannya harus dibaca jujur: sistem privacy-preserving seperti HomeLLaMA [2] menekankan bahwa ancaman terbesar smart home bukan hacker luar, melainkan kebocoran akses dari perangkat keluarga sendiri — tablet anak yang kena malware, atau perangkat IoT dengan kredensial lemah. Segmentasi VLAN adalah cara terstruktur untuk membatasi "radius ledakan" insiden semacam itu: malware di VLAN 20 tidak akan pernah melihat laptop kerja orang tua di VLAN 10.
+
+Perlu dicatat bahwa VLAN bukan pengganti kontrol di tingkat aplikasi, melainkan fondasi yang membawahinya. Ketika sub-bab 6.6 membahas parental control pada konten LLM, kebijakan itu bekerja di atas jaringan yang sudah disegmentasi ini — anak tidak bisa "lompat" ke VLAN 10 hanya dengan berpindah perangkat. Inilah prinsip pertahanan berlapis: setiap lapisan menutup kelemahan lapisan sebelumnya, dan segmen jaringan adalah lapisan paling bawah yang menopang semuanya.
+
+### Tabel 2: Skema Subnet dan VLAN untuk Keluarga
+
+Denah jaringan lengkap yang akan kita bangun di tutorial — empat segmen dengan peran berbeda.
+
+| VLAN | Nama | IP Range | Pengguna | Akses LLM | Internet Filter | Catatan |
+|:---|:---|:---|:---|:---|:---|:---|
+| 1 | Native LAN | 192.168.1.0/24 | Semua perangkat IoT | Langsung | Tidak | Smart TV, speaker |
+| 10 | Orang Tua | 192.168.10.0/24 | Ayah + Ibu | Full | Tidak | Laptop, HP kerja |
+| 20 | Anak | 192.168.20.0/24 | 3 Anak | Terbatas | Ya (AdGuard) | Hanya via Open WebUI |
+| 30 | Guest | 192.168.30.0/24 | Tamu | Tidak | Ya | Isolasi total |

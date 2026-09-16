@@ -1,0 +1,52 @@
+KV cache — memori yang menyimpan perhatian model terhadap token-token sebelumnya —
+tumbuh linier terhadap panjang konteks. Setiap token baru harus "memperhatikan" semua
+token sebelumnya, dan membaca KV cache itu dari VRAM ikut memakan bandwidth. Semakin
+panjang percakapan, semakin besar KV cache, semakin sedikit bandwidth yang tersisa
+untuk bobot model — dan semakin lambat decode. Penelitian MAPLE (Kim et al., 2025)
+menangani masalah ini langsung dengan offloading KV cache secara bandwidth-aware:
+bagian cache yang jarang diakses dipindahkan ke memori lambat, bagian yang sering
+diakses disimpan di VRAM. Ini adalah bukti bahwa pengelolaan bandwidth — bukan sekadar
+pembeliannya — adalah keterampilan operasional yang nyata, dan bagi pengguna long
+context, ia bisa menjadi pembeda antara model yang "terbata-bata" dan model yang
+"lancar".
+
+### Tiga Sekrup yang Menahan Semuanya
+
+Bandwidth GPU bukanlah angka ajaib; ia adalah hasil kali tiga komponen: bus-width
+(lebar jalur data, diukur dalam bit), clock rate memori, dan tipe memori (yang
+menentukan bit per transfer). Rumus dunianya: bandwidth = bus-width ÷ 8 × clock × jumlah
+transfer per siklus. Bus-width menentukan berapa lebar gerbang, clock menentukan
+berapa sering gerbang terbuka, dan tipe memori menentukan berapa banyak barang yang
+lewat setiap kali gerbang terbuka.
+
+Memori GPU modern terbagi dalam tiga kasta. GDDR6 (dengan pin mentransfer 16-20 Gbps)
+dan GDDR6X (19-23 Gbps) menghuni GPU konsumen. Di atas keduanya bertengger HBM
+(High Bandwidth Memory) — HBM2e dengan ~2,0 Gbps per pin di GPU datacenter generasi
+A100, dan HBM3 dengan ~6,4 Gbps per pin di H100 dan MI300X. HBM memenangkan bukan
+karena satu pinnya lebih cepat dari GDDR6X — melainkan karena menumpuk ribuan pin dalam
+stack vertikal, membuka gerbang 5120-bit bahkan 8192-bit sekaligus. Perbandingannya
+seperti jalan tol: GDDR adalah jalan 2 lajur yang mobilnya cepat; HBM adalah jalan 50
+lajur di mana semua mobil melaju bersamaan.
+
+### Mengapa RTX 4060 Kalah Sebelum Bertanding
+
+Kasus paling instruktif adalah duel dalam satu keluarga: RTX 4060 vs RTX 4070 vs
+RTX 4090. RTX 4060 memakai bus 128-bit dengan GDDR6 — lebar jalur paling sempit
+di generasinya — menghasilkan 272 GB/s. RTX 4090 memakai bus 384-bit dengan GDDR6X,
+menghasilkan 1.008 GB/s. Selisihnya 3,7x — hampir persis berkorelasi dengan selisih
+kecepatan inferensi model yang memory-bound. Di kasta di atasnya, H100 SXM
+mencatat 3,35 TB/s dari 80 GB HBM3, dan MI300X mendominasi dengan 5,3 TB/s dari
+192 GB HBM3 — kartu yang dibuat khusus agar model 400B+ tidak perlu menunggu.
+
+Perhatikan juga anomali yang memperkaya pemahaman: RTX 3090 (936 GB/s) hanya kalah
+7% dari RTX 4090 (1.008 GB/s) dalam bandwidth, meskipun satu generasi lebih tua dan
+harganya sepertiga. Untuk inferensi memory-bound, "generasi baru" tidak otomatis
+berarti "lebih cepat" — yang dihitung tetaplah lebar gerbang dan kecepatan alirannya.
+Setiap kali Anda melihat sebuah GPU "mahal tapi cepat", sebagian besar harga itu
+sebenarnya dibayarkan untuk lebar gerbang.
+
+### Tabel 1: Memory Bandwidth GPU Populer untuk LLM
+
+Inilah katalog induk yang akan Anda rujuk kembali pada bab-bab berikutnya — setiap
+GPU populer untuk LLM lokal, lengkap dengan bus-width, tipe memori, clock, dan harga
+indikatif.

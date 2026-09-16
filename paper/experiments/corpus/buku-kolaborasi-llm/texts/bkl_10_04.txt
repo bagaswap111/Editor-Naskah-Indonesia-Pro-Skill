@@ -1,0 +1,21 @@
+Setiap engine besar berlomba mengadopsi ide yang sama dengan nama berbeda. Text Generation Inference (TGI) dari Hugging Face menyebutnya dynamic batching, dengan tambahan safety checker dan watermarking untuk deployment produksi. TensorRT-LLM dari NVIDIA menamakannya in-flight batching, dimaksimalkan dengan kernel FP8 dan kernel fusion maksimal. Aphrodite, sebuah fork vLLM dari komunitas, menambahkan sampler kreatif dan dukungan multi-kuantisasi termasuk NVFP4. SGLang melangkah lebih jauh dengan RadixAttention — cache prefix berbasis pohon (radix tree) yang membuat sistemnya rame di beban kerja multi-turn conversation [5]. Terlepas dari nama, prinsipnya satu: penjadwalan per-iterasi dengan batch dinamis.
+
+Kesamaan prinsip ini bukan kebetulan — semuanya berpijak pada hasil eksperimen Orca dan analisis berikutnya yang membuktikan bahwa mempertahankan GPU tetap sibuk jauh lebih berharga daripada menyelesaikan satu request secepat mungkin. Perbedaan antar-engine hanya terletak pada flavor tambahan di sekitarnya: seberapa agresif kernel fusion-nya, seberapa cerdas cache-nya, dan seberapa lengkap dukungan format kuantisasi-nya. Untuk keputusan pemilihan engine, pertimbangkan ekosistem tim Anda dan beban kerja dominan — bukan sekadar nama fiturnya.
+
+### Tabel 2: Dukungan Continuous Batching di Berbagai Engine
+
+| Engine | Nama Internal | Tahun Adopsi | Kelebihan Spesifik |
+|:---|:---|:---:|:---|
+| vLLM | Continuous Batching | 2023 | +PagedAttention, prefix caching |
+| TGI | Dynamic Batching | 2023 | +Safety checker, watermark |
+| TensorRT-LLM | In-flight Batching | 2023 | +FP8, kernel fusions maksimal |
+| Aphrodite | Continuous Batching | 2024 | +Samplers kreatif, multi-quant, NVFP4 |
+| SGLang | RadixAttention + Batching | 2024 | +Prefix caching radix tree |
+
+Ketika memilih engine untuk produksi, pertimbangkan bukan hanya ada-tidaknya continuous batching — sekarang semua engine besar memilikinya, tetapi apa yang ditambahkan di atasnya. vLLM unggul di ekosistem dan dukungan distribusi terluas; TensorRT-LLM unggul di kinerja GPU NVIDIA berkat kernel fusion; SGLang unggul di beban kerja dengan prompt berulang berkat radix tree; Aphrodite menarik untuk komunitas karena dukungan kuantisasi luas termasuk NVFP4. Engine terbaru seperti vLLM ≥ 0.8.0 dan TGI ≥ 2.4.0 juga telah menambahkan dukungan untuk DeepSeek V4 Pro dan Mistral Large 3 — model dengan arsitektur MoE granular yang membutuhkan scheduling adaptif karena pola sparse activation-nya.
+
+Apa artinya semua ini bagi orang yang benar-benar mengetik pertanyaan? Bayangkan sebuah kantor kecil dengan 10 karyawan yang serentak menekan "Generate" pada AI assistant mereka. Dengan service berbasis static batching, request ke-10 harus mengantre di belakang 9 request sebelumnya — dengan total waktu generasi masing-masing beberapa detik, antrean bisa menembus ~50 detik. Itu adalah pengalaman "AIs-nya hang nih".
+
+Dengan continuous batching, scheduler langsung menyeret semua 10 request ke dalam GPU pada iterasi pertama. Semua user mulai menerima token pertama dalam waktu kurang dari 2 detik, dan token-token berikutnya mengalir bergantian. Trade-off-nya: karena GPU sekarang berbagi beban antara 10 sequence, latency rata-rata per-request naik sedikit, tetapi naiknya predictable dan proporsional, bukan melompat liar seperti antrean statis. Throughput total melonjak drastis: dalam Tabel 3 Anda bisa melihat, dengan 10 user konkuren, throughput mencapai 7.200 token/detik, hampir 6 kali lipat dari 1 user. Inilah inti janji continuous batching: melayani banyak orang sekaligus, tanpa ada yang merasa dilambatkan.
+
+Ada dimensi psikologis yang membuat perbedaan ini semakin terasa. Manusia menilai kelambatan dari dua titik: berapa lama menunggu respons pertama (TTFT) dan seberapa cepat token mengalir setelah itu (time to next token). Karena continuous batching menjaga antrean tetap pendek, kedua titik ini bergerak bersamaan — semua user "merasa didengar" sejak detik pertama, meskipun ada sedikit jeda antar-token saat GPU bergiliran. Pada static batching, user yang antre di belakang tidak mendengar apa-apa selama puluhan detik — seolah-olah aplikasi mati total. Persepsi inilah yang membuat continuous batching begitu bernilai untuk produk yang dipegang banyak orang sekaligus.

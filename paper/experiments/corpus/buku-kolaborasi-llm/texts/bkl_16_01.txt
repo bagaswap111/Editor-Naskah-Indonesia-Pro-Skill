@@ -1,0 +1,31 @@
+# Bab 9.1: n8n Self-hosted
+
+Setelah membaca bab ini, Anda akan mampu:
+
+- Menyusun workflow multi-langkah yang menghubungkan LLM (Ollama/vLLM) ke aplikasi eksternal seperti Email, Slack, Google Sheets, dan database SQL
+- Menerapkan mode eksekusi main vs queue (Redis) sesuai skala kebutuhan produksi
+- Mengoptimalkan keamanan kredensial (AES-256 vault), isolasi jaringan, serta monitoring dan observability workflow
+
+### Alternatif Open-Source untuk Zapier dan Make
+
+Selama bertahun-tahun, tim perkantoran yang ingin mengotomatisasi alur kerja hanya punya dua pilihan mahal: Zapier atau Make (dulu Integromat). Keduanya nyaman karena tinggal klik, tetapi data Anda harus transit ke server pihak ketiga — sebuah masalah serius bagi perusahaan yang menangani data keuangan, data calon karyawan, atau dokumen legal. n8n hadir sebagai alternatif yang berbeda: ia adalah platform otomasi *open-source dengan lisensi fair-code (Sustainable Use License) yang bisa Anda pasang sendiri (self-hosted) di server internal, sehingga tidak ada satu byte pun data yang keluar dari infrastruktur Anda.
+
+Yang membuat n8n menarik bukan hanya lisensinya, tetapi ekosistem integrasinya yang luas: lebih dari 400 node integration mencakup Email (SMTP/IMAP), Slack, Discord, SQL (Postgres, MySQL, MSSQL), HTTP, Webhook, hingga Google Sheets. Alur yang dibangun tampil sebagai visual DAG (Directed Acyclic Graph) — setiap kotak adalah node, setiap garis adalah aliran data — sehingga mudah diaudit oleh tim non-developer sekalipun. Kombinasi Code Node (JavaScript/Python), eksekusi sub-workflow, dan dukungan webhook membuat n8n bukan sekadar trigger-action sederhana seperti kebanyakan alat lain: ia adalah kerangka kerja otomasi sungguhan.
+
+### LLM Lokal sebagai "Otak" Workflow
+
+Perbedaan fundamental n8n dengan pendahulunya adalah kemampuannya menjalankan LLM lokal sebagai AI brain di tengah workflow — bukan sekadar pemicu dan aksi. Alur kerjanya menjadi: sebuah event masuk (email, pesan Slack, submit form), kemudian HTTP Request Node mengirim prompt ke Ollama atau vLLM, lalu hasil inference (jawaban, klasifikasi, ringkasan, atau SQL) diteruskan ke node berikutnya untuk dieksekusi ke aplikasi tujuan. Dengan cara ini, proses seperti "ringkas email lalu kirim ke Slack" atau "ubah pertanyaan jadi SQL lalu jalankan ke database" dapat berjalan otomatis dengan biaya inference nol.
+
+Dukungan terhadap model MoE terbaru memperkuat posisi ini. DeepSeek V4 Flash (284B total / 13B aktif) misalnya, memberikan kualitas setara model dense 70B dengan efisiensi 73% lebih hemat FLOPs — cukup dijalankan di workstation kantor melalui INT4 sambil tetap melayani puluhan workflow per menit. Artinya, "otak" workflow tidak lagi harus berupa API premium dari luar negeri; ia bisa berupa model yang sepenuhnya berada di bawah kendali tim IT Anda.
+
+### Model Terbaru untuk Workflow n8n
+
+Saat buku ini ditulis, beberapa model layak dipertimbangkan sebagai otak workflow n8n, masing-masing dengan karakter yang berbeda:
+
+- DeepSeek V4 Pro (1,6T total / 49B aktif, lisensi MIT, April 2026) — open-weight dengan 1M context, SWE-bench 80,6% dan Terminal-Bench 67,9%. Ideal untuk agentic workflow multi-langkah yang menentukan arah otomasi. Tersedia via Ollama deepseek-v4-pro:latest atau API OpenAI-compatible.
+- DeepSeek V4 Flash (284B / 13B aktif) — versi ringan untuk daily task; deepseek-v4-flash:latest via Ollama, sangat hemat sumber daya.
+- GPT-5.5 (proprietary, April 2026) — 1M context dengan reasoning efforts. Sangat kuat untuk agentic coding; diakses via OpenAI API endpoint.
+- Claude Fable 5 (kelas Mythos, Juni 2026) — 1M context dengan safety classifiers terintegrasi, SWE-bench 95,0%. Pilihan saat workflow menangani tugas yang butuh guardrail ketat.
+- Mistral Large 3 (675B / 41B aktif, Apache 2.0, Desember 2025) — granular MoE multimodal dengan 256K context, tersedia via Ollama atau API Le Chat.
+- Qwen3.7-Max (proprietary MoE, Mei 2026) — agent-centric dengan 1M context, cocok untuk multi-agent workflow di n8n.
+- Ministral 3 (3B/8B/14B, Apache 2.0, Desember 2025) — hasil Cascade Distillation, ramah perangkat edge. Untuk tugas ringan seperti klasifikasi sederhana di perangkat terbatas.

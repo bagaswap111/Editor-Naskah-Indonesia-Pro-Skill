@@ -1,0 +1,40 @@
+| GPU | Bandwidth (GB/s) | Tokens/s | Utilization % | Bandwidth per Token/s |
+|:---|:---:|:---:|:---:|:---:|
+| RTX 4060 | 272 | ~30 t/s | ~65% | 9,1 GB/s per t/s |
+| RTX 4070 | 504 | ~55 t/s | ~68% | 9,2 GB/s per t/s |
+| RTX 4080 S | 736 | ~80 t/s | ~70% | 9,2 GB/s per t/s |
+| RTX 4090 | 1008 | ~110 t/s | ~71% | 9,2 GB/s per t/s |
+| RTX 3090 | 936 | ~85 t/s | ~72% | 11,0 GB/s per t/s |
+
+Catatan: Scaling hampir linier — bandwidth adalah prediktor utama tokens/s untuk model
+yang muat di VRAM.
+
+!Hasil llama-bench untuk Llama 3 (8B) Q4_K_M di lima GPU: garis hampir lurus dari RTX 4060 (272 GB/s, ~30 t/s) hingga RTX 4090 (1.008 GB/s, ~110 t/s), dengan RTX 3090 sedikit menyimpang dari garis tersebut.
+
+Gambar 2.2-1 — Dua kali bandwidth berarti hampir dua kali token/detik: garis scaling mendekati linier sempurna dari 272 hingga 1.008 GB/s; RTX 3090 (85 t/s dari 936 GB/s) sedikit di bawah garis karena memori GDDR6X generasi pertamanya kurang efisien per gigabyte aliran.
+
+Empat baris pertama menunjukkan keteraturan yang nyaris membosankan: setiap kenaikan
+bandwidth ~230 GB/s menambah ~25 t/s, dan kolom "bandwidth per token/s" hampir konstan
+di 9,1-9,2 GB/s — artinya setiap token baru yang dihasilkan memakan sekitar 9,2 GB
+"aliran" dari total bandwidth. Kolom Utilization (~65-72%) adalah sisanya: sekitar
+30% bandwidth menguap untuk KV cache, overhead sistem, dan inefisiensi pengaksesan.
+Baris terakhir, RTX 3090, sedikit menyimpang (11,0 GB/s per t/s) — generasi memori
+GDDR6X pertama yang lebih lambat dan skema page yang berbeda membuatnya kurang
+efisien per gigabyte aliran. Pelajaran operasional: jangan membeli "kartu tercepat",
+belilah kartu dengan karakteristik yang Anda pahami — dan dengan angka utilization ini,
+kita bisa menurunkan rumus simulasi di bagian Praktikum.
+
+### Tabel 3: Bandwidth yang Dibutuhkan per Model dan Kuantisasi
+
+Tabel terakhir menjawab pertanyaan paling praktis: GPU sekelas apa yang saya butuhkan
+untuk model ini? Baca dari kiri ke kanan sesuai target kecepatan Anda.
+
+| Model | Ukuran (FP16) | Ukuran (Q4_K_M) | Bandwidth Min (4 t/s) | Bandwidth Ideal (20 t/s) | Bandwidth Ideal (100 t/s) |
+|:---|:---:|:---:|:---:|:---:|:---:|
+| Llama 3.2 (3B) | 6 GB | 1,8 GB | 7 GB/s | 36 GB/s | 180 GB/s |
+| Llama 3.1 (8B) | 16 GB | 4,5 GB | 18 GB/s | 90 GB/s | 450 GB/s |
+| Qwen 2.5 (14B) | 28 GB | 8,0 GB | 32 GB/s | 160 GB/s | 800 GB/s |
+| Llama 3.1 (70B) | 140 GB | 40 GB | 160 GB/s | 800 GB/s | - |
+| Llama 3.1 (405B) | 810 GB | 230 GB | 920 GB/s | - | - |
+| DeepSeek V4 Flash (284B) | 560 GB | 160 GB | 640 GB/s | - | - |
+| Mistral Large 3 (675B) | 1,35 TB | 380 GB | 1,5 TB/s | - | - |

@@ -1,0 +1,23 @@
+Ada satu syarat tersembunyi yang membuat mekanisme ini bekerja tanpa menguras memori: manajemen KV-cache yang efisien. Jika setiap request menyimpan cache-nya secara kontigu tanpa batas, batch 64 request akan meledakkan VRAM. Di sinilah PagedAttention (Bab 5.1) memainkan peran gandeng — cache dipecah menjadi blok-blok kecil yang dialokasikan dinamis mengikuti request yang masuk dan keluar [2]. Continuous batching dan manajemen cache yang baik adalah dua sisi mata uang yang sama: yang satu menjaga GPU tetap sibuk, yang lain menjaga memori tetap muat.
+
+### Dilema Bentuk Tensor yang Berbeda
+
+Ada satu rintangan teknis yang harus dipecahkan Orca sebelum ide iteration-level scheduling bisa dipakai: di dalam satu iterasi, setiap request memiliki panjang sequence yang berbeda. Request A sedang di token ke-45, request B di token ke-300, request C di token ke-1.200. Masalahnya, operasi attention pada GPU membutuhkan tensor dengan bentuk (shape) yang seragam untuk di-batch. Matriks attention score request A berukuran 45 × 45, request C 1200 × 1200 — dua bentuk yang tidak bisa digabung dalam satu operasi matriks tanpa padding boros memori.
+
+### FFN Di-Batch, Attention Diproses Per-Request
+
+Solusi yang diajukan Orca bernama selective batching: bagi operasi model menjadi dua kelompok dengan perlakuan berbeda. Operasi yang tidak bergantung pada bentuk sequence — yaitu Feed-Forward Network (FFN) dan LayerNorm — tetap di-batch bersama-sama, karena operasinya bersifat element-wise per token dan tidak peduli dari sequence mana token itu berasal. Sebaliknya, operasi attention yang sangat sensitif terhadap bentuk sequence tidak di-batch; setiap request mengerjakan attention-nya sendiri secara terpisah.
+
+Keputusan ini terdengar boros, tetapi Yu et al. menunjukkan bahwa dampaknya kecil terhadap efisiensi keseluruhan [1]. Alasannya: attention bukan lapisan yang memiliki weight besar — kuda beban sebenarnya adalah FFN yang menyumbang 60-70% komputasi (lihat Bab 1 Jilid 1). Dengan membatch FFN dan LayerNorm, sebagian besar komputasi tetap berjalan rapat, sementara attention yang "dilintang-lintang" per-request hanya menyumbang sebagian kecil waktu total. Selective batching adalah kompromi elegan untuk membuka pintu bagi continuous batching tanpa mengorbankan kecepatan eksekusi matriks.
+
+Perlu diketahui bahwa pendekatan ini bukan tanpa biaya implementasi. Engine harus mampu memisahkan eksekusi operasi berdasarkan jenisnya — sebagian dalam mode batched, sebagian dalam mode per-sequence — yang berarti kernel harus dirancang fleksibel sejak awal. Inilah salah satu alasan mengapa mengimplementasikan continuous batching bukan sekadar mengubah satu baris konfigurasi: ia menyentuh lapisan terbawah runtime GPU yang mengatur bagaimana operasi dikirim ke perangkat keras.
+
+### Gambar 2: Selective Batching — FFN Di-Batch, Attention Diproses Per-Request
+
+Tiga request dengan panjang sequence berbeda-beda (300, 120, 45 token) mengerjakan attention-nya masing-masing karena matriks skor attention-nya tidak bisa disatukan. Setelah itu, semua token dikumpulkan dan diproses sekali jalan melalui lapisan FFN dan LayerNorm yang tidak peduli asal sequence. Hasilnya: sebagian besar komputasi tetap ter-batch rapat, sementara pengorbanan di lapisan attention hampir tidak terasa — karena lapisan itu menyumbang sedikit parameter dan sebagian kecil beban hitung.
+
+### vLLM dan PagedAttention
+
+Implementasi paling berpengaruh datang dari vLLM, yang sejak versi pertamanya (2023) menggabungkan continuous batching dengan PagedAttention — teknik manajemen memori KV-cache ala virtual memory sistem operasi yang memecah cache menjadi blok-blok kecil (lihat sub-bab 5.1) [2]. Kombinasi keduanya sederhana: continuous batching mengisi GPU dengan banyak request, PagedAttention memastikan memori tidak meledak. vLLM juga menambahkan prefix caching sehingga prompt berulang (misalnya system prompt perusahaan) tidak perlu dikomputasi ulang.
+
+### TGI, TensorRT-LLM, Aphrodite, dan SGLang

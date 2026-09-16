@@ -1,0 +1,23 @@
+Sebuah small office AI system tersusun dari lima blok yang bekerja seperti orkestra. LLM Server — vLLM dengan dukungan multi-GPU — menjadi panggung utama yang melayani model besar dengan throughput tinggi. Code Assistant — Tabby server atau Continue + Ollama — menjadi seksi string yang menjawab completion cepat di IDE. Collaborative UI — Open WebUI dengan registrasi internal — merupakan konduktor sekaligus wajah yang dilihat semua orang. RAG Engine — ChromaDB untuk prototyping atau Qdrant untuk produksi — adalah perpustakaan tempat dokumen disimpan dan dicari. Terakhir, Identity Management — Authentik atau Authelia dengan OAuth Google Workspace — adalah satpam yang memeriksa kartu identitas setiap pengunjung.
+
+Kombinasi yang diusulkan buku ini: vLLM di dua GPU untuk model besar, Ollama untuk model kecil cepat, Open WebUI sebagai antarmuka umum, Qdrant sebagai vector store, dan Authentik untuk single sign-on [6][7][10][11]. Setiap blok ini akan dibedah dalam sub-bab tersendiri; di sini kita hanya menetapkan peran masing-masing dalam keseluruhan sistem.
+
+Bagian ini sering diremehkan, padahal menentukan pengalaman harian. Rancangan dasar yang disarankan:
+
+- Server LLM di LAN kantor — semua lalu lintas model tetap dalam jaringan lokal, memastikan latensi rendah dan data tidak keluar gedung.
+- Akses via reverse proxy (Nginx atau Caddy) — satu pintu HTTPS untuk semua layanan, sehingga pengguna hanya mengingat satu alamat seperti ai.kantor.local.
+- Developer mengakses dari workstation via LAN — latensi rendah untuk code completion, tanpa VPN.
+- VPN WireGuard untuk Work From Home — karyawan remote masuk melalui tunnel terenkripsi ke server internal.
+- DNS internal dengan split-horizon — nama lokal seperti ai.kantor.local di-resolve ke IP internal saat di kantor, ke alamat VPN saat di rumah.
+
+Keputusan penting lainnya adalah segmentasi VLAN: developer (VLAN 10) mendapat akses penuh ke GPU, tim admin/keuangan (VLAN 20) hanya web, dan tamu (VLAN 30) hanya internet dengan isolasi total. Ini memastikan bahwa data lawan bicara tamu di ruang meeting tidak pernah mengirim prompt ke server AI. Detail konfigurasinya ada di Langkah 2.
+
+### Latency Budget: Menghitung Jalan Setiap Request
+
+Diagram jaringan di atas baru berharga jika kita menelusuri latency budget — anggaran waktu yang dihabiskan sebuah request dari jari developer sampai layar. Untuk code completion dengan target <500 ms, anggaran khasnya: ~1-2 ms LAN kabel, ~5-10 ms melewati reverse proxy Nginx, ~10-30 ms antrean aplikasi, dan sisanya — hampir semuanya — waktu GPU untuk decode token pertama. Artinya, jaringan LAN hampir gratis dibanding GPU: dengan WireGuard untuk karyawan remote, anggaran VPN bertambah ~20-50 ms dan masih dalam batas toleransi. Tetapi jika Anda menaruh server di cloud luar kota, tambahan 30-80 ms per round-trip menghabiskan setengah anggaran sebelum GPU bekerja. Ini alasan arsitektur bab ini bersikeras: compute di LAN, kolaborasi di LAN, completion di LAN — dan VPN hanya untuk segelintir karyawan WFH.
+
+### Split-Horizon DNS dan Masa Depan yang Tumbuh
+
+Konfigurasi DNS split-horizon bekerja seperti papan nama ganda di gedung kantor: di dalam gedung, papan menunjuk ke ruang server lantai dua (IP internal); dari luar, papan yang sama menunjuk ke pintu masuk VPN (alamat publik). Nama ai.kantor.local di-resolve berbeda tergantung asal request — developer di meja sebelah mendapat jalur tercepat, karyawan WFH mendapat jalur aman. Saat kantor tumbuh dari 10 menjadi 20 pengguna, nama domain ini tidak berubah — hanya IP di baliknya yang berganti — sehingga bookmark browser dan konfigurasi IDE tidak pernah perlu diubah. Sebuah detail kecil yang menyelamatkan admin dari seribu pertanyaan "kenapa tidak bisa akses?".
+
+### Gambar 2: Segmentasi VLAN dan Alur Akses Server AI

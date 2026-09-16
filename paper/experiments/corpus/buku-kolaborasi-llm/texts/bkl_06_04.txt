@@ -1,0 +1,31 @@
+Perhatikan dua jalur dalam diagram ini. Jalur atas (dokumen) berjalan offline saat unggahan: dokumen diurai, di-chunk, di-embed, dan disimpan di ChromaDB — pekerjaan satu kali yang membangun indeks. Jalur bawah (pertanyaan) berjalan online setiap kali pengguna bertanya: pertanyaan di-embed, diambil dari vektor terdekat, di-rerank, lalu disusun menjadi konteks bagi LLM. Pemisahan ini penting dipahami karena biaya utamanya berbeda: indexing memakan waktu sekali per dokumen, sedangkan query time menentukan latensi setiap jawaban.
+
+### Builtin Tools
+
+Fitur Tools adalah yang membedakan Open WebUI dari sekadar chat UI: ia memberi model "tangan" untuk bertindak. Tiga builtin tools tersedia sejak awal: query_knowledge_bases untuk menelusuri koleksi dokumen, search_chats untuk mencari riwayat percakapan, dan web_search untuk mencari di internet [7]. Saat pengguna menanyakan sesuatu yang membutuhkan data dari ketiga sumber itu, model dapat memutuskan sendiri tool mana yang dipanggil.
+
+### Custom Tools: Python di dalam Sandbox
+
+Yang lebih menarik adalah custom tools: Anda menulis fungsi Python, dan model akan memanggilnya saat relevan — seperti function calling di platform komersial, tetapi berjalan sepenuhnya lokal. Fungsi ini dieksekusi di sandbox sehingga kode tidak langsung menyentuh sistem host. Langkah 2 pada bagian Praktikum memperlihatkan contoh lengkap sebuah tool kalkulator.
+
+Open WebUI mendukung dua mode: native function calling — model dilatih untuk mengeluarkan panggilan fungsi terstruktur — dan default mode yang lebih longgar. Tools diaktifkan dalam percakapan dengan mengetik @nama_tool atau membiarkan model memanggilnya otomatis.
+
+### Dukungan MCP
+
+Sejak 2025, ekosistem tool LLM diramaikan Model Context Protocol (MCP) — protokol terbuka yang distandardisasi oleh Anthropic untuk menghubungkan model dengan sumber data eksternal (database, browser, sistem file) melalui server MCP [10]. Open WebUI mengadopsi dukungan MCP, sehingga Anda dapat menautkan server MCP yang sudah ada ke antarmuka ini tanpa menulis integrasi khusus — sebuah investasi yang membuat Open WebUI kompatibel dengan ekosistem yang terus bertumbuh.
+
+### Multi-User dengan Role
+
+Open WebUI bukan sekadar aplikasi pengguna tunggal. Ia mendukung multi-user dengan tiga peran: admin (kontrol penuh, akses pengaturan), user (menggunakan chat, dokumen, dan Tools), serta pending (akun yang menunggu disetujui admin). Alur pendaftarannya sederhana: pengguna pertama yang registrasi otomatis menjadi admin, dan admin dapat mengatur siapa yang boleh bergabung. Ini menjadikan Open WebUI cocok untuk keluarga, sekolah, hingga kantor kecil — topik yang dibahas lebih dalam di Jilid 2 Bab 7.
+
+### Web Search dan Image Generation
+
+Untuk informasi real-time, Open WebUI mendukung integrasi web search dari 15+ penyedia — mulai dari mesin pencari mandiri seperti SearXNG yang di-self-host (pilihan terbaik untuk privasi) hingga penyedia komersial seperti Brave Search. Model akan mencari → mengambil → meringkas, persis seperti asisten AI modern.
+
+Open WebUI juga terintegrasi dengan image generation: DALL-E, Stable Diffusion, hingga Flux. Ini berarti satu antarmuka untuk teks dan gambar — berguna untuk membuat ilustrasi cerita atau materi presentasi.
+
+### Manajemen Model
+
+Pengguna dapat berpindah model di tengah percakapan — mulai dengan model kecil untuk respons cepat, lalu lanjut ke model besar saat pertanyaan menuntut reasoning mendalam. Open WebUI juga memungkinkan penyesuaian bobot model (berat antar model) dan parameter sampling per sesi, tanpa perlu menyentuh konfigurasi mesin inferensi.
+
+Deployment yang baik adalah deployment yang aman. Open WebUI menyediakan RBAC (Role-Based Access Control) lengkap: admin panel, manajemen pengguna, dan manajemen API key untuk integrasi programatik. Untuk melindungi layanan dari penyalahgunaan, tersedia rate limiting dan request logging — mencatat siapa meminta apa dan kapan, sehingga perilaku aneh dapat dideteksi.

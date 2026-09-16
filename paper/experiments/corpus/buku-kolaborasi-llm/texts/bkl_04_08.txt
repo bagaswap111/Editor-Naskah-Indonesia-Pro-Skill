@@ -1,0 +1,27 @@
+| Core Count | Tokens/s | BW Utilization | Scaling Efficiency |
+|:---:|---:|---:|---:|
+| 4 | 7 t/s | 35% | - |
+| 8 | 13 t/s | 55% | 93% |
+| 16 | 20 t/s | 75% | 71% |
+| 32 | 25 t/s | 88% | 56% |
+| 48 | 27 t/s | 92% | 40% |
+
+!Kurva scaling core count pada Xeon 4th Gen untuk Llama 3.1 (8B) INT4: token/detik naik cepat di awal (4→8 core) lalu mendatar, sementara utilisasi bandwidth naik menuju jenuh 92% di 48 core.
+
+Gambar 2.5-1 — Diminishing returns terlihat jelas: dari 32 ke 48 core hanya bertambah 2 t/s (25→27 t/s) karena RAM sudah jenuh mensuplai data (utilisasi bandwidth 92%); menambah core di atas 32 lebih baik diganti RAM yang lebih cepat.
+
+Ini adalah kurva diminishing returns dalam bentuk angka. Menambah core dari 4 ke 8 hampir sempurna (efisiensi 93%), tetapi dari 32 ke 48 hanya menaikkan 2 t/s dengan efisiensi merosot ke 40% — karena seluruh sistem mulai bergantung pada kemampuan RAM menyuplai data (utilisasi bandwidth 92%). Pelajaran berharganya: jangan membeli CPU 48-core "untuk AI" jika mesin Anda hanya akan menjalankan LLM — mulai core 32 ke atas, uang Anda lebih baik dibelikan RAM yang lebih cepat atau channel yang lebih banyak [4].
+
+Tabel ini sekaligus menyediakan jawaban bagi pertanyaan klasik forum: "kalau dua CPU socket dengan total 96 core, apakah dua kali lipat?" Tidak juga — karena bandwidth tetap menjadi leher botol, meskipun NUMA memungkinkan setiap socket mengakses RAM-nya sendiri. Dalam praktik, konfigurasi dual-socket memang menambah bandwidth agregat, tetapi komunikasi antar socket memperkenalkan overhead baru, dan efisiensi scaling umumnya lebih buruk daripada kurva pada tabel ini. Pesan yang konsisten di semua tingkat: dalam inferensi CPU, RAM adalah panggungnya, core hanyalah penari — panggung yang sempit akan membatasi berapa pun penari yang Anda sewa.
+
+### Gambar 1: Arsitektur SIMD vs Matrix Unit
+
+Diagram berikut membandingkan dua jalur akselerasi di CPU modern: AVX-512 yang mengolah vektor lebar, dan AMX yang mengolah matriks dalam tile.
+
+Pesan diagram ini adalah pembagian kerja: AVX-512 menangani pemrosesan vektor yang lebih fleksibel, sementara AMX adalah palu godam khusus perkalian matriks — operasi yang mendominasi inference. Karena hampir seluruh flop LLM adalah matmul, kehadiran AMX di Sapphire Rapids dan setelahnya menjelaskan lonjakan token/s antara Intel generasi lama dan baru. Perhatikan juga garis VNNI di dalam AVX-512: ia membuat inference INT8 berjalan tanpa beban konversi yang berarti — pasangan yang sempurna dengan kuantisasi INT4 dari Tabel 2.
+
+Bagi pembaca yang terbiasa dengan arsitektur GPU, diagram ini menawarkan paralel yang mencerahkan: AMX pada CPU adalah saudara jauh dari Tensor Core pada GPU — keduanya adalah unit khusus yang mendedikasikan sirkuitnya untuk operasi matriks, jauh lebih efisien daripada memaksakan instruksi vektor biasa. Perbedaannya terletak pada skala: Tensor Core GPU bekerja dengan matriks yang jauh lebih besar dan bandwidth HBM yang berlipat, sementara AMX "hanya" mengangkat beban 2048 operasi per siklus. Namun arahnya sama — dan memahami garis ini membantu Anda menilai kapan CPU dengan AMX cukup (model ≤14B) dan kapan GPU tak tergantikan (model raksasa), seperti yang akan dipertegas studi kasus di akhir bab.
+
+### Langkah 1: Install dan Benchmark llama.cpp CPU-only
+
+Mari mulai dari fondasi: membangun llama.cpp dengan optimasi CPU dan mengukur performa model 7B.

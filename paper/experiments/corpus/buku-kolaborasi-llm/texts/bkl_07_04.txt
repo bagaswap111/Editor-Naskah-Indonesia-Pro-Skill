@@ -1,0 +1,25 @@
+Pilar ketiga adalah memori. Agent yang baik tidak boleh lupa: konteks jangka pendek disimpan dalam prompt window model (ingatan kerja), sementara pengetahuan jangka panjang disimpan di luar — sebagai file, database, atau hasil retrieval (RAG). Memori inilah yang membuat agen "konsisten" di sepanjang sesi panjang, menyambungkan pekerjaan dari langkah pertama hingga terakhir, dan belajar dari kesalahan di langkah sebelumnya.
+
+### Pilar 4: Autonomy (Otonomi)
+
+Pilar terakhir adalah autonomy: kemampuan mengeksekusi rangkaian langkah berganda tanpa intervensi manusia — tentu dengan safety guard. Tingkat otonomi bisa diatur: dari "tanyakan setiap langkah" hingga "jalan sendiri, lapor hasil akhir". Wang et al. (2024) dalam survei mereka menunjukkan bahwa komponen dasar agen — perencanaan, memori, dan aksi — justru menjadi berarti penuh ketika digabungkan melalui siklus otonomi yang berulang [2]. Tanpa otonomi, agen hanyalah chatbot dengan akses shell; dengan otonomi, ia menjadi karyawan digital.
+
+Empat pilar ini tidak bekerja sendiri-sendiri — ia saling menguatkan seperti kaki meja. Tool use tanpa planning menghasilkan aksi yang kacau; planning tanpa tool use menghasilkan rencana yang tak pernah dieksekusi; keduanya tanpa memory akan mengulang kesalahan yang sama berulang kali; dan semuanya tanpa autonomy hanya menjadi saran yang harus Anda kerjakan sendiri. OpenClaw merangkai keempatnya dalam satu loop — seperti yang akan Anda lihat pada Gambar 1 — sehingga kekuatan totalnya lebih besar daripada jumlah kekuatan parsial masing-masing. Xi et al. (2025) menyebut integrasi semacam ini sebagai ciri pembeda agen generasi terbaru dibandingkan sistem AI generasi sebelumnya [3].
+
+Setelah memahami empat pilar, kita bisa memetakan perbedaan chatbot dan agent secara tegas. Chatbot bekerja dalam satu putaran (single-turn): pertanyaan masuk, jawaban keluar, selesai. Ia stateless — tidak mengingat apa-apa antar putaran — dan tidak memiliki akses ke alat apa pun. Agent bekerja dalam banyak putaran (multi-turn): ia mengamati, berpikir, bertindak, mengamati lagi, dan mengulang sampai tuntas. Ia stateful — konteks terus diperbarui di setiap langkah — dan punya akses ke file system, API, shell, dan browser.
+
+Contoh nyata yang mudah dikenali: ChatGPT adalah passive LLM — mumpuni dalam percakapan, tetapi buntu ketika diminta "tolong backup folder saya". OpenClaw atau Cline adalah active agent — dengan satu instruksi, mereka menyusun rencana, menjalankan perintah, dan melaporkan hasil. Perbandingan lengkapnya dapat Anda lihat pada Tabel 1 di seksi 2; poin terpentingnya adalah kontrol bergeser dari manusia yang mengoperasikan ke manusia yang mengawasi.
+
+Perlu kejujuran di sini: kedua paradigma tetap punya tempatnya masing-masing di tahun 2026. Chatbot masih yang terbaik untuk menjawab pertanyaan cepat, menulis draf, dan mengoreksi teks — tugas yang satu putaran dan tidak menyentuh sistem Anda. Agen baru unggul ketika tugasnya multi-step, menyentuh banyak tool, dan berulang. Kesalahan umum yang dilakukan pengguna baru adalah memaksakan semua interaksi menjadi sesi agen; pemborosan yang sama seperti membawa robot ke meja untuk menanyakan "jam berapa sekarang". Kuncinya adalah memilih alat sesuai tugas — dan buku ini ditulis agar Anda bisa membedakan keduanya dengan cepat.
+
+### Tabel 2: Perbandingan Filosofi Framework Agent
+
+OpenClaw bukan satu-satunya framework agen yang ada. Tabel ini membandingkannya dengan tiga pesaing populer agar Anda tahu kapan masing-masing paling tepat.
+
+| Aspek | OpenClaw | AutoGen (Microsoft) | LangChain Agents | CrewAI |
+|:---|:---|:---|:---|:---|
+| Fokus | Agen personal lokal | Multi-agent conversation | Chain/pipeline | Role-based crew |
+| Tool-first | Ya (built-in) | Via plugin | Ya (integrations) | Ya |
+| Sandbox | Docker-in-Docker | Tidak built-in | Tidak built-in | Tidak built-in |
+| Local LLM | First-class | Via config | Via config | Via Ollama |
+| Human-in-loop | Ya (approval gates) | Opsional | Opsional | Opsional |

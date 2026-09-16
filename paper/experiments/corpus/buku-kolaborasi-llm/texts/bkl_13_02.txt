@@ -1,0 +1,27 @@
+Setelah membaca tabel, dua lompatan paling mencolok adalah dari backup mingguan ke backup harian otomatis + offsite dan dari opsional menjadi wajib untuk code integration. Lompatan pertama adalah akibat dari "data produk" yang kini hidup di server; hilang satu hari riwayat konteks tim tidak bisa dipulihkan dari ingatan. Lompatan kedua adalah karakter: small office adalah kantor developer, jadi asisten kode bukan fitur tambahan melainkan alasan sistem ini dibangun. Perhatikan juga power budget: untuk 9-20 pengguna, konsumsi 300-600W — sekitar harga dua GPU consumer yang bekerja — adalah angka realistis, jauh di bawah 2kW+ enterprise yang butuh pendingin khusus.
+
+### Tabel 2: SLA Target Small Office
+
+SLA (Service Level Agreement) adalah janji yang membuat administrasi kantor tenang tidur. Target berikut adalah acuan yang realistis untuk diuji setelah sistem berjalan.
+
+| Metrik | Target | Keterangan |
+|:---|:---:|:---|
+| Code Completion Latency | <500 ms | Untuk pengalaman real-time di IDE |
+| Chat Response (TTFT) | <2 detik | Saat 5 user bersamaan |
+| RAG Query Time | <3 detik | Termasuk retrieval + generation |
+| Peak Throughput | >100 tok/s aggregate | Untuk 10 concurrent user |
+| Uptime Bulanan | 99,5% | ~3,6 jam downtime maksimal |
+
+Interpretasi yang jujur: angka 99,5% uptime bulanan berarti sekitar 3,6 jam downtime dalam sebulan — bukan tanpa mati sama sekali. Target ini berbeda dari enterprise yang menuntut high availability penuh. Untuk small office, 3,6 jam per bulan bisa dipakai untuk maintenance terjadwal di akhir pekan. Angka TTFT di bawah 2 detik saat 5 user bersamaan menentukan pilihan model: di sinilah model MoE aktif kecil (13B aktif) mengungguli model dense besar karena memproses lebih sedikit parameter per token — performa yang dikonfirmasi di Bab 7.2 Tabel Benchmark.
+
+### Gambar 1: Arsitektur Small Office AI
+
+Diagram di atas adalah blueprint keseluruhan yang akan kita bangun bertahap di bab-bab berikutnya. Baca dari kiri: para developer di workstation mereka menembakkan request melalui dua jalur — ke Tabby untuk code completion (yang memanggil vLLM lalu menarik konteks dari repo GitHub privat), atau ke Open WebUI untuk chat dan RAG. Semua permintaan masuk lewat Nginx reverse proxy sebagai penjaga gerbang, sementara Authentik memvalidasi identitas lewat Google Workspace. Perhatikan garis putus-putus dari WireGuard: karyawan remote masuk melalui tunnel, sehingga request mereka tiba di server seolah-olah dari LAN. Karakter penting lainnya: Qdrant hanya terhubung ke Open WebUI — artinya hanya chat yang bisa mengakses dokumen internal, sementara jalur kompletasi kode tetap ramping untuk latensi.
+
+### Pilar 1: Data Privacy
+
+Kode aplikasi adalah aset paling berharga sebuah software house — dan paling rawan. Mengirimkan potongan kode ke API publik seperti ChatGPT berarti mempercayakan aset klien ke pihak ketiga, lengkap dengan risiko training data leakage dan kebijakan privasi yang berubah-ubah [1]. Pilar pertama menjawab ini dengan satu keputusan tegas: semua data kode dan dokumentasi proyek tinggal di server lokal. Tidak ada yang bocor ke cloud publik.
+
+Konsekuensi desainnya nyata: model harus open-weight (bisa diunduh dan dijalankan di server sendiri), prompt tidak pernah meninggalkan LAN kantor, dan jika perusahaan bergerak di bidang dengan regulasi ketat — misalnya fintech yang tunduk pada aturan perlindungan data, atau vendor kesehatan yang menangani data pasien — arsitektur ini bisa memenuhi kebutuhan HIPAA/GDPR compliance karena data sensitif tidak pernah berpindah lokasi [1][5]. Studi terbaru menunjukkan kebocoran data dari LLM bisa terjadi pasif maupun aktif, sehingga self-hosting bukan sekadar preferensi, melainkan mekanisme pertahanan paling sederhana yang tersedia [1].
+
+### Pilar 2: Kolaborasi Tim

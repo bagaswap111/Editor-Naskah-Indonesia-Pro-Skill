@@ -1,0 +1,24 @@
+Pola yang muncul dari tabel ini: parameter sampling (temperature, top_p) mengontrol rasa keluaran, sedangkan parameter eksekusi (num_ctx, num_gpu) mengontrol kemampuan — seberapa banyak konteks yang bisa dipegang dan seberapa banyak komputasi yang dijalankan di GPU. Nilai default temperature 0.8 memang relatif kreatif, cocok untuk percakapan umum; untuk tugas yang menuntut presisi seperti coding atau analisis data, turunkan ke 0,2-0,4. num_gpu dengan nilai -1 berarti "semua lapisan ke GPU", dan inilah yang paling sering digunakan pengguna desktop.
+
+Ollama bukan inference engine; ia adalah pengemudi yang memilih mesin yang tepat untuk setiap model. Mesin utama adalah llama.cpp — implementasi C++ dari Georgi Gerganov yang menjadi standar de facto eksekusi model GGUF di seluruh ekosistem. Mesin ini mendukung hampir semua perangkat: GPU NVIDIA via CUDA, GPU AMD via ROCm, GPU Apple via Metal, hingga CPU murni. Karena itulah hampir semua model yang diunduh melalui ollama pull adalah file GGUF yang dijalankan llama.cpp.
+
+Perlu ditegaskan di sini: GGUF bukanlah sebuah model, melainkan format kemasan. Ia menyimpan bobot yang sudah dikuantisasi (misalnya 4-bit atau 8-bit), tokenizer, arsitektur, dan metadata lain dalam satu berkas yang bisa dibaca langsung oleh llama.cpp. Karena formatnya standar, file GGUF yang sama bisa dijalankan oleh Ollama, LM Studio, llama.cpp murni, maupun GPT4All — inilah "bahasa bersama" yang membuat ekosistem model lokal tidak terpecah-pecah. Bila model favorit Anda hanya tersedia dalam format safetensors dari Hugging Face, konversi ke GGUF bisa dilakukan dengan script llama.cpp, dan hasilnya langsung bisa dipakai di Ollama.
+
+Untuk pengguna Apple Silicon, Ollama menyediakan runner eksperimental berbasis MLX — framework machine learning buatan Apple yang memanfaatkan unified memory secara lebih langsung. MLX bisa lebih cepat pada chip M-series untuk model tertentu, tetapi statusnya masih experimental; jangan heran jika sebuah model tampil dua kali di library dengan tanda backend berbeda. Terakhir, ada backend khusus image generation untuk model difusi seperti Flux — Ollama tidak hanya melayani teks, tetapi juga menggambar. Pemilihan backend dilakukan otomatis berdasarkan tipe model: arsitektur encoder-decoder multimodal, dense decoder, atau diffusion — pengguna cukup memilih model, Ollama yang menebak mesinnya.
+
+### Tabel 2: Perbandingan Backend Ollama
+
+Bandingkan tiga execution backend Ollama berikut sebelum memilih model dan perangkat target Anda.
+
+| Fitur | llama.cpp | MLX | Image Generation |
+|:---|:---|:---|:---|
+| Tipe Model | GGUF | Safetensors (MLX) | Diffusion models |
+| Apple Silicon | Native (Metal) | Native (MLX) | Native |
+| NVIDIA GPU | CUDA | - | CUDA |
+| Multimodal | Vision, Audio | Vision | Image generation |
+| Kecepatan Token/s |  |  (M-series) | N/A |
+| Kematangan* | Mature | Experimental | Experimental |
+
+Pelajaran dari tabel ini: untuk pengguna Linux/Windows dengan kartu NVIDIA, llama.cpp adalah pilihan utama dan satu-satunya yang realistis; untuk pengguna Mac M-series yang menginginkan throughput maksimal, MLX patut dicoba meski berstatus experimental; dan bagi yang ingin menghasilkan gambar, backend difusi adalah jawabannya. Ollama memilih backend secara otomatis, tetapi memahami perbedaannya membantu Anda membaca mengapa kecepatan token/s bisa berbeda antara dua model yang ukurannya sama.
+
+Saat Anda pertama kali menjalankan model, Ollama melakukan probe perangkat keras: mendeteksi GPU NVIDIA (CUDA), AMD (ROCm), atau Apple (Metal) secara otomatis. Hasil deteksi ini menentukan dua hal: berapa lapisan model yang bisa di-offload ke VRAM, dan berapa besar memori sistem yang tersisa untuk bagian yang tidak muat. Scheduler lalu mengalokasikan layer offload secara dinamis — tidak harus semua lapisan masuk GPU; jika VRAM menipis, sebagian lapisan ditarik kembali ke CPU tanpa Anda perlu mengonfigurasi apa pun.

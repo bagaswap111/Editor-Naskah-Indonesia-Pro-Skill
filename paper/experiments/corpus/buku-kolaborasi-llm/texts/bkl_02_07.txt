@@ -1,0 +1,21 @@
+llama.cpp menyediakan dukungan MoE melalui format GGUF, di mana semua parameter MoE disimpan dalam satu file dengan metadata expert mapping. Fitur utamanya meliputi offloading hybrid — sebagian expert dapat ditempatkan di GPU dan sisanya di CPU — K-quantization untuk MoE dari Q2_K hingga Q8_0 dengan per-expert quantization, dan kemampuan inference MoE tanpa GPU sama sekali. Keterbatasan utamanya adalah tidak mendukung expert parallelism multi-GPU (hanya satu GPU yang dapat digunakan). Dalam pengujian praktis, Mixtral 8x7B Q4_K_M mencapai sekitar 10 TPS di CPU 16-core dan 40 TPS di RTX 4090. Cocok untuk pengguna dengan satu GPU atau CPU-only, eksperimen lokal, dan pengguna Mac.
+
+### vLLM
+
+vLLM adalah framework inference optimal untuk production serving dengan dukungan MoE tingkat lanjut. Fitur utamanya meliputi expert parallelism untuk mendistribusikan expert ke multi-GPU — penting untuk model seperti DeepSeek V2 atau V4 yang tidak muat di satu GPU — kombinasi tensor parallelism dan expert parallelism secara bersamaan, PagedAttention untuk manajemen KV cache yang efisien di skenario multi-user, dan prefix caching untuk menghemat komputasi pada prompt yang berulang. Keterbatasannya: membutuhkan CUDA GPU dan tidak mendukung Apple Silicon secara optimal. Menurut benchmark vLLM versi 0.8, Mixtral 8x7B mencapai sekitar 1.500 TPS pada 4 A100 dengan batch 256 — throughput kelas industri. Cocok untuk deployment server, API serving, dan workload produksi.
+
+### EXL2 (exllamav2)
+
+EXL2 adalah backend inference dengan dukungan MoE dan bit-width fleksibel. Fitur utamanya adalah quantization per-expert — setiap expert dikuantisasi dengan bit-width optimalnya sendiri, misalnya expert yang cenderung memproses kode di 4,5-bit sementara expert matematika di 5,0-bit. EXL2 juga mendukung MoE inference dengan KV cache 8-bit dan split processing untuk distribusi otomatis ke multi-GPU. EXL2 umumnya lebih cepat dari llama.cpp untuk skenario GPU-only karena optimasi CUDA murni tanpa fallback CPU. Namun, tidak mendukung offloading CPU dan membutuhkan VRAM yang cukup untuk semua expert. Menurut benchmark komunitas, Mixtral 8x7B EXL2 4,85-bit mencapai sekitar 45 TPS di RTX 4090 — sekitar 10% lebih cepat dari llama.cpp Q4_K_M. Cocok untuk single atau multi-GPU dedicated.
+
+### Transformers (Hugging Face)
+
+Transformers dari Hugging Face berfungsi sebagai backend reference untuk eksperimen dan prototyping MoE. Fitur utamanya meliputi device map otomatis dengan device_map="auto" yang mendistribusikan expert ke GPU/CPU secara otomatis, flag moe=True dalam konfigurasi model, dukungan untuk semua model MoE di Hugging Face Hub, dan integrasi dengan PEFT untuk LoRA fine-tuning pada model MoE. Keterbatasan utamanya adalah tidak cocok untuk production — lebih lambat dari llama.cpp atau vLLM, dan manajemen memorinya tidak optimal. Cocok untuk eksperimen, riset, prototyping, dan fine-tuning dengan LoRA.
+
+### Panduan Praktis Berdasarkan Hardware
+
+Pemilihan backend sangat tergantung pada hardware yang tersedia. Untuk GPU kelas bawah seperti GTX 1060 6GB, dense model 7B Q4_K_M via llama.cpp adalah satu-satunya pilihan yang realistis — MoE tidak akan muat di VRAM yang terbatas. GPU kelas menengah seperti RTX 3060 12GB dapat menjalankan dense 7B-13B via EXL2 dengan kecepatan 40-50 TPS, dan Mixtral 8x7B Q4_K_M via llama.cpp pada sekitar 25 TPS — muat pas. GPU kelas atas seperti RTX 4090 24GB dapat menjalankan Mixtral Q4_K_M via EXL2 pada 45 TPS dan DeepSeek V2 lite pada 35 TPS.
+
+Pengguna Apple Silicon dengan M2 Max 96GB memiliki keunggulan unified memory. Mixtral Q4_K_M via llama.cpp mencapai sekitar 30 TPS, dan DeepSeek V4 Flash Q4 pada 20 TPS. Sementara itu, pengguna dengan konfigurasi multi-GPU seperti 2 RTX 3090 (48GB total) dapat memanfaatkan vLLM untuk Mixtral Q4_K_M dengan throughput 180 TPS pada batch 8, atau DeepSeek V2 Q4 pada 70 TPS. Untuk pengguna rumahan dengan satu GPU, llama.cpp atau EXL2 adalah pilihan terbaik. Untuk server multi-user, vLLM adalah standar industri yang tidak tergantikan.
+
+### Tabel 3: Perbandingan Kecepatan Inference (RTX 4090, Q4_K_M)

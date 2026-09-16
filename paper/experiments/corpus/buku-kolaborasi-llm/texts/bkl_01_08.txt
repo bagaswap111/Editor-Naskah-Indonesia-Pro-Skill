@@ -1,0 +1,53 @@
+Gambar 1.1 — Visualisasi hasil script di atas: total parameter (batang biru muda), parameter aktif (batang biru tua), dan skor MMLU (garis merah). Skala parameter logaritmik agar era 2020-2026 tetap terbaca.
+
+Profil: Seorang AI engineer di Indonesia yang menggunakan model bahasa untuk produktivitas coding dan menulis konten teknis.
+
+2019-2022: Memulai dengan GPT-2 (1,5B) untuk eksperimen NLP sederhana. Sering frustrasi karena output tidak koheren untuk Bahasa Indonesia — model ini dominan terlatih pada data Inggris. Konteks hanya 1.024 token, sehingga dokumen panjang harus dipecah manual per paragraf. Biaya: nol (berjalan di laptop), tetapi hasilnya lebih mirip mad-libs daripada teks bermakna.
+
+2023: Bocornya LLaMA-1 7B mengubah segalanya. Untuk pertama kalinya, model mulai memahami instruksi Bahasa Indonesia — meskipun masih sering salah memahami konteks budaya lokal (misalnya, mengartikan "bawang merah" sebagai red onion dalam konteks investasi pasar tradisional). Menggunakan llama.cpp di laptop dengan GTX 1060 6GB, kecepatan ~5 token/detik.
+
+2024: Upgrade ke Llama-3.1-8B. 128K context window memungkinkan memproses seluruh dokumen tanpa chunking. Tool use dan function calling native memungkinkan model berinteraksi dengan API dan database. Kualitas output setara GPT-3.5 — yang sebelumnya membutuhkan API berbayar. Ukuran hanya 5,2 GB (Q4_K_M) — muat di laptop dengan RTX 2060. Biaya: nol.
+
+2025: Tahun eksperimen intensif. Menggunakan DeepSeek-R1 via API untuk reasoning kompleks (analisis kode, matematika), Phi-4 14B lokal untuk daily coding, dan Mistral Large 3 via API untuk tugas multibahasa. Phi-4 14B mencapai MMLU 84,8% — lebih tinggi dari LLaMA-1 65B yang 63%. Mistral Large 3 (675B, Apache 2.0) membuktikan bahwa open-source non-Tiongkok bisa setara frontier. Biaya: masih nol untuk model lokal, ~$20/bulan untuk API.
+
+H1 2026: Beralih ke Qwen3.6-27B sebagai coding assistant lokal — model 27B ini menyamai GPT-4o untuk generate Python dan Rust. Mulai bereksperimen dengan DeepSeek V4 Flash (284B, MIT) di workstation 2xRTX 6000 via INT4. Menguji GPT-5.5 dan Claude Fable 5 via API untuk tugas yang memerlukan reasoning terdalam — hasilnya mengesankan, tetapi biaya API membuatnya tidak praktis untuk penggunaan harian.
+
+Pelajaran: Dari GPT-2 (MMLU 32%) ke DeepSeek V4 Flash (LiveCodeBench 91,6%) dalam 7 tahun — peningkatan kualitas hampir 3x. Biaya per query: dari ~$0,01 (GPT-3 API 2020) menjadi $0 (lokal, open-weight 2026). Konteks: dari 1.024 token menjadi 1 juta token. Ekosistem: dari 1 model proprietary menjadi ribuan model open-source. Transformasi ini bukan hanya tentang teknologi — ini tentang siapa yang memiliki akses ke AI.
+
+### Paper Jurnal/Konferensi
+
+[1] Vaswani, A., et al. (2017). Attention Is All You Need. NeurIPS. DOI: 10.48550/arXiv.1706.03762
+
+[2] Radford, A., et al. (2019). Language Models are Unsupervised Multitask Learners. OpenAI Blog.
+
+[3] Brown, T.B., et al. (2020). Language Models are Few-Shot Learners. NeurIPS. DOI: 10.48550/arXiv.2005.14165
+
+[4] Kaplan, J., et al. (2020). Scaling Laws for Neural Language Models. NeurIPS. DOI: 10.48550/arXiv.2001.08361
+
+[5] Touvron, H., et al. (2023). LLaMA: Open and Efficient Foundation Language Models. arXiv: 2302.13971
+
+[6] Jiang, A.Q., et al. (2023). Mistral 7B. arXiv: 2310.06825
+
+[7] Grattafiori, A., et al. (2024). The Llama 3 Herd of Models. arXiv: 2407.21783
+
+[8] DeepSeek-AI. (2024). DeepSeek-V3 Technical Report. arXiv: 2412.19437
+
+[9] DeepSeek-AI. (2025). DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via RL. arXiv: 2501.12948
+
+[10] Abdin, M., et al. (2024). Phi-4 Technical Report. arXiv: 2412.08905
+
+[11] Yang, A., et al. (2024). Qwen2.5 Technical Report. arXiv: 2412.15115
+
+[12] Yang, A., et al. (2025). Qwen3 Technical Report. arXiv: 2505.09388
+
+[13] Qwen Team. (2026). Qwen3.5-Omni Technical Report. arXiv: 2604.15804
+
+[14] DeepSeek-AI. (2026). DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence. PDF
+
+[15] Mistral AI. (2025). Introducing Mistral 3. Blog
+
+[16] OpenAI. (2026). GPT-5.5 System Card. System Card
+
+[17] Anthropic. (2026). Claude Fable 5 and Claude Mythos 5. Blog
+
+[18] Mistral AI. (2026). Ministral 3. arXiv: 2601.08584

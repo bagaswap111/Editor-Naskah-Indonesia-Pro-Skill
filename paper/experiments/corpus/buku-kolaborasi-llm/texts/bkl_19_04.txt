@@ -1,0 +1,22 @@
+| Skenario | Hardware | Model Lokal | CAPEX | Biaya/1M Token (local) | Biaya/1M Token (cloud) | Break-even (token/bulan) |
+|:---|:---|:---|:---:|:---:|:---:|:---:|
+| Kecil (1-5 user) | Mac Mini M4 24GB | DS V4 Flash (13B) | Rp 20jt | Rp 800 | Rp 15.000 (GPT-4o mini) | ~1,4M |
+| Menengah (5-20 user) | PC RTX 4090 24GB | DS V4 Pro (49B Q4) | Rp 45jt | Rp 1.200 | Rp 75.000 (GPT-5.5) | ~610K |
+| Menengah (5-20 user) | PC RTX 4090 24GB | Mistral Large 3 (41B Q4) | Rp 45jt | Rp 1.100 | Rp 60.000 (Claude Fable 5) | ~765K |
+| Besar (20-100 user) | 2x RTX 4090 NVLink | DS V4 Pro + V4 Flash | Rp 90jt | Rp 700 | Rp 75.000 (GPT-5.5) | ~1,2M |
+| Enterprise (>100 user) | 4x A100 80GB | DS V4 Pro + Mistral L3 | Rp 2,5 miliar | Rp 200 | Rp 60.000 (Claude Fable 5) | ~42K |
+| Catatan: | Estimasi 3 tahun depresiasi | | | Rp/kWh = 1.600 | Harga API | Semakin besar volume, semakin murah lokal |
+
+!Grafik batang horizontal berkelompok pada skala logaritmik membandingkan biaya per satu juta token antara deployment lokal dan cloud API untuk lima skenario organisasi, dengan gap hingga 300 kali lipat pada profil enterprise
+
+Gambar 10.4-1 — Perbandingan biaya per 1 juta token lokal vs cloud untuk lima profil organisasi (skala logaritmik). Gap 300x pada profil enterprise (Rp 200 vs Rp 60.000) membuat break-even tercapai hanya dalam ribuan token per bulan, sedangkan profil kecil menghadapi gap 18x yang memerlukan ~1,4 juta token.
+
+Perhatikan dua insight kunci. Pertama, volume menentukan pemenang: satu tim kecil dengan 200 ribu token/bulan (sekitar 10 ribu percakapan) tidak akan pernah break-even — cloud tetap menang; tetapi organisasi besar yang memproses 50 juta token/bulan harus beralih ke lokal, karena penghematannya mencapai puluhan juta rupiah per bulan. Kedua, *jarak harga per token menentukan kecepatan break-even**: maskot yang paling cepat balik modal adalah konfigurasi enterprise (volume tinggi + biaya lokal per token yang sangat rendah Rp 200 vs cloud Rp 60.000) — gap 300x yang membuat break-even tercapai hanya dalam hitungan ribuan token per bulan. Angka-angka ini sensitif terhadap asumsi — harga listrik, harga GPU, dan harga API berubah seiring waktu — sehingga sebelum keputusan besar, jalankan ulang kalkulator break-even di Langkah 2 dengan harga pasar terkini.
+
+### Gambar 1: Dinamika Break-even
+
+Grafik break-even sesungguhnya adalah dua garis pada sumbu yang sama — x adalah volume token/bulan (skala log), y adalah biaya kumulatif dalam rupiah — di mana garis lokal (CAPEX + OPEX, dimulai tinggi karena investasi awal) dan garis cloud (OPEX murni, dimulai dari nol tetapi curam) berpotongan di titik break-even. Diagram konseptual berikut menangkap arah kedua kurva tersebut.
+
+Inti dari gambar ini: break-even bukan satu titik statis, melainkan keadaan yang bergeser seiring depresiasi (semakin tua hardware, semakin murah biaya lokal per bulan, sehingga garis lokal turun dan break-even maju ke kiri) dan seiring skala (semakin besar volume bulanan, semakin jauh Anda berada di kanan titik potong — wilayah keunggulan lokal). Untuk volume di kiri titik potong, cloud tetap rasional meskipun kualitas lokal sudah setara: membayar mahal untuk infrastruktur yang menganggur adalah pemborosan yang sama buruknya dengan membayar token berlebih.
+
+### Routing Logic

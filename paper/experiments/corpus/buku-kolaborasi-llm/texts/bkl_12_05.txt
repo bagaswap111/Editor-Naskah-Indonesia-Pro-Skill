@@ -1,0 +1,43 @@
+| Komponen | Fungsi | Harga (IDR) |
+|:---|:---|:---:|
+| Router OpenWrt (MikroTik hAP ax2) | VLAN, QoS, firewall | ~Rp 1.2jt |
+| Access Point Wi-Fi 6 (TP-Link EAP610) | Cakupan 4-8 user | ~Rp 800rb |
+| Switch managed 8-port (TP-Link TL-SG105E) | VLAN tagging | ~Rp 400rb |
+| Pi-hole / Raspberry Pi 4 | DNS filtering + AdGuard | ~Rp 700rb |
+| Kabel UTP Cat6 10m | Koneksi server ke switch | ~Rp 100rb |
+
+Proporsi biaya setiap komponen lebih jujur ditampilkan sebagai batang — router mengambil porsi terbesar, dan seluruhnya tetap di bawah Rp 3,5jt.
+
+!Biaya komponen jaringan home AI dalam juta rupiah
+
+Gambar 6.3-1 — Estimasi biaya komponen jaringan (Juni 2026). Router OpenWrt mendominasi (~Rp 1,2jt), disusul access point dan Pi-hole; total seluruh "pagar" keluarga masih di bawah Rp 3,5jt — kurang dari sepersepuluh biaya server LLM.
+
+Perbandingan yang jujur: kurang dari sepersepuluh biaya server LLM (Rp 25-45jt), tetapi komponen ini menentukan apakah seluruh sistem aman dan nyaman digunakan. Prioritas anggaran yang masuk akal: router dulu (otak dari semua kebijakan), lalu AP (jangkauan menentukan pengalaman), baru Pi-hole dan switch. Untuk rumah kecil, Pi-hole bahkan bisa diganti container di server LLM — menghemat satu perangkat lagi.
+
+### Langkah 1: Setup Tailscale untuk Akses Remote Aman
+
+Mulai dari server LLM: jadikan ia anggota jaringan pribadi keluarga.
+
+ACL di atas menerjemahkan kebijakan keluarga ke dalam kode: perangkat bertag kids hanya diizinkan mengakses port 11434 di llm-server, sedangkan parents menikmati akses penuh. Jika langkah verifikasi curl berhasil dari luar rumah, Anda sudah memiliki remote access yang aman tanpa satu pun perubahan di router.
+
+Jika keluarga memiliki banyak perangkat, aktifkan juga MagicDNS Tailscale (default): setiap perangkat mendapat nama seperti llm-server.tailnet-name.ts.net yang bisa dipakai dari mana pun. Verifikasi final sebaiknya dilakukan dari jaringan hotspot HP (paket data), bukan dari Wi-Fi rumah — jika hanya diuji dari dalam rumah, Anda tidak benar-benar menguji remote access.
+
+### Langkah 2: Konfigurasi VLAN di OpenWrt
+
+Sekarang bangun tembok dalam rumah: tiga VLAN yang terisolasi namun tetap saling terhubung secara terkontrol.
+
+Setelah kedua aturan ini aktif, verifikasi dari perangkat di VLAN 20: curl http://192.168.1.100:11434/api/tags harus sukses, tetapi ssh 192.168.1.100 harus ditolak. Itulah perbedaan antara "pagar" dan "tembok": anak tetap bisa bertanya pada asisten, tetapi tidak bisa masuk ke server room.
+
+### Langkah 3: Setup HTTPS Lokal dengan mkcert
+
+Terakhir, enkripsi traffic dalam LAN — sehingga percakapan keluarga dengan asisten tidak lagi "polos" bagi perangkat IoT yang berbagi jaringan yang sama.
+
+Setelah mkcert -install di setiap perangkat keluarga, browser akan mempercayai sertifikat lokal dan ikon gembok muncul di bilah alamat — pertanda traffic antara perangkat dan server kini terenkripsi, meski keduanya berada dalam satu rumah.
+
+Profil. Rumah dua lantai dengan lima anggota keluarga. Server LLM berada di ruang kerja lantai 1, dan internet ISP 100 Mbps. Tantangannya: rumah bertingkat dengan kebutuhan akses berbeda-beda di setiap lantai.
+
+Jaringan. Router MikroTik hAP ax2 + dua AP TP-Link EAP610 (satu per lantai), disambung switch managed TP-Link TL-SG105E. Total investasi jaringan sekitar Rp 3,2jt — termasuk router ~Rp 1,2jt, dua AP ~Rp 1,6jt, dan switch ~Rp 400rb.
+
+Segmentasi. VLAN 10 untuk orang tua: Ayah (pekerja IT) dan Ibu (dokter) menikmati akses penuh. VLAN 20 untuk tiga anak SD-SMP: akses LLM hanya melalui Open WebUI, dengan DNS terfilter AdGuard. VLAN 30 untuk IoT — Smart TV, kamera, smart plug — diisolasi penuh dari perangkat pribadi keluarga.
+
+Remote Access. Tailscale terpasang di HP Ayah, sehingga ia bisa mengakses server LLM saat dinas luar kota — tanpa satu pun port router dibuka.

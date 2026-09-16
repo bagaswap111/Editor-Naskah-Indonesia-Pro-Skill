@@ -1,0 +1,26 @@
+1. Load Balancer (HAProxy/Nginx) — pintu masuk tunggal semua trafik. Berjalan active-active di dua node dengan virtual IP yang dijaga keepalived.
+2. API Gateway (LiteLLM/Kong) — gerbang kebijakan: rate limiting, cost tracking, routing ke model yang tepat, dan autentikasi. Berjalan sebagai tiga replika active-active sehingga kegagalan satu replika tidak terasa sama sekali (failover < 1 detik).
+3. LLM Cluster (K3s) — inti komputasi: dua atau lebih node GPU yang menjalankan vLLM. Strategi active-passive: satu node melayani beban utama, node lain siap mengambil alih dalam waktu kurang dari 30 detik.
+4. Storage Layer — tiga sistem yang saling melengkapi: MinIO untuk objek (bobot model, dokumen), Qdrant untuk vektor (basis data RAG dengan replication factor 3), dan PostgreSQL Patroni untuk metadata dan audit log.
+5. Observability — Prometheus, Grafana, dan Loki yang memantau kesehatan setiap lapisan, mengumpulkan metrik SLA, dan memicu alert.
+
+Arah aliran data bersifat satu arah dari atas ke bawah — pengguna → balancer → gateway → klaster → storage — sementara lapisan observability mengintip semua lapisan dari samping tanpa menjadi bagian jalur kritis. Health check dijalankan setiap 5 detik di seluruh lapisan, dan auto-failover ditargetkan selesai dalam waktu kurang dari 30 detik. Detail interkoneksi ini divisualisasikan pada Gambar 2 di seksi 5 (Arsitektur High-Level).
+
+### Gambar 2: Arsitektur High-Level General Office
+
+Diagram ini memperlihatkan satu prinsip utama: setiap panah tebal (aliran data) selalu memiliki jalur alternatif. Perhatikan dua ISP yang sama-sama menuju HAProxy, tiga replika LiteLLM yang saling bercabang ke node GPU, dan storage yang menerima aliran dari semua node. Sementara itu, lapisan Observability (panah putus-putus) tidak pernah berada dalam jalur data — ia hanya mengawasi. Inilah perbedaan fundamental arsitektur enterprise: dalam sistem home, Prometheus mungkin tidak ada sama sekali; di sini, kegagalan satu komponen tidak pernah memutus rantai permintaan, dan kegagalan apa pun langsung terlihat di dashboard.
+
+Pilar yang sering terlupakan ketika membahas kinerja adalah kewajiban hukum. Sistem LLM general office memproses data pribadi karyawan dalam skala yang cukup besar — dan itu menarik perhatian tiga kerangka regulasi sekaligus. ISO 27001 menuntut sistem manajemen keamanan informasi dengan bukti terdokumentasi, yang diwujudkan lewat audit trail dan kontrol akses; GDPR (jika perusahaan punya eksposur Uni Eropa) menuntut hak data subject dan akuntabilitas pemrosesan; dan khusus untuk Indonesia, UU Pelindungan Data Pribadi (UU No. 27 Tahun 2022) mewajibkan pemroses data menjaga kerahasiaan dan akuntabilitas.
+
+Dua kebijakan teknis yang harus ditegakkan. Pertama, data residency: seluruh data LLM — dokumen, embeddings, prompt, hasil — wajib berada di server on-premise atau cloud lokal Indonesia (misalnya region Jakarta), karena mengirim data ke luar negeri tanpa dasar hukum berarti melanggar UU PDP. Kedua, retention policy: log sistem disimpan minimal 1 tahun (untuk kepentingan audit dan investigasi), sementara prompt disimpan 90 hari. Setelah masa itu, data dimusnahkan secara otomatis. Kebijakan inilah yang kemudian diterjemahkan menjadi konfigurasi teknis — TTL di Loki, cleanup job di PostgreSQL, dan data classification di LiteLLM.
+
+### Tabel 3: Komponen Redundansi
+
+| Layer | Komponen | Redundansi Strategi | Failover Time |
+|:---|:---|:---|:---:|
+| Network | Dual ISP + BGP | Active-active | < 5 detik |
+| Load Balancer | HAProxy (2 node) | Active-passive (keepalived) | < 10 detik |
+| API Gateway | LiteLLM (3 replica) | Active-active | < 1 detik |
+| LLM Inference | vLLM (2+ node GPU) | Active-passive | < 30 detik |
+| Storage (Vector DB) | Qdrant cluster | Replication factor 3 | < 60 detik |
+| Database | PostgreSQL Patroni | Streaming replication | < 30 detik |

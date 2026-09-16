@@ -1,0 +1,22 @@
+vLLM menjalankan serving loop yang terdiri dari beberapa komponen, dan yang pertama kali menari adalah scheduler. Scheduler menentukan request mana yang masuk ke batch pada iterasi berikutnya, berapa blok KV yang dialokasikan, dan — ketika memori GPU mulai penuh — request mana yang harus dihentikan sementara (preempted). Karena keputusan dibuat per iterasi kecil (bukan per request selesai), vLLM bisa mencampur prefill dan decode dari banyak request dalam satu langkah komputasi; inilah esensi continuous batching yang diwarisi dari sistem Orca [2]. Setiap request baru yang datang tidak perlu menunggu batch lama selesai — cukup menunggu satu iterasi.
+
+Kebijakan scheduling juga menjawab pertanyaan keadilan: apakah satu request dengan konteks 100K token boleh menguasai GPU berjam-jam, sementara puluhan request pendek antre? vLLM menangani ini dengan weighted scheduling dan preemption yang adil — request raksasa boleh masuk, tetapi tidak berhak memblokir yang lain tanpa batas. Efeknya terasa dalam stabilitas: pengguna dengan pertanyaan pendek hampir selalu mendapat jawaban cepat, sementara request besar tetap selesai — hanya sedikit lebih lambat dari yang mereka inginkan.
+
+Di belakang scheduler ada KV Cache Manager, komponen yang bertugas mengalokasikan dan membebaskan blok KV secara dinamis. Saat request masuk, manager memesan blok untuk prompt; saat request selesai, blok-bloknya ditarik kembali ke pool untuk dipakai request lain. Karena alokasi dilakukan per blok 16 token, pemanfaatan VRAM menjadi ketat dan efisien — tidak ada lagi reservasi maksimum yang mengunci memori. Manager inilah yang membaca parameter --gpu-memory-utilization untuk menentukan seberapa besar fraksi VRAM yang boleh dipakai sebagai KV cache pool (default 0,90), dan --swap-space untuk menyisihkan RAM CPU sebagai tempat evakuasi sementara.
+
+Untuk model besar yang tidak muat di satu GPU, vLLM menyebar eksekusi ke beberapa worker melalui tensor parallelism: bobot model dipecah ke sejumlah GPU yang ditentukan --tensor-parallel-size, dan setiap iterasi dikomunikasikan lintas GPU. Scheduler tetap satu dan bertindak global, sementara para worker menghitung secara paralel di tiap shard. Inilah yang memungkinkan DeepSeek V4 Pro (1,6 triliun parameter total, 49 miliar aktif) dijalankan dengan --tensor-parallel-size 4 di server multi-GPU kelas data center — mesin vLLM yang sama yang melayani model 8B di satu kartu gaming.
+
+Perlu dicatat bahwa worker yang tersebar tidak mengubah semantik PagedAttention: KV-cache tetap dipecah per blok, hanya saja setiap blok kini tinggal di shard yang memegang bagian bobot yang bersangkutan. Koordinasi lintas GPU sebagian besar menjadi urusan komunikasi all-reduce yang sudah dimatangkan ekosistem CUDA — vLLM tinggal memastikan scheduler membuat keputusan global yang konsisten. Karena itu, beralih dari --tensor-parallel-size 1 ke 2 atau 4 biasanya tidak membutuhkan perubahan kode aplikasi sama sekali — hanya satu baris argumen.
+
+### Tabel 2: Benchmark Throughput vLLM (Request/s)
+
+Untuk melihat bagaimana performa bertambah seiring jumlah GPU, berikut throughput beberapa model populer termasuk model MoE terkini yang menjadi andalan ekosistem lokal.
+
+| Model | 1xA100 40GB | 4xA100 40GB | 8xA100 40GB |
+|:---|:---:|:---:|:---:|
+| Llama 2 (7B) | 45,2 req/s | - | - |
+| Llama 2 (13B) | 12,8 req/s | 38,5 req/s | - |
+| Llama 2 (70B) | - | 4,2 req/s | 8,9 req/s |
+| Mixtral 8x7B | 8,5 req/s | 28,3 req/s | 52,1 req/s |
+| DeepSeek V4 Pro (49B aktif) | 42,1 req/s | 89,4 req/s | 168,2 req/s |
+| Mistral Large 3 (41B aktif) | 38,7 req/s | 81,2 req/s | 155,6 req/s |

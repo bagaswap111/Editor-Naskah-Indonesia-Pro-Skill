@@ -1,0 +1,27 @@
+# Bab 9.3: Flowise
+
+Setelah membaca bab ini, Anda akan mampu:
+
+- Membangun pipeline RAG end-to-end: ingestion → chunking → embedding → retrieval → generation secara visual
+- Mengeksperimen berbagai strategi chunking, embedding, dan retrieval dalam antarmuka drag-and-drop dengan perbandingan kuantitatif
+- Menerapkan agentic RAG dengan self-correction dan multi-agent untuk dokumen heterogen
+- Menggunakan Flowise untuk prototyping cepat sebelum produksi, termasuk ekspor flow sebagai JSON untuk version control
+- Mendeploy flow ke produksi melalui API endpoint dan embedded chat widget
+
+### Kanvas Drag-and-Drop untuk LangChain
+
+Flowise adalah open-source drag-and-drop UI untuk LangChain dengan lebih dari 53.000 bintang GitHub. Konsepnya sederhana namun kuat: setiap komponen LangChain — model, loader dokumen, splitter, embedding, vector store, retriever, chain — direpresentasikan sebagai node visual di atas kanvas, dan Anda menyambungkannya dengan menarik garis antar-node. Hasilnya adalah flow yang sekaligus menjadi diagram arsitektur dan program yang bisa dijalankan.
+
+Perbedaan mendasar dengan Dify (Bab 9.2): Flowise bersifat lebih low-level — ia mengekspos komponen LangChain secara langsung, sehingga developer mendapat kontrol penuh atas setiap parameter. Dify, sebaliknya, lebih product-oriented: proses dibungkus menjadi antarmuka yang ramah pengguna bisnis. Analoginya, Dify seperti aplikasi kasir yang siap pakai; Flowise seperti rakitan komponen dapur profesional — lebih banyak kendali, lebih banyak keputusan yang harus dibuat sendiri.
+
+Karena posisinya itu, Flowise ideal untuk developer yang ingin rapid prototyping pipeline RAG sebelum produksi: menguji lima strategi chunking dalam satu sore, membandingkan retriever, lalu mengekspor flow yang terbukti sebagai JSON untuk dibangun ulang dengan kode di sistem produksi. Fondasi teknologinya — TypeScript dengan React frontend dan Node.js backend, arsitektur plugin modular — membuatnya mudah dikontribusi dan diperluas dengan node kustom.
+
+### Kapan Memilih Flowise?
+
+Pilih Flowise jika tim Anda adalah developer yang ingin memahami setiap lapisan pipeline dan bereksperimen cepat dengan parameter LangChain. Pilih Dify jika kebutuhan Anda adalah aplikasi produksi yang lengkap dengan LLMOps dashboard, atau pengguna utamanya bukan developer. Pilihan lain yang sah: gunakan Flowise sebagai laboratorium riset, lalu pindahkan arsitektur yang terbukti ke aplikasi produksi — banyak tim menggunakan persis kombinasi ini.
+
+Ekosistem Flowise juga tumbuh lewat arsitektur plugin modular: node kustom bisa ditulis, dibagikan, dan dipasang dari registri komunitas. Bagi tim dengan kebutuhan internal yang unik — misalnya konektor ke sistem ERP kantor yang tidak tersedia di kategori node standar — kemampuan menulis node sendiri adalah pembeda yang membuat Flowise tetap relevan bahkan saat kebutuhan berkembang jauh melampaui loader dan retriever bawaan.
+
+### Tabel 1: Perbandingan Node LLM Model di Flowise
+
+Peta model yang tersedia sebagai node LLM di Flowise, dengan perkiraan kecepatan, kualitas, dan biaya.

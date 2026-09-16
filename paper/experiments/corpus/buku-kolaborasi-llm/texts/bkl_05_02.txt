@@ -1,0 +1,21 @@
+Pada lapisan paling atas, Gin juga menangani request concurrency: banyak klien boleh memanggil endpoint yang sama dalam waktu bersamaan, dan server menangani masing-masing sebagai goroutine terpisah — cara Go menangani ribuan tugas ringan serentak. Namun perlu dicatat: concurrency di level HTTP tidak berarti model diproses paralel. Jika sebuah model sedang sibuk menghasilkan token untuk permintaan pertama, permintaan kedua dengan model yang sama akan mengantre di scheduler (atau berbagi giliran dalam mode streaming) — inilah alasan mengapa latensi naik saat banyak pengguna memakai satu server dengan satu GPU, dan mengapa tim dengan banyak pengguna biasanya memilih model MoE efisien seperti DeepSeek V4 Flash yang cepat memproses setiap permintaan.
+
+Bagi administrator, dua variabel lingkungan menjadi tombol kendali penting: OLLAMA_HOST untuk mengubah alamat bind server (misalnya 0.0.0.0:11434 agar bisa diakses mesin lain dalam satu jaringan — tentu dengan pertimbangan keamanan), dan OLLAMA_MAX_LOADED_MODELS untuk membatasi berapa model boleh hidup bersamaan. Dua pengaturan ini, ditambah keep-alive, membentuk segitiga kebijakan memori: seberapa banyak model menetap, berapa lama mereka bertahan, dan berapa besar memori yang rela dikorbankan.
+
+### Gambar 1: Arsitektur Internal Ollama
+
+Diagram berikut menggambarkan perjalanan sebuah request dari klien hingga kembali sebagai respons.
+
+Perhatikan alurnya: request masuk lewat Gin, dipetakan route, lalu diserahkan ke scheduler. Scheduler yang memutuskan kapan model dimuat sebagai subprocess; sekali LlamaServer hidup, ia membaca file GGUF dan menjalankan inference dengan dua komponen pendamping — KV cache agar konteks tidak dihitung ulang, dan sampling untuk memilih token berikutnya. Yang menarik, alur berakhir kembali ke Client: dalam mode streaming, token pertama bisa keluar bahkan sebelum generasi selesai, membentuk sirkuit responsif yang terasa instan di mata pengguna.
+
+Ketika Anda menjalankan ollama pull, apa yang sebenarnya diunduh? Ollama menyimpan setiap model sebagai layout berkas di ~/.ollama/models/blobs/ — bukan satu file utuh, melainkan kumpulan blob (potongan data biner) yang diidentifikasi berdasarkan isinya.
+
+### Content-Addressable Storage
+
+Setiap blob dihash dengan SHA256, dan nama file di disk adalah hash itu sendiri. Sistem seperti ini disebut content-addressable storage: identitas sebuah blob ditentukan oleh isinya, bukan lokasinya. Keuntungannya langsung terasa: jika dua model berbagi base model yang sama (misalnya dua fine-tune yang dibangun dari Llama 3.1 yang sama), blob base itu hanya disimpan sekali dan dirujuk oleh kedua model. Deduplikasi terjadi otomatis tanpa campur tangan pengguna — hemat disk, hemat bandwidth.
+
+### Registri dan Perintah Manajemen
+
+Secara konseptual, Ollama bertindak seperti Git untuk model: ada registry tempat model disimpan (Ollama Library resmi, atau registry kustom), dan ada mesin lokal yang menyinkronkan konten. ollama pull mengambil model dari registry ke mesin lokal, ollama push mengunggah model kustom ke registry (berguna untuk berbagi model dalam tim), dan ollama rm menghapus model beserta blob-nya yang tidak lagi dirujuk. Model buatan sendiri yang dibuat lewat Modelfile juga tersimpan dengan mekanisme blob yang sama — Ollama tidak membedakan model "asli" dan "racikan": keduanya adalah kumpulan blob plus satu manifest tipis yang menjelaskan strukturnya.
+
+Manifest inilah yang sering dilupakan orang saat membahas blob storage. Manifest adalah berkas JSON kecil yang mencatat tag model, daftar blob yang dirujuk, arsitektur, parameter, dan template. Saat Anda menjalankan ollama list, yang dibaca adalah manifest; saat model dijalankan, yang dibaca adalah blob-blob di belakangnya. Bagi pengguna, memahami dua lapisan ini berguna untuk satu alasan praktis: bila disk penuh karena banyak model, ceklah berapa banyak blob yang benar-benar berbeda hash-nya — dua model "berbeda" yang berbagi base yang sama hanya menambah sedikit ruang, bukan dua kali lipat. Dengan kata lain, content-addressable storage adalah jawaban otomatis atas pertanyaan "kenapa saya hanya mengunduh beberapa GB untuk lima model yang seharusnya 50 GB?"

@@ -1,0 +1,50 @@
+| GPU | Bus-Width | Memory Type | Clock (Gbps) | Bandwidth (GB/s) | VRAM | Harga (Rp) |
+|:---|:---:|:---:|:---:|:---:|:---:|---:|
+| RTX 4060 | 128-bit | GDDR6 | 17 | 272 | 8 GB | ~5 jt |
+| RTX 4060 Ti 16GB | 128-bit | GDDR6X | 18 | 288 | 16 GB | ~8 jt |
+| RTX 4070 | 192-bit | GDDR6X | 21 | 504 | 12 GB | ~11 jt |
+| RTX 4070 Ti Super | 256-bit | GDDR6X | 21 | 672 | 16 GB | ~16 jt |
+| RTX 4080 Super | 256-bit | GDDR6X | 23 | 736 | 16 GB | ~20 jt |
+| RTX 4090 | 384-bit | GDDR6X | 21 | 1008 | 24 GB | ~30 jt |
+| RTX 3090 | 384-bit | GDDR6X | 19,5 | 936 | 24 GB | ~12 jt (used) |
+| RX 7900 XTX | 384-bit | GDDR6 | 20 | 960 | 24 GB | ~15 jt |
+| RX 7900 GRE | 256-bit | GDDR6 | 18 | 576 | 16 GB | ~9 jt |
+| Arc A770 | 256-bit | GDDR6 | 16 | 512 | 16 GB | ~5 jt |
+| A100 SXM | 5120-bit | HBM2e | 2,4 | 1555 | 80 GB | ~400 jt |
+| H100 SXM | 5120-bit | HBM3 | 5,2 | 3352 | 80 GB | ~800 jt |
+| MI300X | 8192-bit | HBM3 | 6,4 | 5300 | 192 GB | ~600 jt |
+
+Bacalah tabel ini dari dua arah. Dari atas ke bawah: consumer hingga datacenter —
+perhatikan bagaimana bus-width meloncat dari 384-bit ke 5120-bit ketika kita masuk kelas
+server; HBM menang bukan dengan "menjalankan lebih cepat", melainkan dengan "membuka
+lebih banyak lajur sekaligus". Dari bawah ke atas: perhatikan bahwa RTX 3090 used
+(936 GB/s, ~Rp 12 jt) menawarkan bandwidth hampir menyamai RTX 4090 (1.008 GB/s)
+dengan harga 40% — ia adalah raja value yang akan kita temui lagi di studi kasus.
+Dan di ujung paling spektakuler, MI300X dengan 5,3 TB/s-nya bukan sekadar kartu:
+ia adalah jawaban AMD untuk pertanyaan "bagaimana menjalankan satu model 400B tanpa
+membagi-baginya". Di kelas datacenter, bandwidth adalah pembeda utama — bukan jumlah
+transistor.
+
+### Berhitung Sebelum Membayar
+
+Setiap model adalah "permintaan" dan setiap GPU adalah "pemasok". Pertanyaan yang
+harus dijawab sebelum membeli: berapa liter/detik air yang dibutuhkan kolam saya?
+Ambil contoh model 7B dalam FP16: bobotnya 14 GB, dan setiap token baru menuntut
+pembacaan seluruh 14 GB tersebut per langkah (ditambah KV cache dan overhead). Dengan
+GPU berbandwidth 272 GB/s, satu token ekor-ke-ekor memakan waktu sekitar 50-70
+milidetik — terasa lambat di mata, mustahil untuk agent yang responsif.
+
+Sekarang terapkan kuantisasi: model 7B yang sama dalam Q4_K_M menyusut menjadi
+~4 GB. Kebutuhan bandwidth per token turun empat kali, dan kecepatan token naik
+dengan proporsi yang sama. Inilah mengapa komunitas lokal menyebut kuantisasi sebagai
+"mesin waktu": kartu yang tadi hanya mampu 30 token/detik bisa melompat ke 110
+token/detik tanpa mengganti satu komponen pun. Semakin besar model, semakin dramatis
+efeknya — Llama 3.1 (70B) FP16 (140 GB) membutuhkan bandwidth minimum ~160 GB/s hanya
+untuk berjalan pelan 4 token/detik, sementara versi Q4 (40 GB) membuka pintu untuk GPU
+kelas 3090 yang "hanya" 936 GB/s. Ukuran model menentukan kelas GPU Anda; bandwidth
+menentukan siapa di kelas mana.
+
+### Tabel 2: Scaling Tokens/s vs Bandwidth (Llama 3 (8B) Q4_K_M)
+
+Berikut hasil pengukuran llama-bench untuk model yang sama di lima GPU — bukti empiris
+bahwa bandwidth adalah prediktor utama kecepatan.

@@ -1,0 +1,58 @@
+1. Cek bus-width, bukan hanya VRAM. Dua GPU dengan 16 GB tidaklah sama: RTX 4060 Ti
+   16GB memakai bus 128-bit (288 GB/s), sedangkan RTX 4070 Ti Super memakai bus 256-bit
+   (672 GB/s) — lebih dari dua kali lipat performa inferensi untuk model yang sama.
+2. Gunakan nvidia-smi untuk GPU sendiri, atau TechPowerUp GPU Database untuk
+   GPU incaran — tabel spesifikasi di sana mencantumkan bandwidth resmi dari pengukuran
+   pabrikan.
+3. Bagi harga dengan bandwidth — bukan VRAM — untuk menghitung nilai sebenarnya.
+   Kartu dengan "Rp per GB/s" terendah biasanya adalah keputusan terbaik untuk inferensi
+   LLM.
+
+Contoh nyata: RTX 4090 (~Rp 30 jt, 1.008 GB/s) memiliki rasio ~Rp 30 juta per 1000 GB/s;
+RTX 3090 used (~Rp 12 jt, 936 GB/s) hanya ~Rp 13 juta per 1000 GB/s. Untuk inferensi,
+kartu used itu menawarkan nilai hampir 2,5x. Spesifikasi pelengkap — jumlah core, TFLOPS —
+baru relevan jika model Anda cukup besar hingga prefill (pemrosesan prompt) menjadi
+compute-bound, sebuah kasus yang jarang terjadi di pengguna lokal.
+
+### Langkah 1: Cek Memory Bandwidth GPU Anda Sendiri
+
+Jangan percaya iklan — ukur mesin Anda:
+
+Jika perhitungan tangan Anda menyimpang dari spesifikasi resmi lebih dari 5%,
+kemungkinan besar clock yang dilaporkan adalah boost bukan base — gunakan clock
+aktual saat GPU bekerja di bawah load untuk hasil yang akurat.
+
+### Langkah 2: Benchmark Bandwidth Efektif dengan llama.cpp
+
+Untuk mengukur utilization nyata, jalankan model yang muat penuh di VRAM:
+
+Angka utilization 49-72% adalah normal dan bukan tanda kerusakan: sisanya terserap
+KV cache, sampling, dan overhead sistem. Jika utilization Anda di bawah 40%, periksa
+apakah sebagian layer masih berjalan di CPU — gejala klasik offload yang tidak
+tuntas.
+
+### Langkah 3: Simulasi Dampak Bandwidth dengan Python
+
+Rumus sederhana ini memungkinkan Anda membandingkan GPU tanpa memiliki semuanya:
+
+Jalankan skrip ini sebelum membeli GPU apa pun. Output-nya akan memperlihatkan pola
+yang mengubah cara Anda berpikir tentang kartu: kecepatan token hampir sepenuhnya
+ditentukan oleh dua angka input — bandwidth dan ukuran model. Ganti model_gb dengan
+40 (Llama 3.1 (70B) Q4) dan lihat bagaimana semua kartu konsumen merosot ke kisaran
+6-15 t/s: bukan kartunya yang lemah, melainkan alirannya.
+
+Latar. Bayangkan seorang penggemar machine learning di Bandung yang membeli
+RTX 4060 (8 GB, 272 GB/s) untuk menjalankan Llama 3.1 (8B). Setiap prompt terasa berat:
+respons mengalir sekitar ~30 token/detik — cukup untuk membaca, tetapi menggelitik
+ketika model diminta menulis kode atau melakukan reasoning panjang. VRAM-nya masih
+cukup (model Q4 hanya 4,5 GB), GPU-nya tidak panas, suhu normal, tidak ada yang tampak
+salah. Namun setiap generasi 500 token memakan hampir 20 detik — dan inilah gejala
+paling khas dari bottleneck yang tak terlihat: bandwidth rendah.
+
+Analisis. Dengan berbekal tabel bandwidth, teka-tekinya terbongkar: RTX 4060 hanya
+menggunakan bus 128-bit — lebar jalur paling sempit — sehingga meskipun
+VRAM-nya cukup dan prosesornya modern, aliran datanya cuma 272 GB/s. Rumusnya: 4,5 GB
+× 1,3 overhead × 30 t/s ≈ 175 GB/s efektif — bus sudah berjalan 65% dan tetap terasa
+lambat. Model 8B di kartu ini selamanya akan berjalan ~30 t/s, apa pun yang dicoba.
+Ini pelajaran pertama yang mahal: VRAM yang cukup tidak menjamin kecepatan yang cukup —
+dua komoditas yang berbeda.

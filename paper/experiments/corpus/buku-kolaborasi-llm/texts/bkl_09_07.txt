@@ -1,0 +1,31 @@
+Log konsol vLLM menampilkan informasi penting saat startup: jumlah blok KV yang tersedia, ukuran GPU memory pool, dan WARNING apa pun tentang ketidakcocokan versi model. Biasakan membaca blok log ini sebelum tuning — ia memberi tahu Anda headroom yang sesungguhnya.
+
+### Langkah 2: Klien Python Melalui API
+
+Dari terminal lain, uji server dengan pustaka OpenAI — vLLM tidak memvalidasi api_key, sehingga nilai apa pun bisa digunakan:
+
+Jika semuanya berjalan, Anda baru saja merasakan prinsip PagedAttention secara langsung: setiap prompt yang dikirim akan dialokasikan blok-blok KV baru dari pool, dan dibebaskan kembali setelah respons selesai.
+
+### Langkah 3: Deploy Model MoE Skala Besar
+
+Sekarang naikkan taraf: jalankan DeepSeek V4 Pro dan Mistral Large 3 di server multi-GPU. Pastikan vLLM versi >= 0.8.0 untuk dukungan DeepSeek V4.
+
+Dua baris terakhir di blok pertama memanfaatkan fitur yang sudah dibahas: --kv-cache-dtype fp8 memangkas memori cache hingga separuh ukuran FP16, sementara --enable-prefix-caching memungkinkan system prompt yang sama dipakai ulang lintas request.
+
+Perhatikan perbedaan semantik di antara kedua perintah di atas. Untuk DeepSeek V4 Pro, --max-model-len 131072 sengaja dipilih jauh di bawah kapasitas 1 juta token model — karena pada throughput tinggi, konteks maksimal yang besar justru menjadi janji alokasi yang mahal. Sementara untuk Mistral Large 3, --quantization fp8 memanfaatkan dukungan native model ini terhadap presisi 8-bit — memangkas ukuran bobot 675B hingga muat di empat GPU A100 80GB. Saat menjalankan eksperimen ini di lingkungan Anda sendiri, ukur dulu vllm:num_requests_waiting di bawah beban nyata: jika antrean terus bertambah, itu pertanda --max-num-seqs terlalu kecil dibandingkan kedatangan request.
+
+### Langkah 4: Monitoring Metrik via Prometheus
+
+vLLM mengekspos metrik Prometheus pada endpoint /metrics:
+
+vllm:gpu_cache_usage_perc adalah metrik yang paling wajib dipantau — ia memberi tahu seberapa penuh GPU memory pool tempat KV-cache. Angka yang terus berada di 99-100% adalah alarm bahwa request mulai di-preempt atau diantrekan, dan saatnya meninjau ulang konfigurasi --gpu-memory-utilization dan --max-num-seqs.
+
+Sebagai aturan awal alerting, pasang tiga peringatan sejak hari pertama: (1) gpu_cache_usage_perc > 95 selama lima menit — tanda kapasitas jangka pendek habis; (2) num_requests_waiting > 50 — antrean mulai membengkak; (3) time_to_first_token_seconds P99 melampaui ambang produk Anda (misalnya 2 detik untuk aplikasi chat). Trio ini menangkap tiga arah kehancuran yang berbeda: memori, antrean, dan pengalaman pengguna. Sisanya bisa Anda tambahkan setelah server hidup beberapa minggu dan pola trafiknya terbaca.
+
+Latar. Sebuah startup AI di Jakarta mengembangkan chatbot customer service berbasis Llama 3.1 (70B) untuk e-commerce lokal. Trafik puncak mencapai 1.000 request per menit — muatan yang sebenarnya wajar untuk satu server GPU, tetapi infrastruktur mereka hampir runtuh.
+
+Masalah. Stack lama memakai Hugging Face Transformers dengan batching statis. Hasilnya menyakitkan: latency rata-rata 3,2 detik per respons dan throughput maksimal hanya 4 req/s. Antrean menumpuk di jam promo, pengguna menutup obrolan sebelum bot menjawab, dan tim engineering menghabiskan malam untuk restart server.
+
+Keputusan dan solusi. Setelah mengaudit beban kerja, tim menyimpulkan komputasi GPU tidak habis — justru memori KV-cache yang boros. Mereka bermigrasi ke vLLM di empat GPU A100 80GB dengan --tensor-parallel-size 4, plus konfigurasi --gpu-memory-utilization 0.95 --max-num-seqs 512 --block-size 16. Langkah-langkahnya: (1) menyiapkan image container dengan vLLM; (2) memuat bobot Llama 3.1 (70B) FP16 di empat shard; (3) mengarahkan load balancer ke port 8000; (4) memasang alert Prometheus pada vllm:gpu_cache_usage_perc > 95%.
+
+Hasil. Throughput melonjak ke 42 req/s dan time-to-first-token (TTFT) turun ke 280 ms P50 — hampir 10x lebih cepat dari semula. Yang lebih penting, beban 1.000 request/menit kini ditangani 4 GPU, sementara sistem lama butuh 8 GPU untuk kapasitas yang jauh lebih rendah. Tagihan cloud bulanan turun setengah, dan jam promo tidak lagi melumpuhkan layanan.

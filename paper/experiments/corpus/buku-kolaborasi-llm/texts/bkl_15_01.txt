@@ -1,0 +1,34 @@
+# Bab 8.4: Enterprise Gateway
+
+Setelah membaca sub-bab ini, Anda akan mampu:
+
+- Menyiapkan virtual keys, rate limiting, dan budget tracking per departemen agar biaya LLM tidak membengkak
+- Menerapkan tier akses (admin, power, standard, guest) dengan Role-Based Access Control (RBAC) yang jelas
+- Mengintegrasikan gateway dengan SSO, logging, dan alerting untuk pengawasan berkelanjutan
+- Membaca dan menganalisis laporan spend bulanan untuk perencanaan anggaran departemen
+
+### Masalah Akses Langsung
+
+Ketika sebuah kantor dengan 21-50 karyawan membiarkan setiap orang mengakses LLM cloud secara langsung — membuka ChatGPT Enterprise, mengetik pertanyaan ke API OpenAI, atau menjalankan model di laptop masing-masing — tiga masalah klasik muncul secara bersamaan. Pertama, biaya membengkak tanpa kontrol: tidak ada yang tahu berapa token yang dikonsumsi HR dibanding Engineering, siapa yang paling boros, dan apakah pemakaian itu memang dibutuhkan untuk pekerjaan. Kedua, tidak ada pembatas kecepatan: satu karyawan yang menjalankan script batch bisa menghabiskan kuota harian seluruh tim dalam hitungan menit. Ketiga, tidak ada jejak audit: ketika terjadi insiden data, manajemen tidak memiliki catatan siapa mengirim prompt apa ke model mana — persoalan yang langsung bertabrakan dengan tuntutan compliance UU PDP dan ISO 27001.
+
+Masalah ini semakin tajam di skala 21-50 user. Di bawah 20 user, akses langsung masih bisa "diingat-ingat" oleh admin; di atas 50 user, organisasi biasanya sudah punya tim infra yang mapan. General office berada di titik tengah yang janggal: terlalu besar untuk diabaikan, terlalu kecil untuk memiliki tim keamanan yang besar. Solusinya bukan melarang pemakaian AI, melainkan memasang sebuah gerbang yang menertibkannya.
+
+### Solusi: LiteLLM sebagai Proxy
+
+LiteLLM adalah open-source AI gateway yang duduk tepat di antara pengguna dan LLM backend, baik yang dijalankan on-premise (vLLM dengan DeepSeek V4 Flash, Mistral Large 3) maupun yang cloud (GPT-5.5, Gemini 2.5 Pro, Claude Fable 5). Semua permintaan dari aplikasi karyawan — chatbot internal, IDE plugin, skrip analisis — tidak lagi langsung menuju model, melainkan melewati proxy ini. LiteLLM menerjemahkan format permintaan dari lebih dari 100 penyedia LLM ke satu antarmuka yang seragam, sehingga aplikasi internal cukup berbicara ke satu URL gateway tanpa peduli model mana yang menangani di belakang layar.
+
+Analogi paling pas adalah meja resepsionis sebuah gedung: semua tamu (permintaan) masuk lewat satu pintu, diverifikasi identitasnya (virtual key), diarahkan ke ruangan yang tepat (routing model), dicatat kunjungannya (audit log), dan ditolak ramah bila sudah melewati kapasitas ruangan (rate limit) atau anggaran kunjungan (budget). Gedung tetap nyaman, pengelola tahu persis apa yang terjadi di setiap lantai.
+
+### Fitur Kunci yang Disediakan
+
+Fitur kunci LiteLLM yang langsung berguna bagi general office adalah:
+
+- Virtual keys — setiap departemen/user mendapat kunci sendiri dengan hak akses dan budget terpisah
+- Budget management — batas keras (hard limit) dan peringatan lembut (soft limit) per kunci, tim, dan model
+- Rate limiting — pembatas Request Per Minute (RPM) dan Token Per Minute (TPM) per kunci
+- Load balancing — distribusi permintaan antar backend dengan round-robin atau least-connections
+- Audit logging — pencatatan setiap permintaan ke PostgreSQL untuk kebutuhan pelaporan dan compliance
+
+### Tabel 1: Perbandingan AI Gateway
+
+Sebelum memilih LiteLLM, ada baiknya membandingkan dengan alternatif pasar — tabel berikut merangkum keempat opsi utama.

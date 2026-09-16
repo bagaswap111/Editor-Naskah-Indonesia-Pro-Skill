@@ -1,0 +1,33 @@
+Amati loop yang berjalan: setiap respons model diparse untuk mencari Action: dan Action Input:, tool dieksekusi, dan Observation ditambahkan ke prompt sebelum model berpikir lagi. Inilah implementasi minimal dari diagram CoT vs ReAct pada Gambar 1 — dan inilah jembatan menuju Bab 4.2: dalam produksi, Action: diganti tool call terstruktur JSON, dan search_knowledge diganti function nyata seperti read_file atau search_web. Eksperimen yang disarankan: tanyakan sesuatu yang tidak ada di knowledge base ("populasi Malaysia") dan perhatikan bagaimana agen menangani observasi "Tidak ditemukan" — itu ujian sebenarnya dari kualitas reasoning agen.
+
+Profil: Dimas, seorang technical writer yang setiap bulan diminta menulis laporan perbandingan model AI untuk media teknologinya. Tugas yang sama terulang: cari benchmark, bandingkan angka, susun rekomendasi. Selama ini ia membuka Google, menyalin tabel, menyusun ulang — sekitar 2 jam per laporan.
+
+Skenario: Dimas membutuhkan laporan: "Bandingkan performa Llama 3.1 8B vs Qwen 2.5 7B untuk coding." Alih-alih mencari manual, ia menugaskan agen ReAct dengan satu instruksi.
+
+Alur ReAct yang berjalan:
+
+1. Thought: "Saya perlu cari benchmark coding untuk kedua model."
+2. Action: search_web(query="Llama 3.1 8B vs Qwen 2.5 7B HumanEval benchmark")
+3. Observation: "Llama 3.1-8B: 72,6%, Qwen 2.5-7B: 75,2% pada HumanEval."
+4. Thought: "Qwen 2.5 unggul tipis pada akurasi. Saya juga perlu cek kecepatan — pertimbangan praktis berbeda."
+5. Action: search_web(query="Llama 3.1 8B vs Qwen 2.5 7B inference speed")
+6. Observation: "Llama 3.1-8B: ~45 token/s; Qwen 2.5-7B: ~50 token/s pada GPU yang sama."
+7. Thought: "Qwen unggul di keduanya, tetapi margin tipis. Saya perlu memeriksa dukungan tooling dan komunitas sebelum menyimpulkan."
+8. Action: search_web(query="Qwen 2.5 7B Ollama ecosystem support 2025")
+9. Final Answer: laporan komparatif lengkap dengan data, analisis, dan rekomendasi.
+
+Analisis: perhatikan bahwa agen tidak menebak — setiap klaim dalam laporan bersumber dari Observation yang nyata. Ini adalah kekuatan ReAct yang tidak dimiliki CoT murni: grounding ke dunia luar. Perhatikan juga pola reasoning: agen tidak berhenti setelah satu pencarian; ia mengevaluasi kecukupan informasi ("saya juga perlu cek kecepatan") dan menambah langkah — persis perilaku peneliti manusia.
+
+Hasil: laporan selesai dalam 12 menit dengan 4 pencarian — dari 2 jam menjadi 12 menit, ~90% waktu terhemat. Dimas tetap melakukan review akhir (membaca tiap chain), tetapi beban kerjanya bergeser dari mencari data menjadi menilai data.
+
+Pelajaran: tiga prinsip yang bisa ditiru. Pertama, mulai dari zero-shot CoT untuk memahami gaya berpikir model, lalu naikkan ke ReAct saat tugas melibatkan pencarian informasi — jangan langsung memakai metode termahal. Kedua, tulis pertanyaan riset sebagai task yang eksplisit, bukan instruksi samar — agen meniru struktur kalimat Anda. Ketiga, selalu periksa chain sebelum memublikasikan hasil: laporan agen sebagus chain yang dihasilkannya [2][4]. Ketika proses verifikasi manusia tinggal 10%, itulah saat Anda tahu sistem reasoning lokal Anda sudah dewasa.
+
+### Paper Jurnal/Konferensi
+
+[1] Wei, J., Wang, X., Schuurmans, D., Bosma, M., Ichter, B., Xia, F., Chi, E.H., Le, Q.V., & Zhou, D. (2022). Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. NeurIPS. DOI: 10.48550/arXiv.2201.11903 — Paper perintis CoT: emergent ability pada model >100B parameter.
+
+[2] Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., & Cao, Y. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. ICLR. DOI: 10.48550/arXiv.2210.03629 — Interleaving reasoning + acting; dasar agent planning loop.
+
+[3] Wang, X., Wei, J., Schuurmans, D., Le, Q.V., Chi, E.H., & Zhou, D. (2023). Self-Consistency Improves Chain of Thought Reasoning in Language Models. ICLR. DOI: 10.48550/arXiv.2203.11171 — Majority voting atas multiple CoT; referensi untuk Tabel 1.
+
+[4] Feng, X., et al. (2024). Large Language Model-based Human-Agent Collaboration for Complex Task Solving. arXiv:2402.12914. DOI: 10.48550/arXiv.2402.12914 — Planning + execution dengan human-in-loop; relevan untuk agent planning.

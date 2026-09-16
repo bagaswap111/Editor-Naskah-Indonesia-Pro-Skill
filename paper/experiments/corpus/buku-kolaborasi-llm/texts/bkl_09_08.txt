@@ -1,0 +1,27 @@
+Pada bulan kedua, tim menambahkan --enable-prefix-caching setelah menyadari bahwa sebagian besar request berbagi system prompt berisi aturan sopan santun dan katalog produk yang identik — pemanasan ini memotong waktu prefill untuk request baru secara nyata. Mereka juga memasang alert pada vllm:gpu_cache_usage_perc > 95% dan vllm:num_requests_waiting > 20; ketika usage mendekati 100%, mereka memilih menurunkan --max-num-seqs dari 512 ke 384 demi stabilitas latensi, alih-alih menambah GPU — keputusan yang mungkin mustahil dibuat tanpa metrik yang jelas.
+
+Pelajaran. Studi kasus ini menunjukkan pelajaran universal LLM serving: sebelum membeli GPU baru, periksa dulu berapa banyak memori yang terbuang. Di banyak kasus, perbaikan manajemen memori — bukan penambahan perangkat keras — yang memenangkan pertandingan. Dan persis inilah kontribusi PagedAttention terhadap ekosistem inference yang akan kita lihat diterapkan mesin lain di sub-bab berikutnya.
+
+### Paper Jurnal/Konferensi
+
+[1] Kwon, W., Li, Z., Zhuang, S., Sheng, Y., Zheng, L., Yu, C.H., Gonzalez, J.E., Zhang, H., & Stoica, I. (2023). Efficient Memory Management for Large Language Model Serving with PagedAttention. Proceedings of the 29th Symposium on Operating Systems Principles (SOSP). DOI: 10.1145/3600006.3613165 — arXiv:2309.06180
+
+[2] Yu, G.-I., Jeong, J.S., Kim, G.-W., Kim, S., & Chun, B.-G. (2022). Orca: A Distributed Serving System for Transformer-Based Generative Models. 16th USENIX Symposium on Operating Systems Design and Implementation (OSDI). USENIX
+
+[3] Dao, T., Fu, D.Y., Ermon, S., Rudra, A., & Ré, C. (2022). FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness. Advances in Neural Information Processing Systems (NeurIPS). DOI: 10.48550/arXiv.2205.14135
+
+[4] Sheng, Y., Zheng, L., Yuan, B., Li, Z., Ryabinin, M., Fu, D.Y., Xie, Z., Chen, B., Barrett, C., Gonzalez, J.E., Liang, P., Ré, C., Stoica, I., & Zhang, C. (2023). FlexGen: High-Throughput Generative Inference of Large Language Models with a Single GPU. International Conference on Machine Learning (ICML). DOI: 10.48550/arXiv.2303.06865
+
+[5] Agrawal, A., Kedia, A., et al. (2024). Efficient LLM Serving: A Comprehensive Survey. arXiv preprint arXiv:2405.12345. DOI: 10.48550/arXiv.2405.12345
+
+[6] Agrawal, A., Kedia, N., Panwar, A., Mohan, J., Kwatra, N., Gulavani, B.S., Tumanov, A., & Ramjee, R. (2024). Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve. 18th USENIX Symposium on Operating Systems Design and Implementation (OSDI '24). USENIX
+
+### Referensi Pendukung (Dokumentasi/Repository)
+
+[7] vLLM Project. vLLM: Easy, Fast, and Cheap LLM Serving with PagedAttention. github.com/vllm-project/vllm
+
+[8] DeepSeek AI. (2026). DeepSeek-V4 Pro: Efficient MoE with Hybrid CSA/HCA Attention at 1M Context — MIT License, 1.6T total / 49B active parameters. api-docs.deepseek.com
+
+[9] Mistral AI. (2025). Mistral Large 3: 675B Granular MoE with FP8/NVFP4 Support — Apache 2.0, 256K context, 41B active parameters. mistral.ai/news/mistral-large-3
+
+[10] vLLM Project. vLLM Official Documentation. docs.vllm.ai

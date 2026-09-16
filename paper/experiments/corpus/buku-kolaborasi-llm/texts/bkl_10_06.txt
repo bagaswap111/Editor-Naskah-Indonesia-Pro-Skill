@@ -1,0 +1,33 @@
+Skenario. Sebuah kantor konsultan dengan 15 karyawan mulai menggunakan AI untuk tiga tugas harian: membantu menulis kode, merapikan email, dan riset singkat. Awalnya mereka menjalankan Llama 3.1 (8B) melalui Ollama di satu workstation RTX 4090. Hari pertama terasa menyenangkan — sampai ketiga belas orang itu menggunakannya secara bersamaan.
+
+Masalah. Service Ollama menggunakan static batching. Saat jam kerja puncak, karyawan ke-5 yang mengirim request harus menunggu 30+ detik sebelum token pertama muncul; yang ke-10 bahkan bisa menunggu hampir satu menit. Keluhan berdatangan: "AIs-nya nge-hang", "udah lama gak muncul-muncul". Utilisasi GPU di satu sisi hanya 30-40% — komputasi mahal menganggur, sementara pengguna tak kunjung terlayani.
+
+Solusi. Tim IT memutuskan migrasi ke vLLM — tetap dengan model Llama 3.1 (8B) yang sama — dan menyalakan continuous batching dengan --max-num-seqs 128 dan --enable-chunked-prefill. Tidak ada perubahan model, tidak ada perubahan GPU, hanya perubahan scheduler.
+
+Hasil. Seluruh 15 karyawan mendapat respons dalam kurang dari 3 detik saat digunakan serentak, dan throughput total naik 8x dibandingkan sebelumnya. Ini konsisten dengan Tabel 3: pada 20 user concurrent, vLLM mencatat TTFT rata-rata hanya 250 ms — masih jauh di bawah batas "terasa lambat" manusia (~1 detik). Utilisasi GPU kini berada di kisaran 70-85%, dan yang menarik, konsumsi listrik per request justru turun karena pekerjaan selesai lebih cepat.
+
+Titik sesudah puncak. Kantor ini juga belajar batas wajar penggunaan: saat tim mencoba 50 user (semua karyawan plus tamu demo), TTFT naik ke ~480 ms — masih layak, tetapi queue time mulai terasa pada pemakaian kontinu. Mereka menetapkan concurrency limit 30 user per instance dan menambah satu instance saat beban historis menunjukkan kebutuhan, alih-alih menggelontorkan GPU besar sejak awal. Pola menambah instance inilah yang dibahas di sub-bab 5.8 (load balancing), sementara penetapan batas latensi yang sehat untuk skala grup dijelaskan di sub-bab 5.9. Optimasi bertahap berbasis data ini adalah pola yang sehat untuk tim sekecil ini.
+
+Pelajaran. Masalah "AI lambat di kantor" sering bukan salah model atau GPU, melainkan salah scheduling. Continuous batching mengubah pengalaman multi-user dari antrean tunggu satu menit menjadi respons yang terasa seamless — dengan biaya nol rupiah tambahan perangkat keras.
+
+### Paper Jurnal/Konferensi
+
+[1] Yu, G., Jeong, J.S., Kim, G.W., Kim, S., & Chun, B.G. (2022). Orca: A Distributed Serving System for Transformer-Based Generative Models. 16th USENIX Symposium on Operating Systems Design and Implementation (OSDI). https://www.usenix.org/conference/osdi22/presentation/yu — Paper inti continuous batching (iteration-level scheduling); sumber data Tabel 1 dan 2.
+
+[2] Kwon, W., et al. (2023). Efficient Memory Management for Large Language Model Serving with PagedAttention. ACM SIGOPS Symposium on Operating Systems Principles (SOSP). DOI: 10.1145/3600006.3613165 — Fondasi vLLM: continuous batching + PagedAttention saling melengkapi.
+
+[3] Daniel, C., Shen, C., Liang, E., & Liaw, R. (2023). How Continuous Batching Enables 23x Throughput in LLM Inference. Anyscale Blog. https://www.anyscale.com/blog/continuous-batching-llm-inference — Benchmark komprehensif continuous batching di berbagai engine; sumber validasi Tabel 1.
+
+[4] Patel, P., et al. (2024). Splitwise: Efficient Generative LLM Inference Using Phase Splitting. International Symposium on Computer Architecture (ISCA). DOI: 10.48550/arXiv.2311.18677 — Upgrade continuous batching dengan memisahkan fase prefill dan decode.
+
+[5] Zheng, L., et al. (2024). SGLang: Efficient Execution of Structured Language Model Programs. arXiv: 2312.07104. DOI: 10.48550/arXiv.2312.07104 — Implementasi batching dengan RadixAttention (prefix caching berbasis pohon).
+
+[6] Agrawal, A., et al. (2024). Sarathi: Efficient LLM Inference by Piggybacking Decodes with Chunked Prefills. arXiv: 2403.02310. DOI: 10.48550/arXiv.2403.02310 — Dasar chunked prefill pada --enable-chunked-prefill vLLM.
+
+### Referensi Pendukung (Dokumentasi/Repository)
+
+[7] vLLM Project. Continuous Batching Documentation. https://docs.vllm.ai — Dokumentasi parameter batching (--max-num-seqs, --max-num-batched-tokens, --enable-chunked-prefill).
+
+[8] NVIDIA. TensorRT-LLM: In-Flight Batching Documentation. https://github.com/NVIDIA/TensorRT-LLM — Implementasi NVIDIA atas prinsip continuous batching.
+
+[9] SGLang Project. RadixAttention. https://github.com/sgl-project/sglang — Repository SGLang dengan radix tree prefix caching.

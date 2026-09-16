@@ -1,0 +1,33 @@
+| Tahun | Tonggak | Parameter | Arsitektur | Konteks | Keunikan / Dampak |
+|:---|:---|:---:|:---|:---:|:---|
+| 2017 | Transformer (Vaswani et al.) | - | Encoder-Decoder | - | Fondasi semua LLM modern |
+| 2018 | GPT-1 / BERT | 0,1B / 0,3B | Decoder / Encoder | 512 | Awal era pre-training + fine-tuning |
+| 2019 | GPT-2 | 1,5B | Decoder-only | 1.024 | Kontroversi rilis "too dangerous" |
+| 2020 | GPT-3 | 175B | Decoder-only | 2.048 | Few-shot learning, Scaling Laws |
+| 2022 | ChatGPT | - | RLHF enhanced | 4.096 | Ledakan adopsi publik |
+| 2023 | LLaMA-1 | 7B-65B | Decoder-only | 2.048 | Titik balik open-source LLM |
+| 2023 | Mistral 7B | 7B | Sliding Window Attn | 8.192 | GQA, outperforms LLaMA-2 13B |
+| 2024 | Llama-3 / 3.1 | 8B-405B | Decoder + GQA | 128K | Tool use, multilingual, 15T+ token |
+| 2024 | Qwen2.5 | 0,5B-72B | Dense decoder | 32K | Multilingual 29 bahasa, 18T token |
+| 2024 | DeepSeek-V3 | 671B (37B aktif) | MoE + MLA | 128K | Training $5,5M, efisiensi ekstrem |
+| 2025 | DeepSeek-R1 | 671B (37B aktif) | MoE + GRPO RL | 128K | Reasoning via pure RL, setara o1 |
+| 2025 | Llama 4 Scout | 109B (17B aktif) | MoE 16 experts | 10M | Multimodal, 1 GPU via INT4 |
+| 2025 | Llama 4 Maverick | 400B (17B aktif) | MoE 128 experts | 1M | Setara GPT-4.5 (benchmark tertentu) |
+| 2025 | Qwen3 | 0,6B-235B | Dense + MoE | 128K | Thinking mode, 119 bahasa |
+| 2025 | Phi-4 / Phi-4-reasoning | 14B | Dense decoder | 16K | Synthetic data > distilasi |
+| 2025 | Mistral Large 3 | 675B (41B aktif) | Granular MoE + Vision | 256K | Apache 2.0, open-source Eropa |
+| 2026 | Qwen3.5 | 35B-397B MoE | Hybrid-Attn MoE | 256K | Multimodal native, 113 bahasa |
+| 2026 | Qwen3.6 | 27B-35B MoE | Coding specialist | 128K | Model lokal 27B setara GPT-4o |
+| 2026 | GPT-5.5 / 5.5 Pro | - | Proprietary decoder | 1M | Reasoning effort, $5/$30 per M token |
+| 2026 | DeepSeek-V4 Pro | 1,6T (49B aktif) | MoE + CSA/HCA | 1M | MIT, open-source terbesar |
+| 2026 | DeepSeek-V4 Flash | 284B (13B aktif) | MoE + CSA/HCA | 1M | MIT, companion efisien |
+| 2026 | Qwen3.7-Max | ~1T+ (est.) | Proprietary MoE | 1M | Agent-centric, closed-weight |
+| 2026 | Claude Fable 5 | - | Proprietary decoder | 1M | Mythos-class, safety classifiers |
+
+### GPT-2: Kontroversi yang Mengguncang Dunia
+
+Pada 2019, OpenAI merilis GPT-2 dengan 1,5 miliar parameter — hampir 13 kali lebih besar dari GPT-1. Kualitas teks yang dihasilkan sangat meyakinkan sehingga OpenAI memutuskan untuk tidak merilis model penuh, dengan alasan "terlalu berbahaya" karena potensi penyalahgunaan untuk menghasilkan berita palsu, spam, dan konten manipulatif. Keputusan ini memicu perdebatan sengit di komunitas AI: apakah menahan model adalah tindakan bertanggung jawab atau justru kontraproduktif?
+
+Meskipun kontroversial, GPT-2 membuktikan bahwa scaling — memperbesar model dan data — menghasilkan peningkatan kualitas yang dramatis. Model ini juga menunjukkan bahwa few-shot learning mulai muncul: GPT-2 bisa melakukan tugas yang tidak pernah dilatih secara spesifik, hanya dengan diberikan beberapa contoh dalam prompt.
+
+### GPT-3: Loncatan Kuantum

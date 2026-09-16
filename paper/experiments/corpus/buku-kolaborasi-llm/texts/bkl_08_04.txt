@@ -1,0 +1,23 @@
+Empat wawasan penting. Pertama, semua model memperoleh manfaat CoT — bahkan Mistral 7B (model kecil dari 2023) nyaris melipatgandakan akurasinya dengan few-shot CoT. Kedua, ukuran bukan satu-satunya penentu: DeepSeek R1 Distill Qwen 7B mengungguli Qwen 2.5 (7B) di semua kolom meskipun berarsitektur sama — bukti bahwa distilasi kemampuan reasoning benar-benar menurunkan skill dari model besar [1]. Ketiga, kesenjangan antara model kecil dan besar menyempit saat metode semakin canggih: pada Self-Consistency, selisih Llama 3.1 (8B) terhadap DeepSeek V4 Pro adalah 21 poin — masih besar, tetapi jauh lebih kecil daripada selisih 24 poin pada mode standard. Keempat, DeepSeek V4 Pro menunjukkan konsistensi: ia unggul di semua kolom, menegaskan bahwa arsitektur CSA/HCA memang dirancang untuk reasoning mendalam. Bagi pengguna laptop, DeepSeek R1 Distill Qwen 7B (72,4% dengan Self-Consistency) adalah pilihan menarik: kualitas mendekati model besar dengan biaya model kecil.
+
+!Performa CoT pada model lokal
+
+Gambar 4.3-2 — Semua model lokal naik tajam dari standard ke few-shot CoT; DeepSeek V4 Pro konsisten unggul di semua metode (42,1% → 85,2%), dan DeepSeek R1 Distill Qwen 7B menyalip Qwen 2.5 (7B) di seluruh kolom berkat distilasi kemampuan reasoning.
+
+### Contoh Output: CoT di Terminal
+
+Untuk melihat bentuk nyata rantai penalaran, berikut output Llama 3.1-8B menjawab soal matematika berbahasa Indonesia dengan zero-shot CoT.
+
+Perhatikan tiga hal dari output ini. Pertama, frasa "Mari kita berpikir langkah demi langkah" berhasil memicu rantai penalaran — tanpa frasa itu, banyak model 8B langsung menebak. Kedua, struktur penomoran (1, 2, 3) membuat setiap langkah bisa diverifikasi: pembaca bisa memeriksa langkah 2 dan menyetujui perhitungan diskon sebelum melihat kesimpulan. Ketiga, model menutup dengan justifikasi eksplisit ("Jadi...") yang menghubungkan semua langkah ke jawaban — tanda rantai yang sehat. Bila output Anda tidak berbentuk seperti ini — misalnya hanya "Rp 48.000" tanpa langkah — itu indikasi prompt tidak cukup memaksa format, dan Anda perlu menambahkan contoh format di prompt (few-shot CoT).
+
+### Dua Bakat yang Berbeda
+
+Reasoning adalah kemampuan memecahkan masalah dengan langkah-langkah logis: dari premis ke kesimpulan, seperti menyelesaikan persamaan. Planning adalah kemampuan menyusun urutan aksi untuk mencapai tujuan di masa depan: menentukan apa yang dilakukan dulu, kedua, ketiga — seperti menyusun itinerary perjalanan. Keduanya sering disalahartikan sebagai satu hal, padahal dalam agen keduanya bekerja pada waktu yang berbeda: planning terjadi sebelum eksekusi, reasoning terjadi selama eksekusi.
+
+Agen yang baik membutuhkan keduanya. Ambil contoh agen yang diminta "siapkan laporan bulanan": ia plan — kumpulkan data dari 3 sumber, gabungkan, format, kirim — baru kemudian reason saat eksekusi: "sumber B kosong, bagaimana menyiasatinya?" Menariknya, CoT menangani keduanya: reasoning CoT digunakan saat mengevaluasi keputusan lokal, sedangkan planning dapat direpresentasikan sebagai CoT bertingkat — rencana kasar dulu, lalu setiap langkah dirinci lebih lanjut. Feng et al. (2024) menunjukkan bahwa kolaborasi manusia-agen untuk tugas kompleks justru mengandalkan pembagian ini: manusia menyetujui rencana, agen menalarkan eksekusinya [4]. Dalam praktik, pisahkan keduanya dalam desain prompt Anda: minta rencana eksplisit di awal, lalu jalankan langkah demi langkah dengan penalaran per langkah.
+
+### Tolok Ukur Standar
+
+Bagaimana kita tahu sebuah metode reasoning benar-benar lebih baik? Pengukuran standar menggunakan benchmark: GSM8K — 8.500 soal cerita matematika sekolah dasar, standar emas untuk aritmetika multi-langkah [7]; MATH — soal matematika kompetisi yang jauh lebih sulit; dan HotpotQA — pertanyaan multi-hop yang mengharuskan menyatukan fakta dari beberapa dokumen. Benchmark GSM8K dipakai di semua tabel pada bab ini karena ia menguji hal yang paling relevan untuk agen: kemampuan menyelesaikan masalah bertahap tanpa bantuan eksternal.
+
+### Evaluasi Lokal

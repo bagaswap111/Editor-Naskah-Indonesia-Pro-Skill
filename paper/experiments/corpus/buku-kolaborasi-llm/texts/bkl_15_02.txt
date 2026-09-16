@@ -1,0 +1,35 @@
+| Fitur | LiteLLM (OSS) | Kong AI Gateway | Azure API Management | AWS Bedrock |
+|:---|:---|:---|:---|:---|
+| Virtual Keys | Ya | Enterprise | Ya | Ya |
+| Budget Tracking | Ya (built-in) | Custom | Azure Cost Mgmt | AWS Budgets |
+| Rate Limiting | Ya | Ya | Ya | Ya |
+| Multi-Provider | 100+ LLMs | Terbatas | Azure only | AWS only |
+| Self-hosted | Ya | Ya | Tidak | Tidak |
+| Audit Logs | Enterprise | Enterprise | Ya | CloudTrail |
+| Biaya Lisensi | Gratis (OSS) | $5k+/tahun | Pay-as-you-go | Pay-as-you-go |
+
+Pola yang terbaca jelas: LiteLLM unggul di multi-provider (100+ LLM) dan lisensi gratis, sementara Azure dan AWS mengikat pengguna ke ekosistem cloud masing-masing. Kekurangan LiteLLM ada di audit log kelas enterprise yang butuh lisensi tambahan — bagi kantor yang belum diwajibkan audit penuh, fitur gratisnya sudah memadai. Keputusan akhir biasanya jatuh pada satu pertanyaan: apakah kantor sudah terkunci di satu cloud vendor dan membutuhkan fitur managed, atau ingin kebebasan berganti model kapan saja dengan biaya lisensi nol? Bagi general office 21-50 user dengan model on-premise, jawabannya hampir selalu LiteLLM.
+
+### Deployment sebagai Service di K3s
+
+Dalam arsitektur general office, LiteLLM dijalankan sebagai service di klaster Kubernetes ringan (K3s) dengan 2-3 replica untuk menjamin high availability. Jika satu pod mati — entah karena deploy baru atau kegagalan perangkat keras — replica lain langsung melayani permintaan tanpa ada karyawan yang menyadari gangguan. K3s dipilih karena jauh lebih ringan daripada Kubernetes penuh: ia bisa berjalan di dua hingga tiga server biasa atau bahkan satu workstation kelas server, cukup untuk kebutuhan 21-50 user yang biasanya menghasilkan ribuan permintaan per hari, bukan jutaan.
+
+Pola deployment ini mencerminkan prinsip redundansi yang sudah dibahas di Bab 8.1: tidak ada single point of failure. Gateway menjadi titik kritis — jika ia mati, seluruh kantor kehilangan akses AI sekaligus. Karena itu replica berjumlah ganjil (3) dan dipisah ke node berbeda, dilengkapi readiness probe yang otomatis mengeluarkan instance yang tidak sehat dari rotasi trafik.
+
+### Backend LLM: On-Premise, Cloud, dan Cadangan
+
+Di belakang gateway terdapat tiga kategori backend LLM yang saling melengkapi:
+
+1. On-premise via vLLM — DeepSeek V4 Flash dan Mistral Large 3 dijalankan di GPU kantor sendiri. Ini jalur utama untuk beban kerja harian karena biayanya hanya listrik dan perawatan, bukan pay-per-token.
+2. Cloud (fallback) — GPT-5.5 dan Gemini 2.5 Pro diakses melalui API ketika GPU lokal penuh atau untuk tugas reasoning tingkat tinggi yang membutuhkan model proprietary dengan konteks 1 juta token.
+3. Cadangan keamanan — Claude Fable 5 diposisikan sebagai safety backup: model dengan safety classifiers bawaan yang dipakai khusus untuk konten sensitif, karena ia menghasilkan audit terstruktur per interaksi.
+
+Pengaturan ini adalah pola hybrid yang mengoptimalkan biaya tanpa mengorbankan kesiapan. Trafik murah dan rutin ditangani GPU sendiri; trafik langka tapi berat dilimpahkan ke cloud; konten paling sensitif diproses oleh model dengan kelas keamanan tertinggi.
+
+### Database: PostgreSQL sebagai Sumber Kebenaran
+
+PostgreSQL adalah database yang menyimpan metadata penting: kunci (keys), pengguna dan tim (teams), serta catatan pengeluaran (spend logs). Setiap kali sebuah virtual key mengirim permintaan, LiteLLM mencatat jumlah token, model yang dipakai, dan biaya yang timbul ke dalam tabel spend. Database inilah yang menjadi single source of truth untuk laporan bulanan, penyelidikan insiden, dan perhitungan biaya per departemen di Bab 8.6. Ukurannya relatif kecil untuk skala kantor — tidak perlu database khusus kelas enterprise, tetapi tetap harus dicadangkan secara rutin karena nilainya sangat tinggi saat audit.
+
+### Gambar 1: Arsitektur LiteLLM Gateway
+
+Berikut arsitektur lengkap gateway — perhatikan jalur utama (garis tebal) dan jalur fallback (garis putus-putus).

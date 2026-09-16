@@ -1,0 +1,43 @@
+Puncak dari periode ini adalah rilis Claude Fable 5 oleh Anthropic pada 9 Juni 2026. Fable 5 adalah model Mythos-class — tingkat keamanan tertinggi Anthropic — yang dibuat tersedia untuk publik dengan safety classifiers yang bisa menolak permintaan berbahaya di bidang keamanan siber, biologi, dan kimia.
+
+Fable 5 mencapai SWE-bench Verified 95,0% — tertinggi untuk model publik pada saat rilis. Dengan konteks 1 juta token dan harga $10/$50 per juta token, model ini menjadi pilihan utama untuk tugas reasoning dan coding paling berat. Namun, safety classifiers-nya menuai kontroversi: sekitar 5% sesi pengalaman false positive di mana permintaan yang tidak berbahaya ditolak, memicu perdebatan tentang keseimbangan antara keamanan dan kegunaan.
+
+### Pergeseran Tren
+
+Periode April-Juni 2026 menunjukkan polarisasi yang menarik. Di satu sisi, model proprietary (GPT-5.5, Qwen3.7, Claude Fable 5) menawarkan kualitas terbaik tetapi dengan harga tinggi, kontrol terpusat, dan lock-in vendor. Di sisi lain, model open-weight (DeepSeek V4, Mistral Large 3) menawarkan kebebasan total dengan kualitas yang mendekati — dan dalam beberapa benchmark, menyamai — model proprietary.
+
+Bagi ekosistem lokal, implikasinya jelas: DeepSeek V4 Flash (284B) bisa dijalankan di workstation 2xRTX 6000 melalui INT4 dengan biaya inference nol, sementara model 1-3B seperti Ministral 3 dan Qwen3.6-27B makin mumpuni untuk agen kompleks di laptop. Era model lokal yang really useful telah tiba.
+
+Berdasarkan tren yang terlihat pada 2025-2026, beberapa proyeksi dapat dibuat untuk 2027 — meskipun perlu ditekankan bahwa ini adalah proyeksi berdasarkan tren saat ini, bukan prediksi pasti.
+
+Model 1-3B di perangkat wearable. Smartphone, smartwatch, dan perangkat IoT akan memiliki LLM lokal yang berfungsi sebagai asisten pribadi tanpa perlu koneksi cloud. Ministral 3 3B adalah cikal bakal tren ini.
+
+Reasoning native. Semua model, bahkan yang terkecil sekalipun, akan memiliki kemampuan reasoning setara o1-mini secara default. Distilasi dari model reasoning besar ke model kecil akan menjadi praktik standar.
+
+Multimodal lokal. LLM lokal akan secara native memproses gambar, suara, dan video tanpa API eksternal. Model seperti Qwen3.5 (multimodal native) adalah langkah awal menuju tren ini.
+
+Spesialisasi ekstrem. Akan muncul model khusus industri — untuk hukum, medis, teknik — yang bisa dijalankan di laptop. Fine-tuning dan distilasi akan menjadi lebih mudah dan murah.
+
+Green AI. Model akan semakin efisien. Proyeksi optimis: model 70B berjalan di 16 GB RAM dengan kuantisasi 2-bit, sementara efisiensi arsitektur seperti CSA/HCA (DeepSeek V4) akan menjadi standar.
+
+Potensi open vs closed. DeepSeek V4 dan Mistral Large 3 membuktikan bahwa open-weight bisa menyaingi proprietary. Namun, Qwen3.7 dan GPT-5.5 menunjukkan tren sebaliknya — model proprietary tetap unggul di benchmark tertentu. Pertanyaan besarnya: apakah 2027 akan menjadi tahun open-source mendominasi, atau justru terjadi fragmentasi?
+
+Potensi perubahan paradigma. Apakah scaling law (lebih besar = lebih baik) masih berlaku? Atau synthetic data dan teknik distilasi (seperti yang digunakan Phi-4 dan Ministral 3) akan menjadi kunci utama? Indikasi awal menunjukkan bahwa kualitas data dan arsitektur efisien mungkin lebih penting daripada jumlah parameter mentah.
+
+### Diagram 1: Peta Lintasan Evolusi (2017-2026)
+
+### Diagram 2: Alur Keputusan Memilih Model Lokal
+
+### Langkah 1: Merasakan Perbedaan Generasi Model
+
+Cara terbaik memahami evolusi model adalah menjalankannya langsung. Ikuti langkah-langkah berikut untuk merasakan perbedaan kualitas dari setiap era.
+
+### Langkah 2: Benchmark Model Lama vs Baru
+
+Untuk mengukur secara kuantitatif seberapa jauh perkembangan model:
+
+### Langkah 3: Visualisasi Evolusi Model (Python)
+
+Grafik ini akan menunjukkan tiga hal penting: (1) parameter total terus membesar secara eksponensial, tetapi (2) parameter aktif (untuk model MoE) jauh lebih kecil, dan (3) skor MMLU meningkat dari 32% (GPT-2) menjadi 87,2% (DeepSeek V4 Pro) — peningkatan hampir 3x dalam 7 tahun.
+
+!Evolusi Model: Parameter vs Performa (2019-2026)

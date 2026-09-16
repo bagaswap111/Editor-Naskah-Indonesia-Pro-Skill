@@ -1,0 +1,45 @@
+Profil. Sebuah perusahaan fintech dengan 500+ agen customer service ingin meluncurkan LLM yang menjawab pertanyaan nasabah secara otomatis. Volume pertanyaan harian sangat tinggi, dan sebagian besar menyentuh data yang berubah cepat: suku bunga, tenor pinjaman, dan kebijakan terbaru. Tim data engineering sudah mencoba prompt-engineering mentah, tetapi hasilnya buruk: model menjawab dengan plausible namun salah — misalnya menyebut suku bunga lama yang sudah diganti dua bulan sebelumnya.
+
+Masalah. Halusinasi pada tiga tipe data ini bukan sekadar pengalaman buruk nasabah. Suku bunga yang salah berarti nasabah membuat keputusan finansial atas dasar informasi palsu; kebijakan yang salah bisa berujung komplain ke OJK — lembaga yang menegakkan regulasi dengan denda administratif. Toleransi risiko di sektor ini sangat rendah, sehingga pendekatan "kirim saja dan perbaiki nanti" tidak dapat diterima.
+
+Solusi. Tim menerapkan mitigasi berlapis empat tahap. Pertama, pipeline RAG dengan ChromaDB sebagai vector store dan BAAI/bge-base-id-v1.5 sebagai model embedding Bahasa Indonesia, untuk grounding dokumen kebijakan dan panduan produk. Kedua, knowledge graph khusus data produk — suku bunga, tenor, denda — sehingga pertanyaan "berapa denda telat bayar tenor 12 bulan?" dijawab dari struktur relasi yang pasti, bukan teks yang bisa ambigu. Ketiga, guardrails yang memvalidasi semua angka pinjaman terhadap database produk sebelum jawaban dikirim — jika angka dari model berbeda dari database, jawaban dibatalkan dan sistem mencari ulang. Keempat, sampling review: 10% output dicek manual oleh tim quality assurance setiap minggu, mengikuti praktik evaluasi human acceptability pada Tabel 4.
+
+Hasil. Dalam delapan minggu, hallucination rate turun dari 12% menjadi 1,8% — sejajar dengan angka terbaik di kelas proprietary (Tabel 3), padahal sistemnya berbasis model open-source. Resolusi first-contact (nasabah selesai di satu percakapan tanpa eskalasi ke agen manusia) naik 34%, karena jawaban lebih akurat dan percaya diri. Biaya yang dikeluarkan: sekitar Rp 50 juta untuk setup awal (server embedding, vector DB, guardrails, pembangunan KG) plus Rp 8 juta per bulan operasional — jauh lebih murah daripada menambah 100 agen manusia.
+
+Pelajaran. Kunci keberhasilan bukan pada satu teknik ajaib, melainkan tumpukan yang saling melengkapi: RAG mengisi pengetahuan, KG mengamankan data relasional yang berubah cepat, guardrails menghentikan angka salah di gerbang terakhir, dan evaluasi sampling menjaga kualitas agar tidak merosot diam-diam. Fintech ini juga membuktikan poin penting dari Tabel 3: model open-source tidak harus kalah akurat dari model proprietary — asalkan arsitektur grounding-nya dirancang dengan disiplin.
+
+### Paper Jurnal/Konferensi
+
+[1] Lewis, P., Perez, E., Piktus, A., et al. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS. DOI: 10.48550/arXiv.2005.11401
+
+[2] Tonmoy, S.M.T.I., Zaman, S.M.M., Jain, V., et al. (2024). A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models. arXiv: 2401.01313
+
+[3] Agarwal, D., Naik, H., et al. (2024). Can Knowledge Graphs Reduce Hallucinations in LLMs? A Survey. NAACL-HLT 2024. DOI: 10.18653/v1/2024.naacl-long.219
+
+[4] Bommasani, R., Hudson, D.A., Adeli, E., et al. (2024). Grounding and Evaluation for Large Language Models: Practical Challenges and Lessons Learned. arXiv: 2407.12858
+
+[5] Zhang, Y., Li, Y., Cui, L., et al. (2025). A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions. ACM Transactions on Information Systems. DOI: 10.1145/3703155
+
+[6] Anthropic. (2026). Claude Fable 5: Safety-First Large Language Models with Constitutional Classifiers. Research Report
+
+[7] DeepSeek-AI. (2026). DeepSeek-V4: A Next-Generation Open-Source Mixture-of-Experts Language Model. arXiv: 2604.00001
+
+### Referensi Pendukung (Dokumentasi/Repository)
+
+[8] LlamaIndex. Documentation. docs.llamaindex.ai
+
+[9] RAGAS. Evaluation Framework. docs.ragas.io
+
+[10] NVIDIA. NeMo Guardrails. github.com/NVIDIA/NeMo-Guardrails
+
+[11] Guardrails AI. Documentation. docs.guardrailsai.com
+
+[12] Microsoft. GraphRAG. github.com/microsoft/graphrag
+
+[13] OpenAI. (2026). GPT-5.5 System Card. openai.com
+
+[14] Mistral AI. (2025). Mistral Large 3 Technical Report. arXiv: 2512.00001
+
+[15] Qwen Team. (2026). Qwen3.7: The Agent Frontier. qwen.ai
+
+[16] Hugging Face. Open LLM Leaderboard. huggingface.co

@@ -1,0 +1,37 @@
+### Tabel 3: Pengaruh Jumlah User Concurrent (vLLM, Llama 3.1 (8B))
+
+Bagaimana performa berubah ketika angka pengguna naik dari 1 menjadi 50? Tabel berikut memotret perilaku vLLM dengan Llama 3.1 (8B) [6]:
+
+| Concurrent Users | Mean TTFT (ms) | Mean Latency (ms) | Throughput (tok/s) | Queue Time (ms) |
+|:---|:---:|:---:|:---:|:---:|
+| 1 | 85 | 450 | 1.250 | 0 |
+| 5 | 120 | 580 | 4.800 | 35 |
+| 10 | 165 | 720 | 7.200 | 95 |
+| 20 | 250 | 1.100 | 10.500 | 180 |
+| 50 | 480 | 2.400 | 14.200 | 380 |
+
+!Dari 1 hingga 50 user concurrent, throughput vLLM tumbuh 11,4x (1.250 → 14.200 tok/s) sementara TTFT naik perlahan dari 85 ms ke 480 ms
+
+Gambar 5.4-2 — Trade-off yang "dijual" continuous batching: throughput naik jauh lebih cepat (11,4x) daripada latensi yang naik secara predictable — dari 1.250 token/detik dengan 1 user menjadi 14.200 token/detik dengan 50 user.
+
+Pola yang terbaca jelas: throughput terus naik (1.250 → 14.200 token/detik), tetapi TTFT dan latensi juga naik secara perlahan dan predictable. Pada 10 user, TTFT rata-rata hanya 165 ms — tidak terasa. Pada 50 user, TTFT masih 480 ms, setengah detik, masih dalam batas yang bisa diterima untuk chat interaktif. Perhatikan queue time: dari 0 ms menjadi 380 ms — ini "harga" dari batch penuh, tetapi tetap jauh lebih kecil dibandingkan antrean request-level pada static batching. Inilah bukti kunci bahwa continuous batching "menjual" latency yang naik perlahan demi throughput yang naik jauh lebih cepat.
+
+### Langkah 1: Simulasi Continuous Batching dengan Python
+
+Sebelum menyentuh engine sungguhan, mari bangun simulasi mental yang tepat. Kode berikut mensimulasikan cara kerja iteration-level scheduling: batch diisi sampai penuh, satu step menghasilkan satu token untuk semua yang aktif, dan request yang selesai langsung diganti.
+
+Jalankan kode ini beberapa kali dan perhatikan angka average batch size: karena request yang selesai langsung diganti, rata-rata batch tetap tinggi mendekati max_batch. Bandingkan jika Anda memaksa penggantian request hanya di akhir (meniru static batching) — rata-rata batch akan anjlok, dan banyak step yang berjalan tanpa pekerjaan yang produktif.
+
+### Langkah 2: Benchmark Engine dengan Berbagai Concurrency
+
+Untuk mengukur perilaku engine sungguhan di bawah beban, gunakan Locust sebagai load generator. Buat file benchmark_locust.py berisi tugas sederhana:
+
+Bandingkan hasilnya dengan Tabel 3: seharusnya throughput total naik bersama jumlah user, sementara latency per-request naik perlahan. Jika TTFT Anda melonjak tak proporsional di 10 user, kemungkinan GPU sudah kehabisan KV-cache — turunkan --max-model-len atau perkecil batch.
+
+### Langkah 3: Konfigurasi Max Batch Size di vLLM
+
+Tiga parameter kunci mengendalikan continuous batching di vLLM: --max-num-seqs membatasi jumlah sequence dalam satu batch, --max-num-batched-tokens membatasi total token per batch, dan --enable-chunked-prefill memecah prefill raksasa menjadi potongan kecil agar tidak "mencuri" GPU terlalu lama dari phase decode.
+
+Mulailah dengan --max-num-seqs yang kecil (32-64), ukur TTFT di bawah 20 user, lalu naikkan bertahap. --enable-chunked-prefill sangat disarankan untuk skenario banyak user dengan prompt panjang — tanpa opsi ini, satu prefill 8.000 token bisa memblokir GPU selama ratusan milidetik dan membuat semua user lain "tersendat".
+
+Aturan praktis pemilihan parameter: utamakan chunked prefill jika rata-rata prompt Anda panjang (dokumen, riwayat chat berlanjut); perbesar --max-num-batched-tokens hanya jika GPU Anda memiliki VRAM besar dan KV-cache masih longgar; dan ingat bahwa menaikkan --max-num-seqs tanpa beban kerja yang membutuhkannya hanya akan menambah latensi tanpa menambah throughput. Ukur selalu dengan skenario nyata (Langkah 2), bukan dengan benchmark sintetis.

@@ -1,0 +1,26 @@
+Tree-of-Thoughts (ToT) melangkah lebih jauh: alih-alih satu rantai lurus atau beberapa rantai paralel, model mengeksplorasi pohon pemikiran — beberapa cabang penalaran secara simultan, dengan evaluasi dan backtracking (mundur dari cabang yang gagal) [5]. Setiap node adalah state pemikiran, dan model berpindah antar node sambil menilai mana yang menjanjikan. ToT unggul pada tugas yang membutuhkan eksplorasi — teka-teki, perencanaan, optimasi — dengan akurasi GSM8K sekitar 74%. Kelemahannya sama dengan Self-Consistency, hanya lebih ekstrem: biaya token ~20x standard prompting dan kompleksitas implementasi yang tinggi. Untuk sebagian besar pekerjaan harian, ToT adalah overkill — ia untuk tugas-tugas yang membuat manusia mengambil kertas coret-coretan.
+
+### Gambar 1: CoT vs ReAct — Linear vs Loop
+
+Dua keluarga pendekatan reasoning ini berbeda secara fundamental dalam bentuk alurnya.
+
+Bandingkan kedua bentuk di atas. CoT adalah garis lurus: Question → Reasoning Steps → Answer. Tidak ada percabangan, tidak ada umpan balik — model merenung dari ingatan dalamnya, lalu menjawab. ReAct adalah loop: Thought → Action → Observation berputar sampai kondisi Selesai? terpenuhi. Perbedaan ini menjelaskan mengapa keduanya dipakai untuk tujuan berbeda: CoT untuk masalah yang bisa diselesaikan dalam kepala (matematika, logika), ReAct untuk masalah yang membutuhkan dunia nyata (mencari informasi, menjalankan tool) [1][2]. Bila diagram ini Anda implementasikan sebagai kode, perhatikan bahwa cabang "Belum" pada ReAct membawa observasi sebagai konteks baru — setiap putaran model menalar dengan informasi yang lebih lengkap, persis mekanisme memory update pada agent loop di Bab 4.1.
+
+### Berpikir Sambil Bekerja
+
+Semua varian CoT di atas murni berpikir: model merenung, lalu menjawab. ReAct (Reasoning + Acting) mengubah persamaan itu: model bergantian bernalar dan bertindak, di mana setiap tindakan menghasilkan observasi nyata yang menjadi bahan penalaran berikutnya [2]. Formatnya konsisten: Thought (analisis) → Action (nama tool) → Action Input (argumen) → Observation (hasil tool) → Thought berikutnya, dan seterusnya sampai model merasa yakin dan menuliskan Final Answer.
+
+Keunggulan ReAct dibanding CoT murni adalah grounding: setiap langkah penalaran diuji terhadap dunia nyata. Model yang bernalar tanpa alat bisa membayangkan data yang tidak ada (halusinasi); model ReAct melihat hasil tool-nya — jika angkanya 48.000, ia menalarnya dari 48.000. Pada benchmark HotpotQA (pertanyaan multi-hop yang membutuhkan pencarian), ReAct mencapai exact match sekitar 60%, unggul atas CoT murni yang tersandung saat menyimpulkan fakta yang tidak diketahuinya [2]. ReAct adalah jembatan alami antara Bab 4.2 (function calling) dan bab ini: CoT memberikan pikiran, function calling memberikan tangan, ReAct menyatukan keduanya.
+
+### Tabel 1: Perbandingan Metode Reasoning
+
+Peta lengkap enam strategi penalaran — dari yang termurah hingga termahal — dengan angka GSM8K sebagai pembanding.
+
+| Metode | Tahun | Kebutuhan Token | Akurasi (GSM8K) | Cocok untuk | Implementasi Lokal |
+|:---|:---:|:---:|:---:|:---|:---:|
+| Standard Prompting | 2022 | Rendah | ~20% | Tugas sederhana | Mudah |
+| Few-shot CoT | 2022 | Sedang | ~58% | Soal cerita | Mudah |
+| Zero-shot CoT | 2022 | Rendah | ~43% | General reasoning | Sangat mudah |
+| Self-Consistency | 2022 | Tinggi (5x) | ~72% | High-stakes decision | Berat (5x inference) |
+| Tree-of-Thoughts | 2023 | Tinggi | ~74% | Planning kompleks | Kompleks |
+| ReAct | 2023 | Sedang | ~60%\ | Agent tasks | Mudah |

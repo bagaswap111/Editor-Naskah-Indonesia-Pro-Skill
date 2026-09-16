@@ -1,0 +1,21 @@
+Traffic spike adalah musuh server lokal: 50 pengguna tiba-tiba pada jam promo akan membuat GPU lokal kehabisan napas dalam hitungan detik. Cloud unggul di sini dengan auto-scaling tanpa batas. Sebaliknya, traffic yang stabil dan dapat diprediksi adalah wilayah lokal — kapasitas yang terpasang langsung tercermin dalam utilisasi yang konsisten, tanpa khawatir lonjakan tagihan.
+
+### Keandalan
+
+Keandalan mengikuti pola simetris. Lokal menggantungkan diri pada hardware sendiri: satu PSU rusak atau mati listrik bisa mematikan layanan. Cloud menawarkan SLA 99.9%+ dengan redundansi antar availability zone. Namun keandalan lokal bisa "dibeli" dengan redundansi internal (GPU cadangan, UPS) — keputusan yang kembali lagi ke kalkulasi biaya. Arsitektur hybrid secara alami meningkatkan keandalan total: jika lokal mati, cloud menangkap beban, dan sebaliknya.
+
+### Menghitung Biaya Lokal
+
+Biaya lokal bukan sekadar harga GPU. Komponen lengkapnya: hardware (GPU/server), listrik (di Indonesia sekitar Rp 1.500-2.500/kWh, asumsi kanonik Rp 1.600/kWh), pendingin ruangan server, maintenance (tim internal atau kontrak vendor), dan depresiasi hardware 3-5 tahun. Sebuah server mini dengan Mac Mini M4 Pro 48GB + Ollama bisa dimulai dari puluhan juta rupiah; konfigurasi 2x RTX 4090 NVLink untuk skala menengah-besar sekitar Rp 90 juta; dan klaster enterprise 4x A100 80GB bisa menyentuh miliaran rupiah. Kuncinya adalah meng-amortisasi seluruh CAPEX ke biaya bulanan, lalu membaginya dengan volume token — barulah terlihat biaya lokal per 1 juta token yang bisa sangat rendah: dari kisaran Rp 200-1.200 per juta token tergantung skala.
+
+### Menghitung Biaya Cloud
+
+Biaya cloud lebih mudah dihitung karena transparan: harga per-token dari API, ditambah throughput commitment (jika ada) dan data transfer. GPT-4o mini, misalnya, dipatok OpenAI di US$0,15 per juta token masukan dan US$0,60 per juta token keluaran — setara Rp 2.400-9.600 per juta token pada kurs ±Rp 16.000/US$ tergantung rasio token [10]. Klaim kisaran harga model frontier (misalnya "GPT-5.5" dan "Claude Fable 5" di Rp 60.000-75.000 per juta token) tidak dapat diverifikasi dari sumber tersedia (klaim fiktif-2026 — lakukan pengecekan laman harga resmi sebelum terbit). Tanpa volume yang besar, angka ini nyaman; dengan 100 juta token per bulan, tagihan cloud bisa menembus puluhan hingga ratusan juta rupiah per bulan.
+
+### Konsep Break-even
+
+Break-even point adalah volume token bulanan di mana kurva biaya kumulatif lokal (CAPEX ter-amortisasi + OPEX) menyilang kurva cloud (OPEX murni). Di bawah titik itu, cloud lebih murah; di atasnya, lokal menang — dan selisihnya melebar seiring waktu karena biaya marginal lokal terus menurun. Estimasi umum model dan hardware berbagai kelas: 5-20 juta token/bulan. Contoh konkret: Mac Mini M4 Pro 48GB + Ollama melawan API GPT-4o mini memiliki break-even sekitar 8 juta token/bulan — volume yang cukup masuk akal untuk tim 10-20 orang yang aktif memakai LLM setiap hari kerja. Tabel 2 di Seksi 4 merinci perhitungan ini untuk lima profil ukuran organisasi.
+
+### Tabel 2: Break-even Analysis — Local vs Cloud dengan Model Terbaru
+
+Inilah inti matematis keputusan deployment. Tabel ini membandingkan biaya lokal dan cloud — dengan asumsi depresiasi 3 tahun dan harga listrik Rp 1.600/kWh — untuk lima profil organisasi.

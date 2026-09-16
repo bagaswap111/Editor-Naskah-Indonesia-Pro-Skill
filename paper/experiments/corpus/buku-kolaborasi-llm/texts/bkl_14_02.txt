@@ -1,0 +1,20 @@
+Prinsip pertama yang harus dipegang: *tidak ada single point of failure. Jika satu kabel, satu server, atau satu GPU mati dan sistem berhenti, maka arsitektur itu gagal memenuhi standar general office. Secara praktis, pilar ini diterjemahkan menjadi: klaster GPU minimal 2 node (sehingga satu node bisa mati tanpa menghentikan layanan), storage dengan RAID 10 (kombinasi mirroring dan striping yang menahan kegagalan disk), serta jaringan dual-homed yang terhubung ke dua ISP berbeda dengan protokol BGP. Redundansi juga bersifat berlapis: load balancer punya pasangan keepalived, API gateway berjalan sebagai tiga replika, dan database memakai streaming replication. Filosofinya sederhana — kegagalan itu pasti; yang bisa kita pilih adalah seberapa cepat pulih.
+
+Pada skala ini, setiap prompt dan response wajib tercatat bersama metadata pelengkap: identitas user, timestamp, dan departemen asal. Mengapa wajib? Dua alasan besar. Pertama, compliance: standar ISO 27001 menuntut bukti kontrol akses dan jejak aktivitas, sementara UU PDP Indonesia mewajibkan akuntabilitas pemrosesan data pribadi — jika terjadi kebocoran, regulator akan bertanya "siapa yang mengakses data itu, kapan, dan kenapa?" Tanpa audit log, pertanyaan itu tidak bisa dijawab. Kedua, internal review: ketika ada tuduhan karyawan menyalahgunakan AI — misalnya memasukkan data gaji karyawan lain ke dalam prompt — log inilah satu-satunya bukti objektif. Audit log bukan fitur mewah; ia adalah polisi dan saksi dalam satu paket.
+
+Pilar ketiga adalah kemampuan menambah node GPU secara horizontal tanpa downtime. Kantor tidak bertambah karyawannya setiap hari, tetapi bebanlah yang fluktuatif: Senin pagi setelah rapat mingguan, antrean request bisa membengkak dua kali lipat. Di sinilah auto-scaling bekerja — keputusan menambah atau mengurangi kapasitas tidak lagi manual, melainkan berdasarkan dua sinyal utama: queue depth (berapa banyak request yang menunggu di antrean vLLM) dan GPU utilization (berapa persen kapasitas komputasi yang sedang terpakai). Saat GPU menyentuh 80% dan antrean mengular, sistem menambah pod inferensi; saat malam sunyi, pod dikurangi otomatis untuk menghemat listrik. Skalabilitas seperti ini hanya mungkin jika arsitektur dibangun di atas orchestrator — di Jilid 2 buku ini, perannya dipegang oleh Kubernetes (K3s).
+
+Pilar terakhir, dan yang paling sering disalahpahami: 100% uptime. Tentu saja angka 100% secara matematis mustahil; yang dimaksud adalah target five-nines (99,999%) — maksimal 5 menit downtime dalam setahun, sedikit lebih lama dari waktu menyeduh satu cangkir kopi. Untuk mencapai angka ini, sistem memerlukan failover otomatis: health check dieksekusi setiap 5 detik, dan ketika satu komponen dinyatakan mati, lalu lintas dialihkan ke komponen cadangan dalam waktu kurang dari 30 detik. Bandingkan dengan skala home yang cukup hidup 16 jam sehari — jangankan lima sembilan, 99% pun tidak pernah dihitung. Pada general office, setiap detik mati berarti karyawan berhenti bekerja, dan itu terkonversi langsung menjadi biaya.
+
+Pada sub-bab ini kita membandingkan tiga skala yang sudah disinggung di awal, lalu menurunkan target SLA dan komponen redundansi menjadi angka yang bisa dimonitor.
+
+### Tabel 2: Perbandingan Karakteristik per Skala
+
+| Karakteristik | Home (4-8) | Small Office (9-20) | General Office (21-50) |
+|:---|:---|:---|:---|
+| Concurrency Peak | 2-3 | 5-10 | 15-25 |
+| Uptime Target | 16 jam/hari | 24/7 (99,9%) | 24/7 (99,999%) |
+| Redundancy | None | GPU failover | Full HA (LB + GPU + Storage) |
+| Audit Logs | Tidak perlu | Basic logging | Wajib (ISO 27001) |
+| Auto-scaling | Manual | Semi-auto | Kubernetes HPA/VPA |
+| Biaya Estimasi | Rp 25-45jt | Rp 60-120jt | Rp 200-500jt+ |

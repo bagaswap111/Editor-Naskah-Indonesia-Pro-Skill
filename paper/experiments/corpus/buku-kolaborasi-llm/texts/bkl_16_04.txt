@@ -1,0 +1,33 @@
+Pola 3 — Report Generator. Sebuah workflow berjadwal (misalnya setiap pukul 07.00) mengambil data dari database, meminta LLM menganalisis tren (dengan 3-5 panggilan LLM untuk ringkasan, analisis, dan narasi), memformat hasilnya menjadi HTML yang rapi, lalu mengirimkannya melalui email ke daftar penerima. Pekerjaan "laporan pagi" yang dulu memakan satu jam analis kini selesai sebelum kopi pertama diminum.
+
+Ketiga pola ini bisa dikombinasikan dan diperluas — tambahkan node Google Sheets untuk mencatat log, node Discord untuk notifikasi, atau sub-workflow bernama untuk peringatan ambang batas — membentuk ekosistem otomasi yang tumbuh seiring kebutuhan kantor.
+
+### Tabel 3: Perbandingan Platform Otomasi Workflow
+
+Tabel berikut membandingkan n8n dengan tiga pesaingnya dari sisi lisensi, hosting, jumlah integrasi, hingga dukungan LLM lokal — perhatikan kolom "LLM Lokal Support" untuk memahami keunggulan struktural n8n.
+
+| Fitur | n8n (Self-hosted) | Zapier | Make (Integromat) | Huginn |
+|:---|:---|:---|:---|:---|
+| Model Lisensi | Fair-code (SUL) | Proprietary | Proprietary | MIT (open source) |
+| Hosting | Self-hosted / Cloud | Cloud only | Cloud only | Self-hosted |
+| Jumlah Integrasi | 400+ | 6.000+ | 1.500+ | Terbatas |
+| LLM Lokal Support | Ya (via HTTP node) | Tidak | Tidak | Terbatas |
+| Code Node (JS/Python) | Ya | Terbatas | Ya (sedikit) | Ruby only |
+| Harga (Self-hosted) | Gratis | $19,99/bulan | $9/bulan | Gratis |
+| Skalabilitas | Queue + Redis | Managed | Managed | Single instance |
+| Audit Log | Ya | Ya | Ya | Tidak |
+| Model MoE Terbaru | DeepSeek V4, Mistral Large 3 | GPT-5.5 | Terbatas | Tidak |
+
+Analisis dari tabel ini: Zapier menang telak dalam jumlah integrasi (6.000+), tetapi seluruhnya di-host di cloud dan tidak mendukung LLM lokal — setiap step yang melibatkan AI harus mengirim data ke API eksternal. Make lebih murah dari Zapier ($9/bulan) namun tetap proprietary. Huginn gratis dan self-hosted, tetapi hanya mendukung Ruby untuk kode kustom dan skalabilitasnya terbatas pada satu instance. n8n berada di titik tengah yang langka: gratis untuk self-hosted, 400+ integrasi (mencukupi hampir semua kebutuhan kantor), mendukung LLM lokal, dan skalabel dengan Redis. Kerugiannya jelas: Anda harus mengelola sendiri server, update, dan backup — tanggung jawab yang tidak ada di layanan managed.
+
+### Tabel 4: Estimasi Latency per Pola Workflow
+
+Estimasi latency realistis untuk tiga pola utama, diukur dengan n8n + Ollama menggunakan Llama-3.1-8B Q4_K_M — perhatikan kolom Bottleneck untuk mengetahui komponen yang paling menentukan kecepatan.
+
+| Pola | Rata-rata Latency | LLM Calls | External API Calls | Bottleneck |
+|:---|:---:|:---:|:---:|:---|
+| Email Ringkasan | 3-5 detik | 1 | 2 (IMAP + SMTP) | LLM inference |
+| SQL Query dari Slack | 5-8 detik | 1 | 2 (Slack + DB) | Database query |
+| Report Generator | 15-30 detik | 3-5 | 3-5 (DB + Email + Slack) | Multiple LLM calls |
+
+Data ini menunjukkan pola yang konsisten: semakin banyak panggilan LLM, semakin panjang total latency. Email ringkasan hanya butuh satu panggilan LLM sehingga selesai dalam 3-5 detik — masih nyaman untuk pengalaman pengguna. SQL Query dari Slack sedikit lebih lambat karena bottleneck-nya adalah eksekusi query database, bukan model. Report Generator dengan 3-5 panggilan LLM bisa memakan 15-30 detik; untuk pola ini, jalankan sebagai workflow terjadwal di latar belakang (misal pukul 07.00) daripada menunggu interaktif — hasilnya tetap menunggu di kotak masuk saat jam kerja dimulai.

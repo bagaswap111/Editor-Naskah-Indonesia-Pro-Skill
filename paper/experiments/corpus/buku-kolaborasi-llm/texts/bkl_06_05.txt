@@ -1,0 +1,42 @@
+Untuk pengiriman melalui jaringan luas, praktik standar adalah menempatkan reverse proxy (Caddy atau Nginx) di depan Open WebUI. Proxy ini mengelola sertifikat HTTPS secara otomatis, menyembunyikan detail internal, dan menangani connection pooling. Kombinasi Open WebUI + reverse proxy + restart policy Docker adalah fondasi production deployment yang murah namun andal — sejalan dengan prinsip sistem serving yang memisahkan control plane dan data plane agar mudah di-scale [4][5].
+
+### Tabel 3: Perbandingan Frontend LLM
+
+Untuk memosisikan Open WebUI, bandingkan dengan tiga frontend lain yang populer:
+
+| Fitur | Open WebUI | Text-Gen-WebUI | GPT4All | Ollama Web UI |
+|:---|:---|:---|:---|:---|
+| Docker Support | Ya | Ya | Tidak | Ya |
+| RAG Built-in | Ya (full pipeline) | Extension | LocalDocs | Tidak |
+| Tools/Functions | Ya | Tidak | Tidak | Tidak |
+| Multi-User | Ya (RBAC) | Tidak | Tidak | Tidak |
+| Web Search | 15+ providers | Manual | Tidak | Tidak |
+| Multi-Model | Ya | Ya | Terbatas | Ya |
+
+Gambar berikut menghitung dukungan keenam fitur inti pada tabel ini dengan skala: dukungan penuh ("Ya") = 1, dukungan parsial (Extension, LocalDocs, Terbatas, Manual) = 0,5.
+
+!Jumlah fitur inti yang didukung penuh per frontend LLM
+
+Gambar 3.4-2 — Open WebUI adalah satu-satunya yang mendukung seluruh enam fitur inti (RAG lengkap, Tools, multi-user RBAC, web search); Text-Generation-WebUI dan Ollama Web UI tertinggal jauh, mempertegas posisi Open WebUI sebagai pilihan all-in-one.
+
+Analisis: dari tabel ini terlihat mengapa Open WebUI disebut all-in-one — ia adalah satu-satunya yang mengemas RAG lengkap, Tools, multi-user, dan web search dalam satu paket. Text-Generation-WebUI (dibahas di Bab 3.5) unggul justru di area lain yang tidak tercantum di sini: kendali parameter sampling yang sangat mendalam, menjadikannya laboratorium eksperimen yang ideal. GPT4All menang di sisi kesederhanaan desktop app tanpa Docker, sementara Ollama Web UI pada dasarnya adalah versi awal dari Open WebUI itu sendiri. Pilihan yang tepat bergantung peran: Open WebUI jika Anda ingin produk jadi untuk banyak orang, Text-Generation-WebUI jika Anda ingin laboratorium riset sampling, dan GPT4All jika Anda ingin aplikasi desktop paling sederhana.
+
+### Gambar 2: Topologi Deployment
+
+Gambar 2 menunjukkan bagaimana Open WebUI berdiri di tengah ekosistem backend:
+
+Topologi ini menggambarkan fleksibilitas multi-engine: Open WebUI menjadi satu titik masuk, sementara backend dapat lebih dari satu sekaligus. Pengguna bisa berpindah dari model Ollama lokal ke endpoint vLLM atau API cloud tanpa mengganti aplikasi. Database (SQLite untuk pemakaian pribadi, PostgreSQL untuk skala tim) menyimpan semua metadata percakapan dan knowledge base, sedangkan model tetap tinggal di mesin inferensi masing-masing.
+
+### Langkah 1: Deployment Docker + RAG Setup
+
+Langkah pertama, deploy Open WebUI dengan Ollama yang sudah dibundel, lalu siapkan model inference dan embedding:
+
+Perhatikan bahwa tiga model diunduh dengan peran berbeda: deepseek-v4-flash dan llama3.1:8b untuk generation, nomic-embed-text untuk embedding. Model embedding tidak perlu sebesar model generation — ia hanya menerjemahkan teks ke vektor, bukan menghasilkan jawaban. Saat pengujian, tanyakan sesuatu yang hanya bisa dijawab dari dokumen yang Anda unggah — misalnya kutipan angka dari dokumen tersebut — untuk memastikan RAG benar-benar berfungsi, bukan sekadar menjawab dari pengetahuan umum model.
+
+### Langkah 2: Custom Tool — Kalkulator Python
+
+Sekarang buat tool pertama: kalkulator aritmatika yang dieksekusi di sandbox. Di antarmuka Open WebUI, masuk ke Workspace > Tools > Create Tool:
+
+Dua detail penting dalam tool ini. Pertama, whitelist karakter — 0123456789+-/().  — menyaring input sebelum diteruskan ke eval(), mencegah ekspresi berbahaya seperti __import__('os').system('rm -rf /'). Kedua, error handling pada pembagian dengan nol. Pola whitelist + error handling ini adalah best practice untuk semua custom tool yang akan Anda tulis.
+
+### Langkah 3: Web Search RAG Integration

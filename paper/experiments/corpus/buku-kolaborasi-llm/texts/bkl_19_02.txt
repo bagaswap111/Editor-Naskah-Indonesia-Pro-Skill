@@ -1,0 +1,28 @@
+| Model | Parameter (Aktif) | Context | VRAM (Q4) | SWE-bench | Lisensi | Keunggulan |
+|:---|:---:|:---:|:---:|:---:|:---:|:---|
+| DeepSeek V4 Pro | 49B (1,6T total) | 1M | ~32 GB | 80,6% | MIT | Open-weight terkuat, agentic |
+| DeepSeek V4 Flash | 13B (284B total) | 1M | ~10 GB | — | MIT | Efisien, context besar |
+| Mistral Large 3 | 41B (675B total) | 256K | ~28 GB | — | Apache 2.0 | Multimodal, granular MoE |
+| Qwen3.7-Max | ~40B (MoE) | 1M | ~28 GB | — | Proprietary | Agent-centric, tool calling |
+| Ministral 3 (8B) | 8B (dense) | 128K | ~6 GB | — | Apache 2.0 | Edge-friendly, Cascade Distillation |
+| Llama 4 Scout | 17B (109B total) | 10M | ~35 GB | — | Llama Community | Context terbesar (10M) |
+
+Dua hal penting dari Tabel 1. Pertama, DeepSeek V4 Pro dengan VRAM Q4 hanya ~32 GB — muat di satu RTX 4090 — sekaligus membawa context 1M dan SWE-bench 80,6%: kombinasi yang secara langsung menantang dominasi cloud untuk beban kerja agentic coding. Kedua, spektrum ukuran sangat lebar: dari Ministral 3 yang hanya butuh ~6 GB (komputer laptop sekalipun) hingga Llama 4 Scout dengan context 10 juta token. Dengan lisensi permisif (MIT/Apache 2.0), tidak ada lagi alasan regulasi yang menghambat adopsi lokal.
+
+### Privasi & Kepatuhan
+
+Faktor pertama dan sering kali paling menentukan adalah privasi & kepatuhan. Data medis, legal, dan finansial kategori sensitif wajib berjalan lokal — mengirimkan riwayat kesehatan pasien atau saldo nasabah ke API pihak ketiga adalah pelanggaran kepatuhan yang berisiko sanksi pidana di bawah UU PDP. Pertanyaannya bukan "apakah provider cloud menyimpan data", melainkan "apakah Anda dapat membuktikan kontrol penuh atas sirkulasi data tersebut kepada regulator". Jika jawabannya tidak, maka local deployment bukan lagi pilihan, melainkan keharusan. Untuk data non-sensitif, cloud dapat digunakan dengan Data Processing Agreement sebagai jembatan kepatuhan.
+
+### Latency
+
+Kebutuhan latency membagi workload menjadi dua kutub. Aplikasi real-time — chat assistant, autocomplete kode, transaksi — menuntut respons di bawah 500 ms; di kutub ini lokal hampir selalu menang karena tidak ada perjalanan jaringan. Sebaliknya, batch processing — analisis ribuan dokumen semalam, report generation — toleran terhadap delay, sehingga cloud yang lebih murah per token bisa menjadi pilihan utama. Prinsipnya sederhana: interactive workload jalan di lokal, batch workload boleh ke cloud.
+
+### Kualitas Output
+
+Selama bertahun-tahun, kualitas menjadi alasan utama orang memilih cloud. Namun jaraknya menyempit drastis. DeepSeek V4 Pro — open-weight berlisensi MIT — mencatat SWE-bench 80,6% untuk tugas agentic coding, mendekati model proprietary terbaik dengan biaya lokal nol rupiah per token [6]. Mistral Large 3 menawarkan multimodal native, dan Qwen3.7-Max unggul dalam tool calling. Kualitas cloud (GPT-5.5, Claude Fable 5) masih unggul untuk creative writing dan reasoning yang sangat kompleks, tetapi untuk sebagian besar kebutuhan operasional — summarization, coding, Q&A dokumen — model lokal sudah "cukup baik". Keputusan kualitas kini bergeser dari "mana yang terbaik" menjadi "mana yang terbaik untuk tugas ini".
+
+### Biaya
+
+Faktor biaya adalah inti matematis sub-bab ini: membandingkan CAPEX (pembelian hardware) dan OPEX (listrik, maintenance, token API) untuk menemukan break-even point — volume token bulanan di mana biaya lokal dan cloud berpotongan. Detailnya dibahas menyeluruh di Seksi 4. Prinsip awalnya: cloud murah di volume kecil karena nol investasi, lokal murah di volume besar karena biaya marginal per token mendekati nol.
+
+### Skalabilitas

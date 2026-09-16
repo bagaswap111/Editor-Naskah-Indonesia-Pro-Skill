@@ -1,0 +1,24 @@
+Setiap request ke cloud wajib tercatat dalam audit log: timestamp, model yang dipakai, jumlah token input/output, klasifikasi tier data, dan hasil anonymization. Log ini bukan birokrasi — ia adalah bukti kepatuhan saat regulator atau auditor UU PDP datang. Dengan audit log yang rapi, organisasi bisa menunjukkan secara konkret: "data sensitif tidak pernah keluar; yang keluar hanya representasi yang sudah dianonimkan, sebanyak X juta token, pada jangka waktu berikut."
+
+### Tabel 4: Matriks Keputusan per Skenario
+
+Matriks berikut menerjemahkan semua faktor di atas menjadi rekomendasi langsung untuk delapan skenario bisnis yang umum ditemui.
+
+| Skenario | Privasi | Latency | Budget | Kualitas | Rekomendasi | Rasional |
+|:---|:---:|:---:|:---:|:---:|:---|:---|
+| Chatbot medis (data pasien) | Wajib | <2s | Sedang | Tinggi | Lokal (Llama 3 70B Q4) | UU PDP + kerahasiaan pasien |
+| CS ritel (non-PII) | Rendah | <5s | Rendah | Sedang | Cloud (GPT-4o mini) | Biaya lebih murah, quality cukup |
+| Dokumen legal (kontrak) | Tinggi | <10s | Tinggi | Sangat Tinggi | Hybrid (lokal + cloud review) | Data sensitif, tapi butuh quality |
+| Internal knowledge base | Sedang | <3s | Sedang | Sedang | Lokal (Qwen 2.5 14B) | Cukup untuk dokumentasi internal |
+| AI coding assistant | Rendah | <1s | Sedang | Sangat Tinggi | Hybrid (lokal DS V4 Pro + cloud Fable 5) | DS V4 Pro (SWE-bench 80,6%) kuat untuk coding lokal |
+| Multimodal (image analysis) | Sedang | <5s | Tinggi | Tinggi | Hybrid (lokal Mistral Large 3 + cloud Gemini 2.5) | Mistral Large 3 multimodal native |
+| Agentic workflow multi-step | Sedang | <5s | Sedang | Sangat Tinggi | Lokal (DS V4 Pro 1M context) | 1M context + agentic benchmark tertinggi open-source |
+| Edge/IoT device | Sedang | <1s | Rendah | Sedang | Lokal (Ministral 3 8B) | Cascade Distillation, 6GB VRAM cukup |
+
+Pola yang muncul konsisten: semakin tinggi kolom Privasi dan semakin ketat Latency, semakin kuat arah ke Lokal; semakin rendah Budget dan semakin tinggi Kualitas yang dituntut, semakin besar godaan Cloud — dan Hybrid adalah jawaban ketika dua sumbu itu bertabrakan (legal, coding, multimodal). Perhatikan juga bahwa "lokal" tidak lagi identik dengan model kecil: agentic workflow multi-step direkomendasikan berjalan sepenuhnya di DeepSeek V4 Pro dengan context 1M — kelas yang lima tahun lalu mustahil dibayangkan on-premise.
+
+Setiap profil organisasi memiliki titik keseimbangan yang berbeda. Startup kecil dengan satu-dua developer dan volume rendah memulai dari cloud murah (GPT-4o mini) karena CAPEX nol dan risiko teknis minimal. UKM dengan 5-20 pengguna rutin mulai menarik manfaat dari satu mesin lokal (RTX 4090) untuk beban rutin, dengan cloud sebagai fallback kualitas. Perusahaan menengah dengan puluhan hingga ratusan pengguna adalah kandidat kuat arsitektur hybrid penuh: lokal untuk volume + PII, cloud untuk kualitas + spike. Enterprise dengan >100 pengguna dan kebutuhan kepatuhan tinggi (bank, rumah sakit) berjalan hampir sepenuhnya lokal dengan klaster GPU kelas A100, menggunakan cloud hanya untuk tugas yang benar-benar membutuhkan model frontier. Matriks lengkapnya — termasuk delapan skenario spesifik dari chatbot medis hingga perangkat edge — dapat dilihat pada Tabel 4 di Seksi 6.
+
+### Gambar 3: Decision Tree Pemilihan Deployment
+
+Jika Anda hanya mengingat satu bagian dari sub-bab ini, ingatlah diagram keputusan berikut — tiga pertanyaan berurutan yang menuntun ke salah satu dari tiga pilar deployment.

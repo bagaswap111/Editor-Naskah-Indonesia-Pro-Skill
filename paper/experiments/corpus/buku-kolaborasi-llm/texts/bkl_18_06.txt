@@ -1,0 +1,35 @@
+Metrik inti meliputi Faithfulness — proporsi klaim dalam jawaban yang didukung oleh konteks, diukur dengan CLAIMDECOMP atau RAGAS; Answer Correctness — kesesuaian jawaban dengan jawaban acuan, umumnya memakai F1 adaptif atau varian BLEU; dan Context Recall — seberapa lengkap konteks relevan yang berhasil diambil retriever bagi setiap pertanyaan [4][9]. Benchmark akademik yang kerap dipakai: TruthfulQA (kebenaran faktual), HaluEval (deteksi halusinasi), FELM (faktualitas pada tugas instruksi), dan RAGAS sebagai kerangka evaluasi pipeline RAG secara utuh [9].
+
+Terakhir, yang sering dilupakan oleh tim teknis: evaluasi otomatis tidak menggantikan human judgment. Proses bisnis yang sehat mencakup review berkala — misalnya sampling mingguan 10% output aktual yang dinilai oleh domain expert. Skor human acceptability di atas 95% dan hallucination rate di bawah 5% adalah patokan realistis untuk deployment produksi. Rincian metrik dan targetnya disajikan pada Tabel 4.
+
+### Tabel 4: Benchmark Metrik Grounding
+
+Terakhir, patokan kuantitatif yang bisa dipakai sebagai service level objective (SLO) pipeline Anda:
+
+| Metrik | Definisi | Range | Target Bisnis | Tools |
+|:---|:---|:---:|:---:|:---|
+| Faithfulness | Proporsi klaim yang didukung konteks | 0-1 | >0,9 | CLAIMDECOMP, RAGAS |
+| Answer Relevancy | Relevansi jawaban terhadap query | 0-1 | >0,85 | RAGAS |
+| Context Precision@k | Presisi dokumen relevan di top-k | 0-1 | >0,8 | LlamaIndex, LangChain |
+| Hallucination Rate | % output mengandung fakta tidak berdasar | 0-100% | <5% | HaluEval, SelfCheckGPT |
+| Human Acceptability | % output disetujui domain expert | 0-100% | >95% | Review manual sampling |
+
+Analisis: empat metrik pertama menutup sisi teknis, tetapi metrik kelima — human acceptability — adalah pengingat bahwa angka otomatis tidak selalu mencerminkan kualitas nyata. Faithfulness 0,95 yang dicapai dengan jawaban yang aman tetapi tidak berguna ("data tidak tersedia dalam konteks") selalu kalah dari jawaban yang benar-benar membantu dengan faithfulness 0,91. Karena itu target bisnis pada tabel ini bukan batas akhir: jadikan lima metrik ini dashboard mingguan, dan biarkan domain expert yang me-review sampling menentukan apakah pipeline "layak dipromosikan" atau perlu disetel kembali [4][9].
+
+### Langkah 1: Membangun RAG Sederhana dengan LlamaIndex
+
+Praktikum ini membangun pipeline grounding nyata untuk dokumen bisnis — kontrak, SOP, atau laporan — memakai model lokal melalui Ollama. Semantic chunking dipilih karena memotong dokumen berdasarkan batas makna, bukan jumlah token kaku, sehingga kualitas retrieval untuk konteks bisnis lebih baik.
+
+Perhatikan praktik baik pada langkah 5: mencetak source nodes setiap kali query dijalankan. Ini bukan sekadar debugging — di produksi, kemampuan untuk menelusuri "jawaban ini berasal dari dokumen X bagian Y" adalah fondasi auditability yang dibutuhkan saat hasil sistem dipertanyakan.
+
+### Langkah 2: Evaluasi Faithfulness Pipeline dengan RAGAS
+
+Pipeline tanpa evaluasi adalah risiko tersembunyi. Script berikut mengukur tiga metrik kunci memakai RAGAS dengan dataset uji yang mewakili query bisnis nyata:
+
+Bandingkan hasilnya dengan target pada Tabel 4 (faithfulness > 0,9; relevancy > 0,85; context precision > 0,8). Jika faithfulness rendah, periksa konteks yang diretrieve (kemungkinan masalah chunking atau retriever); jika relevancy rendah, periksa kualitas pertanyaan dan format jawaban model. Evaluasi ini sebaiknya dijalankan sebagai pipeline berkala — bukan sekali jalan.
+
+### Langkah 3: Memasang Guardrails untuk Validasi Output Real-time
+
+Langkah terakhir menambahkan lapisan validasi pada output — khususnya untuk laporan keuangan yang formatnya harus konsisten dan angka-angkanya valid:
+
+Perhatikan dua strategi penanganan kegagalan pada script ini: on_fail="fix" (perbaiki otomatis setelah berbagi dengan model) untuk bahasa toksik, dan on_fail="reask" (tanyakan ulang ke model dengan instruksi perbaikan) untuk format angka. Pilihan "penyaring vs penanya-ulang" ini adalah keputusan desain antarmuka: fix lebih cepat tetapi berisiko mengubah makna; reask lebih lambat tetapi menjaga informasi. Untuk laporan keuangan, reask adalah pilihan yang jauh lebih aman [9].

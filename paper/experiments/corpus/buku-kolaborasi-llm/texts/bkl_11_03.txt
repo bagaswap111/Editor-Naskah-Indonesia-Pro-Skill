@@ -1,0 +1,21 @@
+Pilar ketiga: jaringan local-first — DNS lokal, akses LAN-only. LLM server harus tetap bisa melayani keluarga meski koneksi internet rumah mati. Ini bukan sekadar preferensi: jika sistem bergantung pada cloud, maka outage ISP menjadi outage asisten keluarga. Desain ini juga yang membuat sistem tetap cepat: tidak ada round-trip keluar rumah, tidak ada antrean di server orang lain.
+
+### Intermiten Availability: Boleh Mati Malam Hari
+
+Pilar keempat adalah paradoks yang paling sulit dipahami orang enterprise: ketersediaan intermiten justru diinginkan. Sistem boleh mati tengah malam saat semua tidur, dan menyala kembali saat keluarga bangun. Tidak hanya menghemat listrik — jadwal mati-hidup ini juga memperpanjang umur komponen dan memberi "waktu istirahat" bagi perangkat yang sebenarnya tidak dirancang untuk berputar tanpa henti.
+
+### Ease of Maintenance: Bisa Diurus oleh Non-IT
+
+Pilar kelima menutup rangkaian: kemudahan perawatan. Yang mengurus server ini bukan administrator sistem, melainkan anggota keluarga yang mungkin sehari-harinya guru atau dokter. Artinya: pembaruan harus otomatis atau satu-klik, backup harus terjadwal tanpa perintah manual, dan dokumentasi harus bisa dipahami orang awam. Sistem yang membutuhkan troubleshooting SSH setiap minggu akan segera ditinggalkan — bukan karena rusak, tetapi karena lelah.
+
+Praktik perawatan yang paling sering dilupakan adalah backup mingguan manual — justru karena di konteks keluarga tidak ada tim IT yang mengingatkannya. Pilihannya sederhana: cron job yang menyalin folder model penting dan vector store ke HDD eksternal setiap Minggu malam, atau snapshot otomatis di NAS rumah. Data yang paling berharga bukan modelnya — model bisa diunduh ulang — melainkan dokumen keluarga di ChromaDB dan konfigurasi server. Backup mingguan adalah asuransi termurah yang bisa dibeli keluarga ini.
+
+Kelima pilar ini juga menjadi lensa evaluasi yang berguna: sebelum menambah komponen apa pun (GPU kedua, RAG baru, perangkat suara), tanyakan lima pertanyaan — berapa watt ekstra? data siapa yang terlibat? bergantung internetkah? boleh mati kapan? siapa yang memeliharanya? Jika jawaban salah satu pertanyaan membuat gelisah, komponen itu layak ditunda. Inilah yang membedakan Home Assistant yang tumbuh sehat dari homelab yang menumpuk perangkat tanpa arah.
+
+Sebelum menentukan hardware dan SLA, kita harus membaca ritme harian keluarga. Sama seperti arsitek membaca pola lalu lintas sebelum mendesain jalan, perancang Home AI Assistant harus membaca pola beban sebelum mendesain sistem.
+
+Faktanya sederhana namun menentukan: peak hours terjadi pada 18:00-21:00 — saat semua anggota pulang, anak-anak minta bantuan PR, dan orang tua menanyakan resep masak atau mengecek jadwal keluarga. Sementara itu, low traffic mutlak terjadi pada 00:00-06:00 ketika seluruh rumah tertidur — inilah jendela emas untuk auto-shutdown GPU. Di luar dua jendela itu, beban mengalun rendah: pagi hari sibuk singkat untuk tugas sekolah, siang nyaris sepi, sore mulai berangsur naik.
+
+Yang sering disalahpahami adalah angka concurrent users: meskipun rumah berisi 8 orang, pada puncaknya pun hanya maksimal 2-3 orang yang mengetik pertanyaan di saat bersamaan. Ini karena interaksi asisten di rumah bersifat interleaved — bergantian, bukan serempak — berbeda dengan kantor yang melempar 10 request sekaligus dari dashboard tim. Dengan kata lain, sistem yang mampu melayani 3 sesi paralel dengan nyaman sudah memasok buffer yang aman bagi seluruh penghuni rumah.
+
+Jenis query juga berpola. Sebagian besar permintaan keluarga adalah pendek — prompt di bawah 100 token — dan bersifat instruksional: "buatkan daftar belanja", "jelaskan fotosintesis untuk kelas 6", "resep ayam goreng". Sangat jarang anggota keluarga menulis creative writing panjang lebar. Implikasinya: prefill (pemrosesan prompt) ringan, sedangkan generation mendominasi — pola yang sangat cocok untuk model 7-14B dengan kuantisasi, yang justru unggul pada throughput bertoken pendek-sedang. Temuan Demystifying SLM for Edge Deployment [4] menunjukkan bahwa model kecil di edge mengalami keterbatasan in-context learning pada tugas kompleks, tetapi untuk query instruksional keluarga, model kelas 7-14B berada jauh di dalam zona nyamannya.

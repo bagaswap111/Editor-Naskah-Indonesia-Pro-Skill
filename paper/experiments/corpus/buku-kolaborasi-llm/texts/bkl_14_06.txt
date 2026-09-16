@@ -1,0 +1,31 @@
+Profil. PT Karya Digital adalah startup teknologi dengan 35 karyawan: Engineering 15, Operations 10, Finance 5, dan Legal 5. Mereka butuh AI asisten untuk empat tugas inti: coding assistant untuk engineer, analisis kontrak untuk legal, review laporan keuangan untuk finance, dan knowledge base HR untuk operasional. Keputusan pertama mereka: semua data harus berada di server sendiri, karena kontrak vendor dan laporan keuangan tidak boleh keluar kantor.
+
+Arsitektur terpilih. Tim IT memilih 2 node GPU: H100 80GB + L40S 48GB yang berjalan active-active — H100 menangani inference berat (Mistral Large 3 untuk coding), L40S menangani query throughput-tinggi model kecil. Keduanya dikelola K3s cluster 3 node (2 worker GPU + 1 control plane). Di depannya berdiri LiteLLM proxy untuk rate limiting dan cost tracking, serta HAProxy dual-node dengan keepalived. Stack model: DeepSeek V4 Flash (konteks 1 juta token, lisensi MIT) untuk analisis dokumen panjang — kontrak dan laporan keuangan — dan Mistral Large 3 (Apache 2.0) untuk coding assistant. RAG dibangun di atas Qdrant vector DB + PostgreSQL.
+
+Hasil. Dalam 6 bulan pertama, sistem mencapai 99,997% uptime — total downtime hanya sekitar 13 menit, dan dua kali failover terjadi tanpa downtime yang dirasakan karyawan: ketika satu node GPU dimatikan untuk pergantian pendingin, LiteLLM mengalihkan trafik ke node cadangan dalam hitungan detik, dan pengguna hanya merasakan satu-dua request yang sedikit lebih lambat. Kasus ini membuktikan poin penting Tabel 3: failover yang direncanakan dan diuji rutin terasa "hampa" bagi pengguna.
+
+Biaya dan penghematan. Investasi awal Rp 350 juta (hardware Rp 280 juta, setup Rp 50 juta, lisensi Rp 20 juta). Sebagai pembanding: ChatGPT Enterprise untuk 35 karyawan dengan harga sekitar $60 per user per bulan membutuhkan $2.100 per bulan — sekitar Rp 33 juta per bulan. Dengan perhitungan ini, investasi balik modal dalam 15 bulan, dan setelah itu seluruh biaya menyusut menjadi biaya listrik dan maintenance. Di sinilah argumen ekonomi general office on-premise berdiri paling kokoh: untuk skala 21-50 user, kepemilikan aset menghasilkan payback period kurang dari dua tahun, sementara menyisakan data tetap di dalam kendali perusahaan.
+
+### Paper Jurnal/Konferensi
+
+[1] Wang, B., et al. (2025). xLLM: High-performance and Intelligent LLM Inference Framework for Enterprise-grade Serving. arXiv: 2510.14686, DOI: 10.48550/arXiv.2510.14686 — arsitektur decoupled service-engine dengan fault tolerance dan manajemen distributed KV cache; menjadi dasar verifikasi target SLA pada Tabel 1.
+
+[2] Hao, S., et al. (2025). SLOs-Serve: Serving LLM Applications with Multi-SLOs and Dynamic Request Routing. arXiv: 2504.08784, DOI: 10.48550/arXiv.2504.08784 — per-stage SLO management dan optimasi kapasitas serving per GPU; rujukan untuk menyusun target SLA bertingkat.
+
+[3] Strati, F., McAllister, S., Phanishayee, A., Tarnawski, J., & Klimovic, A. (2024). DéjàVu: KV-cache Streaming for Fast, Fault-tolerant Generative LLM Serving. Proceedings of ICML. arXiv: 2403.01876, DOI: 10.48550/arXiv.2403.01876 — state replication untuk fault tolerance dengan recovery time minimal; dasar angka failover time pada Tabel 3.
+
+[4] Sun, B., et al. (2024). Llumnix: Rescheduling LLM Serving for Heterogeneous and Unpredictable Requests. Proceedings of USENIX OSDI. arXiv: 2409.01234, DOI: 10.48550/arXiv.2409.01234, PDF — live migration antar instance GPU untuk load balancing dan fault tolerance; relevan untuk strategi redundansi pada seksi 3.
+
+[5] Mao, Z., et al. (2024). SkyServe: Serving AI Models across Regions and Clouds with Spot Instances. arXiv: 2411.01438, DOI: 10.48550/arXiv.2411.01438 — high availability dengan campuran spot dan on-demand replicas; rujukan verifikasi biaya dan availability pada Tabel 2 dan 3.
+
+### Referensi Pendukung (Dokumentasi/Repository)
+
+[6] Kubernetes. Official Documentation — Horizontal Pod Autoscaler. https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+
+[7] HAProxy. Official Documentation. https://www.haproxy.org/documentation
+
+[8] LiteLLM. AI Gateway Documentation. https://docs.litellm.ai
+
+[9] Prometheus. Alerting Rules. https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
+
+[10] Indonesia. (2022). Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi. https://peraturan.go.id/id/uu-no-27-tahun-2022

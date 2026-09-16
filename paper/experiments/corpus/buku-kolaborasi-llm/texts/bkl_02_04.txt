@@ -1,0 +1,30 @@
+Setiap expert adalah sebuah Feed-Forward Network independen, biasanya terdiri dari 2-3 lapisan linear dengan fungsi aktivasi non-linear di antaranya. Dimensi hidden dari setiap expert, yang disebut d_moe, umumnya sama dengan d_model. Jumlah expert bervariasi antar arsitektur: Mixtral menggunakan 8 expert, DBRX menggunakan 16, DeepSeek V2 menggunakan 160, dan DeepSeek V4 menggunakan lebih dari 256. Parameter utama yang perlu dipahami adalah bahwa d_ff_expert — dimensi FFN setiap expert — biasanya lebih kecil dari d_ff_dense pada dense model yang setara, sehingga total FLOP MoE tetap terkendali.
+
+Keunggulan penting dari arsitektur MoE adalah bahwa setiap expert dapat dijalankan secara independen pada GPU yang berbeda. Teknik ini, yang disebut expert parallelism, memungkinkan distribusi beban komputasi yang efisien di cluster multi-GPU. DeepSeek V4 Pro dengan 256 expert dapat didistribusikan ke puluhan GPU, masing-masing GPU menangani subset expert. Tanpa expert parallelism, model MoE triliunan parameter tidak akan mungkin dijalankan secara praktis.
+
+### Load Balancing: Mencegah Expert Collapse
+
+Tanpa mekanisme load balancing, router akan cenderung mengirim hampir semua token ke 1-2 expert favorit. Fenomena ini disebut expert collapse — semua token dianggap mirip oleh router, menyebabkan expert lain menganggur dan meniadakan manfaat arsitektur MoE. Untuk mencegahnya, MoE menambahkan komponen loss khusus yang disebut Load Balancing Loss (L_bal) selama pelatihan.
+
+Formulasi umum L_bal adalah α · num_experts · Σ_i (f_i · P_i), di mana f_i adalah fraksi token yang dirouting ke expert i, P_i adalah rata-rata probabilitas routing untuk expert i, dan α adalah koefisien yang biasanya bernilai sekitar 0,01. Intuisi di balik formula ini: router dihukum jika distribusi token tidak merata ke semua expert. Semakin kecil α, semakin bebas router memilih — trade-off antara performa maksimal (router memilih expert yang paling sesuai) dan load balance (distribusi merata).
+
+### Varian Routing dan Balancing
+
+Beberapa varian routing dan balancing telah dikembangkan oleh komunitas riset. Top-1 routing, yang digunakan oleh Switch Transformer, memberikan latency minimal tetapi kualitas lebih rendah karena hanya satu expert yang menangani setiap token. Top-2 routing, yang dipopulerkan Mixtral, memberikan keseimbangan antara kualitas dan efisiensi. Top-K dengan K besar, seperti yang digunakan DeepSeek V2 dengan K=9 dari 160 expert, memberikan kualitas lebih tinggi tetapi overhead komunikasi lebih besar.
+
+Pendekatan yang lebih radikal adalah Expert Choice routing, di mana expert yang memilih token, bukan token yang memilih expert — setiap expert mengambil token dengan skor routing tertinggi hingga kapasitasnya penuh. Teknik ini memberikan load balance sempurna secara otomatis tetapi latency routing lebih tinggi. DeepSeek V4 memperkenalkan auxiliary loss-free balancing, yang menggunakan bias dinamis per expert tanpa auxiliary loss, mengurangi overhead training secara signifikan.
+
+### Weighted Sum Aggregation
+
+Output akhir lapisan MoE dihitung sebagai output = Σ_{i ∈ top-k} router_weight_i · FFN_i(x). Bobot router dari hasil softmax menentukan kontribusi relatif setiap expert. Untuk konfigurasi K=2, biasanya satu expert dominan dengan bobot 0,7-0,9, sementara expert lainnya berperan sebagai "pelengkap" dengan bobot 0,1-0,3. Bobot ini juga merupakan indikator kepercayaan router terhadap pilihannya — distribusi bobot yang merata (0,5/0,5) menandakan bahwa token berada di perbatasan dua domain, sementara bobot yang timpang menandakan token yang jelas termasuk dalam satu domain tertentu.
+
+### Tabel 2: Trade-off Berdasarkan Skenario
+
+| Skenario | Pilihan Terbaik | Alasan |
+|:---|:---|:---|
+| Single user, GPU 24GB | Dense 7-8B Q4 | VRAM terbatas, MoE tidak muat |
+| Multi-user server, 2x 24GB | MoE (Mixtral Q4) | Throughput tinggi per user |
+| Coding assistant lokal | Dense 7-8B Q4_K_M | Latency rendah, respons cepat |
+| Batch processing (RAG) | MoE (DeepSeek) | Lebih efisien per token |
+| Fine-tuning custom | Dense (lebih mudah) | MoE butuh teknik khusus |
+| Apple Silicon 48GB | MoE Q4_K_M | Unified memory cukup besar |

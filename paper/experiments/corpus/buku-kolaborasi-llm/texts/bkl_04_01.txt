@@ -1,0 +1,22 @@
+# Bab 2.5: CPU-Only Inference
+
+Setelah membaca bab ini, Anda akan mampu:
+
+- Mengonfigurasi RAM (DDR5, jumlah channel, kecepatan) secara optimal untuk CPU inference
+- Membaca dan menafsirkan benchmark token/s pada berbagai generasi CPU
+
+### Ribuan Core versus Puluhan Core
+
+GPU dan CPU bekerja dengan filsafat yang berlawanan. GPU mendekati operasi matriks — makanan pokok LLM — dengan ribuan core kecil yang bekerja serentak: RTX 4090 memiliki lebih dari 16.000 CUDA core. CPU, bahkan kelas workstation, hanya memiliki puluhan core — Xeon kelas atas sekitar 48 hingga 64 core. Bagi LLM yang setiap lapisnya adalah perkalian matriks raksasa, jumlah jalur paralel ini adalah segalanya. Itulah alasan pertama mengapa inferensi di CPU terasa seperti mengayuh sepeda di samping mobil sport.
+
+Namun perlu keadilan bagi CPU: ia tidak dirancang untuk pekerjaan ini sejak awal. Arsitektur CPU berakar pada latency — mengeksekusi satu aliran instruksi secepat mungkin sambil mengubah-ubah tugas secara acak, dari spreadsheet ke browser ke email — sementara GPU lahir untuk throughput: menyelesaikan jutaan operasi seragam. Ketika kita memaksa CPU menjalankan LLM, kita pada dasarnya meminta seorang polymath berdiri di jalur produksi pabrik. Ia bisa melakukannya, tetapi bukan itu keahliannya — dan perbedaan keahlian inilah yang menjelaskan angka-angka token/s yang akan Anda lihat sepanjang bab ini.
+
+Namun CPU menyimpan kartu truf yang justru tidak dimiliki kebanyakan GPU: akses ke RAM raksasa. GPU diikat oleh VRAM-nya sendiri (8-24 GB untuk kelas konsumen), sementara CPU bisa menjangkau 64 hingga 512 GB DDR5 melalui motherboard. Artinya, model yang mustahil dimuat ke VRAM — seperti Qwen 2.5 (14B) dalam presisi penuh atau bahkan model 70B terkuantisasi — masih bisa dijalankan sepenuhnya di RAM. Inilah alasan kedua: CPU tidak bisa lari kencang, tetapi ia bisa membawa barang yang jauh lebih berat.
+
+### Angka Realitas: Lambat, Tapi Feasible
+
+Sebagaimana diukur komunitas, inferensi CPU-only memberikan sekitar 5-20 token/s untuk model 7B, dan turun ke 1-3 token/s untuk model 70B [1][4]. 20 token/s berarti sekitar 900 kata per menit — jauh di bawah kecepatan GPU, tetapi tetap setara mengetik manusia yang sangat cepat. Untuk percakapan interaktif ringan, hal ini terasa nyaman; untuk pemrosesan batch atau dashboard multi-user, ia kurang memadai. Di sinilah peta penggunaannya: server yang hanya aktif malam hari, laptop tanpa GPU, dan pengguna dengan budget rendah yang tetap ingin merasakan LLM lokal.
+
+Penting juga menetapkan ekspektasi yang jujur sejak awal. Pada kecepatan 5-10 t/s, percakapan terasa seperti chatting yang "berpikir lama" sebelum menjawab — masih nyaman untuk asisten yang menjawab paragraf pendek, tetapi kurang ideal untuk code completion real-time atau autocomplete yang menuntut respons di bawah satu detik. Pada 15-20 t/s (Xeon generasi baru dengan AMX), pengalaman sudah mendekati GPU kelas menengah untuk model 7-8B. Dan di kecepatan 1-3 t/s untuk model 70B, yang realistis hanyalah offline processing — biarkan berjalan semalaman untuk meringkas dokumen, bukan berdialog. Menetapkan ekspektasi di awal akan menyelamatkan Anda dari kekecewaan, dan membantu memilih orientasi mesin: interactive atau batch.
+
+Apa saja beban kerja nyata yang cocok untuk CPU-only? Tiga contoh paling umum: asisten pribadi ringan di laptop kantor — menjawab pertanyaan, meringkas email, menulis draf — di mana 8-12 t/s sudah lebih dari cukup untuk satu pengguna; server batch malam hari yang menjalankan RAG, data extraction, atau evaluation ribuan dokumen saat semua orang tidur; dan uji coba model — para pengembang yang ingin menguji beberapa arsitektur sebelum memutuskan membeli GPU. Ketiganya berbagi satu sifat: toleran terhadap latency tinggi, tetapi sensitif terhadap harga. Di sinilah CPU menunjukkan keunggulan sejatinya: bukan soal siapa tercepat, melainkan siapa yang bisa membawa pulang pekerjaan dengan biaya paling rendah.

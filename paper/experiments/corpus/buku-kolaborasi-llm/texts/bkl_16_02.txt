@@ -1,0 +1,33 @@
+Cara paling umum menggelar n8n di lingkungan perkantoran adalah self-hosted dengan Docker Compose, menggunakan Postgres sebagai database workflow. Alasan pemilihan Postgres sederhana: SQLite bawaan cukup untuk percobaan, tetapi gagal saat dua puluh orang menjalankan workflow bersamaan; Postgres memberikan transaksi yang aman, backup yang rapi, dan integrasi mudah dengan tim data.
+
+Dari sisi jaringan, yang umum dipakai adalah pola sidecar: kontainer n8n, kontainer Ollama, dan kontainer database berada dalam satu Docker network sehingga komunikasi antar-kontainer memakai nama host internal (misal http://ollama:11434) tanpa membuka port ke publik. Koneksi ke LLM lokal dilakukan lewat HTTP Request Node menuju Ollama API di localhost:11434 atau vLLM di localhost:8000.
+
+Untuk produksi, n8n menyediakan dua mode eksekusi: mode main (proses tunggal) untuk pengembangan dan traffic rendah, serta mode queue dengan Redis sebagai broker antrean untuk horizontal scaling — beberapa worker berbagi beban eksekusi dari antrean yang sama. Jika Anda butuh ketersediaan tinggi tanpa Redis, mode multi-main memungkinkan beberapa main node berbagi load balancing dengan konfigurasi yang lebih rumit.
+
+Pada lapisan model, arsitektur ini mendukung kombinasi: DeepSeek V4 Pro dan DeepSeek V4 Flash via Ollama untuk otomasi harian, Mistral Large 3 via Ollama untuk kebutuhan multimodal, serta integrasi cloud API seperti GPT-5.5, Claude Fable 5, atau Gemini 2.5 Pro untuk tugas kompleks yang memang membutuhkan kekuatan model proprietary. Strategi hybrid semacam ini — model lokal untuk 80% pekerjaan rutin, API cloud untuk 20% sisanya — adalah pola yang paling hemat biaya.
+
+### Tabel 1: Model LLM Unggulan untuk Workflow n8n
+
+Pilih model yang tepat sesuai bobot pekerjaan workflow — kolom "Keunggulan di n8n" menunjukkan arah penggunaannya.
+
+| Model | Parameter (Total/Aktif) | Lisensi | Context | SWE-bench | Keunggulan di n8n |
+|:---|:---:|:---:|:---:|:---:|:---|
+| DeepSeek V4 Pro | 1,6T / 49B | MIT | 1M | 80,6% | Agentic workflow, Terminal-Bench 67,9% |
+| DeepSeek V4 Flash | 284B / 13B | MIT | 1M | — | Efisien, cocok daily automation |
+| GPT-5.5 | Proprietary | Proprietary | 1M | — | Reasoning kuat, coding agentic |
+| Claude Fable 5 | Proprietary | Proprietary | 1M | 95,0% | Safety guardrails, SWE-bench tertinggi |
+| Mistral Large 3 | 675B / 41B | Apache 2.0 | 256K | — | Multimodal, granular MoE |
+| Gemini 2.5 Pro | Proprietary | Proprietary | 1M | — | Thinking mode, multimodal |
+| Ministral 3 | 3B/8B/14B | Apache 2.0 | 128K | — | Cascade Distillation, edge-friendly |
+
+Kedua model open-weight dari DeepSeek menjadi tulang punggung otomasi lokal berkat lisensi MIT tanpa batasan komersial. DeepSeek V4 Pro dengan 1M context unggul untuk agentic workflow yang menahan konteks percakapan panjang; DeepSeek V4 Flash (13B aktif) cukup untuk 80% tugas otomasi harian. Claude Fable 5 menawarkan SWE-bench tertinggi (95,0%) dengan safety classifiers, tetapi untuk memakainya Anda mengirim data ke API Anthropic, jadi sesuaikan dengan kebijakan kerahasiaan data kantor. Ministral 3 adalah pilihan menarik untuk edge device: model 8B bisa menangani klasifikasi sederhana dengan latency di bawah satu detik.
+
+### Tabel 2: Perbandingan Mode Eksekusi n8n
+
+Tiga mode eksekusi n8n dengan karakteristik, kelebihan, dan kekurangannya masing-masing.
+
+| Mode | Arsitektur | Use Case | Kelebihan | Kekurangan |
+|:---|:---|:---|:---|:---|
+| Main | Single process | Dev/test, traffic rendah | Setup sederhana | Tidak HA, blocking |
+| Queue | Worker + Redis | Produksi, traffic tinggi | Horizontal scaling, HA | Butuh Redis, lebih kompleks |
+| Multi-main | Multiple main nodes | HA tanpa Redis | Load balancing built-in | Konfigurasi lebih rumit |

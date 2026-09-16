@@ -1,0 +1,27 @@
+Puncak era model tertutup datang pada 2020 dengan GPT-3: 175 miliar parameter, dilatih pada 570 GB teks, dan mampu melakukan few-shot learning yang mengejutkan dunia. Tanpa fine-tuning khusus, GPT-3 bisa menulis esai, membuat kode Python, menjawab pertanyaan rumit, dan bahkan melakukan terjemahan bahasa — hanya dengan beberapa contoh dalam prompt.
+
+Bersamaan dengan GPT-3, makalah "Scaling Laws for Neural Language Models" (Kaplan et al., 2020) merumuskan hukum empiris: semakin besar parameter dan semakin banyak data training, semakin baik performa model. Hukum ini menjadi kredo industri selama bertahun-tahun dan mendorong perlombaan model raksasa.
+
+Komersialisasi dimulai: GPT-3 tersedia hanya melalui API berbayar, ChatGPT diluncurkan pada November 2022 dan mencapai 100 juta pengguna dalam dua bulan — adopsi tercepat dalam sejarah teknologi. Namun, keterbatasan model tertutup mulai terasa: tidak bisa diunduh, setiap query harus bayar, data pengguna dikirim ke cloud, dan tidak ada kontrol atas model.
+
+Titik balik sejarah terjadi pada Februari 2023. Meta merilis LLaMA-1 (Large Language Model Meta AI) dalam empat ukuran: 7B, 13B, 33B, dan 65B parameter. Yang membedakan LLaMA dari model sebelumnya adalah efisiensi training: LLaMA-1 7B hanya dilatih dengan 1 triliun token, sementara GPT-3 175B dilatih dengan 300 miliar token. Ini berarti model yang lebih kecil bisa mencapai kualitas kompetitif dengan biaya training yang jauh lebih rendah.
+
+Beberapa minggu setelah rilis, model LLaMA-1 "bocor" ke publik melalui forum 4chan — siapa pun bisa mengunduhnya. Bocornya LLaMA-1 memicu ledakan ekosistem lokal. Georgi Gerganov mengembangkan llama.cpp, implementasi C++ murni yang bisa menjalankan LLaMA di CPU tanpa GPU mahal. Lahirlah format GGUF (GGML Universal Format) untuk kuantisasi model, dan tools (perangkat lunak) seperti Ollama serta LM Studio yang membuat instalasi model lokal semudah drag-and-drop.
+
+Dampaknya revolusioner: untuk pertama kalinya, individu dengan laptop gaming bisa menjalankan LLM berkualitas tanpa koneksi internet. Komunitas open-source mulai melakukan fine-tuning untuk bahasa daerah, domain medis, hukum, dan coding — sesuatu yang mustahil dilakukan dengan API tertutup.
+
+Pada September 2023, Mistral AI — sebuah startup asal Prancis — merilis Mistral 7B dengan klaim berani: model 7B ini mengalahkan LLaMA-2 13B di hampir semua benchmark. Ini adalah momen penting yang membuktikan bahwa jumlah parameter bukanlah segalanya.
+
+Inovasi arsitektur Mistral 7B meliputi Sliding Window Attention (SWA) yang memungkinkan konteks hingga 8.192 token dengan biaya komputasi linier — bukan kuadratik — serta Grouped Query Attention (GQA) yang mengoptimalkan penggunaan memori KV-cache. GQA kemudian diadopsi oleh Llama-3 dan menjadi standar industri.
+
+Mistral 7B membuka pintu bagi filosofi baru: model yang lebih kecil dan lebih efisien bisa sama kompetennya dengan model besar jika arsitektur dirancang dengan baik. Ini adalah awal dari era model "kecil bertenaga" (small language models atau SLM) yang menjadi tren utama pada tahun-tahun berikutnya.
+
+Meta kembali mengguncang industri pada April 2024 dengan Llama-3 — sebuah herd of models (kawanan model) dalam tiga ukuran: 8B, 70B, dan 405B parameter, semuanya dilatih pada lebih dari 15 triliun token. Ini adalah peningkatan 15 kali lipat dalam jumlah data training dibandingkan LLaMA-1.
+
+Fitur unggulan Llama-3 meliputi:
+- Context window 128K — 128 kali lebih besar dari GPT-3
+- Grouped Query Attention — mengadopsi inovasi Mistral
+- Flash Attention 2 — attention yang dioptimalkan untuk GPU modern
+- Tool use dan function calling native (Llama-3.1, Juli 2024)
+
+Dampaknya terhadap ekosistem lokal sangat signifikan. Dengan ukuran hanya 5,2 GB dalam format Q4_K_M, Llama-3 8B bisa dijalankan di laptop dengan GPU kelas RTX 2060. Kualitasnya setara atau melebihi GPT-3.5 untuk sebagian besar tugas — dan GPT-3.5 adalah model yang setahun sebelumnya masih memerlukan API berbayar.

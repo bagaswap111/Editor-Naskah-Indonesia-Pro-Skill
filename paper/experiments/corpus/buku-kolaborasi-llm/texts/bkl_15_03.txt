@@ -1,0 +1,28 @@
+Diagram ini menunjukkan tiga hal penting. Pertama, semua pengguna bertemu di dua replica LiteLLM — tidak ada jalur langsung ke model mana pun, sehingga pemeriksaan key, budget, dan rate limit tidak mungkin terlewat. Kedua, vLLM on-premise menjadi jalur utama sementara cloud (OpenAI/Anthropic) hanya jalur putus-putus fallback — kontras yang menegaskan strategi biaya: bayar rupiah ke GPU sendiri dulu, cloud hanya saat darurat. Ketiga, monitoring Prometheus mengarah ke Grafana untuk dashboard spend dan Alert Manager untuk peringatan budget — menutup siklus pengawasan dari permintaan hingga laporan.
+
+### Satu Kunci per Departemen
+
+Prinsip pertama pengendalian biaya di LiteLLM adalah *setiap departemen mendapat virtual key sendiri dengan budget terpisah. Kunci Engineering tidak sama dengan kunci HR; kunci HR tidak bisa menghabiskan anggaran Legal. Setiap kunci mengikat identitas pengguna (melalui metadata seperti department: engineering), sehingga setiap rupiah yang terpakai dapat ditelusuri kembali ke pemegang kuncinya.
+
+Pemisahan ini bukan hanya soal biaya — ia juga menciptakan accountability. Ketika laporan bulanan menunjukkan Finance menghabiskan budget dua kali lipat HR, manajemen bisa langsung berbicara dengan kepala Finance dengan angka konkret, bukan perasaan. Di sinilah virtual keys berbeda dari sekadar membagikan satu kunci API bersama: kunci bersama adalah "uang kas di meja," sedangkan kunci per departemen adalah "buku kas per unit."
+
+### Empat Tier Akses
+
+Akses dibagi menjadi empat tier dengan jenjang kuota dan hak model:
+
+- Admin (IT, DevOps) — akses semua model termasuk model besar 70B dan Whisper untuk speech-to-text, budget tertinggi.
+- Power (Engineering, Data) — akses model 70B + 8B untuk coding dan analisis data berat.
+- Standard (HR, Finance, Legal) — hanya model 8B, cukup untuk summarization, tanya jawab dokumen, dan penulisan.
+- Guest (Intern, Trainee) — hanya model 8B tanpa RAG, budget paling kecil, untuk orientasi dan tugas-tugas ringan.
+
+Logika di balik tier ini adalah menuangkan kebutuhan kerja ke dalam kuota (pemetaan rinci lihat Tabel 2 di Seksi 4). Karyawan yang pekerjaannya menuntut model besar dibayar mahal oleh perusahaan — mereka mendapat kuota besar. Karyawan yang hanya butuh bantuan menulis surat tidak perlu menyentuh model 70B yang biayanya jauh lebih tinggi. Hasilnya: budget terpakai tepat sasaran, bukan menguap tanpa arah.
+
+### RBAC: Tiga Peran Pengelola
+
+RBAC di LiteLLM berjalan dalam tiga lapisan peran: Proxy Admin — pengelola infrastruktur yang membuat kunci, mengatur model, dan membaca semua laporan; Internal User — operator aplikasi internal yang memakai kunci untuk kebutuhan departemennya; dan End User — karyawan akhir yang tidak pernah melihat kunci sama sekali, cukup memakai aplikasi yang sudah terhubung. Batas ini penting: hanya Proxy Admin yang dapat mengubah budget atau melihat laporan lintas departemen, mencegah seorang power user menaikkan kuotanya sendiri secara diam-diam.
+
+Setiap lapisan peran ini juga dapat dipautkan ke SSO (misalnya Google Workspace atau Microsoft Entra ID) sehingga identitas karyawan yang sudah ada di direktori kantor langsung dipakai untuk otentikasi. Karyawan yang keluar otomatis kehilangan akses saat akunnya dinonaktifkan di direktori — tidak ada lagi "kunci API yang masih hidup setelah mantan karyawan itu pergi."
+
+### Tabel 2: Tier Virtual Key untuk General Office
+
+Empat tier kunci berikut memetakan kebutuhan kerja departemen ke kuota model, budget, dan batas kecepatan — angka-angka ini adalah titik awal yang lazim untuk kantor 21-50 user.

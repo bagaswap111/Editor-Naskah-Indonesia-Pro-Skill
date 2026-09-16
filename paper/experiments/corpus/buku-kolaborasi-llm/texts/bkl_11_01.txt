@@ -1,0 +1,32 @@
+# Bab 6.1: Karakteristik Sistem
+
+Setelah membaca sub-bab ini, Anda akan mampu:
+
+- Membedakan secara fundamental antara sistem LLM personal (1 user), Home Assistant (4-8 user), dan small office (9-20 user) — dari sisi concurrency, uptime, daya, hingga biaya
+- Membuat keputusan arsitektur jaringan local-first: akses lewat LAN dan mDNS, tanpa port forwarding ke internet
+- Memperkirakan kebutuhan hardware dan biaya total sesuai skenario keluarga, serta menghitung payback period dibandingkan langganan AI komersial
+
+Home AI Assistant bukan sekadar "LLM di rumah". Ia adalah sistem inferensi lokal yang melayani 4-8 anggota keluarga secara simultan — dengan karakter operasional yang sangat berbeda dari server kantor. Ini penting dipahami sejak awal: persis seperti tidak mungkin mengelola keluarga dengan SOP perusahaan, sistem LLM rumahan juga tidak boleh dirancang dengan mentalitas datacenter.
+
+Karakteristik unik sistem ini mudah diingat melalui tiga kata kunci. Pertama, concurrency rendah — meskipun rumah dihuni delapan orang, sangat jarang delapan orang melakukan prompt secara bersamaan; lonjakan paling realistis hanya 2-3 pengguna pada jam sibuk. Kedua, prioritas latensi sedang — respons 5-10 detik masih sangat bisa diterima untuk pertanyaan PR, resep masak, atau ringkasan dokumen; keluarga bukan bursa saham. Ketiga, kebutuhan uptime yang fleksibel — tidak ada alasan sistem menyala 24/7 saat seluruh penghuni tidur; uptime 99,999% adalah jawaban untuk masalah yang tidak dimiliki rumah tangga.
+
+Akibatnya, banyak fasilitas yang wajib di kantor justru tidak perlu ada di rumah: tidak perlu SSO (single sign-on) dengan identity provider, tidak perlu audit log yang tamper-evident, dan tidak perlu auto-scaling untuk menaik-turunkan kapasitas. Justru yang dibutuhkan adalah kesederhanaan, efisiensi daya, dan kemudahan perawatan oleh anggota keluarga yang bukan IT professional. Sistem yang dirancang berlebihan akan mati pelan-pelan karena tidak ada yang sanggup memeliharanya.
+
+Ada sebuah uji sederhana untuk menguji mentalitas desain ini: tanyakan, "siapa yang mematikan server ini?" Jika jawabannya adalah ayah yang harus membuka terminal untuk me-restart setiap kali lampu indikator berkedip, sistem itu milik seorang engineer — bukan keluarga. Sistem rumahan yang sehat berjalan di latar belakang kehidupan rumah: menyala saat dibutuhkan, tidur saat semua tidur, dan tidak pernah menuntut perhatian pada jam-jam tersibuk rumah tangga — yang justru biasanya merupakan puncak pemakaian asisten.
+
+Analoginya bisa didekatkan dengan mesin fotokopi: di kantor, mesin fotokopi dioperasikan petugas khusus, dihitung per lembar, dan dirawat kontrak servis. Di rumah, mesin fotokopi itu cukup diletakkan di pojok ruang kerja — semua orang tahu cara memakainya, tidak ada yang menghitung, dan siapa pun bisa mengganti tinta. Home AI Assistant dirancang untuk jadi mesin fotokopi itu: cukup berguna sehingga dipakai setiap hari, cukup sederhana sehingga tidak pernah menjadi "pekerjaan" bagi penghuninya.
+
+### Tabel 1: Perbandingan Skala Deployment
+
+Tabel berikut membandingkan tiga skala deployment secara berdampingan — dari sistem personal, Home Assistant, hingga small office — agar pembaca melihat bahwa setiap kolom berubah drastis ketika konteksnya berubah.
+
+| Karakteristik | Personal (1 User) | Home Assistant (4-8 User) | Small Office (9-20 User) |
+|:---|:---|:---|:---|
+| Concurrency | 1 sequential | 2-3 peak | 5-10 peak |
+| Uptime Target | Saat dipakai | ~16 jam/hari | 24/7 |
+| Power Budget | ~100-300W (saat running) | ~30-100W (idle rendah) | ~300-600W |
+| Storage (Vector DB) | Tidak perlu | ~100-500 GB | ~1-5 TB |
+| Backup | Tidak perlu | Backup mingguan manual | Backup otomatis + redundancy |
+| IAM | Single user | Family account (sederhana) | SSO/OAuth |
+| Cooling | Fan standar | Silent/low noise | Rack cooling |
+| Biaya Estimasi | ~Rp 15-30jt | ~Rp 25-45jt | ~Rp 60-120jt |

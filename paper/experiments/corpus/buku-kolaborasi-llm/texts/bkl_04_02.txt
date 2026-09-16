@@ -1,0 +1,21 @@
+Sebelum membaca tiga tabel berikut, ada baiknya menyegarkan satu kerangka: tabel pertama membandingkan "siapa pelakunya" (CPU), tabel kedua "bagaimana pelakunya bekerja" (kuantisasi), dan tabel ketiga "berapa banyak pelaku yang berguna" (scaling core). Ketiganya saling melengkapi — dan temuan dari satu tabel sering menjelaskan keanehan di tabel lain, seperti yang akan kita lihat pada analisis setelah masing-masing tabel.
+
+### Tabel 1: Perbandingan CPU untuk Inferensi LLM
+
+Tabel berikut merangkum tujuh platform perwakilan — dari CPU konsumen hingga workstation — lengkap dengan dukungan SIMD, unit matriks, bandwidth memori, harga indikatif, dan performa token/s untuk model 7B Q4.
+
+| CPU | Microarch | SIMD | Matrix Unit | Max RAM | Memory BW | Cores | Harga (Rp) | Tokens/s 7B Q4 |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|---:|---:|
+| Intel i5-13400 | Raptor Lake | AVX2 | - | DDR5-4800 128GB | ~76 GB/s | 10C/16T | ~3 jt | ~4 t/s |
+| Intel i7-14700K | Raptor Lake | AVX-512 | - | DDR5-5600 192GB | ~90 GB/s | 20C/28T | ~5 jt | ~6 t/s |
+| AMD Ryzen 9 7950X | Zen 4 | AVX-512 | - | DDR5-5200 128GB | ~83 GB/s | 16C/32T | ~7 jt | ~5 t/s |
+| Intel Xeon 4th Gen | Sapphire Rapids | AVX-512 | AMX | DDR5-4800 2TB | ~200 GB/s (quad) | 32C/64T | ~15 jt | ~15 t/s |
+| Intel Xeon 5th Gen | Emerald Rapids | AVX-512 | AMX | DDR5-5600 2TB | ~250 GB/s (quad) | 48C/96T | ~25 jt | ~20 t/s |
+| AMD Threadripper 7980X | Zen 4 | AVX-512 | - | DDR5-5200 512GB | ~170 GB/s (quad) | 64C/128T | ~45 jt | ~12 t/s |
+| Apple M4 Pro | ARM | NEON | AMX | LPDDR5-6400 48GB | ~270 GB/s | 14C | ~25 jt (system) | ~40 t/s |
+
+Baca tabel ini dengan dua poros. Poros pertama: AMX adalah pembeda utama — Xeon 4th Gen mencapai 15 t/s meskipun bandwidth-nya (~200 GB/s) hanya sedikit di atas Threadripper (~170 GB/s), justru karena keberadaan unit matriks AMX. Poros kedua: bandwidth memori mengalahkan jumlah core — Ryzen 9 7950X (16 core, 83 GB/s) kalah dari i7-14700K (20 core, 90 GB/s) dan jauh dari M4 Pro yang hanya 14 core tetapi menikmati ~270 GB/s serta unit matriks andal berkat LPDDR5-6400. Perhatikan juga nilai per rupiah: Xeon 4th Gen bekas server sekitar Rp 15 juta memberikan 15 t/s — value terbaik tabel untuk pengguna serius. Apple M4 Pro, meskipun tercatat sebagai "system" Rp 25 juta, mengalahkan semua CPU x86 dalam token/s — topik yang akan kembali dibahas di Bab 2.7 dari sudut efisiensi energi.
+
+Tabel ini juga mengajarkan cara membaca spec sheet dengan skeptis. Lihat Ryzen 9 7950X: 16 core, clock tinggi, mendukung AVX-512 — di atas kertas terlihat seperti pilihan terbaik di kelasnya, tetapi kapasitas bandwidth ~83 GB/s membuatnya "lapar data". Sementara itu i7-14700K dengan bandwidth ~90 GB/s dan AVX-512 unggul tipis dalam token/s. Bagi pembaca yang sedang memilih CPU bekas di pasaran lokal, urutan yang disarankan: cari AMX dulu, bandwidth kedua, core ketiga — aturan yang jarang diungkapkan pada ulasan CPU konsumen yang masih berfokus pada FPS game, bukan token/s.
+
+### AVX-512: Satu Instruksi, Banyak Data

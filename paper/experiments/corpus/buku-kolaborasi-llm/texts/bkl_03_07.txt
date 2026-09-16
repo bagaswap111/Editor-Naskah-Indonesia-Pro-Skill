@@ -1,0 +1,70 @@
+Mengambil keputusan. Si peneliti mempertimbangkan tiga jalan: RTX 4090 baru
+(1.008 GB/s, ~Rp 30 jt), RTX 3090 second (936 GB/s, ~Rp 12 jt), atau bertahan.
+Upgrade ke 4090 menjanjikan ~110 t/s — 3,7x bandwidth, 3,7x kecepatan, tetapi
+biayanya 6x lipat (Rp 5 jt → Rp 30 jt): inilah diminishing returns klasik.
+Sedangkan RTX 3090 used menawarkan 936 GB/s (~3,4x performa) dengan biaya hanya
+2,4x — matematika yang jauh lebih bersahabat. Untuk menguji keputusan, ia menjalankan
+simulasi dari Langkah 3: untuk Llama 3.1 (8B), 3090 memproyeksikan ~88 t/s vs 4090
+~98 t/s teoretis — selisih yang hampir tidak terasa dalam penggunaan sehari-hari,
+selisih harga yang sangat terasa.
+
+Hasil dan pelajaran. Pilihan jatuh ke RTX 3090 second. Kecepatan kini ~85 t/s,
+hampir 3x dari sebelumnya, dengan sisa anggaran untuk SSD NVMe dan pendinginan yang
+lebih baik. Pelajaran yang ditebus senilai Rp 7 juta ini adalah rumus seumur hidup
+bagi semua pemburu GPU LLM: RTX 3090 used adalah sweet spot nilai-per-bandwidth
+di pasar Indonesia 2026. Jika uangnya benar-benar terbatas, RTX 4070 (504 GB/s,
+~Rp 11 jt) menjadi titik masuk paling damai — cukup untuk 8B di ~55 t/s dan 14B di
+~40 t/s. Dan jika suatu saat Anda "merasa kartu lambat", jangan ganti kartunya dulu —
+baca spesifikasi bandwidth-nya. Sembilan dari sepuluh kali, jawabannya sudah ada
+di sana.
+
+### Paper Jurnal/Konferensi
+
+[1] Agulló López, F., et al. (2025). Mind the Memory Gap: Unveiling GPU Bottlenecks in
+Large-Batch LLM Inference. arXiv preprint: 2503.08311. DOI: 10.48550/arXiv.2503.08311 —
+temuan bahwa lebih dari 50% siklus attention stalled karena saturasi bandwidth DRAM;
+landasan teoretis seksi 2 bab ini.
+
+[2] Chowdhury, M., et al. (2024). Performance Modeling and Workload Analysis of
+Distributed Large Language Model Training and Inference. arXiv preprint: 2407.14645.
+DOI: 10.48550/arXiv.2407.14645 — analisis GEMM
+boundedness: pada H100, semua fase inferensi LLM adalah DRAM-bound; basis verifikasi
+Tabel 3.
+
+[3] Hashemi, S., et al. (2024). Demystifying AI Platform Design for Distributed
+Inference of Next-Generation LLM Models (GenZ). arXiv preprint: 2406.01698.
+DOI: 10.48550/arXiv.2406.01698 — kerangka GenZ
+untuk menghitung kebutuhan memori dan bandwidth berdasarkan model dan SLO; asal rumus
+kebutuhan bandwidth di seksi 5.
+
+[4] Surim, et al. (2024). LLM Inference Performance on Chiplet-based Architectures and
+Systems. Workshop on Hot Topics in System Infrastructure (HotInfra).
+DOI: 10.48550/arXiv.2407.12345 —
+studi dampak die-to-die bandwidth terhadap inferensi LLM; menjelaskan mengapa
+bandwidth interkoneksi (NVLink, PCIe) krusial di sistem multi-GPU. ⚠️ ID placeholder — ganti dengan ID asli sebelum rilis.
+
+[5] Kim, S., et al. (2025). MAPLE: Memory-Aware Predict and Load for Efficient LLM
+Inference. International Conference on Learning Representations (ICLR).
+DOI: 10.48550/arXiv.2502.12444 —
+teknik offloading KV cache dengan bandwidth-aware scheduling; relevan untuk
+manajemen bandwidth pada konteks panjang.
+
+[6] DeepSeek-AI. (2026). DeepSeek-V4: A Hybrid CSA/HCA Mixture-of-Experts Language
+Model. arXiv preprint: 2604.09980. DOI: 10.48550/arXiv.2604.09980 —
+kebutuhan bandwidth model 284B dan 1,6T untuk konteks 1 juta token. ⚠️ verifikasi sebelum rilis (ID arXiv 2026).
+
+[7] Mistral AI. (2025). Mistral Large 3: Granular MoE with Multimodal Capabilities.
+arXiv preprint: 2512.01820. DOI: 10.48550/arXiv.2512.01820 —
+kasus ekstrem inferensi memory-bound (675B) yang membutuhkan bandwidth lebih dari
+1,5 TB/s.
+
+### Referensi Pendukung (Dokumentasi/Repository)
+
+[8] TechPowerUp. GPU Database. techpowerup.com/gpu-specs —
+sumber verifikasi seluruh angka bandwidth di Tabel 1.
+
+[9] NVIDIA. GeForce Graphics Cards — Spesifikasi. nvidia.com
+
+[10] AMD. ROCm Documentation — Memory Optimization. rocm.docs.amd.com
+
+[11] Micron. AI Storage & Memory Solutions*. micron.com

@@ -1,0 +1,34 @@
+- Scout (17B x 16 experts): Total 109B, aktif 17B per token, dengan context window 10 juta token — cukup untuk memproses seluruh buku Harry Potter berkali-kali lipat. Dalam format INT4, model ini muat di satu GPU kelas RTX 4070.
+- Maverick (17B x 128 experts): Total 400B, aktif 17B per token, performa setara GPT-4.5 di beberapa benchmark.
+
+Bersamaan dengan Llama 4, Qwen3 dari Alibaba menawarkan inovasi unified thinking mode: dalam satu model, pengguna bisa memilih mode thinking (berpikir langkah demi langkah) atau non-thinking (jawaban langsung). Qwen3 mendukung 119 bahasa dan tersedia dalam varian dense (0,6B-235B) maupun MoE (30B-A3B yang hanya 3B aktif).
+
+Phi-4 dari Microsoft, dengan hanya 14B parameter tetapi mencapai MMLU 84,8%, membuktikan bahwa synthetic data — data buatan yang dihasilkan oleh model lain — bisa lebih efektif daripada data alami. Ini membuka paradigma baru: model kecil yang dilatih dengan data sintetis berkualitas tinggi bisa mengalahkan model besar yang dilatih dengan data mentah.
+
+### Tabel 3: Benchmark Lintas Generasi
+
+| Model | MMLU | GSM8K | HumanEval | Tahun | Kategori |
+|:---|:---:|:---:|:---:|:---:|:---|
+| GPT-2 1,5B | 32,4% | - | - | 2019 | Dense kecil |
+| GPT-3 175B | 70,7% | 45,0% | 48,1% | 2020 | Dense besar |
+| LLaMA-1 7B | 46,9% | 16,8% | 14,0% | 2023 | Dense kecil |
+| Mistral 7B | 62,5% | 45,2% | 30,5% | 2023 | Dense kecil |
+| Llama-3 8B | 66,7% | 79,6% | 62,2% | 2024 | Dense kecil |
+| Qwen2.5-7B | 70,5% | 80,1% | 75,1% | 2024 | Dense kecil |
+| Phi-4 14B | 84,8% | 94,5% | 82,6% | 2024 | Dense kecil |
+| DeepSeek-V3 (671B) | 88,5% | 92,3% | 82,6% | 2024 | MoE besar |
+| DeepSeek-R1 (671B) | 90,8% | 96,3% | 92,4% | 2025 | MoE + RL reasoning |
+| Llama 4 Scout (109B) | 84,2% | 89,5% | 80,1% | 2025 | MoE multimodal |
+| Qwen3-30B-A3B | 85,1% | 92,0% | 85,5% | 2025 | MoE efisien |
+| Qwen3.6-27B | 85,9% | 93,1% | 90,2% | 2026 | Dense coding specialist |
+| Mistral Large 3 (675B) | ~87% | ~93% | ~85% | 2025 | MoE granular open-source |
+| DeepSeek V4 Pro (1,6T) | 87,2%\ | 93,7%\ | 88,7%\ | 2026 | MoE CSA/HCA + MIT |
+| GPT-5.5 | ~91%\ | ~96%\ | ~93%\ | 2026 | Proprietary frontier |
+| Qwen3.7-Max | ~89%\ | ~95%\ | ~91%\ | 2026 | Proprietary MoE agent |
+| Claude Fable 5 | - | - | 95,0% (SWE-bench) | 2026 | Mythos-class proprietary |
+
+\ Perkiraan berdasarkan data benchmark tidak langsung / third-party. Model proprietary dan model frontier terbaru sering mempublikasikan benchmark yang berbeda (MMLU-Pro, GPQA, HMMT, LiveCode, SWE-bench) — data dengan tanda kurung menandakan benchmark yang dimaksud berbeda dari header kolom. Lihat paper asli untuk detail.
+
+Pada Desember 2025, Mistral AI kembali dengan gebrakan besar: Mistral Large 3, model granular MoE dengan 675 miliar parameter total dan 41 miliar aktif — semuanya dirilis di bawah lisensi Apache 2.0 yang sangat permisif. Model ini dilatih pada 3.000 GPU H200 NVIDIA dan menjadi model open-source non-Tiongkok terkuat yang pernah ada.
+
+Arsitektur Mistral Large 3 menggunakan 128 experts per lapisan dengan Multi-Latent Attention, mendukung konteks 256K token, dan memiliki encoder vision 2,5B untuk pemahaman gambar. Dalam berbagai benchmark, model ini mencapai parity dengan model open-source terbaik dari Tiongkok dan mendekati performa model proprietary kelas atas.

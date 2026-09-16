@@ -1,0 +1,21 @@
+Tabel ini menunjukkan bahwa setiap perpindahan skala menaikkan tuntutan secara non-linear. Lonjakan paling drastis terjadi antara small office dan general office: uptime naik dari 99,9% ke 99,999% (downtime tahunan yang diizinkan menyusut dari ±525 menit atau ±8,7 jam menjadi hanya ±5,3 menit), redundansi menjadi wajib penuh di tiga lapisan, dan biaya hampir empat kali lipat. Keputusan penting bagi pembaca: jangan membangun "small office yang diperbesar" — karena menambal arsitektur tanpa redundansi jauh lebih mahal daripada membangunnya benar sejak awal. Di sisi lain, koncurrency peak 25 bukan berarti kapasitas 25 session sepanjang hari; beban puncak itu hanya muncul pada momen-momen tertentu, sehingga investasi auto-scaling (Kubernetes HPA/VPA) justru yang paling masuk akal secara ekonomi.
+
+!Rentang estimasi biaya naik dari Rp 25-45 jt (home) menjadi Rp 60-120 jt (small office) hingga Rp 200-500 jt+ (general office) — nyaris empat kali lipat per perpindahan skala
+
+Gambar 8.1-1 — Rentang biaya melebar dari Rp 25-45 jt (home) ke Rp 200-500 jt+ (general office), hampir 10x lipat di titik tengah — kenaikan ini membeli redundansi penuh tiga lapisan (LB + GPU + storage) yang wajib pada skala 21-50 user.
+
+Perancangan kapasitas yang tepat dimulai dari memahami kapan dan bagaimana sistem dipakai. Data load pattern kantor harus dianalisis sebelum memilih GPU, karena kesalahan membaca pola ini berujung pada over-provisioning (membeli kapasitas yang tidak terpakai) atau under-provisioning (antrean panjang di jam sibuk).
+
+Jam puncak (peak hours) terkonsentrasi pada dua jendela: 08:00-11:00 dan 13:00-16:00 — jam kerja standar ketika semua departemen aktif. Sebaliknya, antara 20:00-06:00 sistem nyaris sepi (near-zero). Kurva beban harian ini berbentuk dua punuk (bimodal), bukan garis datar — dan justru bentuk inilah yang membuat auto-scaling sangat menguntungkan: kapasitas penuh hanya dibutuhkan sekitar 6-8 jam dari 24 jam, sisanya bisa dipangkas.
+
+Komposisi query juga khas kantor. Sekitar 40% trafik adalah RAG (Retrieval-Augmented Generation) atas dokumen internal — kontrak, SOP, kebijakan HR — yang menuntut vektor database dan konteks dokumen panjang. 30% adalah coding assistant untuk tim engineering. 20% adalah data analysis — karyawan meminta merangkum laporan keuangan atau membandingkan spreadsheet. Sisanya 10% adalah general use (menulis surat, menyusun email, brainstorming).
+
+Karakter query di skala ini berbeda jauh dari skala home: prompt berukuran 500-2000 token (dokumen lampiran, transkrip rapat), bersifat multi-turn conversation (percakapan bolak-balik yang menahan context window terus terbuka), dan berorientasi analitis — bukan sekadar tanya-jawab pendek. Dampaknya terhadap perancangan jelas: model harus menyediakan context window besar, KV cache harus dikelola efisien, dan latensi antar-turn harus tetap di bawah ambang SLA meskipun percakapan berjalan panjang. Konkurensi puncak 5-15 user simultan dengan burst hingga 25 saat meeting bersama, dan setiap permintaan mengonsumsi VRAM — itulah sebabnya perhitungan kebutuhan GPU di Bab 8.2 selalu menyertakan faktor pengali konkurensi.
+
+### Gambar 1: Grafik Beban Harian
+
+Grafik line chart beban harian menampilkan sumbu X jam 00:00-23:59 dan sumbu Y jumlah request per jam. Dua puncak terlihat jelas — 08:00-11:00 dan 13:00-16:00 — sementara kurva menukik mendekati nol pada 20:00-06:00. Pola tersebut dirangkum dalam diagram berikut:
+
+Pembelajaran operasional dari grafik ini: jadwalkan maintenance dan rolling update pada jendela near-zero, gunakan jendela yang sama untuk cron job pemeliharaan vektor database, dan atur cooldown HPA agar pod tidak naik-turun pada transisi jam makan siang.
+
+Jika empat pilar di atas adalah "apa", maka bagian ini adalah "bagaimana". Arsitektur general office terdiri dari lima lapisan yang tersusun seperti piramida, dan setiap lapisan memiliki strategi redundansinya sendiri:

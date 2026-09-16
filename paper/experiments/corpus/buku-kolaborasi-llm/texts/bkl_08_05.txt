@@ -1,0 +1,31 @@
+Untuk mengukur kualitas reasoning model lokal Anda sendiri, evaluasi manual dua lapis cukup. Lapis pertama, verifikasi langkah demi langkah: baca setiap baris rantai penalaran — apakah setiap langkah logis dari langkah sebelumnya? Model yang menghasilkan "angka jadi tanpa alur" dicurigai menebak. Lapis kedua, cek kontradiksi: apakah kesimpulan konsisten dengan premis di awal? Model yang menyatakan "12 apel × Rp 5.000 = Rp 60.000" lalu menyimpulkan "total Rp 48.000" tanpa menjelaskan diskon — itu rantai yang putus. Bila menemukan kesalahan sistematis, perbaiki prompt-nya: tambahkan contoh, perketat format, atau naikkan temperature untuk variasi. Kebiasaan "membaca pikiran model" ini — disebut chain inspection — adalah keterampilan paling berharga bagi pengguna agen yang serius.
+
+### Tabel 3: Penggunaan Sumber Daya per Metode (Model 7B)
+
+Metode yang canggih harus dibayar — tabel ini menghitung harganya pada model 7B lokal.
+
+| Metode | VRAM | Latency per Task | Cost (Token) |
+|:---|:---:|:---:|:---:|
+| Standard | ~4 GB | ~0,5 s | ~100 tokens |
+| Zero-shot CoT | ~4 GB | ~1,2 s | ~250 tokens |
+| Few-shot CoT (3-shot) | ~4 GB | ~1,5 s | ~400 tokens |
+| Self-Consistency (5) | ~4 GB | ~6,0 s | ~1250 tokens |
+| Tree-of-Thoughts (3 branches) | ~6 GB | ~10 s | ~2000 tokens |
+
+Catatan pertama yang menenangkan: VRAM hampir tidak berubah — semua metode memakai model yang sama (7B, ~4 GB), perbedaan hanya pada jumlah token yang dihasilkan. Perbedaan sebenarnya ada di latency dan cost token: Self-Consistency menambah ~1.250 token (5x inference), ToT ~2.000 token dengan tambahan VRAM untuk menyimpan beberapa cabang sekaligus. Dalam praktik harian, angka ini berarti: pada laptop dengan kecepatan ~30 token/detik, zero-shot CoT menambah ~8 detik per pertanyaan; Self-Consistency menambah ~40 detik. Itulah mengapa keputusan memilih metode hampir selalu keputusan tentang waktu, bukan tentang memori — dan mengapa agen yang baik mengatur reasoning effort berdasarkan kompleksitas tugas, bukan memakai metode termahal untuk semua pertanyaan.
+
+### Langkah 1: Zero-shot CoT dengan Ollama
+
+Teknik termurah dan tercepat: satu kalimat pemicu di akhir pertanyaan. Pastikan Ollama berjalan dengan model llama3.1:8b.
+
+Dua detail implementasi yang penting. temperature: 0.0 membuat output deterministik — cocok untuk reasoning di mana konsistensi lebih diutamakan daripada kreativitas (perhatikan perbedaannya di Langkah 3). Frasa pemicu diletakkan di baris terakhir prompt, terpisah dari pertanyaan — posisi ini membuat model melanjutkan dari frasa tersebut, sehingga rantai penalaran "mengalir" alami. Coba variasikan: ganti model ke qwen2.5:7b atau deepseek-r1:7b dan bandingkan struktur penalarannya.
+
+### Langkah 2: Few-shot CoT — Belajar dari Contoh
+
+Ketika zero-shot kurang akurat, beri model dua contoh lengkap dengan format konsisten. Contoh yang baik memakai langkah-langkah yang sama persis strukturnya dengan soal target.
+
+Perhatikan pola: setiap contoh berisi Soal → Langkah → Jawaban, dan soal target diakhiri dengan kata kunci Langkah: sehingga model meniru formatnya. Inilah kekuatan few-shot: model bukan sekadar menyalin angka, tetapi meniru struktur berpikir. Jika output model kacau, biasanya penyebabnya satu dari dua: contoh tidak cukup konsisten, atau soal target terlalu berbeda jenis dari contoh.
+
+### Langkah 3: ReAct Agent Sederhana
+
+Sekarang kita gabungkan reasoning dengan action: agen yang mencari di knowledge base lokal sebelum menjawab.

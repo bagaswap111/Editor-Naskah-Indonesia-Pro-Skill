@@ -1,0 +1,33 @@
+### Multi-Region Routing dan Fallback
+
+Ketika GPU on-premise penuh — misalnya sore hari ketika seluruh tim Data Science mengirim pekerjaan berat bersamaan — gateway otomatis melakukan fallback multi-region: permintaan dialihkan ke cloud (GPT-5.5, Gemini 2.5 Pro) tanpa karyawan harus mengganti URL atau menunggu antrean. Arah fallback ini digambar sebagai garis putus-putus pada Gambar 1: jalur utama selalu on-premise, jalur cadangan baru dipakai saat dibutuhkan.
+
+Strategi ini menyeimbangkan biaya dan kesiapan: failover jarang terjadi sehingga biaya cloud tetap rendah, tetapi ketika terjadi, kantor tidak berhenti. Penelitian tentang enterprise data leakage pada query ke LLM eksternal mengingatkan bahwa fallback ke cloud harus disertai kontrol data — prompt yang mengandung rahasia perusahaan sebaiknya tidak pernah dialihkan ke luar [3]. Di Bab 8.5 kita akan melihat bagaimana DLP menyaring prompt sebelum mencapai jalur manapun.
+
+### Load Balancing dan Health Check
+
+Load balancing di LiteLLM menggunakan dua strategi standar: round-robin — permintaan bergiliran merata ke semua backend; dan least-connections — permintaan dikirim ke backend yang sedang paling sedikit menangani koneksi, ideal ketika pemakaian tidak merata. Health check berkala memastikan backend yang rusak otomatis dinonaktifkan dari rotasi: jika vLLM Mistral down, gateway berhenti mengirim permintaan ke sana dan beralih ke model lain yang sehat, lalu menyalakannya kembali saat sudah pulih.
+
+Gabungan ketiga mekanisme ini — fallback, load balancing, health check — menghasilkan layanan yang mendekati 100% uptime: satu backend mati tidak pernah berarti seluruh kantor kehilangan AI. Detail penerapannya dapat Anda lihat dalam praktikum di Seksi 8.
+
+### Langkah 1: Setup LiteLLM Proxy dengan Docker Compose
+
+Cara tercepat memulai LiteLLM di lingkungan kantor adalah melalui Docker Compose dengan PostgreSQL sebagai database-nya:
+
+Jalankan dengan perintah berikut dari direktori yang berisi kedua file:
+
+Anda akan melihat respons JSON dari endpoint health — tanda bahwa gateway hidup. Master key ini adalah kunci utama sistem: simpan di secret manager (misalnya Vault atau sealed secret K3s), jangan pernah di-hardcode di file yang masuk repository.
+
+### Langkah 2: Konfigurasi Virtual Keys & Budget per Departemen
+
+Setelah proxy hidup, daftarkan model-model internal dan cloud di config.yaml:
+
+Perhatikan tiga hal dalam konfigurasi ini. Pertama, setiap model diberi rpm sendiri — vLLM mini (14B) boleh menerima 200 permintaan menit karena murah, sedangkan Mistral Large 3 dibatasi 30 karena mahal. Kedua, komentar # di bagian bawah adalah contoh pembuatan kunci departemen lewat API: max_budget: 5000000 artinya Rp 5 juta dengan max_parallel_requests: 10 — kunci yang dibuat dengan cara ini langsung tercatat di PostgreSQL. Ketiga, format openai/<model> menunjukkan bahwa LiteLLM meniru antarmuka OpenAI, sehingga aplikasi karyawan yang sudah terbiasa dengan SDK OpenAI cukup mengganti base_url ke gateway tanpa perubahan kode lain.
+
+### Langkah 3: Setup Spend Alert via Webhook
+
+Langkah terakhir: kirim peringatan otomatis ke Slack ketika budget sebuah kunci melewati ambang 80%. Webhook Python berikut dipasang sebagai service kecil (misalnya di server yang sama):
+
+Dengan webhook ini, tidak ada lagi alasan "tidak tahu budget habis": saat kunci Engineering menyentuh 80%, pesan mendarat di kanal Slack IT sebelum tim kehilangan akses. Ganti BUDGET_WEBHOOK_URL dengan URL incoming webhook Slack kantor Anda dan daftarkan URL server ini pada pengaturan budget alerts di LiteLLM. Uji dengan membuat kunci ber-budget kecil (misal Rp 10.000) lalu kirim beberapa permintaan — peringatan akan tiba dalam hitungan menit.
+
+Latar. PT Finansial Sejahtera adalah perusahaan fintech dengan 45 karyawan dan tuntutan ganda: kontrol biaya yang ketat karena margin bisnis yang tipis, serta audit trail yang solid karena bisnis di industri keuangan. Sebelumnya, karyawan memakai ChatGPT Enterprise secara langsung — perkiraan biaya Rp 45 juta/bulan di puncaknya, tanpa rincian siapa memakai berapa. CFO menolak memperpanjang anggaran sebelum ada mekanisme kontrol.

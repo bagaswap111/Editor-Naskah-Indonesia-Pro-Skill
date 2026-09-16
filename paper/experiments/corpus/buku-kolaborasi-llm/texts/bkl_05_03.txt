@@ -1,0 +1,32 @@
+Jika blob adalah bahan mentah di gudang, Modelfile adalah resepnya. Modelfile adalah satu file teks sederhana (berformat seperti Dockerfile) yang mendefinisikan bagaimana sebuah model dibentuk. Kesederhanaan inilah yang membuat kustomisasi model di Ollama tidak memerlukan keahlian machine learning sama sekali.
+
+### FROM, PARAMETER, dan TEMPLATE
+
+Instruksi pertama, FROM, menentukan base model — bisa nama model lokal atau model di registry seperti deepseek-v4-pro. Setelah itu, blok PARAMETER mengatur perilaku sampling dan eksekusi: temperature mengontrol keacakan, top_p membatasi distribusi probabilitas ke "nukleus" token teratas, num_ctx menentukan ukuran context window, stop mendaftar urutan berhenti, num_gpu mengatur berapa lapisan yang di-offload ke GPU, dan mirostat mengaktifkan adaptive sampling agar perplexity tetap stabil sepanjang generasi.
+
+TEMPLATE memakai Go templating untuk mendefinisikan chat template — kerangka percakapan yang menentukan bagaimana pesan sistem, pengguna, dan asisten disusun sebelum masuk ke model. Model yang berbeda punya chat template yang berbeda (misalnya chat marker <|user|> khas keluarga Qwen), dan template yang salah adalah penyebab paling umum output "aneh" — model menjawab dengan format internalnya sendiri.
+
+### SYSTEM, LICENSE, MESSAGES, ADAPTER
+
+Selain tiga instruksi inti, Modelfile mendukung SYSTEM untuk menyematkan system prompt bawaan (kepribadian model), LICENSE untuk melampirkan lisensi model (penting bila Anda mendistribusikan model turunan), MESSAGES untuk menyisipkan contoh percakapan sebagai few-shot bawaan, dan ADAPTER untuk menempelkan LoRA adapter hasil fine-tuning ke base model. Kombinasi FROM + PARAMETER + TEMPLATE + SYSTEM yang tepat mampu mengubah satu model generik menjadi asisten spesifik — penulis surat resmi, pembuat kode berkomentar Indonesia, atau juru bicara merek — hanya lewat belasan baris teks.
+
+Satu kebiasaan yang perlu dibangun sejak awal: perlakukan Modelfile seperti kode sumber. Simpan dalam repository, beri komentar pada tiap blok, dan versi-kan nama model dengan tag (my-coder:v1, my-coder:v2). Karena ollama create membaca file teks, seluruh konfigurasi model Anda bisa direproduksi di mesin lain hanya dengan menyalin satu file — inilah yang membuat Ollama unggul dibandingkan aplikasi yang mengunci konfigurasi di dalam database antarmuka grafisnya. Tim bisa me-review Modelfile seperti me-review pull request: perubahan temperature, system prompt, dan template menjadi artefak yang terlacak, bukan keputusan yang hilang dalam satu klik.
+
+### Tabel 1: Perbandingan Parameter Modelfile
+
+Tabel berikut merangkum parameter Modelfile yang paling sering digunakan, lengkap dengan tipe data, nilai default, dan contoh penulisan langsung di file Modelfile.
+
+| Parameter | Tipe | Default | Deskripsi | Contoh Penggunaan |
+|:---|:---:|:---:|:---|:---|
+| temperature | float | 0,8 | Randomness sampling | PARAMETER temperature 0.7 |
+| top_p | float | 0,9 | Nucleus sampling threshold | PARAMETER top_p 0.95 |
+| num_ctx | int | 2048 | Context window size | PARAMETER num_ctx 8192 |
+| stop | string[] | [] | Stop sequences | PARAMETER stop "<\|im_end\|>" |
+| num_gpu | int | -1 | GPU layers to offload | PARAMETER num_gpu 99 |
+| mirostat | int | 0 | Mirostat sampling mode | PARAMETER mirostat 2 |
+
+Gambar berikut memetakan nilai default keenam parameter ke dua kelompok fungsinya.
+
+!Perbandingan nilai default parameter Modelfile: kelompok sampling vs kelompok eksekusi
+
+Gambar 3.1-1 — Parameter sampling (temperature 0,8, top_p 0,9, mirostat 0) bekerja pada skala kecil dan mengontrol "rasa" keluaran, sementara parameter eksekusi bekerja pada skala jauh lebih besar — num_ctx 2048 token dan num_gpu -1 yang berarti "semua lapisan ke GPU".

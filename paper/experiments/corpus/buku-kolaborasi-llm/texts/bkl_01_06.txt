@@ -1,0 +1,30 @@
+Dampak strategis Mistral Large 3 sangat signifikan: ia membuktikan bahwa Eropa mampu menghasilkan model frontier open-weight yang setara dengan AS dan Tiongkok. Lisensi Apache 2.0 memungkinkan penggunaan komersial tanpa batas — perusahaan bisa memodifikasi, mendistribusikan, dan menjual turunan model tanpa membayar lisensi.
+
+Bersamaan dengan Large 3, Mistral merilis Ministral 3 — keluarga model kecil (3B, 8B, 14B) yang dihasilkan melalui Cascade Distillation, teknik yang menggabungkan pruning (pemangkasan) dan distilasi untuk menciptakan model efisien dari model yang lebih besar. Ministral 3 3B bisa berjalan di smartphone, sementara varian 14B memberikan kualitas setara model 30B dari generasi sebelumnya.
+
+Awal 2026 menyaksikan kematangan model kecil (Small Language Models / SLM) yang mencengangkan. Qwen3.5, dirilis pada Februari 2026, adalah model multimodal dengan arsitektur Hybrid-Attention MoE (397B total, 17B aktif) yang mendukung 113 bahasa dan konteks 256K token. Kemampuan native agent — model bisa menggunakan tools, merencanakan tugas, dan menjalankan workflow secara mandiri — menjadi fitur standar.
+
+Dua bulan kemudian, Qwen3.6 hadir dengan spesialisasi coding. Varian 27B dense-nya mampu menyaingi GPT-4o untuk tugas pemrograman Python dan Rust, dengan ukuran hanya 16 GB dalam format Q4_K_M — cukup untuk dijalankan di laptop dengan RTX 3090. Varian MoE 35B-A3B (hanya 3B aktif) bahkan bisa berjalan di GPU kelas menengah.
+
+Fenomena yang lebih menarik adalah model 1-3B yang kini mampu menjalankan agen dan workflow kompleks — tugas yang dua tahun lalu hanya bisa dilakukan model 70B+. Ini adalah hasil dari kombinasi arsitektur efisien (MoE, GQA, sliding window), kuantisasi (INT4, FP4), dan distilasi dari model besar.
+
+### GPT-5.5: Kecerdasan untuk Kerja Nyata
+
+Pada 23 April 2026, OpenAI merilis GPT-5.5 — model proprietary yang dirancang untuk agentic coding, computer use, dan pekerjaan profesional yang kompleks. Dengan konteks 1 juta token dan dukungan reasoning effort (low, medium, high, xhigh), GPT-5.5 bisa merencanakan, menggunakan tools, memverifikasi hasil, dan terus bekerja hingga tugas selesai.
+
+GPT-5.5 dibanderol dengan harga $5 per juta token input dan $30 per juta token output — mahal, tetapi sebanding dengan kualitas yang ditawarkan. Varian Pro, yang menggunakan parallel test-time compute untuk akurasi lebih tinggi, dibanderol $30/$180 per juta token.
+
+### DeepSeek V4: Open-Source Terbesar
+
+Sehari setelah GPT-5.5, pada 24 April 2026, DeepSeek merilis DeepSeek V4 — model open-source di bawah lisensi MIT yang langsung menjadi model terbuka terbesar di dunia. Dua varian dirilis:
+
+- DeepSeek V4 Pro: 1,6 triliun parameter total, 49 miliar aktif, dilatih pada 33 triliun token, konteks 1 juta token. Arsitektur hybrid CSA/HCA (Compressed Sparse Attention + Heavily Compressed Attention) memangkas FLOPs hingga 27% dan KV cache hingga 10% dibandingkan V3.2 pada konteks 1 juta token. MMLU-Pro mencapai 87,5%, LiveCodeBench 93,5%.
+- DeepSeek V4 Flash: 284 miliar parameter total, 13 miliar aktif, konteks 1 juta token. Cukup efisien untuk dijalankan di workstation 2xRTX 6000 melalui INT4.
+
+Yang membuat DeepSeek V4 istimewa adalah lisensi MIT — pengguna bisa menggunakan, memodifikasi, dan mendistribusikan tanpa batasan. Ini kontras dengan GPT-5.5 yang sepenuhnya proprietary. DeepSeek V4 membuktikan bahwa open-source bisa menyaingi frontier proprietary.
+
+### Qwen3.7-Max: Agen Tanpa Batas
+
+Pada 20 Mei 2026, Alibaba meluncurkan Qwen3.7-Max, model proprietary yang diposisikan sebagai "The Agent Frontier". Dengan konteks 1 juta token dan arsitektur MoE yang parameter pastinya tidak diungkapkan (diperkirakan ~1 triliun+), model ini dirancang untuk eksekusi tugas otonom jangka panjang — hingga ribuan panggilan tools dalam satu sesi. Sayangnya, Alibaba memilih untuk tidak membuka weights model ini, melanjutkan tren pergeseran dari open-source ke proprietary.
+
+### Claude Fable 5: Kekuatan dengan Pengaman

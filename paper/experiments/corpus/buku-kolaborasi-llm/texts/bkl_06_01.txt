@@ -1,0 +1,43 @@
+# Bab 3.4: Open WebUI
+
+Setelah membaca sub-bab ini, Anda akan mampu:
+
+- Mendeploy Open WebUI dengan Docker, termasuk opsi image :main, :ollama, dan :cuda beserta volume persistensi dan GPU passthrough
+- Mengonfigurasi RAG pipeline lengkap: chunking, embedding lokal, vector database, hingga hybrid search dengan reranking
+- Membuat dan menggunakan Tools (fungsi Python kustom) beserta function calling dan dukungan Model Context Protocol (MCP)
+- Mengamankan deployment dengan RBAC multi-user, rate limiting, dan reverse proxy HTTPS
+
+### Dari Terminal ke Antarmuka Bergaya ChatGPT
+
+Bayangkan Anda baru saja mengunduh DeepSeek V4 Flash melalui Ollama. Untuk mengobrol dengannya, pilihan Anda adalah ollama run di terminal — cepat, tetapi kering: tidak ada riwayat percakapan yang nyaman, tidak ada tempat menyimpan dokumen, dan tidak ada cara bagi model untuk menjalankan kode. Open WebUI hadir untuk mengisi kekosongan itu. Proyek ini adalah frontend web self-hosted yang awalnya bernama "Ollama WebUI" dan kemudian berkembang menjadi platform lengkap: pengganti ChatGPT self-hosted yang dapat dijalankan di mesin sendiri, sepenuhnya gratis dan open source [6].
+
+Yang membuat Open WebUI menarik bukan hanya tampilannya yang mirip layanan komersial, tetapi tiga lapis kemampuannya: antarmuka percakapan yang nyaman, RAG pipeline bawaan yang siap pakai, dan sistem Tools yang memungkinkan model memanggil fungsi. Kombinasi ini menjadikannya gateway yang menghubungkan pengguna, dokumen, dan mesin inferensi dalam satu antarmuka.
+
+### Arsitektur: Backend Python, Frontend Svelte
+
+Secara arsitektur, Open WebUI terdiri dari dua bagian yang dipisahkan dengan tegas [1]. Backend ditulis dalam Python menggunakan framework FastAPI — backend ini bertanggung jawab atas autentikasi, routing permintaan, orkestrasi RAG, eksekusi Tools, dan semua logika sisi server. Frontend dibangun dengan Svelte, kerangka kerja JavaScript yang dikenal ringan dan reaktif — frontend inilah yang dirender di browser pengguna. Keduanya berkomunikasi melalui REST API dan WebSocket, sehingga respons model dapat mengalir streaming token demi token tanpa menunggu seluruh jawaban selesai.
+
+Pemisahan ini memberi konsekuensi praktis yang penting: Open WebUI hanyalah frontend, bukan mesin inferensi. Ia tidak menjalankan model sendiri, melainkan berperan sebagai konduktor yang menyalurkan permintaan ke backend engine di belakangnya — seperti orkestra yang memukimkan setiap instrument ke posisinya masing-masing.
+
+### Dukungan Multi-Engine
+
+Open WebUI mendukung banyak mesin inferensi sekaligus, dan Anda dapat berpindah engine bahkan di tengah percakapan:
+
+- Ollama — mesin default yang paling mudah; Open WebUI bahkan menyediakan image Docker yang sudah membundel Ollama di dalamnya
+- OpenAI-compatible API — endpoint apa pun yang mengikuti format API OpenAI, termasuk vLLM, LM Studio, llama.cpp server, hingga penyedia cloud
+- vLLM — untuk kebutuhan throughput tinggi dan continuous batching di kelas server
+
+Database bawaan Open WebUI adalah SQLite — cukup untuk penggunaan pribadi hingga tim kecil. Untuk skala yang lebih besar, Open WebUI mendukung PostgreSQL sebagai pengganti, yang menangani banyak koneksi bersamaan dengan lebih baik [7].
+
+### Tabel 1: Opsi Deployment Open WebUI
+
+Berikut perbandingan metode deployment yang tersedia, dari yang paling sederhana hingga skala enterprise:
+
+| Metode | Perintah | GPU Support | Cocok Untuk |
+|:---|:---|:---:|:---|
+| Docker Standalone | docker run ghcr.io/open-webui/open-webui:main | Via host | Pengguna dengan Ollama terpisah |
+| Docker + Ollama | docker run ghcr.io/open-webui/open-webui:ollama | --gpus=all | Setup all-in-one termudah |
+| Docker + CUDA | docker run ghcr.io/open-webui/open-webui:cuda | CUDA native | NVIDIA GPU users |
+| Docker Compose | docker compose up | Ya | Production deployment |
+| Kubernetes | Helm chart / kubectl | Ya | Enterprise scale |
+| Native (pip) | pip install open-webui | Ya | Development |

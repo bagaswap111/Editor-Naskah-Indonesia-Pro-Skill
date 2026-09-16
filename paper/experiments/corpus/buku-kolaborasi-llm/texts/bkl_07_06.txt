@@ -1,0 +1,36 @@
+Solusinya berlapis, seperti sekering (pengaman arus) pada peralatan listrik. Pertama, sandboxing Docker: jalankan agen di kontainer yang terisolasi sehingga kerusakan tidak menjalar ke sistem utama. Kedua, approval gates: perintah berisiko (menghapus, menimpa, mengirim data keluar) menunggu persetujuan manusia. Ketiga, permission system: setiap tool memiliki izin granular — agent boleh membaca, tetapi tidak boleh menulis; boleh mengakses satu folder, tetapi tidak seluruh disk. Filosofi OpenClaw merangkumnya dalam satu aturan sederhana: delegasikan tugas, tetapi jangan pernah mengirimkan kedaulatan. Bab 4.8 buku ini akan membahas keamanan sandbox secara menyeluruh.
+
+Dalam praktiknya, keamanan agen adalah manajemen risiko, bukan penghapusan risiko. Mustahil membuat agen yang serba bisa dan serba aman sekaligus; yang bisa diatur adalah peluang dan dampak kecelakaan. Analisis risiko sederhana berbunyi seperti ini: tool apa yang paling berbahaya? (jawabannya shell dan database), kapan ia paling sering salah? (saat instruksi ambigu), dan berapa besar kerugian jika salah? (sebanding dengan apa yang bisa disentuh agen). Dari tiga jawaban itu Anda bisa menyusun kebijakan: batasi tool berbahaya dengan sandbox, minta konfirmasi untuk instruksi ambigu, dan sempitkan akses agen ke folder kerja saja. Kebiasaan ini — berpikir seperti insurer sebelum berpikir seperti programmer — membedakan pengguna agen yang bertahan lama dari yang berhenti setelah satu kecelakaan.
+
+### Tabel 3: Evolusi Komputasi Personal
+
+Sejarah komputasi personal adalah sejarah pergeseran pusat kendali — dari keyboard, ke mouse, ke browser, dan kini ke kalimat.
+
+| Era | Paradigma | Interaksi | Contoh |
+|:---|:---|:---|:---|
+| 1980s | Command Line | Keyboard → Perintah | MS-DOS, Bash |
+| 1990s | GUI | Mouse → Visual | Windows, Mac OS |
+| 2010s | Cloud/SaaS | Browser → Server | Google Docs, ChatGPT |
+| 2020s | Agentic AI | Natural Language → Action | OpenClaw, Cline |
+
+Membaca tabel ini secara diagonal, pola yang konsisten adalah penurunan hambatan: setiap era baru memindahkan lebih banyak pengetahuan teknis dari manusia ke mesin. Di era command line, Anda harus hafal sintaks; di era GUI, Anda cukup mengenali ikon; di era cloud, Anda cukup mengetik alamat; di era agentic, Anda cukup mengatakan apa yang Anda inginkan.
+
+Perhatikan juga arahnya: komputasi personal berputar dari lokal (1980s) ke terpusat (2010s) dan kembali ke lokal (2020s) — kali ini dengan mesin yang mengerti maksud manusia. Inilah alasan mengapa agen lokal, bukan chatbot cloud, dipandang sebagai puncak evolusi ini.
+
+### Langkah 1: Instal OpenClaw CLI
+
+Cara tercepat merasakan agentic computing adalah memasang OpenClaw CLI. Pastikan Node.js versi LTS sudah terpasang.
+
+### Langkah 2: Agen Pertama Anda
+
+Sekarang kita buat proyek agen pertama dan beri ia tugas sederhana di dunia nyata.
+
+Output yang diharapkan: agen akan (1) membuat folder project, (2) menjalankan git init, (3) membuat file README.md sebagai penanda, dan (4) melaporkan hasil setiap langkah ke terminal. Perhatikan bahwa Anda tidak memberi perintah satu per satu — Anda memberi intensi, agen yang menerjemahkannya menjadi aksi. Bandingkan dengan cara kerja ChatGPT yang hanya akan mengetikkan perintahnya untuk Anda salin.
+
+### Langkah 3: Simulasi Agent Loop dengan Python
+
+Untuk memahami mekanika di balik CLI, mari kita bangun simulasi agent loop terkecil yang tetap jujur terhadap filosofi OpenClaw.
+
+Perhatikan tiga elemen kunci yang mencerminkan empat pilar: (1) memory — daftar langkah yang sudah dijalankan, membuat agen stateful (pilar memory); (2) think → act — siklus reasoning lalu action (pilar planning + tool use); (3) while not self.is_done — putaran otonom yang berhenti hanya ketika kriteria selesai terpenuhi (pilar autonomy). Dalam produksi, think menggunakan tool definitions resmi Ollama sehingga model benar-benar memilih dari daftar tool — persis seperti yang akan Anda pelajari di Bab 4.2.
+
+Untuk menguji simulasi ini, pastikan Ollama berjalan (ollama serve) dan model llama3.1:8b sudah diunduh, lalu jalankan:

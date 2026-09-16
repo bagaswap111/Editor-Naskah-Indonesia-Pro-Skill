@@ -1,0 +1,33 @@
+| Departemen | User | Key Tier | Budget/bln | Pemakaian/bln | Sisa |
+|:---|:---:|:---|:---:|:---:|:---:|
+| Engineering | 15 | Power | Rp 5jt | Rp 4,2jt | Rp 800k |
+| Data Science | 5 | Power | Rp 5jt | Rp 4,8jt | Rp 200k |
+| HR | 8 | Standard | Rp 2jt | Rp 1,1jt | Rp 900k |
+| Finance | 6 | Standard | Rp 2jt | Rp 1,5jt | Rp 500k |
+| Legal | 4 | Standard | Rp 2jt | Rp 1,8jt | Rp 200k |
+| IT Ops | 2 | Admin | Rp 10jt | Rp 3,5jt | Rp 6,5jt |
+| Total | 40 | | Rp 26jt | Rp 16,9jt | Rp 9,1jt |
+
+!Perbandingan budget dan pemakaian bulanan enam departemen di kantor 40 user, dalam juta rupiah.
+
+Gambar 8.4-2 — Pemakaian paling timpang ada di Data Science (96% budget, Rp 4,8jt) dan IT Ops (35%, Rp 3,5jt); dengan total sisa Rp 9,1jt dari budget Rp 26jt, alokasi hulu terbukti lebih longgar dari kebutuhan aktual.
+
+Dua insight langsung terlihat. Pertama, pemakaian tidak merata: Data Science memakai 96% budget-nya (Rp 4,8jt dari Rp 5jt) sementara IT Ops baru 35% — signal untuk audit internal: apakah workload Data Science memang sedang tinggi, atau ada script yang berulang sia-sia? Kedua, total sisa Rp 9,1jt (35%) menunjukkan budget hulu Rp 26jt lebih longgar dari kebutuhan aktual Rp 16,9jt; kantor bisa menurunkan alokasi atau menyalurkan sisa ke pelatihan AI karyawan. Tabel seperti ini juga menjadi bahan introspeksi: kalau sebuah departemen selalu habis di minggu ketiga, itu bukan masalah budget, melainkan masalah kebutuhan yang tidak dipetakan sejak awal — persis kasus yang terjadi pada departemen Legal di studi kasus PT Finansial Sejahtera (Seksi 9).
+
+### Gambar 2: Alur Rate Limiting dan Budget Check
+
+Setiap permintaan melewati tiga gerbang sebelum sampai ke model — RPM, TPM, lalu budget:
+
+Mengapa urutan RPM → TPM → budget? Karena RPM adalah pemeriksaan termurah (hitung dalam hitungan detik), sedangkan budget check melibatkan pembaruan data biaya di database. Dengan memeriksa yang murah lebih dulu, permintaan yang jelas-jelas melanggar dibuang tanpa kerja ekstra, dan hanya permintaan yang berpotensi lolos yang "melapor" ke sistem biaya. Perhatikan juga bahwa penolakan tidak diam-diam: setiap permintaan yang ditolak tetap dicatat, sehingga pola penyalahgunaan (misalnya script yang mengirim 300 permintaan dalam semalam) bisa dideteksi dari log, bukan hanya dari efektivitas penolakannya.
+
+### Cost Map Otomatis
+
+Salah satu keunggulan LiteLLM adalah pelacakan biaya otomatis: setiap penyedia model memiliki cost map yang mencatat harga per 1.000 token input dan output. Saat sebuah permintaan selesai, gateway menghitung harga berdasarkan model dan jumlah token aktual — tanpa perkiraan, tanpa perhitungan manual. Data ini mengalir ke tabel spend di PostgreSQL dan menjadi dasar semua laporan.
+
+Perhitungan presisi ini penting untuk general office karena anggaran LLM biasanya kecil dibanding anggaran software lain — sehingga kesalahan estimasi 20-30% langsung terasa di akhir bulan. Dengan cost map yang dipelihara otomatis, laporan biaya LLM kantor bisa dipercaya oleh bagian keuangan, bukan sekadar angka "kira-kira dari IT."
+
+### Endpoint Pelaporan dan Ekspor ke Akuntansi
+
+LiteLLM menyediakan endpoint /global/spend/report untuk laporan pengeluaran global bulanan: berapa per departemen, per model, per pengguna, dengan breakdown harian. Dari endpoint ini, bagian keuangan dapat mengekspor CSV dan memuatnya ke sistem akuntansi kantor, sehingga biaya AI masuk ke chart of account secara formal — bukan tercatat sebagai "biaya IT lain-lain."
+
+Kemampuan ekspor ini mengubah percakapan anggaran dari obrolan informal menjadi management review yang berdasar. Kepala departemen melihat angka pemakaian timnya, CFO melihat total investasi AI, dan IT melihat drift pemakaian yang tidak wajar — semua dari dokumen yang sama.

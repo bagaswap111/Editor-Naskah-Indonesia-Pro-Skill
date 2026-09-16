@@ -1,0 +1,32 @@
+Di kubu proprietary: GPT-5.5 mencatat 2,9% — peningkatan signifikan dibanding generasi sebelumnya GPT-4o yang berada di 5,2%, berkat reasoning effort dan konteks 1 juta token [13]. Claude Fable 5 menjadi pemimpin dengan 1,8% berkat constitutional classifiers-nya [6]. Sebagai pembanding, Llama 3.1 70B — model dense open-source yang banyak dipakai di Indonesia — berada di 5,8%, sehingga tim yang memakainya perlu kombinasi mitigasi eksternal yang lebih agresif [16].
+
+Pelajaran utamanya: untuk aplikasi dengan toleransi risiko sangat rendah (keuangan, legal), pilihan terbaik adalah Fable 5, atau kombinasi DeepSeek V4 Pro dengan guardrails eksternal yang ketat. Untuk kebutuhan non-kritis, model open-source dengan angka 4-5% masih dapat diterima bila dilapisi RAG yang dievaluasi ketat.
+
+### Tabel 3: Perbandingan Hallucination Rate Model Terbaru (TruthfulQA)
+
+Angka pada tabel ini membantu Anda menilai model mana yang butuh pelapis mitigasi lebih tebal:
+
+| Model | Parameter (Aktif) | Hallucination Rate | False Refusal | Context | Keunggulan Mitigasi |
+|:---|:---:|:---:|:---:|:---:|:---|
+| Claude Fable 5 | Proprietary | 1,8% | <2% | 1M | Constitutional classifiers built-in |
+| GPT-5.5 | Proprietary | 2,9% | <1% | 1M | Reasoning efforts, multi-pass verification |
+| Mistral Large 3 | 41B (Apache 2.0) | 3,8% | — | 256K | Granular MoE routing |
+| Qwen3.7-Max | Proprietary MoE | 4,0% | — | 1M | Agent-centric design |
+| DeepSeek V4 Pro | 49B (MIT) | 4,2% | — | 1M | MoE expert isolation, 1M context |
+| DeepSeek V4 Flash | 13B (MIT) | 5,1% | — | 1M | Efisien, cukup untuk non-kritis |
+| Llama 3.1 70B | 70B | 5,8% | — | 128K | Baseline dense model |
+| GPT-4o | Proprietary | 5,2% | <1% | 128K | Generasi sebelumnya |
+
+!Grafik batang horizontal hallucination rate delapan model dari yang tertinggi hingga terendah, dengan Llama 3.1 70B di puncak (5,8%) dan Claude Fable 5 di dasar (1,8%)
+
+Gambar 10.1-1 — Urutan hallucination rate delapan model pada benchmark TruthfulQA 2026. Gap antara pemimpin proprietary (Claude Fable 5, 1,8%) dan open-source menengah (Llama 3.1 70B, 5,8%) nyaris tiga kali lipat, dan DeepSeek V4 Pro (4,2%) membuktikan MoE open-source mampu menembus di bawah 5%.
+
+Analisis: gap antara model proprietary terbaik (1,8%) dan open-source menengah (5,8%) hampir tiga kali lipat, tetapi gap ini bisa ditutup secara arsitektural. DeepSeek V4 Pro membuktikan bahwa MoE expert isolation bisa menurunkan halusinasi open-source di bawah 5%, sementara Mistral Large 3 membawa kualitas sebanding dengan lisensi yang mudah diaudit. Untuk deployment lokal di perusahaan Indonesia dengan anggaran terbatas, formula realistis adalah: model open-source 4-5% + RAG yang dievaluasi + guardrails — hasil akhirnya dapat menyeimbangi Fable 5 tanpa biaya API.
+
+### Gambar 2: Taksonomi Halusinasi dan Peta Mitigasi
+
+Peta berikut menghubungkan setiap akar penyebab halusinasi dengan teknik mitigasi yang paling tepat sasaran:
+
+Gambar ini adalah semacam triage: saat halusinasi terdeteksi di produksi, langkah pertama adalah menentukan akar masalahnya. Jawaban yang plausible tetapi tidak didukung dokumen → knowledge gap (perkuat RAG). Jawaban yang menyalin informasi usang → memorization error (perbarui basis pengetahuan). Jawaban yang salah logika padahal faktanya benar → reasoning error (aktifkan chain-of-thought). Jawaban yang tidak menjawab pertanyaan → instruction misalignment (perbaiki prompt). Disiplin diagnosis ini mencegah tim membuang anggaran pada teknik yang salah sasaran [4][5].
+
+Mitigasi tanpa pengukuran hanyalah kepercayaan. Sebuah pipeline RAG produksi wajib dievaluasi dengan metrik yang terukur pada tiga lapis: retrieval (sebaik apa dokumen ditemukan), generation (sebaik apa jawaban), dan faithfulness (seberapa setia jawaban pada konteks — bukan pada fakta dunia yang disembunyikan).

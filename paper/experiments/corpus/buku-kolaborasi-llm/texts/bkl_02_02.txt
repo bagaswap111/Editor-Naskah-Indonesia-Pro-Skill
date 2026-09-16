@@ -1,0 +1,34 @@
+| Model | Arsitektur | Total Param | Active Param | VRAM FP16 | VRAM Q4 | MMLU | GSM8K |
+|:---|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| Mistral 7B | Dense | 7.3B | 7.3B | 14 GB | 4.5 GB | 62.5% | 45.2% |
+| Llama-3 8B | Dense | 8.0B | 8.0B | 16 GB | 5.2 GB | 66.7% | 79.6% |
+| Llama-3 70B | Dense | 70.6B | 70.6B | 140 GB | 42 GB | 83.6% | 91.1% |
+| Mixtral 8x7B | MoE | 46.7B | 12.9B | 90 GB | 28 GB | 70.6% | 68.6% |
+| DeepSeek V2 | MoE | 236B | 21B | 470 GB | 140 GB | 78.5% | 85.5% |
+| DeepSeek V4 Pro | MoE | 1.6T | 49B | 3.2 TB | 950 GB | 87.5% | 93.5% |
+| DeepSeek V4 Flash | MoE | 284B | 13B | 560 GB | 160 GB | — | — |
+| Mistral Large 3 | MoE | 675B | 41B | 1.35 TB | 380 GB | 84.9% | 91.2% |
+| Qwen 1.5-32B | Dense | 32.8B | 32.8B | 66 GB | 20 GB | 74.6% | 72.3% |
+| DBRX | MoE | 132B | 36B | 260 GB | 78 GB | 73.7% | 72.8% |
+
+\MMLU-Pro untuk DeepSeek V4 Pro (MMLU standar tidak dipublikasikan).
+
+Tabel 1 menunjukkan kontras yang jelas antara parameter total dan parameter aktif. Perhatikan bahwa Mixtral 8x7B dengan 12,9B aktif membutuhkan VRAM yang sama dengan dense model 50B (90 GB FP16), tetapi memberikan kualitas yang mendekati Llama-3 70B pada sebagian benchmark. DeepSeek V4 Flash dengan 13B aktif adalah contoh paling efisien dalam tabel — ia memberikan kapasitas model 284B tetapi dengan kebutuhan komputasi hanya setara 13B.
+
+!Perbandingan parameter total, parameter aktif, dan skor MMLU
+
+Gambar 1.3-1 — model MoE tampil sebagai "tiang" biru muda yang tinggi dengan "tiang" aktif yang pendek; skor MMLU (garis merah) tidak terkait langsung dengan ukuran total.
+
+!Kebutuhan VRAM FP16 vs Q4 untuk model dense dan MoE
+
+Gambar 1.3-2 — kuantisasi Q4 memangkas VRAM 3-5x; pada model MoE besar, selisih ini menentukan apakah model bisa berjalan di satu node atau membutuhkan kluster.
+
+### Prinsip Sparse Activation
+
+MoE mengadopsi pendekatan yang berbeda secara fundamental. Tidak semua parameter model aktif untuk setiap token. Parameter FFN dibagi menjadi beberapa "expert" yang independen, dan sebuah router atau gate network memilih subset kecil dari expert ini untuk setiap token. Konfigurasi paling umum adalah memilih 2 dari 8 expert (top-2 routing), tetapi varian ekstrem seperti DeepSeek V4 Pro menggunakan 9 dari 256+ expert. Prinsip ini memungkinkan total parameter mencapai triliunan sementara FLOP per token tetap setara dengan model yang jauh lebih kecil.
+
+### Mekanisme Routing
+
+Setiap token yang memasuki lapisan MoE melewati router — sebuah jaringan linear kecil yang menghasilkan distribusi probabilitas atas semua expert yang tersedia. Expert dengan probabilitas tertinggi (top-K) dipilih untuk memproses token tersebut. Output akhir lapisan MoE adalah weighted sum dari output expert-expert terpilih, dengan bobot sesuai probabilitas yang dihasilkan router. K=2 adalah konfigurasi yang paling banyak digunakan karena memberikan keseimbangan optimal antara diversitas representasi (dua expert memberikan perspektif berbeda) dan efisiensi komputasi (hanya dua expert yang perlu dijalankan). Varian K=1, yang digunakan oleh Switch Transformer dari Google, lebih ekstrem — hanya satu expert per token — mengorbankan kualitas untuk efisiensi komputasi maksimal.
+
+### Sparsity Ratio

@@ -1,0 +1,25 @@
+Jika dua model diminta bersamaan, scheduler menilai prioritas: model yang sedang melayani streaming dipertahankan, model yang sudah lama tidak dipakai boleh dikeluarkan dari memori untuk memberi tempat model baru. Perilaku ini bisa dikontrol via parameter num_gpu (berapa lapisan maksimum yang dioffload) dan OLLAMA_MAX_LOADED_MODELS (berapa model boleh hidup bersamaan). Dengan kata lain, Ollama memperlakukan VRAM seperti meja kerja terbatas: ia mengatur posisi duduk setiap "pekerja" (lapisan model) agar semua tugas tetap berjalan, meski harus bergantian.
+
+Ada satu detail lagi yang membuat scheduling Ollama terasa "manusiawi": estimasi kebutuhan memori dilakukan sebelum load. Scheduler membaca metadata model (ukuran bobot, ukuran KV cache untuk konteks default) lalu memutuskan apakah model muat di VRAM yang tersisa; jika tidak, lapisan-lapisan teratas yang paling banyak dipakai ditempatkan di GPU dan sisanya di CPU. Proses ini menghasilkan pola khas: jika Anda menjalankan model yang "pas-pasan" dengan VRAM, inference tetap bekerja — hanya saja lebih lambat di lapisan yang jatuh ke CPU. Memahami pola ini membantu menjelaskan kenapa menggeser parameter num_ctx ke nilai besar bisa membuat model yang tadinya mulus menjadi tersendat: konteks yang lebih panjang berarti KV cache lebih besar, sisa VRAM menyusut, dan lapisan mulai "tumpah" ke CPU.
+
+Antarmuka utama Ollama bagi pengembang adalah REST API di http://localhost:11434. Tiga endpoint yang paling sering digunakan: /api/generate untuk completion satu arah, /api/chat untuk percakapan dengan pesan ber-role (system, user, assistant), dan /api/embeddings untuk menghasilkan vektor teks — bahan baku retrieval-augmented generation (RAG) dan pencarian semantik. Semua endpoint mendukung streaming, sehingga token bisa tampil satu per satu seperti mengetik.
+
+Yang membuat Ollama populer di ekosistem developer adalah endpoint kompatibel OpenAI: http://localhost:11434/v1/chat/completions. Karena bentuknya identik dengan API OpenAI, aplikasi yang ditulis untuk ChatGPT API bisa dialihkan ke Ollama hanya dengan mengganti base URL — tanpa mengubah satu baris kode pun. Inilah jembatan yang menghubungkan Ollama dengan Open WebUI (antarmuka web mirip ChatGPT), LangChain, dan puluhan framework lain yang sudah berbicara bahasa OpenAI. Satu gerbang, dua bahasa API: bahasa asli Ollama untuk kontrol penuh, dan bahasa OpenAI untuk kompatibilitas universal.
+
+Pola integrasi yang sama berlaku di hampir semua framework modern: tentukan base URL, set model, lalu sisanya mengikuti konvensi OpenAI. Untuk embedding, endpoint /api/embeddings (atau padanan OpenAI-nya) menyediakan vektor teks yang bisa disimpan di vector database untuk pencarian semantik — fondasi dari aplikasi RAG skala kecil hingga menengah yang seluruhnya berjalan lokal. Kombinasi chat + embedding inilah yang membuat satu instalasi Ollama mampu menjadi backend tunggal untuk sistem question answering dokumen perusahaan, tanpa membayar satu sen pun biaya API eksternal.
+
+### Tabel 3: Perintah Dasar Manajemen Ollama
+
+| Perintah | Fungsi | Contoh |
+|:---|:---|:---|
+| ollama pull | Unduh model dari registry | ollama pull llama3.1:8b |
+| ollama push | Unggah model ke registry | ollama push user/model:tag |
+| ollama create | Buat model dari Modelfile | ollama create mymodel -f Modelfile |
+| ollama list | Lihat model lokal | ollama list |
+| ollama run | Jalankan model interaktif | ollama run llama3.1:8b |
+
+Kelima perintah ini adalah "daur hidup" sebuah model: pull untuk membeli bahan, create untuk meracik, list untuk mengecek stok, run untuk memakai, dan push untuk membagikan. Bila diibaratkan Git: pull ≈ clone, push ≈ push, create ≈ build image, dan list ≈ status.
+
+### Gambar 2: Alur Lifecycle Request dan Keep-Alive
+
+Untuk melengkapi gambaran arsitektur, berikut sequence diagram yang menunjukkan interaksi antar-komponen saat satu request datang dan bagaimana keep-alive bekerja pada request berikutnya.

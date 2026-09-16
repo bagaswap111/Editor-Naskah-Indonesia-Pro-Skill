@@ -1,0 +1,30 @@
+Pada September 2024, Qwen2.5 dari Alibaba meramaikan persaingan. Model dense (non-MoE) dalam rentang 0,5B hingga 72B ini dilatih pada 18 triliun token dan mendukung 29 bahasa. Qwen2.5-7B mencapai MMLU 70,5%, hampir menyamai GPT-3 175B yang hanya 70,7% — menunjukkan bahwa model kecil kini bisa menyaingi model raksasa dari empat tahun sebelumnya.
+
+### Tabel 2: Perbandingan Ukuran Model dan Kebutuhan Hardware (Lokal)
+
+| Model | Ukuran Q4_K_M | RAM Min. | GPU Minimum | Bisa di Laptop? |
+|:---|:---:|:---:|:---|:---:|
+| GPT-2 (1,5B) | 1,2 GB | 4 GB | CPU saja | Ya |
+| LLaMA-7B | 4,5 GB | 8 GB | GTX 1060 6GB | Ya (GPU low-end) |
+| Mistral 7B | 4,5 GB | 8 GB | GTX 1060 6GB | Ya |
+| Llama-3 8B | 5,2 GB | 8 GB | RTX 2060 8GB | Ya |
+| Phi-4 (14B) | 8,5 GB | 12 GB | RTX 3060 12GB | Ya (laptop gaming) |
+| Qwen2.5-32B | 18 GB | 24 GB | RTX 3090 24GB | Ya (high-end) |
+| Qwen3-30B-A3B | 2,5 GB | 6 GB | CPU/GPU ringan | Ya (efisien MoE) |
+| Llama 4 Scout | ~12 GB (INT4) | 16 GB | RTX 4070 12GB+ | Ya (high-end) |
+| DeepSeek-R1 (671B) | ~280 GB | 320 GB | Cluster GPU | Tidak |
+| Llama-3 70B | 42 GB | 48 GB | 2x RTX 4090 | Tidak (server) |
+| Qwen3.6-27B | 16 GB | 24 GB | RTX 3090 24GB | Ya (high-end) |
+| Mistral Large 3 (675B) | ~280 GB (FP8) | 320 GB | 8xH200 / GB200 NVL72 | Tidak (server) |
+| DeepSeek V4 Flash (284B) | ~150 GB (INT4) | 192 GB | 2xRTX 6000 Ada | Server/workstation |
+| DeepSeek V4 Pro (1,6T) | ~865 GB | 1 TB+ | Cluster GPU HGX B200 | Tidak (datacenter) |
+| Ministral 3 14B | 8,5 GB | 12 GB | RTX 3060 12GB | Ya (laptop gaming) |
+| Ministral 3 3B | 2 GB | 4 GB | CPU/GPU ringan | Ya (semua perangkat) |
+
+Akhir 2024 menjadi saksi gebrakan dari DeepSeek, laboratorium AI asal Tiongkok. DeepSeek-V3, dirilis pada Desember 2024, adalah model Mixture-of-Experts (MoE) dengan 671 miliar parameter total, tetapi hanya 37 miliar aktif per token. Dengan arsitektur Multi-head Latent Attention (MLA) dan DeepSeekMoE, model ini dilatih hanya dengan biaya sekitar $5,5 juta — jauh di bawah perkiraan industri yang menaksir biaya training model setara >$100 juta.
+
+Angka $5,5 juta mengguncang asumsi industri. Jika model sekelas GPT-4 bisa dilatih dengan biaya kurang dari harga satu rumah mewah, maka hambatan masuk ke dunia LLM turun drastis. DeepSeek membuktikan bahwa inovasi arsitektur (MLA, MoE) dan optimasi training (FP8 mixed precision) bisa memangkas biaya tanpa mengorbankan kualitas.
+
+Pada Januari 2025, DeepSeek-R1 menyusul dengan terobosan lain: reasoning via pure reinforcement learning menggunakan algoritma GRPO (Group Relative Policy Optimization). Tanpa data reasoning buatan manusia, model belajar berpikir langkah demi langkah (chain-of-thought) dan mencapai performa setara OpenAI o1 pada benchmark matematika dan coding. Yang lebih menarik, R1 bisa didistilasi ke model kecil — Qwen dan Llama versi kecil kini memiliki kemampuan reasoning yang sebelumnya hanya dimiliki model raksasa.
+
+April 2025 menjadi bulan penting dengan dirilisnya Llama 4 — model MoE pertama dalam keluarga Llama. Dua varian utama dirilis:

@@ -1,0 +1,19 @@
+Meskipun hanya 2 dari 8 expert yang aktif per token, seluruh expert harus berada di VRAM karena token yang berbeda dalam satu batch dapat mengaktifkan expert yang berbeda. Mixtral 8x7B membutuhkan sekitar 90 GB dalam FP16 — setara dengan dense model sekitar 50B, tetapi hanya 13B parameter yang benar-benar aktif. Sebagai perbandingan, dense 13B hanya membutuhkan sekitar 26 GB. Ini membatasi MoE pada GPU dengan VRAM besar. DeepSeek V4 Flash dengan 284B total dan 13B aktif masih membutuhkan 160 GB dalam format Q4 — hanya muat di server multi-GPU atau Apple Silicon dengan unified memory 192 GB atau lebih.
+
+### Latensi Lebih Tinggi untuk Skenario Single User
+
+MoE memiliki beberapa sumber overhead yang tidak dimiliki dense model: forward pass melalui router, komunikasi antar expert jika expert berada di GPU berbeda, dan agregasi weighted sum. Untuk single token, overhead ini menambah 10 hingga 50 milidetik latency tambahan. Pada batch kecil, TPS (token per detik) MoE bisa lebih rendah dari dense model dengan ukuran aktif yang sama. Mixtral 8x7B dalam Q4_K_M mencapai sekitar 40 TPS untuk single user, sementara Llama-3 8B mencapai 85 TPS. MoE dua kali lebih lambat meskipun param aktifnya hanya 1,6 kali lebih besar. Ini karena overhead komunikasi tidak ter-amortisasi pada batch kecil.
+
+### Kompleksitas Fine-tuning dan Training
+
+Fine-tuning model MoE secara signifikan lebih kompleks daripada dense model. Lima tantangan utama harus dihadapi. Pertama, load balancing loss harus ditambahkan ke loss function — terlalu kecil menyebabkan expert collapse, terlalu besar menurunkan kualitas model. Kedua, expert collapse dapat terjadi jika satu expert menerima terlalu banyak atau terlalu sedikit token. Ketiga, memory bottleneck — optimizer state untuk semua expert (AdamW menyimpan momen pertama dan kedua untuk setiap parameter) membutuhkan VRAM ekstra yang besar saat training. Keempat, gradient routing — gradient hanya di-backprop melalui expert yang terpilih, sementara non-selected expert tidak menerima gradient sama sekali. Kelima, hyperparameter tambahan seperti alpha balancing, nilai top-k, expert dropout, dan z-loss semuanya perlu di-tuning secara hati-hati.
+
+### Ketidakcocokan untuk Penggunaan Personal
+
+Untuk pengguna individu yang melakukan chatting interaktif, dense model seringkali merupakan pilihan yang lebih baik. Dense model 7-8B dalam Q4_K_M muat di GPU 6-8 GB — kartu entry-level hingga mid-range. Latency lebih rendah, respons terasa lebih cepat dan lebih responsif. Kualitas dense model modern seperti Llama-3 8B, Gemma 2 9B, atau Mistral 7B sudah sangat baik untuk tugas umum seperti percakapan, summarization, dan coding sederhana. MoE hanya memberikan keunggulan berarti untuk batch processing atau model dengan ukuran efektif di atas 30B. Untuk rata-rata pengguna dengan satu GPU, dense 7-8B adalah sweet spot yang sulit ditandingi.
+
+### Tantangan Deployment dan Tooling
+
+Ekosistem tooling untuk MoE masih belum sematang untuk dense model. Tidak semua framework inference mendukung MoE secara optimal — llama.cpp, Ollama, dan vLLM memiliki tingkat dukungan yang berbeda. Quantization untuk MoE lebih sulit karena setiap expert bisa memiliki distribusi bobot yang berbeda, sehingga kalibrasi quantization perlu dilakukan per-expert. Expert parallelism membutuhkan konfigurasi multi-GPU yang rumit. Debugging MoE lebih sulit karena routing behavior tidak selalu mudah diinterpretasi. CPU offloading untuk MoE tidak efisien — bandwidth CPU-GPU menjadi bottleneck karena semua expert harus diakses secara bergantian untuk token yang berbeda.
+
+### llama.cpp (Backend Ollama)

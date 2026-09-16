@@ -1,0 +1,38 @@
+| Model | Arsitektur | TPS (single) | TPS (batch 8) | VRAM | Latency (TTFT) |
+|:---|:---|:---:|:---:|:---:|:---:|
+| Llama-3 8B | Dense | ~85 | ~320 | 5.2 GB | ~50 ms |
+| Mixtral 8x7B | MoE | ~40 | ~180 | 28 GB | ~120 ms |
+| Qwen 2.5 32B | Dense | ~22 | ~95 | 20 GB | ~180 ms |
+| DeepSeek V2 (lite) | MoE | ~35 | ~150 | 45 GB | ~100 ms |
+| DeepSeek V4 Flash Q4 | MoE (13B aktif) | ~55 | ~200 | 160 GB | ~80 ms |
+| Mistral Large 3 Q4 | MoE (41B aktif) | ~20 | ~80 | 380 GB | ~250 ms |
+
+Tabel 3 mengkonfirmasi analisis sebelumnya: untuk single user, dense model memberikan latency yang lebih rendah (Llama-3 8B dengan TTFT 50ms vs Mixtral 120ms). Namun, pada batch 8, MoE menunjukkan keunggulan throughput yang signifikan. DeepSeek V4 Flash mencatatkan TPS single yang cukup baik (55 TPS) mengingat ukuran modelnya yang sangat besar.
+
+### Arsitektur Dense vs MoE
+
+Diagram di bawah ini menunjukkan perbedaan struktural antara arsitektur dense dan MoE. Pada dense model, satu FFN tunggal memproses semua token. Pada MoE, router memilih subset expert (dalam ilustrasi ini, 2 dari 8) untuk setiap token, dan outputnya digabung melalui weighted sum.
+
+### Langkah 1: Menjalankan Dense vs MoE di Ollama
+
+Cara terbaik untuk memahami perbedaan dense dan MoE adalah menjalankannya langsung dan merasakan perbedaan kecepatan serta kualitas output.
+
+Perhatikan perbedaan waktu eksekusi — dense model akan memberikan respons lebih cepat, sementara MoE kemungkinan akan memberikan jawaban yang lebih informatif. Amati juga penggunaan VRAM melalui nvidia-smi: Mixtral akan memakan VRAM jauh lebih besar meskipun parameter aktifnya hanya sedikit lebih besar dari Llama-3 8B.
+
+### Langkah 2: Memeriksa Konfigurasi MoE di HuggingFace
+
+Tutorial ini menunjukkan cara memeriksa konfigurasi arsitektur MoE dari model Mixtral menggunakan library Transformers.
+
+Skrip ini akan menampilkan detail arsitektur Mixtral dan menghitung sparsity ratio secara langsung dari konfigurasi. Untuk Mixtral 8x7B, Anda akan melihat bahwa hanya sekitar 25% dari parameter FFN yang aktif per token.
+
+### Langkah 3: Simulasi Router MoE
+
+Untuk memahami bagaimana router bekerja, tutorial ini mensimulasikan proses routing MoE dengan PyTorch.
+
+Jalankan skrip ini beberapa kali dan perhatikan bagaimana distribusi expert berubah. Dalam beberapa eksekusi, distribusi mungkin tidak merata — beberapa expert menerima lebih banyak token dari yang lain. Ini adalah masalah load balancing yang harus ditangani oleh auxiliary loss selama pelatihan.
+
+Skenario: Sebuah startup di Indonesia ingin men-deploy API LLM untuk 8 developer internal yang akan menggunakan model untuk coding assistance, summarization dokumen, dan Q&A teknis. Mereka memiliki 2 kartu RTX 3090 (masing-masing 24 GB, total 48 GB via NVLink).
+
+Pilihan A: Dense 70B Q3_K_M. Model ini membutuhkan sekitar 30 GB VRAM — hanya cukup untuk satu GPU. GPU kedua akan menganggur atau hanya digunakan untuk KV cache. Kualitas output sangat tinggi (MMLU 83,6%), tetapi throughput diperkirakan hanya sekitar 10 TPS dengan TTFT (time-to-first-token) sekitar 500 ms.
+
+Pilihan B: MoE Mixtral 8x7B Q4_K_M. Model ini membutuhkan sekitar 28 GB VRAM dan dapat didistribusikan ke kedua GPU dengan expert parallelism. Kualitas output setara dense model 30B (MMLU 70,6%), tetapi throughput diperkirakan 35 TPS dengan TTFT sekitar 120 ms.

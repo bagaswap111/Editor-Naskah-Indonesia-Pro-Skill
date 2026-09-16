@@ -1,0 +1,23 @@
+Ada alasan mengapa topik ini baru meledak popularitasnya dalam dua tahun terakhir: context window model melonjak drastis. Model standar 2024 seperti Llama 3 membawa konteks 128K, sementara model frontier 2026 seperti DeepSeek V4 dan Mistral Large 3 menawarkan konteks 1 juta token — delapan kali lipat hanya dalam dua tahun. KV-cache tumbuh linear terhadap panjang konteks, sehingga request dengan prompt panjang kini bisa memakan puluhan GB lebih banyak memori. Di sinilah humor pahit terjadi: model MoE modern seperti DeepSeek V4 Pro hanya menghitung 49 miliar parameter aktif per token — beban komputasi justru ringan dibandingkan model dense sekelas, tetapi KV-cache-nya tetap tumbuh tanpa kenal ampun. Hasilnya, bottleneck server modern hampir selalu memori, bukan compute.
+
+Kabar baiknya, arsitektur model mulai membantu. DeepSeek V4 Pro dengan hybrid CSA/HCA attention memangkas KV-cache hingga hanya 10% dari V3.2 pada konteks 1 juta token, dan training FLOPs-nya hanya 27% milik V3.2 [8]. Efek gabungannya terlihat di Tabel 2 nanti: meski berparameter 1,6 triliun, DeepSeek V4 Pro justru mencapai throughput tertinggi di kelasnya — karena masalah memori yang menganga sudah diobati sejak arsitektur. Namun untuk model-model yang belum seefisien itu, manajemen memori yang baik tetap menjadi pembeda antara server yang melayani 4 request dan yang melayani 64 request per detik.
+
+### Tabel 1: Perbandingan Sistem Serving (OPT-13B pada A100)
+
+Berikut perbandingan empat sistem serving yang diukur pada model OPT-13B dengan trace ShareGPT dari paper PagedAttention [1] — perhatikan bagaimana angka-angka ini membuktikan besarnya biaya memory management konvensional.
+
+| Metrik | Hugging Face Transformers | FasterTransformer | Orca | vLLM (PagedAttention) |
+|:---|:---:|:---:|:---:|:---:|
+| Throughput (req/s) | 0,5 | 3,2 | 5,1 | 12,8 |
+| Memory Waste KV-Cache | ~80% | ~60% | ~50% | ~4% |
+| Max Batch Size | 4 | 16 | 32 | 64+ |
+| Latency P50 (ms) | 850 | 320 | 280 | 195 |
+| Speedup vs HF | 1x | 6,4x | 10,2x | 25,6x |
+
+!Throughput melonjak dari 0,5 req/s (HF Transformers) ke 12,8 req/s (vLLM), sementara memory waste KV-cache anjlok dari ~80% menjadi ~4%
+
+Gambar 5.1-1 — Panen PagedAttention: throughput naik 25,6x sambil pemborosan memori jatuh dari ~80% ke ~4%; hampir seluruh VRAM yang tadinya menganggur kini produktif.
+
+Beberapa insight penting dari tabel di atas. Pertama, memory waste turun drastis dari ~80% menjadi ~4% — hampir seluruh VRAM yang tadinya menganggur kini produktif, dan inilah akar percepatan 25,6x. Kedua, capaian ini bukan karena kernel komputasi yang lebih cepat semata, melainkan karena throughput dihasilkan dari memuat lebih banyak request dalam satu waktu (max batch size 64+). Ketiga, latency P50 vLLM sebesar 195 ms — angka yang tampak tidak jauh berbeda dengan Orca, tetapi dicapai sambil melayani dua kali lipat volume request; inilah makna "lebih cepat sambil lebih sibuk".
+
+PagedAttention lahir dari sebuah analogi yang sangat sederhana namun dalam: jika LLM serving menghadapi masalah memori yang sama seperti program komputer di tahun 1960-an — memory fragmentation dan alokasi contiguous yang membatasi — mengapa tidak memakai solusi yang sudah matang di sistem operasi, yaitu virtual memory? Di dunia OS, program melihat alamat memori seolah berurutan, tetapi di belakang layar halaman-halamannya (pages) disimpan di mana saja di RAM, bahkan boleh dipindah ke disk. Pemetaannya dicatat di struktur bernama page table.

@@ -1,0 +1,21 @@
+Setelah membaca baris per baris, pola yang terlihat bukanlah "chatbot yang ditingkatkan", melainkan dua kelas sistem yang berbeda secara fundamental. Dimensi yang paling menentukan adalah Loop dan Kontrol: chatbot berhenti setelah satu jawaban karena manusia yang memegang semua kendali, sedangkan agen terus berputar pada Think → Act → Observe karena kendali dieksekusi oleh sistem. Konsekuensinya, keamanan berbanding terbalik dengan kenyamanan — semakin aktif sistem, semakin besar tanggung jawab yang Anda pikul. Pilihan "chatbot atau agen" karena itu bukan pilihan teknis semata, melainkan pilihan tentang seberapa besar kendali yang ingin Anda serahkan.
+
+### Gambar 1: Agent Loop — Siklus Observe-Think-Act
+
+Jantung agentic computing adalah lingkaran perhatian: sebuah putaran yang terus berulang sampai tugas selesai.
+
+Diagram ini menunjukkan agent loop dalam bentuk paling murni: tugas masuk ke Planner yang menyusun langkah (CoT), Tool Selector memilih alat yang tepat, alat dieksekusi, hasilnya diamati, dan memori diperbarui. Keputusan ada di diamond di tengah: bila tugas belum selesai, putaran kembali ke Planner dengan memori yang lebih kaya — ini yang membuat setiap iterasi lebih cerdas dari iterasi sebelumnya. Bila selesai, agen melapor. Poin penting yang sering luput: tidak ada arrow yang keluar dari diagram ini menuju manusia — intervensi manusia hanya terjadi melalui approval gates di titik-titik tertentu, bukan di setiap langkah. Inilah keseimbangan autonomy with supervision yang menjadi ciri khas OpenClaw.
+
+Dua varian loop ini layak dikenal. Single-step loop — pola paling sederhana, cocok untuk tugas seperti transkripsi file — menjalankan satu siklus plan → act → observe lalu berhenti. Multi-step loop — seperti pada diagram di atas — berulang hingga kriteria selesai terpenuhi, dan inilah yang dibutuhkan tugas seperti "bersihkan direktori proyek" yang melibatkan puluhan keputusan kecil. Perbedaan keduanya persis seperti membeli bahan sekali (single) dibandingkan berbelanja sambil memeriksa dapur setiap kali (multi): yang kedua lebih lambat per langkahnya, tetapi lebih hemat dan tepat sasaran untuk tugas kompleks. ReAct [4] adalah contoh formal dari multi-step loop yang akan dibedah di Bab 4.3.
+
+### Platform Agen Otonom Open-Source
+
+OpenClaw adalah platform agen otonom open-source yang dirancang untuk komputasi lokal: agen yang bisa Anda jalankan di mesin sendiri, dengan model LLM lokal atau API pilihan Anda [6]. Ia bukan sekadar aplikasi chat — ia adalah lapisan orchestrator yang menghubungkan LLM dengan kemampuan nyata: file system, shell, browser, dan API. Dengan kata lain, OpenClaw adalah "jembatan" yang mengubah otak (LLM) menjadi tangan (tool).
+
+Posisinya dalam ekosistem 2026 sangat menarik. Di satu sisi ada coding agent seperti Cline yang fokus pada repositori kode [7]; di sisi lain ada platform otomasi umum tempat agen bebas menentukan peralatannya sendiri. OpenClaw memilih jalur kedua dengan penekanan pada kedaulatan lokal: model, data, dan kontrol tetap berada di mesin Anda.
+
+Perlu digarisbawahi: OpenClaw bukanlah model AI. Ia tidak dilatih, tidak mengeluarkan token, dan tidak boleh disamakan dengan "otak" di baliknya. OpenClaw adalah sistem saraf yang menghubungkan otak (LLM lokal via Ollama/LM Studio atau LLM API) dengan otot (tool). Konsekuensi desainnya penting: kualitas otak menentukan kecerdasan agen, sementara kualitas sistem saraf menentukan kelincahan agen. Anda bisa mengganti otak — dari model 8B untuk tugas ringan hingga DeepSeek V4 Flash untuk tugas berat — tanpa mengganti kerangka kerjanya. Analogi yang tepat: OpenClaw adalah rangka dan otot, sedangkan LLM adalah otak yang bisa dicangkok.
+
+### Tiga Prinsip Desain
+
+Filosofi OpenClaw bertumpu pada tiga pilar desain. Pertama, human-in-the-loop autonomy — agen boleh otonom, tetapi keputusan berisiko tetap melewati persetujuan manusia. Kedua, tool-first — kemampuan agen diukur dari seberapa banyak tool (alat) yang bisa ia kendalikan, bukan dari panjang percakapan. Ketiga, local-first — seluruh pipeline (alur kerja), dari model hingga penyimpanan, berjalan di mesin sendiri demi privasi dan kedaulatan data.

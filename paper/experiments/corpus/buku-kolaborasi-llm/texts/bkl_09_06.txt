@@ -1,0 +1,35 @@
+- Speculative decoding — memakai model kecil sebagai drafter agar model besar menghasilkan token lebih cepat
+- Multi-LoRA — memuat banyak adapter Low-Rank Adaptation dalam satu server
+- Kuantisasi — AWQ, GPTQ, hingga FP8 dan GGUF, termasuk --kv-cache-dtype fp8 untuk memangkas memori cache
+- Prefix caching — KV-cache untuk prefix yang sama (misalnya system prompt identik) otomatis dipakai ulang lintas request, meniadakan komputasi berulang
+- API server kompatibel OpenAI — aplikasi yang sudah menulis kode client.chat.completions dapat langsung berpindah base URL tanpa perubahan berarti
+
+Kombinasi fitur ini membuat vLLM menjadi pilihan default bagi tim yang mengutamakan throughput murni dan fleksibilitas model besar — sesuatu yang akan kita bandingkan dengan TGI di sub-bab 5.2 dan dengan Aphrodite di sub-bab 5.3.
+
+Dua fitur layak digarisbawahi sebelum kita melangkah ke angka-angka. Prefix caching adalah penghemat paling tenang: di aplikasi chat atau agent, hampir setiap request membawa system prompt dan riwayat percakapan yang identik di bagian awal. Tanpa prefix caching, KV-cache untuk bagian itu dihitung ulang setiap kali — sia-sia. Dengan prefix caching, vLLM menyimpan hash KV per blok dan melewatkan komputasi berulang; blok yang sama dipakai bersama lintas request hingga salah satu "menyimpang". Penghematannya bisa mencapai puluhan persen waktu prefill untuk aplikasi dengan prompt templat.
+
+Sementara itu, continuous batching yang mengantrekan request per iterasi — bukan per request selesai — adalah alasan mengapa vLLM tetap sibuk bahkan ketika sebagian besar request sudah selesai menulis jawaban dan hanya menunggu token terakhir.
+
+### Tabel 3: Parameter Tuning vLLM
+
+Setelah memahami arsitektur, berikut parameter yang paling sering diutak-atik saat men-tune server vLLM di produksi.
+
+| Parameter | Default | Fungsi | Rekomendasi |
+|:---|:---:|:---|:---|
+| --block-size | 16 | Ukuran KV block per token | 16 (optimal umum) |
+| --max-num-seqs | 256 | Maksimum sequence per batch | 128-512 tergantung VRAM |
+| --gpu-memory-utilization | 0,90 | Fraksi GPU untuk KV-cache | 0,85-0,95 |
+| --swap-space | 4 | CPU memory untuk swap (GB) | 0 jika disable swap |
+| --max-model-len | 4096 | Maksimum panjang sequence | Sesuai model |
+
+Tiga parameter pertama membentuk segitiga trade-off klasik: --max-num-seqs yang besar menaikkan throughput tetapi menambah tekanan VRAM; --gpu-memory-utilization yang tinggi memberi lebih banyak ruang KV-cache namun menyisakan sedikit headroom untuk aktivasi; dan --block-size yang lebih besar mempercepat pembacaan blok tetapi membuang memori di tepi-tepi request pendek. Untuk server produksi, mulai dari nilai 0,90 dengan --max-num-seqs 256, lalu pantau metrik vllm:gpu_cache_usage_perc — jika mendekati 100% dengan request mengantre, naikkan --swap-space atau turunkan --max-num-seqs.
+
+Satu kesalahpahaman umum perlu diluruskan: --gpu-memory-utilization bukan "persentase VRAM yang dipakai model", melainkan batas atas seluruh alokasi — bobot model, KV-cache pool, dan aktivasi. Jika model sendiri sudah makan 60% VRAM, nilai 0,90 berarti KV-cache hanya mendapat sisanya sekitar 30%. Karena itu, pada model besar dengan konteks panjang, jangan ragu menurunkan --gpu-memory-utilization ke 0,85 agar aktivasi dan scratch space punya ruang bernapas — cache yang sedikit lebih kecil jauh lebih baik daripada out-of-memory di tengah trafik puncak.
+
+Bagian ini membawa Anda dari nol hingga server vLLM yang siap produksi — mulai dari model 8B di satu GPU hingga model MoE besar di empat GPU, plus klien Python dan pemantauan metrik. Semua perintah di bawah ini mengikuti konvensi versi vLLM 0.8.x; jika versi Anda berbeda, cek vllm serve --help untuk nama parameter terkini.
+
+### Langkah 1: Instalasi dan Deploy Server Llama 3.1 (8B)
+
+Mulailah dari instalasi vLLM, lalu jalankan server OpenAI-compatible untuk Llama 3.1 (8B).
+
+Perhatikan --max-model-len 8192 — batas konteks ini dipakai scheduler untuk mengalokasikan blok KV. Jika ukuran model tidak muat di VRAM, turunkan ke 4096 terlebih dahulu. Verifikasi bahwa server sudah siap sebelum mengirim request:

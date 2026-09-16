@@ -1,0 +1,25 @@
+# Bab 3.1: Ollama
+
+Setelah membaca sub-bab ini, Anda akan mampu:
+
+- Mengelola model library lokal dan memahami mekanisme blob storage berbasis content-addressable dengan deduplikasi otomatis
+- Membuat Modelfile kustom — mulai dari FROM, PARAMETER, TEMPLATE, hingga SYSTEM — untuk membentuk model sesuai kebutuhan
+- Membedakan tiga execution backend Ollama (llama.cpp, MLX, dan image generation) serta memahami kapan masing-masing dipilih otomatis
+- Menggunakan API REST dan endpoint kompatibel OpenAI untuk mengintegrasikan Ollama ke aplikasi lain seperti Open WebUI atau LangChain
+- Melakukan troubleshooting dasar GPU, keep-alive, dan concurrent request tanpa panik saat server ramai
+
+Bayangkan sebuah restoran besar: tamu datang, pelayan mencatat pesanan di meja depan, koki mengatur urutan masakan, dan setiap hidangan dimasak oleh juru masak spesialis di dapur yang terpisah. Ollama bekerja dengan pola yang persis sama. Sistem ini dirancang sebagai tumpukan berlapis (layered system) yang terdiri dari API Layer berbasis Gin HTTP, lapisan Orchestration berupa Scheduler, dan lapisan Execution yang menjalankan llama.cpp atau MLX.
+
+### Lapisan API: Gerbang Tunggal
+
+Setiap permintaan dari pengguna — baik dari terminal, Open WebUI, maupun kode Python — masuk melalui satu gerbang: server HTTP yang dibangun dengan framework Gin (populer di ekosistem Go). Lapisan ini menerima request, memvalidasi isinya (model mana, prompt apa, opsi sampling apa), lalu meneruskannya ke bawah. Karena semua klien hanya berhadapan dengan satu gerbang, integrasi menjadi seragam: aplikasi apa pun bisa berbicara dengan Ollama selama ia bisa melakukan HTTP request.
+
+### Scheduler dan Subprocess Terisolasi
+
+Setelah melewati gerbang, request sampai ke Scheduler (sched.go). Tugas scheduler mirip petugas dapur: memutuskan model mana yang harus dimuat, apakah model sudah ada di memori, dan bagaimana membagi sumber daya GPU/CPU. Keputusan paling penting dalam desain Ollama adalah *model dijalankan sebagai subprocess terisolasi — setiap model hidup dalam proses terpisah yang berkomunikasi dengan server utama. Isolasi ini bukan sekadar gaya; jika satu model crash karena kehabisan memori, proses lainnya tidak ikut tumbang, dan server utama tetap hidup melayani permintaan berikutnya. Inilah alasan Ollama terasa "tidak mudah mati" meski Anda berganti-ganti model besar.
+
+Lapisan terakhir adalah LlamaServer subprocess (llama_server.go) yang membungkus inference engine — biasanya llama.cpp — lengkap dengan KV cache management dan sampling. Setiap runner memuat file model GGUF langsung dari disk, lalu melakukan inference token demi token. Karena runner hidup di proses terpisah, ia bisa dibunuh, dimuat ulang, atau dipindahkan prioritasnya tanpa menyentuh server utama — sebuah pola yang diadopsi dari praktik microservice dalam skala desktop.
+
+### Keep-Alive: Model yang "Menunggu" di Meja
+
+Beban terbesar inference bukan pada perhitungan matematika, melainkan pada loading: membongkar file GGUF sebesar 5-10 GB dari disk ke memori. Untuk menghindari biaya ini berulang-ulang, Ollama menerapkan mekanisme keep-alive — model yang baru dipakai "menunggu" di memori selama beberapa menit (secara default 5 menit) sebelum diunload. Jika ada permintaan kedua dalam jendela waktu itu, respons langsung cepat tanpa proses bongkar-muat. Ini menjelaskan fenomena yang sering dialami pengguna: prompt pertama terasa lambat, tetapi prompt berikutnya jauh lebih responsif. Parameter ini bisa disesuaikan per-request melalui header atau opsi API, misalnya dipanjangkan untuk aplikasi interaktif atau diperpendek agar memori cepat dibebaskan.

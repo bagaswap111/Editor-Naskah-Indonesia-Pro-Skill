@@ -1,0 +1,25 @@
+# Bab 8.1: Karakteristik Sistem
+
+Setelah membaca bab ini, Anda akan mampu:
+
+- Memetakan pola beban (load pattern) khas kantor — jam puncak, komposisi tipe query, dan tingkat konkurensi — lalu menerjemahkannya menjadi metrik SLA yang terukur
+- Menyusun kebijakan kepatuhan: audit trail untuk ISO 27001, GDPR, dan UU PDP Indonesia beserta kebijakan retensi data
+
+Dalam taksonomi skala buku ini, general office adalah lapisan ketiga setelah home (4-8 user) dan small office (9-20 user). Sistem AI pada skala ini melayani 21-50 karyawan secara simultan dengan tingkat konkurensi peak 5-15 user — dan melonjak hingga 25 user saat rapat bersama. Jumlah ini bukan sekadar angka: ia menandakan bahwa sistem tidak lagi melayani satu-dua pengguna "suka-suka", melainkan menjadi bagian dari alur kerja organisasi yang tidak boleh berhenti.
+
+Karakteristik yang paling membedakan: multi-departemen. Dalam satu organisasi berukuran ini, kita menemukan HR yang menyusun kontrak kerja, Finance yang meminta analisis laporan keuangan, Engineering yang menggunakan coding assistant, dan Legal yang merangkum dokumen perjanjian. Konsekuensi langsungnya adalah data sensitif yang bercampur dalam satu sistem: data gaji, data kesehatan karyawan, kontrak vendor, hingga kode sumber proprietary. Bercampurnya kelas data ini mengubah segalanya — dari sekadar "model mana yang dipakai" menjadi pertanyaan "siapa boleh melihat apa, dan jejak apa yang ditinggalkan".
+
+Perbedaan fundamental dari asisten rumah tangga pun tegas. Sistem home boleh mati malam hari, boleh diakses tanpa login, dan boleh tidak meninggalkan jejak. Sistem general office memiliki empat tuntutan wajib: SSO (Single Sign-On) agar akses terpusat dan bisa dicabut sewaktu-waktu, audit trail yang merekam siapa bertanya apa, RBAC (Role-Based Access Control) yang memisahkan hak akses antardepartemen, auto-scaling agar kapasitas mengikuti beban, serta operasi 24/7 karena karyawan boleh bekerja larut malam atau di akhir pekan. Tanpa kelima hal ini, sistem yang dibangun hanyalah "home assistant dengan karyawan banyak" — dan itu adalah resep bencana operasional dan hukum.
+
+### Tabel 1: SLA Target General Office
+
+| Metrik | Target | Metode Pengukuran |
+|:---|:---:|:---|
+| TTFT P50 | < 1 detik | Prometheus + cAdvisor |
+| TTFT P99 | < 3 detik | Distributed tracing (OpenTelemetry) |
+| Throughput per GPU | > 1000 req/jam | vLLM metrics endpoint |
+| Uptime Tahunan | 99,999% | Uptime Kuma / Grafana |
+| Max Concurrent | 20 session | Rate limiter (LiteLLM) |
+| Recovery Time (failover) | < 30 detik | Health check script |
+
+Kedua metrik pertama layak dibaca bersama. TTFT P50 di bawah 1 detik berarti sebagian besar pengguna mendapatkan token pertama nyaris seketika — persepsi "responsif" di mata karyawan ditentukan metrik ini. Namun angka P50 saja menipu: P99 di bawah 3 detik menjamin bahwa bahkan pada burst 25 user, pengguna paling tidak beruntung pun tidak menunggu lebih lama dari 3 detik. Keduanya diukur dengan alat berbeda — P50 cukup lewat aggregasi Prometheus, sedangkan P99 yang akurat memerlukan distributed tracing (OpenTelemetry) untuk menelusuri latensi per-hop. Catatan penting: throughput 1000 request/jam per GPU adalah angka pejalan yang dicapai dengan batching efisien (PagedAttention) — tanpa batching, GPU kelas enterprise hanya melayani sebagian kecil dari angka itu [2].

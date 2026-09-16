@@ -1,0 +1,29 @@
+| Provider | Model Default | Kecepatan | Kualitas | Biaya | Cocok untuk |
+|:---|:---|:---:|:---:|:---:|:---|
+| Ollama | llama3.1:8b | Cepat | Baik | Gratis | Prototyping, data sensitif |
+| Ollama (MoE) | deepseek-v4-flash:latest | Sangat Cepat | Sangat Baik | Gratis | Daily RAG, efisiensi tinggi (13B aktif) |
+| Ollama (MoE) | deepseek-v4-pro:latest | Sedang | Terbaik (open) | Gratis | Agentic RAG, konteks 1M |
+| Ollama (MoE) | mistral-large-3:latest | Cepat | Sangat Baik | Gratis | Multimodal RAG, granular MoE |
+| OpenAI | GPT-5.5 (fast) | Sangat cepat | Terbaik | $0,01/query | Production dengan budget |
+| OpenAI | GPT-5.5 (reasoning) | Sangat cepat | Terbaik | $0,02/query | Agentic coding, reasoning efforts |
+| Anthropic | Claude Fable 5 | Cepat | Terbaik | $0,015/query | Safety-critical RAG, SWE-bench 95% |
+| Google | Gemini 2.5 Pro | Sangat cepat | Terbaik | $0,01/query | Multimodal, thinking mode |
+| HuggingFace | Mixtral-8x7B | Sedang | Baik | Gratis | Eksperimen model |
+| vLLM | Qwen-2.5-14B | Cepat | Baik | Gratis | Self-hosted production |
+| vLLM (MoE) | Qwen3.7-Max | Cepat | Terbaik (agent) | Gratis | Agent-centric, 1M context |
+
+Tabel ini memperjelas hierarki biaya dan kualitas. Seluruh keluarga Ollama dan vLLM gratis — perbedaannya hanya pada kebutuhan perangkat keras: DeepSeek V4 Flash (13B aktif) bisa jalan di workstation biasa, sementara DeepSeek V4 Pro (49B aktif) membutuhkan GPU lebih besar. Provider cloud menawarkan kualitas "Terbaik" dengan biaya per query: GPT-5.5 dan Gemini 2.5 Pro sekitar $0,01/query, Claude Fable 5 $0,015/query, dan GPT-5.5 (reasoning) $0,02/query. Pola yang disarankan: gunakan model lokal untuk eksperimen dan data sensitif, pertahankan model cloud untuk tugas yang benar-benar membutuhkan kekuatannya, dan simpan anggaran dengan routing — query sederhana ke Flash, query kompleks ke Pro.
+
+Di kanvas Flowise, segalanya adalah node. Memahami kategorinya berarti memahami peta seluruh ekosistem LangChain:
+
+Nodes adalah unit dasar: setiap komponen LangChain tampil sebagai node visual dengan parameter yang dapat diedit langsung di panel. Kategori node yang tersedia meliputi: LLM Models (ChatOllama, ChatOpenAI, dst.), Document Loaders (PDF, CSV, JSON, Notion, Confluence, S3, Web Scraper), Embeddings (OpenAI, Ollama, HuggingFace, SentenceTransformers), Vector Stores (ChromaDB, Qdrant, Milvus, Pinecone, Weaviate, Supabase, PGVector), Retrievers (Similarity, MMR, Self-query, Multi-query), Chains (RetrievalQA, ConversationalRetrieval), Agents (ReAct, OpenAI Function Agent), Tools (Calculator, SQL, SerpAPI), dan Memory (BufferMemory, WindowMemory).
+
+Canvas adalah DAG editor tempat semua node itu disusun: dukungan zoom, auto-layout, dan debug mode yang menampilkan input/output setiap node secara real-time saat flow dijalankan. Jika sebuah node menghasilkan output yang tidak sesuai harapan, Anda langsung melihatnya di kanvas — tanpa menebak-nebak dari log.
+
+Chat Widget adalah cara paling cepat menguji: setiap flow yang disimpan otomatis memiliki widget chat yang bisa dibuka di panel Preview, tempat Anda mengajukan pertanyaan dan melihat jawaban lengkap dengan source documents yang diambil. Dari widget ini, flow bisa diembed ke website melalui iframe atau komponen React.
+
+Pipeline RAG di Flowise dibangun dari lima tahap yang masing-masing dapat diganti-ganti seperti modul:
+
+Document Loader — lebih dari 50 loader tersedia: PDF, CSV, JSON, Notion, Confluence, S3, hingga Web Scraper. Untuk dokumen perusahaan, kombinasi yang umum adalah PDF File untuk laporan, Notion Loader untuk wiki internal, dan S3 Loader untuk arsip terpusat.
+
+Text Splitter — strategi chunking yang menentukan kualitas retrieval: RecursiveCharacter (berdasarkan karakter dengan urutan pemisah), Token-based, Markdown, HTML, hingga Code splitter. Pemilihan strategi adalah keputusan paling berpengaruh dalam pipeline (lihat Tabel 2).

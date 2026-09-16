@@ -1,0 +1,28 @@
+Pembacaan tabel ini penuh nuansa. Throughput melonjak 6,8x dan utilisasi GPU naik 3x — itu kabar baik utama. Namun perhatikan TTFT (Time To First Token) P50: dari 180 ms menjadi 210 ms, lebih lambat 17%. Ini bukan bug, melainkan konsekuensi logis dari berbagi GPU — karena batch lebih penuh, setiap request harus mengantre sedikit lebih lama untuk slot komputasi pertama. Sementara itu, latency P99 — ukuran pengalaman user terburuk — membaik 4,5x dari 12,5 detik menjadi 2,8 detik. Di sinilah trade-off continuous batching: sedikit pengorbanan di median, kelegaan besar di ekor. Untuk pengalaman multi-user, ekor yang pendek jauh lebih penting daripada median yang super cepat.
+
+Perlu dicatat: efisiensi KV-cache model modern memperbesar keunggulan ini. DeepSeek V4 Pro dengan hybrid CSA/HCA attention hanya membutuhkan 10% KV-cache dibandingkan generasi V3.2 — artinya dalam satu batch yang sama, continuous batching bisa memuat jauh lebih banyak request karena ruang cache yang tersedia jauh lebih besar.
+
+### Gambar 1: Timeline Static vs Continuous Batching
+
+Diagram berikut membandingkan perjalanan waktu empat request pada kedua pendekatan:
+
+Bagian atas diagram (STATIC) menunjukkan batch yang kaku: request pendek (Req 1-3) terkurung oleh request panjang (Req 4), dan batch berikutnya baru dibuka setelah semuanya beres — GPU menganggur di sela-selanya. Bagian bawah (CONTINUOUS) memperlihatkan irama yang hidup: setiap step menghasilkan satu token untuk semua request, request yang selesai pergi, request baru langsung mengisi slot kosong. Tidak ada momen GPU kosong — inilah alasan mengapa jumlah request yang bisa dilayani per detik melonjak 6-7 kali lipat.
+
+### Mengapa Per-Request Tidak Cukup
+
+Paper Orca yang terbit di USENIX OSDI 2022 mengajukan pertanyaan provokatif: mengapa kita mengikat nasib request yang berbeda-beda dalam satu batch yang kaku [1]? Jawaban mereka adalah mengubah unit penjadwalan dari per-request menjadi per-iteration. Dalam dunia LLM, satu iteration berarti satu decoding step — satu langkah menghasilkan satu token untuk seluruh sequence yang sedang aktif diproses. Dengan iteration-level scheduling, scheduler tidak lagi bertanya "request mana yang sudah selesai?", tetapi "iterasi mana yang sedang berjalan, dan request mana yang masih butuh token berikutnya?"
+
+### Satu Step, Satu Token untuk Semua
+
+Secara teknis, alur kerja continuous batching di setiap iterasi sangat sederhana namun revolusioner:
+
+1. Generate satu token untuk semua active request yang sedang diproses.
+2. Cek request mana yang telah mencapai panjang output yang diminta (misalnya, sudah menghasilkan token EOS atau mencapai max_tokens).
+3. Keluarkan request yang selesai dari batch.
+4. Tambahkan request baru dari antrean ke batch yang baru saja ditinggalkan.
+
+Karena langkah 3 dan 4 terjadi di setiap iterasi, komposisi batch berubah terus-menerus — request bisa join dan leave kapan saja, tidak seperti static batching yang hanya bisa berganti komposisi di antara batch. Ini persis seperti jalur antrean di kasir cepat: setiap orang maju satu langkah setiap beberapa detik, yang selesai langsung pergi, dan orang baru langsung mengisi slot kosong. GPU tidak pernah menunggu, dan antrean tidak pernah macet.
+
+### Komposisi Batch yang Dinamis
+
+Konsekuensi penting dari desain ini: tidak ada lagi istilah "batch 1", "batch 2" yang terpisah kaku. Yang ada hanyalah satu kolam aktif request yang terus berubah ukuran. Jika 7 dari 64 request selesai dalam satu iterasi, 7 slot langsung diisi request berikutnya dalam iterasi yang sama — GPU tetap penuh bekerja pada iterasi selanjutnya. Satu-satunya batas adalah kapasitas memori dan max batch size yang dikonfigurasi. Desain inilah yang membuat GPU bisa dijejali request hingga 3-8 kali lebih banyak dibandingkan static batching, dan membuat utilisasi melonjak dari kisaran 28% menjadi 85% pada A100 (lihat Tabel 1).

@@ -1,0 +1,22 @@
+Sebelum menulis purchase order, lakukan aritmetika sederhana dengan angka dari Tabel 3: peak 10 concurrent user, target throughput agregat >100 token/detik, dan model Qwen 3.6 (27B) yang menghasilkan ~35 t/s di 2x RTX 4090 (Bab 7.2 Tabel 3). Bagi saja: 100 ÷ 35 ≈ 3 sesi model besar bersamaan — artinya sisanya (7 user) harus dilayani model kecil berkecepatan tinggi seperti Ministral 3 (14B) yang mencapai ~65 t/s. Dari sinilah lahir aturan praktis penting: di small office, tidak ada satu model yang melayani semua — ada hierarki model yang dipilih oleh router (Bab 7.5). Satu GPU tunggal untuk 15+ developer akan berakhir dengan antrean; dua GPU dengan model berlapis akan berakhir dengan senyum.
+
+### Mengapa Bukan Sekadar "Beli VPS Murah"
+
+Godaan terbesar pemilik kantor kecil adalah memindahkan semuanya ke VPS murah berisi API cloud. Pertimbangan yang membatalkan godaan: latensi code completion (<500 ms) mustahil dicapai lewat internet dengan round-trip ke cloud, biaya per-seat SaaS bertumpuk (data di Bab 7.1 studi kasus), dan — yang paling menentukan — kebijakan data pribadi yang sama sekali berada di luar kendali. Server lokal dengan komponen yang sudah dijelaskan Tabel 3 bukan kemewahan; ia adalah satu-satunya arsitektur yang memenuhi tiga pilar sekaligus pada skala ini [2].
+
+### Tabel 3: Kebutuhan GPU per Skenario Small Office
+
+Tabel ini membantu Anda menjawab pertanyaan paling sering di kantor kecil: "berapa GPU yang saya butuhkan?" — jawabannya bergantung pada jumlah user dan beban kerja.
+
+| Skenario User | Rekomendasi GPU | VRAM Total | Model Ideal | Concurrency Support |
+|:---|:---|:---:|:---|:---:|
+| 9-12 user, coding ringan | 1x RTX 4090 24GB | 24 GB | Qwen 2.5 Coder (14B) Q4_K_M / Ministral 3 (14B) Q4 | ~5 concurrent |
+| 12-16 user, coding + RAG | 2x RTX 3090 24GB (NVLink) | 48 GB | Llama 3.1 (70B) Q3_K_M / Qwen 3.6 (27B) Q4 | ~8 concurrent |
+| 16-20 user, full stack | 2x RTX 4090 24GB (PCIe 5) | 48 GB | Qwen 3 (32B) Q4_K_M + Codestral / DeepSeek V4 Flash Q4 | ~10 concurrent |
+| 20 user, server-class open | 2x RTX 5090 32GB | 64 GB | DeepSeek V4 Flash (284B/13B active, 1M ctx) | ~15 concurrent |
+
+!Perbandingan VRAM total dan dukungan concurrency untuk empat skenario user, dari 24 GB/~5 user hingga 64 GB/~15 user
+
+Gambar 7.1-1 — VRAM dan concurrency naik berpasangan: setiap lonjakan kelas user menuntut VRAM yang lebih besar sekaligus kapasitas paralel yang lebih tinggi. Skenario puncak 20 user butuh VRAM 2,7x lipat dan concurrency 3x lipat dari skenario paling ringan.
+
+Pola pada tabel ini mengajarkan dua hal. Pertama, range 9-12 user masih bisa dilayani satu GPU 24GB — hemat biaya, tapi headroom tipis saat satu developer menjalankan benchmark besar. Kedua, setelah 12 user, dua GPU bukan lagi pilihan melainkan keharusan: di sinilah muncul pertanyaan NVLink vs PCIe yang dibahas tuntas di Bab 7.2, dan pada skala 20 user, model berbasis MoE seperti DeepSeek V4 Flash (284B total, hanya 13B aktif per token, konteks 1 juta token, lisensi MIT) memberi quality jump besar dengan biaya komputasi yang masih masuk akal [12].

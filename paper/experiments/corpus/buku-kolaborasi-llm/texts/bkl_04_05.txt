@@ -1,0 +1,27 @@
+Saat berbicara CPU-only, nama pertama yang muncul adalah llama.cpp — framework yang membawa LLM ke perangkat tanpa GPU. Ia mendukung backend CPU dengan AVX2, AVX-512, dan AMX, memanfaatkan BLAS (OpenBLAS atau MKL), serta membaca model melalui mmap langsung dari disk. Semua format GGUF populer jalan di sini, dari Llama 3.1 (8B) hingga model MoE seperti DeepSeek V4 Flash — meskipun kecepatannya untuk model raksasa akan kita bahas dengan jujur di studi kasus. [8]
+
+### IPEX dan xFasterTransformer: Rute Intel
+
+Bagi pengguna ekosistem PyTorch, Intel Extension for PyTorch (IPEX) [6] adalah jalur resmi: ia mengoptimalkan operasi matriks untuk CPU Intel, mendukung teknik INT4 weight-only quantization, dan cukup dengan ipex.optimize(model) untuk mengaktifkan seluruh optimasi — seperti yang akan kita praktikkan di seksi 8. Sementara itu, xFasterTransformer [7] melangkah lebih jauh ke arah distributed inference: ia dirancang untuk menjalankan LLM di cluster CPU Intel, membagi model lintas banyak mesin. Keduanya menjawab kebutuhan berbeda: satu pengguna individu, satu organisasi.
+
+### Sandwich: Serving Engine Baru
+
+Penelitian terbaru di EuroSys 2025 membawa harapan baru: Sandwich [5], sebuah CPU serving engine yang melakukan hardware-centric tuning — membangun ulang tumpukan serving dari bawah dengan memahami karakteristik perangkat keras. Hasilnya dilaporkan mencapai 2,01x throughput dibanding baseline, dievaluasi pada AVX-512 dan ARM NEON [5]. Ini bukti bahwa ruang optimasi CPU masih luas, dan lambatnya CPU hari ini bukanlah takdir permanen.
+
+Yang menarik dari Sandwich dan karya-karya sejenisnya: mereka memperlakukan CPU bukan sebagai "GPU yang gagal", melainkan sebagai perangkat dengan kekuatan uniknya sendiri — hardware-centric berarti menyesuaikan software dengan karakter CPU, bukan memaksakan pola GPU. Evaluasi pada ARM NEON sekaligus menandakan bahwa masa depan CPU inference tidak hanya milik Intel: Apple Silicon, dan prosesor ARM server, membangun jalur optimasi mereka sendiri. Bagi pembaca buku ini, keberadaan riset ini adalah jaminan: investasi pada CPU untuk LLM tidak akan membeku, melainkan terus mendapat suntikan dari dunia riset sistem.
+
+### Memilih Framework: Petunjuk Praktis
+
+Lantas, framework mana yang harus Anda pilih? Jawabannya tergantung pada satu pertanyaan sederhana: apa yang Anda jalankan, dan untuk siapa? Jika Anda memakai model GGUF di mesin tunggal — skenario paling umum bagi pembaca buku ini — llama.cpp adalah pilihan utama: paling matang, paling cepat untuk ukuran model 7-14B, dan mendukung mmap yang berpadu baik dengan pembahasan storage di Bab 2.4. Jika Anda bekerja dengan pipeline PyTorch dan membutuhkan fine-tuning ringan atau integrasi dengan ekosistem Hugging Face, IPEX menawarkan kenyamanan one-liner optimization dengan biaya sedikit fleksibilitas. Dan jika tujuannya adalah melayani banyak pengguna di cluster beberapa mesin — kasus yang jarang bagi pengguna rumahan — xFasterTransformer adalah arah yang lebih tepat daripada memaksakan llama.cpp pada multi-node yang tidak dirancang untuk itu. Pilihan framework adalah bagian dari "sistem" yang Anda bangun; mengubahnya di tengah perjalanan selalu lebih mahal daripada memilih dengan benar sejak awal.
+
+### Tabel 2: Pengaruh Kuantisasi pada CPU Inference
+
+Tabel ini mengukur efek kuantisasi pada Llama 3.1 (8B) yang dijalankan di Xeon 4th Gen — model yang sama, hanya presisinya yang berubah.
+
+| Kuantisasi | Ukuran Model | Tokens/s | Perplexity Loss |
+|:---|---:|---:|---:|
+| FP32 | 32 GB | ~4 t/s | 0 (baseline) |
+| FP16 | 16 GB | ~7 t/s | ~0,01 |
+| INT8 (W8A16) | 8 GB | ~12 t/s | ~0,05 |
+| INT4 (W4A16) | 4 GB | ~18 t/s | ~0,2 |
+| INT4 (W4A16 + AMX) | 4 GB | ~25 t/s | ~0,2 |

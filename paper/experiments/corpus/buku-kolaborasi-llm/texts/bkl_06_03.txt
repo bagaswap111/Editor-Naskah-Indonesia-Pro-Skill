@@ -1,0 +1,35 @@
+Setiap chunk kemudian diterjemahkan menjadi vektor (deretan angka berdimensi tinggi) oleh model embedding — vektor yang posisinya di ruang semantik mencerminkan makna teks. Open WebUI mendukung model embedding dari Ollama (misalnya nomic-embed-text), dari OpenAI, atau model lokal sentence-transformers. Model embedding lokal menjadi pilihan paling masuk akal untuk pengguna yang menginginkan privasi penuh: tidak ada data yang keluar dari mesin.
+
+Vektor-vektor ini disimpan di vector database. Default Open WebUI adalah ChromaDB — embedded database yang ringan dan muat dalam satu folder, ideal untuk koleksi di bawah 10 ribu dokumen. Bagi yang membutuhkan skala lebih besar, tersedia hingga 9 opsi lain: PGVector, Qdrant, Milvus, Elasticsearch, dan lainnya [8]. Analisis perbandingan opsi ini dibahas di Tabel 2.
+
+### Hybrid Search dan Reranking
+
+Saat pengguna bertanya, pertanyaan di-embed menjadi vektor, lalu vektor-vektor dokumen terdekat diambil dengan cosine similarity. Namun Open WebUI tidak berhenti di situ: ia menjalankan hybrid search yang menggabungkan embedding search dengan BM25 — pencarian berbasis kata kunci klasik yang unggul untuk istilah eksak seperti kode produk atau nama orang. Hasil gabungan keduanya kemudian melewati CrossEncoder reranking: model kecil yang membandingkan pertanyaan dengan setiap kandidat dokumen secara langsung dan mengurutkan ulang yang paling relevan ke atas. Konfigurasi Top K = 5 berarti lima chunk terbaik yang diambil sebagai konteks jawaban. Hasil akhirnya adalah jawaban yang disusun LLM dengan konteks yang benar-benar relevan, bukan sekadar potongan dokumen yang kebetulan mirip.
+
+### Filesystem Access: ENABLE_KB_EXEC
+
+Open WebUI memiliki fitur yang jarang dimiliki frontend lain: akses knowledge base ala filesystem. Dengan mengaktifkan variabel lingkungan ENABLE_KB_EXEC, model dapat menjalankan perintah seperti ls, grep, dan cat terhadap knowledge base melalui Tools — memungkinkan pertanyaan seperti "cari semua dokumen yang menyebut istilah klausul penalti" dijawab dengan cara yang presisi alih-alih mengandalkan fuzzy search.
+
+### Tabel 2: Perbandingan Dukungan Vector Database
+
+Pilihan vector database menentukan seberapa jauh RAG Anda bisa berkembang:
+
+| Vector DB | Tipe | Open Source | Skalabilitas | Kecepatan Query |
+|:---|:---|:---:|:---|:---|
+| ChromaDB | Embedded | Ya | Kecil (<10K docs) | Cepat |
+| PGVector | PostgreSQL extension | Ya | Sedang (10K-1M) | Sedang |
+| Qdrant | Standalone | Ya | Besar (1M+) | Cepat |
+| Milvus | Distributed | Ya | Sangat Besar (10M+) | Sangat cepat |
+| Elasticsearch | Enterprise | Ya/No | Besar | Sedang |
+
+Gambar berikut memetakan kolom skalabilitas tabel ini ke skala logaritmik.
+
+!Perbandingan skala koleksi dokumen antar vector database di Open WebUI
+
+Gambar 3.4-1 — ChromaDB cukup untuk koleksi di bawah 10 ribu dokumen, sementara Milvus melayani 10 juta+ — selisih tiga orde magnitudo; label "Besar" pada Elasticsearch dan Qdrant dipetakan ke ~1 juta dokumen sesuai keterangan tabel.
+
+Analisis: tidak ada jawaban tunggal yang benar — semuanya bergantung pada jumlah dokumen. ChromaDB adalah pilihan default yang tepat: nol infrastruktur tambahan karena berjalan embedded di dalam proses, cukup untuk perpustakaan dokumen pribadi hingga ribuan chunk. Ketika koleksi melewati batas 10 ribu dokumen atau mulai melayani banyak pengguna bersamaan, PGVector menawarkan jalur halus karena cukup menambahkan ekstensi pada PostgreSQL yang mungkin sudah ada. Pada skala jutaan dokumen, Qdrant dan Milvus yang berdiri sendiri (standalone/distributed) memberi control penuh atas sharding dan replication, tetapi juga berarti layanan tambahan yang harus dirawat. Aturan praktis: mulai dengan ChromaDB, dan pindah hanya ketika ada bukti pengukuran bahwa ChromaDB sudah menjadi bottleneck.
+
+### Gambar 1: Arsitektur RAG Pipeline Open WebUI
+
+Berikut alur lengkap dokumen dan pertanyaan dalam RAG pipeline Open WebUI — dua jalur yang bertemu di tahap penyusunan konteks:

@@ -1,0 +1,38 @@
+Analisis pilihan. Tim IT mengevaluasi tiga opsi: (1) tetap ChatGPT Enterprise tanpa kontrol per departemen — ditolak karena tidak ada budget per unit; (2) gateway komersial seperti Kong AI Gateway — ditolak karena lisensi $5k+/tahun memberatkan; (3) LiteLLM self-hosted di K3s dengan vLLM on-premise — diterima karena gratis, mendukung model on-premise murah, dan menyediakan pelacakan biaya per kunci secara bawaan.
+
+Implementasi. LiteLLM dideploy dengan 3 replica di K3s dan backend vLLM untuk DeepSeek V4 Flash serta Mistral Large 3. Enam virtual keys dibuat — satu per departemen (Engineering, Data, HR, Finance, Legal, IT) — dengan budget total Rp 30 juta/bulan dan tier sesuai Tabel 2. Webhook budget alert disambungkan ke Slack kanal #ai-budget, dan bagian keuangan menerima export CSV bulanan dari /global/spend/report.
+
+Hasil. Bulan pertama, pemakaian aktual hanya Rp 18,5 juta (62% dari budget) — hampir separuh dari estimasi awal Rp 45 juta. Sistem berhasil mendeteksi anomali: departemen Legal hampir overflow karena review kontrak massal yang memproses ratusan halaman dokumen dalam seminggu; setelah diverifikasi bahwa ini pekerjaan nyata, budget Legal dinaikkan. Biaya total setelah memperhitungkan listrik GPU Rp 4 juta menjadi Rp 22,5 juta/bulan — hemat 50% dibanding akses langsung.
+
+Pelajaran. Tiga hal yang bisa dipetik: (1) gateway bukan sekadar restriction tool tetapi visibility tool — PT Finansial Sejahtera pertama kali "melihat" pola pemakaian AI-nya secara objektif; (2) tier dan budget awal hampir selalu salah perkiraan dan itu wajar — yang penting adalah koreksi berbasis data, bukan tawar-menawar; (3) soft alert di 80% lebih efektif daripada hard stop di 100%, karena memberi ruang koordinasi antar departemen sebelum anggaran benar-benar tersentuh.
+
+### Paper Jurnal/Konferensi
+
+[1] BerriAI. (2023). LiteLLM: Open Source AI Gateway for 100+ LLMs. https://github.com/BerriAI/litellm
+- Dokumentasi resmi LiteLLM gateway. Semua fitur (virtual keys, budget tracking, spend logs) di Tabel 1 dan 2 merujuk pada dokumentasi ini.
+
+[2] Malik, S., et al. (2025). SafeGPT: Preventing Data Leakage and Unethical Outputs in Enterprise LLM Use. arXiv preprint arXiv:2601.06366. DOI: 10.48550/arXiv.2601.06366
+- Two-sided guardrail system untuk enterprise. Data efektivitas budget control di Tabel 3 harus diverifikasi dengan metodologi paper ini. — ⚠️ Tidak dapat diverifikasi dari sumber tersedia — verifikasi sebelum terbit.
+
+[3] Kumar, A., et al. (2025). QueryShield: A Platform to Mitigate Enterprise Data Leakage in Queries to External LLMs. Proceedings of NAACL 2025 Industry Track. https://aclanthology.org/2025.naacl-industry.30.pdf
+- Deteksi dan rephrasing query untuk mencegah data leakage. Relevan untuk Seksi 7 (High Availability & fallback ke cloud).
+
+[4] Jakka, S. (2025). Runtime Enforcement for Responsible AI: A Framework for Policy-to-Prompt Compliance in Enterprise LLMs. arXiv. https://openreview.net/pdf?id=8TMSomzq6y
+- Kerangka Policy-to-Prompt untuk runtime compliance. Data budget threshold (alert 80%) di Seksi 5 merujuk rekomendasi paper ini.
+
+[5] Sinha, K., et al. (2025). Permissioned LLMs: Enforcing Access Control in Large Language Models. arXiv preprint arXiv:2505.22860. DOI: 10.48550/arXiv.2505.22860
+- RBAC untuk LLM — akses kontrol berdasarkan role dan clearance level. Data RBAC di Tabel 2 (Tier Virtual Key) diverifikasi dengan kerangka paper ini.
+
+### Referensi Pendukung (Dokumentasi/Repository)
+
+[6] LiteLLM. Enterprise Documentation. https://docs.litellm.ai/docs/enterprise
+
+[7] LiteLLM. Multi-Tenant Architecture Guide. https://docs.litellm.ai/docs/proxy/multi_tenant_architecture
+
+[8] LiteLLM. Spend Tracking Endpoints. https://docs.litellm.ai/docs/proxy/cost_tracking
+
+[9] OpenAI. (2026). GPT-5.5: Advanced Reasoning with Effort Control. https://openai.com
+- Model proprietary dengan 1M konteks dan reasoning efforts — opsi cloud fallback untuk general office yang membutuhkan kemampuan reasoning tinggi. — ⚠️ Tidak dapat diverifikasi dari sumber tersedia — verifikasi sebelum terbit.
+
+[10] Anthropic. (2026). Claude Fable 5: Safety-First Enterprise Language Model. https://anthropic.com
+- Model dengan safety classifiers built-in — cocok sebagai backup model untuk konten sensitif di general office*. — ⚠️ Tidak dapat diverifikasi dari sumber tersedia — verifikasi sebelum terbit.

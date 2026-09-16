@@ -1,0 +1,68 @@
+# Bab 2.2: VRAM Bandwidth
+
+Setelah membaca bab ini, Anda akan mampu:
+
+inferensi LLM — jauh di atas jumlah core atau TFLOPS
+- Membedakan bus-width, tipe memori (GDDR6, GDDR6X, HBM2e, HBM3), dan
+  clock rate, serta merangkainya menjadi angka bandwidth puncak
+  memproyeksikan kecepatan (token/s) yang realistis di GPU Anda
+  kapan garis lurus itu mulai melengkung
+- Menggunakan nvidia-smi, llama-bench, dan simulasi Python untuk mengukur serta
+  memverifikasi bandwidth GPU sendiri
+
+### Fase Decode: Parade yang Berjalan Melalui Satu Pintu
+
+Untuk memahami kecepatan inferensi, bayangkan sebuah perpustakaan raksasa dengan satu
+pintu keluar. Saat model menghasilkan token pertama hingga token ke-seribu, setiap
+kali menghasilkan satu token baru, ia harus membaca seluruh bobot model — semua
+halaman di perpustakaan itu — dari VRAM kembali ke unit komputasi. Semua miliaran
+parameter, setiap langkah, satu per satu. Inilah yang disebut fase decode, dan
+inilah alasan mengapa decoding LLM bersifat memory-bound: unit komputasi (GPU)
+justru sibuk menunggu data dari memori, bukan sibuk menghitung. Komputasi menunggu,
+seperti pelanggan restoran menunggu hidangan yang sampai satu per satu dari dapur
+melalui pintu kecil.
+
+Angka teoretis memperjelas betapa tidak seimbangnya pertarungan ini. Untuk setiap token
+baru, GPU harus membaca seluruh bobot model ditambah KV cache dari VRAM. Semua itu —
+ratusan gigabyte per detik data — melewati jalur yang sama: memory bus. Ketika jalur itu
+penuh, semua core canggih di GPU menjadi penonton. Paper Agulló López et al. (2025)
+mengukur secara langsung bahwa *lebih dari 50% siklus attention stalled karena
+saturasi bandwidth DRAM — separuh waktu GPU Anda, praktis, adalah waktu duduk menunggu.
+Ini bukan temuan marjinal: ini adalah karakteristik fundamental arsitektur LLM yang
+tidak akan berubah selama bobot model masih disimpan di memori eksternal.
+
+### Rumus Sederhana yang Mengatur Dunia Ini
+
+Dari pemahaman di atas lahir rumus praktis yang menjadi kompas pembelian GPU:
+
+Artinya: kecepatan token kira-kira sama dengan bandwidth dibagi ukuran model. Sebuah
+model 8B dalam FP16 (16 GB) di GPU dengan bandwidth 1000 GB/s — secara teoretis —
+hanya bisa memproduksi sekitar 60 token/detik, berapa pun jumlah core-nya. Perkecil
+modelnya dengan kuantisasi 4-bit (4,5 GB), dan kecepatan yang sama kini menghasilkan
+sekitar 220 token/detik teoretis. Ini bukan optimisme; ini aritmetika. Konsekuensi
+praktisnya brutal dan membebaskan sekaligus: tidak ada jumlah TFLOPS yang bisa menutupi
+bus yang sempit, tetapi Anda bisa mengganti pembeli tiket — dengan mengecilkan model —
+tanpa mengganti bus sama sekali. Inilah mengapa dua GPU dengan TFLOPS sangat berbeda
+bisa menghasilkan token/detik yang hampir identik: selama keduanya memory-bound, yang
+dihitung hanyalah aliran.
+
+### Fase Prefill: Ketika Komputasi Masih Menang
+
+Sebelum decode, ada fase yang sering dilupakan: prefill — saat GPU memproses
+seluruh prompt sekaligus untuk membangun KV cache. Di fase ini, semua token prompt
+diproses secara paralel, matriks dikalikan dalam jumlah besar, dan GPU akhirnya bisa
+menunjukkan kekuatan komputasinya. Model yang sama yang melaju 110 t/s di fase decode
+bisa memproses ribuan token prompt dalam beberapa detik di fase prefill. Inilah mengapa
+benchmark sering melaporkan dua angka berbeda: time-to-first-token (waktu sampai token
+pertama keluar) ditentukan oleh prefill, sedangkan tokens/s (kecepatan streaming)
+ditentukan oleh decode.
+
+Implikasinya untuk pembelian GPU: jika beban kerja Anda didominasi prompt yang sangat
+panjang (misalnya analisis dokumen 50 ribu token), TFLOPS dan bandwidth bekerja
+bersama-sama — dan GPU dengan komputasi tinggi tetap unggul. Namun bagi mayoritas
+pengguna chatbot dan agent — yang promptnya pendek tetapi percakapannya panjang —
+decode mendominasi total waktu, dan bandwidth-lah satu-satunya raja. Rumus dari seksi
+sebelumnya tetap berlaku untuk kasus yang paling umum: model kecil dengan prompt sedang,
+semuanya memory-bound.
+
+### Mengapa Long Context Membuat Semuanya Lebih Parah

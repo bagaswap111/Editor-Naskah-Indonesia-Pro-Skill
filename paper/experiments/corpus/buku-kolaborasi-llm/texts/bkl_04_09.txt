@@ -1,0 +1,21 @@
+Pada langkah 6, perintah grep membuka "kartu identitas" build Anda: jika muncul AVX512 dan CPU Anda Xeon 4th Gen ke atas, Anda sudah berada di jalur tercepat. Bandingkan output -ngl 0 (semua di CPU) dengan tabel benchmark seksi 2 — Llama 3.1 (8B) Q4_K_M di i7-14700K seharusnya mendekati ~6 t/s, dan di Xeon dengan AMX mendekati ~15-20 t/s. Jika angka Anda jauh lebih rendah, cek suhu CPU dan throttling sebelum menyalahkan skrip.
+
+Dua pilihan konfigurasi perlu dipahami sebelum menjalankan baris di atas. Pertama, -ngl 0 menandakan zero GPU layers — semua lapisan dijalankan di CPU; jika nanti Anda menambahkan GPU, ganti dengan -ngl 99 agar seluruh lapisan berpindah ke GPU dan pengukuran menjadi ukuran GPU, bukan CPU. Kedua, llama-bench membedakan prompt processing (prefill) dan generation (decode) dalam outputnya; pada CPU, angka yang paling relevan untuk pengalaman interaktif adalah generation — karena itulah denyut percakapan Anda. Jangan bingung bila bilangan prompt/s jauh lebih tinggi: itu mengukur fase prefill yang bersifat batch, bukan kecepatan token bergulir yang Anda rasakan.
+
+### Langkah 2: Inferensi CPU dengan Intel Extension for PyTorch
+
+Bagi yang tinggal di ekosistem Hugging Face, berikut jalur optimasi modern: IPEX dengan kuantisasi INT4 weight-only.
+
+Bandingkan eksekusi sebelum dan sesudah ipex.optimize(): perbedaan kecepatan biasanya langsung terasa karena IPEX menyusun ulang operasi matriks agar memanfaatkan VNNI/AMX dan threading Intel. Kuantisasi INT4 load_in_4bit=True memangkas ukuran model menjadi seperempat dari bfloat16 — persis prinsip Tabel 2 — dan sensasi "responsif" dari percakapan pendek akan membuktikan bahwa 7B di CPU bukanlah hal yang mustahil.
+
+Jika Anda menemui error saat menjalankan skrip ini, periksa tiga hal berurutan: versi PyTorch (IPEX menuntut versi matching — periksa tabel kompatibilitas di repositori IPEX [6]), keberadaan transformers dan accelerate, serta flag device_map="cpu" yang memastikan seluruh layer tidak secara diam-diam ditarik ke CUDA. Model Intel/neural-chat-7b-v3-1 dipilih karena merupakan model kecil yang dioptimalkan Intel dan tersedia luas; Anda bisa menggantinya dengan model favorit selama formatnya Hugging Face SafeTensors — karena kombinasi IPEX dengan GGUF adalah cerita yang berbeda, milik ekosistem llama.cpp. Setelah skrip berjalan, coba ubah max_new_tokens menjadi 200 dan amati bagaimana import model selesai sekali di awal, bukan setiap permintaan — pola yang penting untuk Anda ingat saat membangun layanan yang lebih besar di bab-bab berikutnya.
+
+### Langkah 3: Cek Bandwidth RAM dengan STREAM
+
+Bandwidth adalah segalanya di dunia ini — jadi ukur langsung milik Anda.
+
+Interpretasi hasil STREAM sangat mudah: angka Triad (campuran baca-tulis paling representatif untuk LLM) di bawah 80.000 MB/s pada konfigurasi dual channel DDR5 berarti ada yang salah — mungkin RAM berjalan di kecepatan default JEDEC alih-alih XMP/EXPO, atau hanya satu channel yang terpasang. Pada tabel: hasil ~100 GB/s selaras dengan angka token/s yang Anda lihat di benchmark; hasil ~50 GB/s menandakan Anda praktis membuang setengah performa yang seharusnya Anda miliki. Satu pemeriksaan kecil di BIOS bisa bernilai puluhan persen kecepatan inferensi.
+
+Perlu dicatat bahwa STREAM mengukur raw bandwidth, bukan end-to-end inferensi — ia adalah pengukur jalan raya, bukan pengukur perjalanan nyata. Namun, hubungan keduanya erat: pada workload memory-bound seperti LLM CPU, throughput token hampir selalu naik sebanding dengan hasil STREAM hingga titik jenuh core. Gunakan alat ini sebagai diagnostic: jika STREAM sehat tetapi llama.cpp tetap lambat, masalahnya ada di lapisan lain (kuantisasi, kernel, atau jumlah thread); jika STREAM sendiri sakit, perbaikilah BIOS, susunan RAM, atau thermal sebelum menyalahkan framework.
+
+Skenario. Sebuah startup di Bandung ingin membangun coding assistant internal berbasis LLM untuk 15 orang developer, tetapi anggaran mereka hanya cukup untuk satu investasi hardware. GPU kelas atas seperti RTX 4090 berada di luar jangkauan (sekitar Rp 35 juta untuk satu PC lengkap), dan kebutuhan utama adalah model Qwen 2.5 (14B) yang baik untuk konteks kode berbahasa campuran.

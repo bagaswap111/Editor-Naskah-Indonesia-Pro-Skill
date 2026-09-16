@@ -1,0 +1,34 @@
+Bagi keluarga yang baru pindah dari asisten cloud, ada godaan untuk memasang semuanya sekaligus dalam satu akhir pekan. Resist. Urutan adopsi yang bijak adalah bertahap: mulai dari LLM server plus Open WebUI selama satu-dua minggu (keluarga terbiasa, model dipilih), lalu tambahkan RAG ketika keluarga mulai bertanya tentang dokumen pribadi, dan pasang Home Assistant hanya bila rumah sudah memiliki perangkat pintar yang benar-benar dipakai tiap hari. Setiap lapisan menambah nilai, tetapi juga menambah satu titik yang harus dipelihara, dan setiap lapisan yang dipasang terlalu dini biasanya yang pertama ditinggalkan.
+
+### Tabel 3: Komponen Sistem Home Assistant
+
+| Komponen | Peran | Teknologi Pilihan | Kapan Dibutuhkan |
+|:---|:---|:---|:---|
+| LLM Server | Inferensi utama, melayani semua user | Ollama / vLLM | Selalu |
+| RAG Pipeline | Menyimpan & mencari dokumen keluarga | ChromaDB lokal | Ada dokumen privat yang perlu dirujuk |
+| Smart Home Bridge | Kontrol perangkat fisik via bahasa alami | Home Assistant + HACS | Keluarga punya lampu/AC/IR smart |
+| Voice Interface | Input suara & respons lisan | Whisper (STT) + Piper (TTS) | Opsional — untuk anak dan dapur |
+
+Topologi jaringan adalah "denah rumah" bagi sistem ini: semuanya berada dalam satu atap — LAN. LLM server tinggal di jaringan lokal (misalnya 192.168.1.100), diakses lewat mDNS (misalnya raspberrypi.local atau llm-server.local) atau static DHCP reservation agar IP tidak berubah. Setiap perangkat — TV, tablet, laptop, smart speaker — mengakses server melalui Open WebUI atau REST API lokal, tanpa melewati internet sama sekali.
+
+Aturan emasnya satu kalimat: *tidak ada port forwarding ke WAN. Jika keluarga membutuhkan akses dari luar rumah (ayah berpergian, anak di sekolah), gunakan Tailscale atau WireGuard — terowongan pribadi yang menembus internet tanpa membuka satu pun lubang di router. Ini bukan pembatasan, melainkan pembebasan: jaringan keluarga bisa dijangkau dari mana pun tanpa mengundang dunia luar masuk.
+
+Sebuah catatan praktis untuk rumah yang baru pindah ISP: pastikan router modem ISP tidak "menabrak" subnet internal. Banyak ISP Indonesia memberi modem dengan subnet 192.168.100.0/24 yang berkonflik dengan LAN rumah — akibatnya beberapa perangkat kartu bergantian online-offline. Solusi yang tenang: set modem ISP ke mode bridge, dan biarkan router keluarga (OpenWrt/pfSense) yang mengelola seluruh subnet dan VLAN. Detail kecil ini mencegah salah satu troubleshooting paling membingungkan di jaringan rumahan.
+
+### Tabel 4: Service SLA Target
+
+Terakhir, kita menetapkan kontrak kinerja — angka-angka ini adalah "janji" sistem terhadap keluarga, dan menjadi acuan verifikasi saat stress test pada praktikum di akhir sub-bab ini.
+
+| Metrik | Target | Notes |
+|:---|:---:|:---|
+| Time to First Token | < 2 detik | Untuk model 7-14B |
+| Peak Response Time | < 8 detik | Saat 3 user bersamaan |
+| Uptime Harian | 16 jam (06:00-22:00) | Mati otomatis malam hari |
+| Max Concurrent Sessions | 3 | Buffer untuk 8 anggota |
+| Power Consumption (idle) | < 30W | GPU dalam keadaan sleep |
+
+Target di atas selaras dengan studi kelayakan On-Device LLM for Home Assistant [1], yang mengukur bahwa LLM 8-bit di perangkat 8GB RAM CPU-only mampu menjalankan intent detection dan response generation dalam seekor rumah tanpa GPU dedikasi. Bedanya: di sana budget latensinya dipaksa sekecil mungkin karena keterbatasan perangkat; di sini target <2 detik TTFT dan <8 detik peak response adalah kompromi yang manusiawi — cukup cepat agar anak tidak kehilangan sabar, cukup longgar agar hardware tidak perlu mahal. Inilah SLA yang lahir dari dinamika keluarga, bukan dari kontrak enterprise.
+
+### Gambar 2: Alur Satu Percakapan Keluarga
+
+Untuk memahami mengapa SLA di atas realistis, lihatlah perjalanan satu pertanyaan sederhana dari anak kelas 6 SD.

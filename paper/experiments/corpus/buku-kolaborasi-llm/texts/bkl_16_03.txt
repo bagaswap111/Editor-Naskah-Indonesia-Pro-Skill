@@ -1,0 +1,27 @@
+Analisis: untuk uji coba di laptop atau server kecil, mode main adalah pilihan terbaik karena cukup satu proses dan satu perintah docker compose up. Begitu Anda melihat workflow mulai mengantre — tanda proses tunggal kewalahan — segera berpindah ke mode queue dengan Redis: eksekusi masuk antrean dan diambil worker secara paralel, sehingga menambah mesin berarti menambah throughput. Multi-main berada di antara keduanya: keandalan tanpa Redis, tetapi konfigurasi failover-nya butuh pemahaman mendalam. Rekomendasi praktis: mulai dari main, naik ke queue saat produksi, dan pertimbangkan multi-main hanya jika tim Anda telah berpengalaman.
+
+### Gambar 1: Arsitektur n8n + LLM Lokal
+
+Gambar berikut merangkum keseluruhan arsitektur yang dibahas: aplikasi eksternal di kiri, layer Docker host di tengah, dan layer LLM di kanan.
+
+Yang perlu diperhatikan dari gambar ini: n8n menjadi satu-satunya titik pusat komunikasi. Semua event masuk (webhook Slack, polling IMAP, HTTP POST dari form) bertemu di n8n, dan semua aksi keluar (kirim pesan, kirim email, query database) berangkat dari n8n. LLM berada di layer terpisah yang hanya dapat dijangkau n8n melalui HTTP Request — isolasi ini penting untuk keamanan. Perhatikan pula dua database yang berbeda peran: Postgres/MySQL di External Services adalah database bisnis tempat data operasional Anda, sedangkan n8n DB adalah database internal tempat workflow dan execution log disimpan. Mencampur keduanya adalah kesalahan umum yang sebaiknya dihindari.
+
+Setiap workflow AI di n8n dibangun dari beberapa node standar yang perlu Anda kenali baik-baik, seperti seorang koki mengenal peralatannya:
+
+Webhook Node adalah pintu masuk dari dunia luar — entry point yang menerima panggilan dari aplikasi eksternal seperti perintah Slack (/command), email masuk, atau form submission. Tanpa webhook, aplikasi lain tidak punya cara memberitahu n8n bahwa ada pekerjaan baru.
+
+HTTP Request Node adalah jembatan ke Ollama atau vLLM. Node ini mengirim prompt ke endpoint API model dan menerima respons — bisa berupa teks biasa, JSON, atau function calling. Inilah jantung komunikasi n8n dengan "otak" workflow.
+
+Code Node mengeksekusi JavaScript atau Python untuk transformasi data: parsing JSON dari respons LLM, membersihkan body email, memformat output menjadi tabel markdown, atau menggabungkan hasil beberapa panggilan.
+
+Switch Node melakukan conditional routing: jika respons LLM menyatakan sentimen positif, alirkan ke jalur A; jika negatif atau ragu, jalur B. Ini mengubah satu alur linier menjadi pohon keputusan yang cerdas.
+
+Loop & Split menangani batch processing — misalnya memproses 500 baris data transaksi sekaligus, mengirim masing-masing ke LLM untuk diringkas, lalu menggabungkan hasilnya.
+
+Terakhir, Sub-workflow memungkinkan modularisasi: logika yang sering dipakai (misalnya "ringkas teks dengan LLM") dibungkus sekali sebagai sub-workflow dan dipanggil ulang dari banyak workflow induk — menjaga konsistensi dan mengurangi duplikasi.
+
+Dari kombinasi node di atas, tiga pola utama yang paling sering dipakai di lingkungan perkantoran dapat diidentifikasi:
+
+Pola 1 — Email Assistant. Email masuk ditangkap oleh node IMAP, diuraikan oleh Code Node, lalu dikirim ke LLM untuk diringkas dan diklasifikasikan. Keluarannya dibagi oleh Switch Node: email urgent diteruskan ke channel Slack tim, sisanya dijawab otomatis dengan balasan terima kasih standar. Pola ini mengurangi beban kotak masuk secara drastis.
+
+Pola 2 — SQL Analyst. Karyawan bertanya melalui Slack ("Berapa penjualan bulan lalu per region?"), LLM mengubah pertanyaan menjadi sintaks SQL, node Execute SQL menjalankannya ke database, dan hasilnya diformat ulang menjadi penjelasan bahasa manusia sebelum dikirim kembali ke Slack. Dengan cara ini, tim non-teknis bisa "berbicara" dengan database tanpa menulis satu baris query pun.

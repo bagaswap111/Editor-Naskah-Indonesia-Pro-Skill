@@ -1,0 +1,36 @@
+Langkah terakhir, aktifkan web search agar model dapat menjawab pertanyaan real-time:
+
+Untuk privasi maksimal, self-host SearXNG sebagai penyedia: search berjalan dari server Anda sendiri tanpa mengirim log ke penyedia pihak ketiga. Integrasi web search juga berpadu dengan RAG — jawaban dapat menggabungkan dokumen internal (dari knowledge base) dan informasi terkini (dari web) dalam satu respons.
+
+Skenario. Sebuah SMK dengan 500 siswa memiliki perpustakaan berisi ratusan buku pelajaran digital, tetapi siswa kesulitan mencari materi — halaman demi halaman PDF harus dibuka manual. Sekolah memiliki server lokal bekas: Xeon E5, 64 GB RAM, dan RTX 3060 12 GB. Kepala sekolah ingin siswa dapat bertanya dalam bahasa sehari-hari: "Bagaimana rumus usaha dalam fisika?" dan langsung mendapat jawaban beserta sumbernya.
+
+Analisis pilihan. Model di cloud mahal per-token dan mengirim data siswa ke pihak ketiga — tidak cocok untuk sekolah. Model lokal di server yang ada adalah pilihan realistis, dengan Open WebUI sebagai frontend karena satu alasan kunci: dukungan multi-user RBAC. Diperlukan pemisahan peran — 10 guru sebagai admin yang mengelola knowledge base, 500 siswa sebagai user terbatas tanpa akses pengaturan. Alternatif seperti Text-Generation-WebUI gugur di sini karena tidak memiliki manajemen pengguna.
+
+Solusi. Deployment: Open WebUI + Ollama di server sekolah. Dua model generation disiapkan dengan strategi berjenjang: DeepSeek V4 Flash untuk pertanyaan ringan (definisi, ringkasan) yang menuntut kecepatan, dan Qwen 2.5 (14B) Q4_K_M untuk tugas berat seperti pemecahan soal fisika bertahap. RAG dikonfigurasi dengan ChromaDB (default) — koleksi 200+ buku pelajaran PDF di-chunk (1000 token, overlap 200) dan di-embed dengan nomic-embed-text lokal, sehingga tidak ada data yang keluar dari server.
+
+Hasil. Siswa bertanya dalam bahasa alami dan mendapat jawaban dengan konteks dari buku yang sesuai; guru memantau pengguna dan knowledge base dari admin panel. DeepSeek V4 Flash menangani mayoritas pertanyaan ringan dengan respons cepat, sementara Qwen 2.5 (14B) diaktifkan untuk soal yang menuntut reasoning — model switching di tengah percakapan dimanfaatkan guru untuk memilih sesuai tingkat kesulitan. Untuk pelajaran coding, tool Python kustom dijalankan di sandbox sehingga siswa bisa menguji potongan kode langsung di dalam chat.
+
+Pelajaran. Pertama, budgeting yang bijak: biaya software Rp 0 — seluruh komponen open source, hardware memanfaatkan server existing. Kedua, skala model tidak harus selalu besar: kombinasi model cepat untuk 80% pertanyaan dan model kuat untuk 20% sisanya jauh lebih efisien daripada satu model besar untuk semua. Ketiga, fitur RBAC bukan kemewahan — di institusi pendidikan, pembatasan akses dan peran admin adalah kebutuhan fungsional yang menentukan kelayakan sebuah solusi.
+
+### Paper Jurnal/Konferensi
+
+[1] The Open WebUI Team. (2025). Open WebUI: An Open, Extensible, and Usable Interface for AI Interaction. arXiv preprint arXiv:2510.02546. DOI: 10.48550/arXiv.2510.02546
+- Paper utama Open WebUI — desain, usability testing, dan arsitektur backend-frontend yang dijelaskan di Sub-bab 2.
+
+[2] Gao, Y., et al. (2024). Retrieval-Augmented Generation for Large Language Models: A Survey. arXiv preprint arXiv:2312.10997. DOI: 10.48550/arXiv.2312.10997
+- Survey komprehensif RAG — fondasi teoretis indexing, retrieval, dan generation pada Sub-bab 4.
+
+[3] Fu, Y., et al. (2024). APIServe: Efficient API Support for Large-Language Model Inferencing. arXiv preprint arXiv:2402.01869. DOI: 10.48550/arXiv.2402.01869
+- Framework inferensi untuk API-augmented LLM — relevan dengan fitur Tools/function calling pada Sub-bab 5.
+
+[4] Wang, L., et al. (2024). ScaleLLM: A Resource-Frugal LLM Serving Framework by Optimizing End-to-End Efficiency. Proceedings of EMNLP Industry Track. DOI: 10.18653/v1/2024.emnlp-industry.22
+- Sistem serving dengan API gateway dan load balancing — relevan dengan deployment multi-user pada Sub-bab 7.
+
+[5] Fu, Y., et al. (2024). ServerlessLLM: Low-Latency Serverless Inference for Large Language Models. USENIX OSDI. https://www.usenix.org/system/files/osdi24-fu.pdf
+- Sistem serverless dengan checkpoint management — strategi deployment Docker dan manajemen siklus hidup pada Sub-bab 3.
+
+### Referensi Pendukung (Dokumentasi/Repository)
+
+[6] Open WebUI Official. GitHub Repository*. https://github.com/open-webui/open-webui
+
+[7] Open WebUI Documentation. https://docs.openwebui.com

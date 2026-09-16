@@ -1,0 +1,27 @@
+Bacaan penting dari tabel ini: failover time terkumpul secara berurutan, bukan paralel. Jika GPU mati (30 detik) lalu Qdrant kehilangan satu replika (60 detik berikutnya), total waktu pemulihan bisa menembus hitungan menit. Karena itu, urutan prioritas optimasi adalah: pastikan lapisan yang paling sering gagal (storage dan inference, yang punya komponen bergerak paling banyak) memiliki recovery time terendah, dan jangan pernah menaruh dua titik kegagalan potensial dalam satu jalur kritis. Strategi active-active lebih dipilih ketika failover harus tanpa jeda (LB, gateway, jaringan), sementara active-passive cukup untuk lapisan yang boleh menunda beberapa detik (inference) [3][4].
+
+!Failover tercepat ada di API Gateway (< 1 detik) dan Network (< 5 detik), sementara Storage Vector DB paling lambat (< 60 detik) — skala log menegaskan urutan prioritas optimasi
+
+Gambar 8.1-2 — Lapisan yang dilindungi active-active (gateway < 1 dtk, network < 5 dtk) pulih jauh lebih cepat daripada lapisan stateful (Qdrant < 60 dtk); karena waktu ini terakumulasi berurutan, storage dan inference adalah sasaran optimasi pertama.
+
+### Gambar 3: Dashboard Grafana SLA Monitoring
+
+Dashboard Grafana menampilkan lima panel inti sebagai cockpit pemantauan: Uptime, TTFT, Throughput, Error Rate, dan Active Sessions. Tata letak ini bukan kebetulan — kelima metrik itu menjawab pertanyaan manajerial yang berbeda: "apakah sistem hidup?" (uptime), "apakah terasa lambat?" (TTFT), "apakah kapasitas cukup?" (throughput), "apakah ada yang rusak?" (error rate), dan "apakah perusahaan sedang ramai?" (active sessions). Satu dashboard yang merangkum kelima panel ini seharusnya menjadi homepage monitor: ketika SLA melanggar, alert Prometheus (disusun pada Langkah 2) memicu notifikasi sebelum karyawan sempat mengeluh.
+
+### Langkah 1: Setup HAProxy untuk Load Balancing LLM Gateway
+
+Langkah pertama membuat pintu masuk redundan: HAProxy dengan tiga server backend LiteLLM. Konfigurasi ini juga berisi health check HTTP yang menentukan kapan sebuah replika dianggap mati.
+
+Perhatikan parameter fall 3 rise 2: server dinyatakan mati setelah tiga kali gagal health check, dan kembali melayani setelah dua kali sukses. Angka ini menjaga keseimbangan antara responsiveness (jangan menunggu terlalu lama mendeteksi kematian) dan stabilitas (jangan mematikan server hanya karena satu timeout). Balance roundrobin memastikan ketiga replika LiteLLM terpakai merata — sesuai dengan strategi active-active pada Tabel 3 yang menargetkan failover di bawah 1 detik.
+
+### Langkah 2: Setup Prometheus Alert untuk Uptime Monitoring
+
+Setelah pintu masuk siap, pasang early warning system. Tiga aturan alert berikut melindungi tiga metrik SLA kritis sekaligus: ketersediaan instance, latensi P99, dan kesehatan GPU.
+
+Aturan HighLatency adalah terjemahan langsung SLA Tabel 1: alert berbunyi ketika kuantil 99 latensi melewati 3 detik selama satu menit — bukan lonjakan sesaat. Sedangkan GPUUtilizationHigh (> 95% selama 5 menit) adalah isyarat dini: alih-alih menunggu antrean menumpuk, aturan ini memberi tahu operator bahwa kapasitas GPU mendekati batas, sehingga keputusan scale-out bisa diambil proaktif.
+
+### Langkah 3: Simulasi Beban 25 User Bersamaan
+
+Terakhir, uji pegas. Skrip Python berikut mensimulasikan burst 25 pengguna simultan dengan campuran tipe query yang mencerminkan komposisi nyata kantor: analisis keuangan, draft kontrak, review kode, dan ringkasan dokumen legal.
+
+Perhatikan logika pemilihan model pada baris model = "deepseek-v4-flash" if len(prompt) > 2000 else "llama-3.1-70b": prompt panjang (di atas 2000 karakter) diarahkan ke DeepSeek V4 Flash yang memiliki konteks 1 juta token — cocok untuk dokumen legal — sementara prompt pendek-analitis memakai model 70B. Routing berbasis karakteristik query seperti inilah yang dimanfaatkan oleh API gateway LiteLLM secara otomatis di produksi. Jalankan skrip, amati apakah TTFT P99 tetap di bawah 3 detik, dan periksa apakah HPA menambah pod — itu adalah ujian lulus-tidak-lulusnya Tabel 1.

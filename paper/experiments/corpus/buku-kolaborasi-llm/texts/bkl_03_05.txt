@@ -1,0 +1,59 @@
+Perhatikan pola yang menyakitkan sekaligus membebaskan ini. Model kecil bisa dijalankan
+di mana saja: Llama 3.2 (3B) hanya menuntut 180 GB/s untuk mencapai 100 t/s — kartu
+seharga Rp 5 jt pun sanggup. Namun saat ukuran model berlipat, angka di kolom minimum
+ikut membengkak: Llama 3.1 (405B) butuh setidaknya 920 GB/s hanya untuk berjalan 4
+token/detik — satu-satunya cara adalah kartu kelas H100/MI300X atau membagi-bagi
+model ke banyak GPU. Dan di dasar tabel: Mistral Large 3 menuntut 1,5 TB/s,
+sementara GPU konsumen tercepat sekalipun hanya ~1 TB/s. Tiga baris terakhir menjawab
+misteri mengapa model MoE raksasa "hanya" berjalan 3-8 t/s di workstation terbaik
+sekalipun: bukan prosesornya yang lambat — alirannya yang kurang.
+
+### Garis Lurus yang Mulai Melengkung
+
+Jika kuantisasi sesederhana garis lurus, semua orang akan mengkuantisasi sampai 2-bit.
+Kenyataannya ada titik di mana garis itu melengkung: overhead dequantisasi. Model
+terkuantisasi tidak disimpan sebagai FP16; ia disimpan sebagai bilangan bulat 4-bit
+yang harus didequantisasi — dikembalikan ke format floating point — sebelum dikalikan.
+Proses ini adalah beban komputasi (compute) di dalam unit pemrosesan. Semakin agresif
+kuantisasi, semakin besar beban dequantisasi per token, hingga pada titik tertentu
+bottleneck bergeser: dari memori yang kehabisan aliran menjadi prosesor yang
+kehabisan waktu.
+
+Keseimbangan terbaik saat ini, berdasarkan konsensus praktik komunitas, terletak pada
+Q4_K_M atau Q5_K_M. Di titik ini, pengurangan data (4x lebih kecil) masih
+diterjemahkan hampir linier ke kecepatan, sementara biaya dequantisasi masih relatif
+kecil. Di bawahnya — kuantisasi 2-3 bit — penghematan bandwidth mulai dimakan habis oleh
+komputasi tambahan, dan kualitas output menurun tanpa manfaat kecepatan yang sepadan.
+Seperti diet ekstrem: pada titik tertentu, yang berkurang bukan lemak, melainkan otot.
+Untuk model yang compute-bound di prefill (prompt raksasa), titik keseimbangan ini
+bahkan bisa bergeser lebih tinggi — Q6/Q8 justru menjadi pilihan bijak.
+
+Para penguji independen sudah memotret hubungan ini dengan kamera llama-bench. Untuk
+model Llama 3 (8B) Q4_K_M (4,5 GB), deret GPU berikut menunjukkan pola yang hampir
+menakutkan keteraturannya: RTX 4060 (272 GB/s) menghasilkan ~30 t/s; RTX 4070
+(504 GB/s) ~55 t/s; RTX 4080 Super (736 GB/s) ~80 t/s; RTX 4090 (1.008 GB/s)
+~110 t/s. Perhatikan intervalnya: setiap kenaikan bandwidth sekitar 230-270 GB/s
+menambah sekitar 25-30 t/s. Scaling hampir linier — dua kali bandwidth berarti
+sekitar dua kali token/detik untuk model yang muat di VRAM.
+
+Interpretasi sederhananya: jika Anda sedang mempertimbangkan dua kartu yang VRAM-nya
+sama (misalnya 24 GB RTX 3090 vs 24 GB RTX 4090), perbandingan performa sebenarnya
+sudah ditentukan sebelumnya oleh bandwidth — 936 GB/s vs 1.008 GB/s. Bukan oleh jumlah
+CUDA core, bukan oleh klaim "generasi baru", melainkan oleh lebar pintu yang sama
+sekali tidak terlihat di kemasan. Di bab berikutnya kita akan melihat mengapa angka ini
+menjadi penentu segalanya dalam perbandingan NVIDIA vs AMD vs Apple — dan mengapa
+kartu dengan TFLOPS kecil bisa mengalahkan kartu dengan TFLOPS besar.
+
+### Gambar 1: Memory Bandwidth Hierarchy GPU
+
+Diagram ini adalah tangga bandwidth yang menjadi acuan semua keputusan di bab ini.
+Di anak tangga bawah, GPU konsumen melompat dari 272 ke 1.008 GB/s — setiap lompatan
+berbanding lurus dengan kecepatan inferensi model kecil-ke-sedang. Di anak tangga atas,
+HBM menggandakan-gandakan angka: H100 punya bandwidth 3,3x RTX 4090, dan MI300X
+menatap 5,3 TB/s — wilayah yang saat ini hanya dimasuki mereka yang menjalankan model
+100B+. Pesan visualnya tegas: kemana pun Anda membelok, tujuan Anda ditentukan oleh
+anak tangga ini — GPU yang salah tangga akan selalu menjadi hambatan, apa pun yang
+diklaim pabrikannya tentang "kecerdasan buatan" di atasnya.
+
+Sebelum menekan tombol "bayar" di marketplace mana pun, biasakan rutinitas dua menit
+berikut:

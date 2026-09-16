@@ -1,0 +1,25 @@
+Prinsip pertama inilah yang membedakan OpenClaw dari eksperimen agen "liar" yang berjalan tanpa pengawasan. Konsep human-in-the-loop ini bukan hal baru dalam literatur: Cheng et al. (2024) mengkategorikan agen cerdas berdasarkan tingkat otonominya dan menempatkan kolaborasi manusia-agen sebagai kelas penting dari sistem agentic [5]. Dengan approval gates, OpenClaw mengkomersialkan konsep itu menjadi fitur sehari-hari.
+
+Sebagai ilustrasi berlawanan, bayangkan agen tanpa approval gate yang diminta "rapikan file proyek" — ia mungkin dengan percaya diri menghapus backup_2020.tar.gz karena tampak "usang". Dengan approval gate, keputusan destruktif semacam itu berhenti di meja Anda: agen melaporkan rencananya, menunggu persetujuan, dan baru bertindak setelah Anda menekan enter. Kesalahan tetap mungkin terjadi, tetapi dampak kesalahan dibatasi oleh satu keputusan manusia — bukan oleh imajinasi agen.
+
+### Ekosistem
+
+OpenClaw tidak hidup sendiri. Ia hadir dalam empat bentuk yang saling melengkapi: CLI untuk pengguna terminal (paling fleksibel, paling ringan), ekstensi VS Code untuk developer yang bekerja dengan kode, SDK (misalnya Python) untuk membangun agen kustom, dan Kanban multi-agent untuk memvisualisasikan beberapa agen yang bekerja paralel pada tugas berbeda — semacam papan Trello tempat setiap kartu dipegang oleh agen yang berbeda. Empat antarmuka ini berbagi satu engine yang sama, sehingga tugas yang sama bisa dijalankan dari mana saja.
+
+Pilih antarmuka berdasarkan konteks kerja Anda, bukan berdasarkan mode. Pengguna yang sering bekerja di terminal akan betah di CLI karena ia bisa dipanggil dari dalam skrip dan cron job — otomasi yang mengotomasi otomasi. Pengembang yang menulis kode sepanjang hari lebih produktif dengan ekstensi VS Code karena konteks kode langsung tersedia bagi agen. Tim yang mengawasi banyak tugas paralel mendapat manfaat dari Kanban: setiap kartu adalah satu agen, setiap kolom adalah tahap pengerjaan, dan status terlihat sekilas tanpa membuka log. Semua pintu masuk ini menuju engine yang sama, sehingga menguasai satu berarti menguasai semuanya — inilah keputusan desain yang membuat OpenClaw mudah diadopsi bertahap.
+
+### Gambar 2: Stack Filosofi OpenClaw — Tiga Lapisan
+
+Arsitektur OpenClaw tersusun berlapis seperti makanan siap saji: antarmuka di atas, mesin di tengah, otak di bawah.
+
+Tiga lapisan terlihat jelas. Lapisan atas adalah antarmuka yang beragam — CLI untuk ketangkasan, VS Code untuk coding, Kanban untuk pengawasan multi-agen. Lapisan tengah adalah OpenClaw Agent Engine yang merangkai empat pilar: Tool Use, Planning, Memory, dan Autonomy. Lapisan bawah adalah Local LLM (via Ollama atau LM Studio) yang menjadi otak — dengan arrow kembali ke atas, memperlihatkan bahwa hasil inference selalu mengalir balik ke engine untuk langkah berikutnya. Kecantikan arsitektur ini ada pada decoupling: Anda bisa mengganti lapisan bawah (dari model 8B ke DeepSeek V4 Flash) atau lapisan atas (dari CLI ke Kanban) tanpa menyentuh mesin di tengah.
+
+### Pilar 1: Tool Use (Function Calling)
+
+Pilar pertama adalah kemampuan agen memanggil alat: API sistem operasi, file system, browser, dan terminal. Inilah yang mengubah LLM dari orator menjadi pekerja. Alih-alih menulis teks "silakan jalankan perintah berikut", agen memproduksi structured call — nama fungsi dan argumen yang siap dieksekusi. Teknik ini dibahas mendalam di Bab 4.2, tetapi intinya: tool use adalah tangan dari agen, sementara penalaran adalah otaknya.
+
+### Pilar 2: Planning & Reasoning (Perencanaan dan Penalaran)
+
+Pilar kedua adalah kemampuan menyusun rencana dan menalarnya langkah demi langkah. Teknik Chain-of-Thought (CoT) dan ReAct memungkinkan agen mendekomposisi tugas besar menjadi langkah-langkah kecil yang bisa dieksekusi berurutan [2][4]. Di Bab 4.3 Anda akan melihat bagaimana pola Thought → Action → Observation menjadi tulang punggung agen yang bisa berpikir sambil bekerja.
+
+### Pilar 3: Memory (Memori)

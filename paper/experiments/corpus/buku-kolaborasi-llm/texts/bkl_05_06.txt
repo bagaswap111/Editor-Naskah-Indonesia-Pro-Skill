@@ -1,0 +1,33 @@
+Diagram ini menjawab pertanyaan klasik "kenapa prompt pertama lambat, kedua cepat?" — perbedaan waktu di langkah load GGUF yang hanya terjadi sekali selama jendela keep-alive. Dalam aplikasi tim, pemahaman ini berguna untuk mengatur kapan server perlu dipanaskan (warm-up) sebelum jam kerja dimulai.
+
+### Langkah 1: Membuat Modelfile Kustom
+
+Mulailah dengan membuat sebuah Modelfile untuk asisten coding berbahasa Indonesia yang dibangun di atas DeepSeek V4 Pro. Simpan file berikut sebagai Modelfile:
+
+Lalu bangun dan jalankan:
+
+Perhatikan pilihan parameternya: temperature 0.3 membuat model disiplin (tidak berimajinasi), num_ctx 32768 memberi ruang konteks sebesar 32K token — cukup untuk menempelkan potongan kodebase — dan mirostat 2 menjaga perplexity agar output tetap "dingin" sepanjang sesi. Jika model dasar belum diunduh, Ollama akan menariknya otomatis saat create pertama kali dijalankan.
+
+### Langkah 2: Mengelola Model Library dan API Server
+
+Sekarang, kelola library dan uji kedua endpoint API:
+
+Dua endpoint pada langkah 4 dan 5 menampilkan filosofi Ollama: /api/generate adalah bahasa asli Ollama yang kaya opsi, sementara /v1/chat/completions adalah bahasa universal yang dipahami semua aplikasi bergaya OpenAI. Untuk integrasi dengan aplikasi yang sudah ada, gunakan endpoint ke-5; untuk kontrol penuh, gunakan yang ke-4.
+
+### Langkah 3: Concurrent Model Loading
+
+Terakhir, uji bagaimana scheduler menangani tiga model yang diminta bersamaan. Script Python berikut mengukur waktu load setiap model:
+
+Jika total RAM/VRAM cukup, ketiga model akan dimuat bersamaan dan masing-masing mencatat waktu kecil; jika memori menipis, scheduler akan menunggu model lama diunload dulu — inilah momen yang tepat mengamati kerja keep-alive dan prioritas scheduling secara langsung. Waktu yang besar pada model ketiga menandakan thrashing memori; solusinya kurangi model yang dimuat sekaligus atau set OLLAMA_MAX_LOADED_MODELS.
+
+Bayangkan sebuah perusahaan software di Jakarta dengan lima developer yang sehari-hari mengerjakan sistem ERP. Setiap developer ingin memakai asisten AI untuk menulis dan meninjau kode, tetapi perusahaan melarang kode bisnis dikirim ke API cloud — masalah keamanan yang tidak bisa ditawar. Solusinya: Ollama di satu server internal.
+
+Latar & analisis pilihan. Tim memiliki satu server dengan RTX 4090 24GB. Pilihan model jatuh pada DeepSeek V4 Flash (284B total, 13B aktif) — arsitektur Mixture-of-Experts yang hanya mengaktifkan 13 miliar parameter per token membuatnya jauh lebih ringan daripada total parameternya, sehingga muat dan cepat di VRAM 24GB. Model 1.6T seperti DeepSeek V4 Pro tetap disimpan sebagai upgrade path bila nanti ada server tambahan, karena keduanya berlisensi MIT dan open-weight di Hugging Face.
+
+Langkah solusi. Tim menyusun satu Modelfile perusahaan: base model deepseek-v4-flash, konteks kodebase perusahaan ditambahkan ke SYSTEM, system prompt berisi standar koding tim (nama variabel, konvensi commit, bahasa komentar), dan konfigurasi num_ctx 32768 (cukup untuk menempel file kode utuh), temperature 0.2 (presisi di atas kreativitas), num_gpu 99 (semua lapisan di GPU), serta flash attention diaktifkan untuk efisiensi konteks panjang. Model dijalankan dengan ollama serve, dan kelima developer terhubung melalui Open WebUI — antarmuka web yang terhubung ke endpoint Ollama sehingga tiap developer mendapat akun sendiri tanpa konfigurasi tambahan.
+
+Hasil & pelajaran. Kelima developer dapat mengakses model secara bersamaan dengan latensi di bawah 3 detik per respons — impresif untuk model berukuran 284B, berkat kombinasi MoE efisien, offload penuh ke RTX 4090, dan streaming token. Manajemen blob mempermudah hidup tim: karena semua pengguna memakai model yang sama, blob tersimpan sekali dan otomatis di-deduplicate; setiap update model cukup sekali ollama pull. Pelajaran terpenting dari kasus ini: dengan satu Modelfile, satu perintah ollama create, dan satu server, sebuah tim kecil mendapatkan asisten AI internal yang cepat, gratis, dan — yang paling penting — tidak pernah membocorkan kode bisnis ke luar tembok server.
+
+### Paper Jurnal/Konferensi
+
+[1] Vake, D., Vičič, J., & Tošić, A. (2025). Hive: A Secure, Scalable Framework for Distributed Ollama Inference. SoftwareX, 30, 102183. DOI: 10.1016/j.softx.2025.102183

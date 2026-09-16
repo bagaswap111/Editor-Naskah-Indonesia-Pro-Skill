@@ -1,0 +1,22 @@
+Pola ini sekaligus menjawab pertanyaan abadi: apakah Home Assistant butuh GPU kelas atas? Dengan prompt pendek dan KV-cache kecil, model 7-14B di GPU 12-24 GB akan menyelesaikan sebagian besar prefill dalam hitungan milidetik. Beban GPU yang sesungguhnya baru terasa saat 2-3 sesi streaming berjalan bersamaan di jam makan malam — artinya, investasi yang paling tepat bukan pada kartu tercepat, melainkan pada kapasitas KV-cache yang cukup untuk tiga sesi paralel, plus jadwal tidur GPU yang tegas pada jam-jam sepi (00:00-06:00). Seluruh perhitungan ini, dari memory footprint hingga konsumsi energi per request, dirangkum dengan baik oleh survei SLM di [3].
+
+### Tabel 2: Rekomendasi Hardware per Skenario Keluarga
+
+Setelah memahami skala, tabel berikut membantu memilih titik awal hardware berdasarkan komposisi keluarga dan prioritas.
+
+| Skenario | Rekomendasi | Model Ideal | Total Estimasi |
+|:---|:---|:---|:---:|
+| Keluarga kecil (4 org), budget hemat | Mac Mini M4 24GB + Ollama | Llama 3.1 (8B) Q4_K_M | ~Rp 20jt |
+| Keluarga besar (6-8 org), performa | PC RTX 4090 24GB + vLLM | Llama 3.1 (70B) Q3_K_M | ~Rp 45jt |
+| Keluarga dengan smart home | Homelab: Mini PC + RTX 3090 used + Home Assistant | Qwen 2.5 (14B) Q4_K_M | ~Rp 30jt |
+| Lowest power (24/7 on) | Mac Mini M4 Pro 48GB + Ollama | Llama 3.1 (8B) Q5_K_M | ~Rp 35jt |
+
+Pola yang muncul: ukuran keluarga menentukan model, dan model menentukan hardware. Empat orang dengan anggaran ketat dapat diselesaikan Mac Mini M4 24GB; enam sampai delapan orang yang ingin kualitas tertinggi butuh RTX 4090 untuk menampung Llama 3.1 (70B) dalam Q3_K_M. Skenario ketiga adalah jalan tengah yang paling populer di Indonesia — homelab dengan used RTX 3090 yang juga menjadi tulang punggung Home Assistant. Skenario keempat, 24/7, menyerahkan segalanya pada efisiensi Apple Silicon. Tidak ada jawaban universal; yang ada adalah jawaban yang cocok dengan keluarga Anda.
+
+Praktik terbaik dari ketiga pilihan pertama: jangan membeli hardware "untuk masa depan". Keluarga yang memulai dengan Mac Mini 24GB untuk model 8B lalu berencana naik ke 70B setahun kemudian akan membayar dua kali — jauh lebih baik menetapkan ukuran keluarga dan model maksimum yang masuk akal sejak awal, lalu memilih skenario tepat di atasnya. Hardware rumah tunduk pada aturan rumah: beli sesuai kebutuhan hari ini, bukan sesuai khayalan setahun lagi.
+
+Setiap sistem tersusun dari empat lini komponen yang bekerja seperti dapur yang terorganisir: ada yang memasak, yang menyimpan bahan, yang menjadi kurir, dan yang mencatat pesanan.
+
+LLM Server — jantung sistem, diisi oleh Ollama atau vLLM. Untuk skala keluarga, Ollama cukup karena concurrency rendah; vLLM masuk akal jika nanti ada rencana skala naik atau banyak pengguna power. RAG Pipeline — rak buku keluarga berbentuk vektor, memakai ChromaDB lokal yang menyimpan dokumen keluarga: buku pelajaran, jurnal medis, dokumentasi proyek, hingga kumpulan resep. Smart Home Bridge — jika keluarga menggunakan otomasi rumah, Home Assistant dengan custom integration HACS menjadi penghubung antara perintah bahasa alami dan perangkat fisik. Voice Interface — bersifat opsional: Whisper untuk speech-to-text dan Piper untuk text-to-speech, memberi keluarga antarmuka yang paling alami: bicara.
+
+Peran setiap komponen perlu dilihat relatif terhadap arsitektur modular-agent yang diusulkan Harmony [2]: bukan satu model raksasa yang melakukan segalanya, melainkan LLM pusat yang mengarahkan tugas—deteksi maksud, pencarian konteks, pemilihan aksi—ke modul-modul khusus.

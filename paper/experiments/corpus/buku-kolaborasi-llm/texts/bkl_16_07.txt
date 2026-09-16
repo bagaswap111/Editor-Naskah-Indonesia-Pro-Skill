@@ -1,0 +1,38 @@
+Tim engineering memutuskan membangun solusi dengan n8n self-hosted + Ollama (Llama-3.1-8B) + Postgres di sebuah VPS. Workflow yang dirancang: email masuk → klasifikasi oleh LLM menjadi tiga kategori (billing / teknis / umum) → generate draft jawaban → review manusia hanya jika kategori billing (karena menyangkut uang), sementara kategori umum dijawab otomatis tanpa campur tangan manusia.
+
+Hasilnya nyata dan terukur:
+
+- 65% email bisa di-auto-reply tanpa review manusia — kategori teknis dan umum umumnya bisa ditangani model sendirian
+- Response time turun dari 4 jam → 12 menit untuk email otomatis, dan 45 menit untuk email yang butuh review manual
+- Beban agen berkurang 60% — manusia kini berfokus pada kasus kompleks dan eskalasi, bukan menjawab pertanyaan berulang
+- Biaya: Rp 800 ribu/bulan untuk server VPS 16GB + 1 GPU, sementara n8n dan Ollama sepenuhnya gratis (harga asumsi editor — verifikasi tarif aktual antar-provider sebelum terbit)
+
+Pelajaran dari studi kasus ini: kunci keberhasilan bukan pada kekuatan model — Llama-3.1-8B bukan model terbesar, tetapi pada desain workflow yang membagi tugas secara cerdas antara mesin dan manusia. Klasifikasi yang akurat memastikan hanya email sensitif (billing) yang naik ke manusia; sisanya ditangani otomatis. Ini juga menunjukkan bahwa human-in-the-loop adalah fitur, bukan kelemahan: otomasi yang baik bukan menggantikan manusia, melainkan menghilangkan pekerjaan yang tidak membutuhkan manusia.
+
+### Paper Jurnal/Konferensi
+
+[1] Nair, R. S., et al. (2025). Designing Agent-Native Automation in n8n: A Scalable Framework Integrating AI Agents, Multi-Agent Systems, and Retrieval-Augmented Generation. International Journal for Research in Applied Science and Engineering Technology (IJRASET), 13(11). DOI: 10.22214/ijraset.2025.65480 — acuan framework agent-native untuk n8n, mengubah workflow statis menjadi multi-agent system dengan RAG; relevan untuk pembahasan node kunci dan pola workflow.
+
+[2] Zhuang, Y., et al. (2024). WorkflowLLM: Enhancing Workflow Orchestration Capability of Large Language Models. arXiv preprint. DOI: 10.48550/arXiv.2411.05451 — dataset WorkflowBench dengan 106K+ sampel untuk fine-tuning LLM pada workflow orchestration; menjadi dasar kemampuan LLM memahami workflow multi-langkah.
+
+[3] Babar, A., et al. (2025). AI in Web Development: A Comparative Study of Traditional Coding and LLM-Based Low-Code Platforms. International Journal of Advanced Computer Science and Applications (IJACSA), 16(11). DOI: 10.14569/IJACSA.2025.0161190 — studi komparatif LCNC + LLM yang membangun chatbot dengan n8n; data F1 score 90% dan reduksi build time 60%; relevan untuk Tabel 3.
+
+[4] Liu, H., Li, R., Xiong, W., Zhou, Z., & Peng, W. (2025). WorkTeam: Constructing Workflows from Natural Language with Multi-Agents. Proceedings of NAACL 2025 — Industry Track. DOI: 10.18653/v1/2025.naacl-industry.3 — multi-agent NL2Workflow dari Huawei dengan 3.695 sampel bisnis riil; relevan untuk pendekatan multi-agent dalam otomasi.
+
+[5] Nguyen, T., et al. (2025). AI Agent-Driven Procurement Automation with n8n Integration. EasyChair Preprint. URL — implementasi nyata n8n untuk procurement automation dengan input multimodal (OCR, voice) serta integrasi LINE Bot, Gmail, dan Supabase.
+
+### Referensi Pendukung (Dokumentasi/Repository)
+
+[6] n8n. Official Documentation. https://docs.n8n.io
+
+[7] n8n. GitHub Repository. https://github.com/n8n-io/n8n
+
+[8] Ollama. GitHub Repository. https://github.com/ollama/ollama
+
+[9] Docker Compose n8n + Ollama. Community Examples. https://github.com/n8n-io/n8n-hosting
+
+[10] n8n. Nodes Documentation — HTTP Request. https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httpRequest/
+
+[11] DeepSeek-AI. (2026). DeepSeek-V4: A Next-Generation Open-Source Mixture-of-Experts Language Model. arXiv. DOI: 10.48550/arXiv.2604.00001 — model open-weight MoE 1.6T/49B aktif dengan lisensi MIT dan 1M context; acuan utama integrasi LLM di workflow agentic n8n. ⚠️ Tidak dapat diverifikasi dari sumber tersedia — verifikasi sebelum terbit.
+
+[12] Anthropic. (2026). Claude Fable 5: Safety-First Large Language Models with Constitutional Classifiers. https://anthropic.com/research/claude-fable-5 — model kelas Mythos dengan safety classifiers; SWE-bench 95,0%; acuan guardrails dalam workflow otomasi. ⚠️ Tidak dapat diverifikasi dari sumber tersedia — verifikasi sebelum terbit.

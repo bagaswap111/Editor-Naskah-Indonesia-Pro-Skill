@@ -1,0 +1,47 @@
+1. Add Document Loader Node: Pilih PDF File → upload file laporan keuangan.
+2. Add Text Splitter Node: RecursiveCharacterTextSplitter → chunk 1000, overlap 200 — sesuai rekomendasi Tabel 2 untuk dokumen teknis.
+3. Add Embeddings Node: Pilih OpenAI Embeddings (untuk cloud) atau Ollama Embeddings (untuk lokal, data sensitif).
+4. Add Vector Store Node: Pilih ChromaDB → Create New Collection.
+5. Upsert Document: Sambungkan Loader → Splitter → Embeddings → ChromaDB, lalu jalankan upsert — dokumen terindeks ke vector store.
+6. Add LLM Node: Pilih ChatOllama → model llama3.1:8b (atau deepseek-v4-flash:latest untuk akurasi lebih tinggi). Alternatif untuk dokumen sangat panjang: deepseek-v4-pro:latest (1M context) agar chunking bisa lebih besar. Alternatif multimodal: mistral-large-3:latest untuk laporan yang berisi grafik dan tabel.
+7. Add RetrievalQA Chain Node:
+   - Sambungkan: LLM → RetrievalQA
+   - Sambungkan: ChromaDB → RetrievalQA (sebagai retriever)
+   - Parameter: chainType = stuff, returnSourceDocuments = true
+8. Add Chat Widget Node: Sambungkan ke RetrievalQA → Save.
+9. Test: Ketik "Berapa total pendapatan tahun 2024?" di chat widget — jawaban akan muncul beserta source documents yang membuktikan dari mana jawaban diambil.
+
+### Langkah 3: Agentic RAG dengan Self-Correction
+
+Tingkatkan pipeline menjadi agent yang memeriksa kembali hasilnya sendiri.
+
+1. Buat Agent Node: Pilih OpenAI Function Agent (karena membutuhkan tool calling).
+2. Buat Tool:
+   - Vector Store Tool → sambungkan ke retriever ChromaDB
+   - Calculator Tool → untuk perhitungan finansial
+3. System Prompt:
+
+4. Add Relevancy Checker (LLM node + Condition):
+   - Prompt: "Are these documents relevant to: {{query}}? YES/NO"
+   - Condition: jika YES → generate jawaban; jika NO → generate ulang query.
+5. Loop Node: Sambungkan output "NO" kembali ke retriever dengan query baru — ini loop self-correction.
+6. Max 5 Loops: Set penghitung loop untuk mencegah infinite loop.
+
+Pola ini secara dramatis mengurangi jawaban salah yang bersumber dari retrieval yang gagal: sistem tidak menyerah pada percobaan pertama, melainkan memperbaiki querynya sendiri hingga menemukan konteks yang relevan.
+
+### Langkah 4: Pipeline RAG dengan DeepSeek V4 Pro untuk Dokumen 1M Token
+
+Untuk dokumen raksasa — buku manual 500+ halaman atau kontrak korporat — arsitekturnya berubah berkat konteks 1M token.
+
+1. Document Loader: Muat dokumen besar (buku manual 500+ halaman, kontrak korporat).
+2. Text Splitter: Gunakan chunk 4096 token (lebih besar dari standar 1000) karena DeepSeek V4 Pro mendukung 1M context — chunk besar berarti lebih sedikit kehilangan konteks antar-potongan.
+3. Embeddings: Gunakan DeepSeek V4 Embedding (2048 dimensi) untuk representasi yang lebih kaya.
+4. Vector Store: Qdrant dengan scalar quantization (int8) untuk menghemat memori — kritis untuk jutaan chunk berdimensi tinggi.
+5. Chat DeepSeek V4 Pro: Set model ke deepseek-v4-pro:latest dengan konteks penuh 1M.
+6. Self-Query Retriever: Filter metadata dokumen (tahun, departemen, tipe dokumen) sebelum similarity search — misalnya "cari di dokumen tahun 2025 saja".
+
+Keunggulan konfigurasi ini: dengan 1M context, nyaris tidak perlu chunking agresif — bahkan bagian besar dokumen bisa masuk utuh ke dalam satu prompt, dan self-query memastikan pencarian dibatasi pada metadata yang relevan. Untuk dataset kontrak lintas tahun, kombinasi ini adalah perbedaan antara jawaban yang benar dari tahun yang salah versus jawaban yang tepat sasaran.
+
+Departemen legal sebuah perusahaan distribusi menghadapi masalah yang familiar: mereka mengelola lebih dari 10.000 kontrak vendor — setiap kontrak berisi klausul penting tentang harga, jaminan, dan pembayaran. Ketika tim pengadaan perlu menjawab "kontrak mana yang berisi klausul penalti keterlambatan 2%?" atau "berapa batas kenaikan harga pada kontrak 2024?", pencarian manual memakan 30-60 menit per pertanyaan — asumsi umum, karena tidak ada satu orang pun yang mengingat isi 10.000 dokumen.
+
+Solusinya dibangun dengan Flowise + ChromaDB + Ollama (Llama-3.1-8B) untuk pipeline standar, dan vLLM (Qwen-2.5-14B) untuk dokumen kompleks yang membutuhkan pemahaman lebih dalam. Pipeline dirancang sebagai berikut:

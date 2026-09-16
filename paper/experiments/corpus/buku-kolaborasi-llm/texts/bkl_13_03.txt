@@ -1,0 +1,31 @@
+Server AI yang hanya bisa dipakai satu orang setiap kali mengulang dosa era sebelum Google Docs. Pilar kedua menginginkan shared conversation history — percakapan yang berlangsung jam 10 pagi oleh developer frontend bisa dibuka kembali jam 3 sore oleh backend untuk memahami konteks. Ditambah workspace per tim (misalnya "Frontend Team", "Backend Team", "DevOps") dan channel kolaborasi real-time yang memungkinkan diskusi bersama di dalam ruang chat AI.
+
+Open WebUI menjadi pilihan utama di buku ini karena fitur-fitur kolaborasinya sudah native: registrasi dengan approval admin, peran admin/user/pending, dan knowledge base global yang bisa diakses semua orang [7]. Pengalaman ini tidak bisa ditiru oleh Text Generation WebUI yang single-user atau Ollama WebUI yang minimalis — perbandingan detailnya ada di Bab 7.3.
+
+### Pilar 3: Integrasi Coding
+
+Karena mayoritas pengguna adalah developer, kualitas integrasi coding menentukan apakah sistem ini dipakai setiap hari atau hanya dibuka saat bos lewat. Pilar ketiga menyediakan centralized coding assistant — Tabby server untuk code completion di IDE dan Continue untuk percakapan kontekstual di VS Code/JetBrains — yang terhubung ke repo internal dan knowledge base perusahaan [8][9].
+
+Dengan arsitektur ini, developer tidak perlu lagi mengandalkan akun GitHub Copilot pribadi yang mengirim kode ke cloud Microsoft. Model server menyediakan completion lintas tim, history tersimpan terpusat, dan fine-tuning/konfigurasi dilakukan sekali di server, bukan 20 kali di 20 laptop. Kombinasi model besar (untuk review dan chat) dan model kecil cepat (untuk completion <500 ms) adalah tema yang akan dibahas rinci di Bab 7.5.
+
+### Siklus Jam Kerja Kantor
+
+Sebelum membeli GPU, kita harus tahu kapan sistem bekerja paling keras. Untuk kantor dengan jam kerja normal, kurva beban membentuk dua gunung: puncak pagi 09:00-12:00 dan puncak sore 14:00-17:00. Di antara keduanya ada lembah jam makan siang, dan di luar rentang itu (00:00-06:00) sistem nyaris menganggur — hanya background job seperti embedding dokumen RAG yang berjalan.
+
+Pola ini berpengaruh pada desain power budget: workstation dua GPU tidak menarik 900W terus-menerus, hanya saat dua puncak tersebut. Ini juga berarti penjadwalan tugas berat — seperti re-indexing RAG atau benchmark model baru — sebaiknya dilakukan malam hari atau akhir pekan, persis seperti petugas kebersihan yang datang setelah kantor tutup.
+
+### Jenis Query Dominan
+
+Jika kita mengintip log server, dominasi jenis query di small office tidak seimbang dengan di rumah. Urutannya kira-kira:
+
+- Code completion — query pendek dan repetitif, muncul puluhan kali per menit per developer, harus dibalas <500 ms, dan karena itu menjadi konsumen utama throughput GPU.
+- Code review dan debugging — query sedang, membutuhkan model dengan reasoning yang baik, muncul di sela-sela push kode.
+- Q&A knowledge base — pertanyaan tentang SOP, dokumentasi API, dan kode legacy yang menjalankan pipeline RAG (Bab 7.4).
+
+Konsekuensi desainnya penting: code completion sebaiknya dilayani model kecil yang sangat cepat (misal Ministral 3 (14B)), sementara code review dilayani model besar berkualitas (misal Qwen 3.6 (27B) atau DeepSeek V4 Flash). Inilah alasan mengapa routing multi-model otomatis menjadi kebutuhan, bukan kemewahan — sebuah lintasan penelitian yang juga diangkat oleh MixLLM, sistem dynamic routing antar model yang memilih model terbaik per query [4].
+
+### Beban RAG
+
+Setiap kali developer bertanya "bagaimana prosedur reimbursement?" atau "dokumentasi endpoint mana yang dipakai untuk retry?", sistem harus mencari di vector database. Beban RAG di kantor kecil berupa query ke SOP internal, dokumentasi API, dan kode legacy. Beban ini ringan — retrieval di Qdrant hanya milidetik, tetapi menjadi berat saat ingestion: ribuan file Markdown harus di-chunk, di-embedding, dan di-upsert ke database. Bab 7.4 membahas pipeline ini; yang perlu diingat di sini adalah embedding batch menempati memori GPU juga, sehingga sebaiknya dijadwalkan di luar jam puncak.
+
+### Menghitung Kebutuhan dari Lima Angka

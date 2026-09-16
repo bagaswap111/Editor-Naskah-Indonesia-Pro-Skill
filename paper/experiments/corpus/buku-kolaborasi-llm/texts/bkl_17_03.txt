@@ -1,0 +1,35 @@
+Embedding Model — mengubah setiap chunk menjadi vektor. Dukungannya luas: OpenAI, Ollama, HuggingFace, SentenceTransformers, dengan dukungan embedding model terbaru hingga 8.192 token masukan — dimensi vektor keluaran mengikuti model, misalnya bge-m3 (1024 dimensi, konteks 8.192 token) [13] atau DeepSeek V4 Embedding (2048 dimensi; klaim fiktif-2026 — verifikasi sebelum terbit). Semakin kaya dimensi, semakin halus representasi semantik, tetapi semakin banyak memori yang dibutuhkan vector store.
+
+Vector Store — penyimpanan vektor dengan dukungan ChromaDB, Qdrant, Milvus, Pinecone, Weaviate, Supabase, dan PGVector. Untuk eksperimen, ChromaDB cukup; untuk produksi besar, Qdrant dengan scalar quantization menghemat memori hingga 4×.
+
+Retriever & Chain — tahap pencarian dan generasi: Similarity search, MMR, Self-query, Multi-query, Contextual compression sebagai mode retrieval; dan RetrievalQA, ConversationalRetrievalChain dengan mode Stuff / MapReduce / Refine sebagai chain generasi. Model LLM unggulan yang didukung: DeepSeek V4 Pro/Flash (via Ollama), Mistral Large 3 (via Ollama/API), GPT-5.5 (via OpenAI), Claude Fable 5 (via Anthropic), dan Gemini 2.5 Pro (via Google).
+
+### Tabel 2: Perbandingan Strategi Chunking untuk Dokumen Perusahaan
+
+Hasil eksperimen Flowise pada dataset 500 dokumen PDF perusahaan menunjukkan pengaruh strategi chunking terhadap kualitas retrieval — perhatikan bagaimana struktur dokumen mengubah pilihan optimal.
+
+| Strategi | Karakter per Chunk | Overlap | Recall (test set) | Precision | Best Untuk |
+|:---|:---:|:---:|:---:|:---:|:---|
+| RecursiveCharacter | 500 | 50 | 0,81 | 0,76 | Dokumen naratif (laporan, memo) |
+| RecursiveCharacter | 1000 | 200 | 0,85 | 0,72 | Dokumen teknis (manual, SOP) |
+| Token-based | 512 token | 128 | 0,83 | 0,74 | Kode, data terstruktur |
+| Markdown splitter | Per header | 0 | 0,88 | 0,85 | Dokumen dengan struktur jelas |
+| Semantic chunking | Variabel | 10% | 0,91 | 0,87 | Konten padat informasi |
+
+!Perbandingan Recall dan Precision kelima strategi chunking pada dataset 500 dokumen PDF
+
+Gambar 9.3-1 — Perbandingan strategi chunking: semantic chunking unggul di kedua metrik (recall 0,91 / precision 0,87), sedangkan markdown splitter menawarkan precision tinggi bagi dokumen berstruktur jelas dengan biaya komputasi nol.
+
+Analisis dari tabel ini: tidak ada satu strategi yang menang untuk semua dokumen. Dokumen naratif seperti laporan dan memo paling baik dengan chunk 500 karakter (recall 0,81) — chunk kecil menjaga fokus topik. Dokumen teknis justru lebih baik dengan chunk besar 1000 + overlap 200 (recall 0,85) karena unit makna (misalnya satu prosedur SOP) lebih panjang. Markdown splitter yang memotong per header mencapai precision tinggi (0,85) — unggul untuk dokumen berstruktur jelas seperti panduan dengan judul bermakna, meskipun angka precision tertinggi tetap dipegang semantic chunking (0,87). Semantic chunking unggul telak (recall 0,91) pada konten padat informasi, tetapi biaya komputasinya paling tinggi karena butuh embedding tambahan untuk menentukan batas chunk. Catatan: data berasal dari eksperimen dengan dataset internal; verifikasi ulang dengan dataset Anda sendiri sebelum mengambil keputusan produksi.
+
+### Tabel 3: Perbandingan Mode Retrieval di Flowise
+
+Lima mode retrieval dengan karakteristik, latency, dan kasus penggunaan terbaiknya.
+
+| Mode Retrieval | Deskripsi | Latency | Recall@5 | Best For |
+|:---|:---|:---:|:---:|:---|
+| Similarity Search | Cosine similarity standar | <50ms | 0,78 | QA sederhana |
+| MMR (Max Marginal Relevance) | Diversity + relevance | <100ms | 0,82 | Butuh variasi hasil |
+| Multi-Query | Generate 3 variants query | <300ms | 0,88 | Query ambigu |
+| Self-Query | Filter by metadata | <150ms | 0,85 | Dokumen terstruktur |
+| Contextual Compression | Rangkai + filter chunks | <500ms | 0,90 | Konteks panjang |

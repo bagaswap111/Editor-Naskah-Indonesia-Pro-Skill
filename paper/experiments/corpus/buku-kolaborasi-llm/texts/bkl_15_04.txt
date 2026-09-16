@@ -1,0 +1,32 @@
+| Tier | Departemen | Model Access | Budget/bulan | RPM Limit | TPM Limit |
+|:---|:---|:---|:---:|:---:|:---:|
+| Admin | IT, DevOps | Semua model (70B, 8B, Whisper) | Rp 10jt | 100 | 500k |
+| Power | Engineering, Data | 70B + 8B | Rp 5jt | 50 | 200k |
+| Standard | HR, Finance, Legal | 8B only | Rp 2jt | 20 | 100k |
+| Guest | Intern, Trainee | 8B only, no RAG | Rp 500k | 10 | 50k |
+
+!Perbandingan batas kecepatan empat tier virtual key — Admin, Power, Standard, dan Guest — untuk RPM dan TPM.
+
+Gambar 8.4-1 — Kuota menurun drastis dari Admin (RPM 100, TPM 500k) ke Guest (RPM 10, TPM 50k), dengan penurunan sepuluh kali lipat di kedua metrik; hierarki ini memastikan pengguna sementara tidak pernah memonopoli gateway.
+
+Analisis singkat: hierarki kuota mengikuti pola diminishing need — departemen yang paling bergantung pada AI (Engineering, Data) mendapat kuota tertinggi, sementara pengguna sementara (Intern) dibatasi seperdua puluh kuota admin. Perhatikan bahwa tier Standard tetap mendapat akses model 8B penuh; pembeda utamanya adalah kuota token per menit, bukan kualitas model. Ini adalah keputusan desain yang bijak: kualitas jawaban tidak berbeda antar departemen, tetapi volume pemakaian harus terkendali. Sedangkan tier Guest tanpa RAG berarti pengguna sementara tidak bisa menarik data internal melalui retrieval — lapisan keamanan ekstra yang murah.
+
+### Hard Limit dan Soft Limit
+
+Setiap kunci memiliki dua lapis pengendali anggaran. Hard limit adalah pagu absolut: ketika budget kunci habis, permintaan ditolak, titik. Soft limit bekerja lebih dulu: saat budget mencapai 80% terpakai, sistem mengirim email alert kepada pemegang kunci dan admin — memberi kesempatan menyesuaikan penggunaan sebelum tersandung tembok. Ambang 80% ini bukan angka sembarangan: kerangka Policy-to-Prompt compliance merekomendasikan peringatan dini pada ambang tersebut agar tim punya waktu reaksi sebelum quota benar-benar habis [4].
+
+Pengaturan ini bekerja per kunci, per tim, dan per model. Artinya perusahaan bisa menetapkan: "tim Engineering boleh menghabiskan Rp 5 juta secara total, tetapi model 70B dalam tim ini hanya dialokasikan Rp 2 juta." Jika suatu model mendekati batasnya, permintaan ke model tersebut dialihkan atau ditolak tanpa memengaruhi kuota model lain.
+
+### RPM dan TPM: Dua Meter Kecepatan
+
+Rate limiting diukur dengan dua metrik: RPM (Request Per Minute) dan TPM (Token Per Minute). RPM membatasi jumlah permintaan per menit — berguna mencegah loop tak terkendali dari skrip. TPM membatasi jumlah token yang diproses per menit — berguna mencegah satu pengguna memonopoli model dengan dokumen raksasa berkonteks panjang. Keduanya seperti dua speedometer sekaligus: yang satu mengukur berapa sering mesin dinyalakan, yang lain mengukur seberapa jauh perjalanan tiap nyala.
+
+Tanpa kedua meter ini, satu karyawan yang mengunggah 500 baris kode ke model 70B lima puluh kali berturut-turut bisa membuat GPU backend berasap sementara rekan sekantornya hanya mendapat respons lambat. Dengan TPM 200k untuk tier Power, perilaku seperti itu langsung dibatasi secara otomatis tanpa campur tangan manusia.
+
+### Model-Specific Budgets
+
+Model besar (70B) memang diberi porsi budget lebih kecil daripada model kecil (8B), karena model kecil menangani mayoritas trafik harian — summarization, tanya jawab dokumen, penyuntingan surat — sementara model besar hanya untuk tugas berat yang benar-benar membutuhkannya. Routing cerdas di gateway memastikan permintaan sederhana diarahkan ke model murah, sehingga setiap permintaan menghasilkan biaya yang proporsional dengan kompleksitas kerjanya.
+
+### Tabel 3: Contoh Budget Departemen Bulanan (General Office 40 User)
+
+Berikut contoh nyata pemakaian satu bulan di kantor 40 user — angka yang bisa Anda jadikan acuan saat menyusun anggaran tahunan.

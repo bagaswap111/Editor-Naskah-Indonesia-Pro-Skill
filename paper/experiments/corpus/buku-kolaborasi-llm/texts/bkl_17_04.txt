@@ -1,0 +1,27 @@
+Pola trade-off latency vs kualitas kembali terlihat. Similarity Search adalah baseline: cepat (<50ms) tetapi recall rendah (0,78) — memadai untuk QA sederhana dengan pertanyaan yang jelas. Multi-Query yang menghasilkan tiga varian query meningkatkan recall menjadi 0,88 untuk query ambigu — sangat berguna ketika pengguna tidak tahu istilah resmi yang dipakai dokumen. Contextual Compression menawarkan recall tertinggi (0,90) dengan merangkai dan memfilter chunk sebelum generasi, tetapi latencynya bisa mencapai 500ms — untuk konteks panjang seperti laporan tahunan. Pilihan terbaik ditentukan oleh pertanyaan sederhana: seberapa ambigu query pengguna Anda, dan seberapa toleran mereka terhadap jeda setengah detik.
+
+### Tabel 4: Perbandingan Embedding Model untuk Pipeline Flowise
+
+Pilihan embedding menentukan kualitas representasi semantik — bandingkan dimensi, kapasitas token, dan biaya.
+
+| Model | Dimensi | Max Tokens | Kecepatan | Kualitas Retrieval | Biaya |
+|:---|:---:|:---:|:---:|:---:|:---:|
+| nomic-embed-text | 768 | 8192 | Cepat | Baik | Gratis |
+| bge-m3 | 1024 | 8192 | Sedang | Sangat Baik | Gratis |
+| text-embedding-3-large | 3072 | 8191 | Cepat | Terbaik | $0,00013/1K |
+| DeepSeek V4 Embedding | 2048 | 8192 | Cepat | Sangat Baik | Gratis |
+| Mistral Embed (v3) | 1024 | 8192 | Cepat | Baik | Gratis (self-host) |
+
+Analisis: untuk eksperimen gratis, nomic-embed-text (768 dimensi) adalah titik awal yang masuk akal; bge-m3 (1024 dimensi) menawarkan peningkatan kualitas signifikan dengan dukungan multibahasa yang kuat — nilai plus untuk dokumen berbahasa Indonesia. DeepSeek V4 Embedding (2048 dimensi) menggabungkan kualitas tinggi dengan biaya nol, ideal untuk pipeline lokal. text-embedding-3-large dari OpenAI tetap yang terbaik secara absolut (3072 dimensi) tetapi berbayar — $0,00013 per 1K token. Trade-off dimensi penting untuk diingat: vektor 2048 dimensi memakan memori dua kali lipat dibandingkan 1024 dimensi pada ukuran dataset yang sama, jadi pertimbangkan kapasitas vector store sebelum memilih model berdimensi besar.
+
+### Gambar 1: Arsitektur Flowise RAG Pipeline
+
+Pipeline RAG end-to-end di Flowise — dari ingestion hingga generation.
+
+Gambar ini adalah peta perjalanan data dalam RAG. Di Ingestion, berbagai sumber — PDF, web scrape, dan konektor SQL — bertemu di Text Splitter, satu-satunya jalur masuk menuju Processing. Di sini teks dipecah menjadi chunk, diubah menjadi vektor oleh Embedding Model, dan disimpan di Vector Store. Perhatikan bahwa User Query tidak langsung menuju LLM: ia melalui Retriever Node yang mengambil kandidat chunk dari Vector Store, lalu hasil retrieval menjadi Context bagi LLM sebelum jawaban dihasilkan. Kesimpulan penting dari gambar ini: jika kualitas jawaban buruk, kemungkinan besar masalahnya berada di Ingestion atau Processing — bukan di model LLM. Itulah mengapa eksperimen chunking (Tabel 2) selalu menjadi langkah pertama dalam debugging RAG.
+
+Pipeline RAG dasar menjawab pertanyaan dengan cara yang sama setiap kali: retrieve lalu generate. Agentic RAG mengambil lompatan konseptual: sebuah agent yang memutuskan kapan perlu retrieve dan kapan cukup menjawab langsung, memilih alat mana yang digunakan, dan mengevaluasi hasilnya sendiri sebelum menjawab.
+
+Pola paling berguna di Flowise adalah self-correcting RAG: setelah dokumen diambil, sebuah relevance checker (node LLM + kondisi) menilai apakah dokumen itu benar-benar relevan dengan pertanyaan. Jika tidak, alur loop-back mengirim query ulang ke retriever dengan formulasi berbeda — hingga batas maksimum iterasi (misalnya 5 loop) untuk mencegah infinite loop. Dengan pola ini, kegagalan retrieval pertama tidak otomatis menjadi jawaban yang salah; sistem mencoba lagi dengan lebih cerdas.
+
+Untuk dokumen heterogen — kontrak, laporan, email, tabel — multi-agent orchestration bekerja dengan pola Supervisor + Specialist agents: supervisor memutuskan dokumen mana yang relevan dengan pertanyaan, lalu menugaskan agent spesialis yang bersangkutan. Ditambah tool calling, agent juga bisa mengakses SQL, API, kalkulator, dan search engine — mengubah chatbot dokumen menjadi asisten analisis yang benar-benar bekerja.

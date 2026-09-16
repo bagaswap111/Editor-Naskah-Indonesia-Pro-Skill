@@ -1,0 +1,35 @@
+Perhatikan bahwa retrieval hanya terjadi bila pertanyaan menuntut konteks dokumen (misalnya "rumus apa saja yang ada di bab 4 buku matematikaku?"). Untuk pertanyaan umum, Ollama menjawab langsung — inilah alasan TTFT <2 detik tetap terjaga meski di tengah beban puncak. Jika nanti keluarga menambah antarmuka suara, Whisper akan berdiri tepat di depan alur ini, mengubah ucapan menjadi teks sebelum masuk ke Ollama [6].
+
+Bagi pembaca yang ingin mengamati alur ini secara langsung, buka saja Dashboard Open WebUI di server keluarga: profil "Ayah", "Ibu", "Anak 1", dan "Anak 2" mencerminkan simpul user yang sama, dan history per pengguna menunjukkan rantai percakapan yang hampir selalu memuncak di jam 18:00-21:00. Dashboard itu adalah "jendela dapur" dari seluruh arsitektur yang kita rancang — tempat keluarga melihat, dalam bentuk paling sederhana, siapa bertanya apa dan kapan.
+
+### Langkah 1: Setup VLAN Keluarga untuk Isolasi Anak
+
+Sebelum mengaktifkan asisten untuk anak-anak, pilahkan dulu jaringan: port tak terlihat untuk orang tua, dan lorong berpagar untuk anak.
+
+Praktik ini bukan sekadar keamanan anak — VLAN 10 juga membebaskan orang tua bekerja tanpa khawatir perangkat anak tertular malware yang kemudian mengintai dokumen kerja.
+
+### Langkah 2: Setup Power Schedule (Auto Shutdown GPU)
+
+Karena pilar desain kita membolehkan sistem "tidur", jadwalkan GPU untuk beristirahat bersama keluarga.
+
+Verifikasi dengan nvidia-smi setelah jam 23:00 — GPU tidak lagi terdaftar, dan power draw server turun drastis. Untuk Mac Mini, jadwal ini digantikan energy schedule bawaan macOS atau power nap yang dikelola sistem.
+
+### Langkah 3: Simulasi Beban 4 User Bersamaan
+
+Uji janji SLA kita: jalankan empat "anggota keluarga" sekaligus dan hitung waktu respons masing-masing.
+
+Jika waktu respons semua sesi tetap di bawah 8 detik, sistem lolos SLA Tabel 4. Jika ada yang melewatinya, indikatornya jelas: model terlalu besar untuk hardware, atau kv-cache tidak mencukupi untuk 3-4 sesi paralel — keduanya bisa didiagnosis dari percobaan ini tanpa alat monitoring mahal.
+
+Profil. Keluarga Pratama beranggotakan lima orang: Ayah seorang engineer yang butuh coding assistant, Ibu seorang dokter yang butuh transkrip rekam medis, dan tiga anak usia SD-SMP yang rutin minta bantuan PR. Permintaan mereka tidak bisa dilayani satu model universal dengan jawaban generik — perlu konteks pribadi, dan itu berarti RAG.
+
+Hardware. Mac Mini M4 Pro 48GB dengan 2TB SSD — fanless, 0 dB, dan muat ditaruh di rak ruang keluarga tanpa mengganggu suasana.
+
+Software. Ollama menjalankan Llama 3.1 (8B) (percakapan umum) dan Qwen 2.5 (7B) (tugas konkret seperti coding dan resep), dipajang lewat Open WebUI dengan akun per anggota keluarga; ChromaDB menjadi gudang dokumen; Home Assistant menunggu di pinggir jika nanti otomasi rumah ditambahkan.
+
+RAG Setup. Setiap anggota punya "lemari" sendiri di vector store: Ayah memiliki folder /rag/code/ berisi dokumentasi proyek; Ibu memiliki folder /rag/medical/ berisi jurnal dan catatan pasien — dienkripsi; anak-anak memiliki folder /rag/school/ berisi buku pelajaran Kurikulum Merdeka.
+
+Hasil. Anak bisa menanyakan PR matematika malam hari tanpa menunggu orang tua pulang. Ayah mendapat bantuan debugging kode hingga pukul 22.00. Ibu memanfaatkan Whisper untuk transkrip rekam medis yang langsung tersimpan di folder terenkripsi — tidak pernah menyentuh internet.
+
+Biaya. Sekali keluar ~Rp 35jt, tanpa biaya bulanan. Dibandingkan langganan ChatGPT Team sebesar $25/orang/bulan x 5 = $125/bulan (sekitar Rp 2jt/bulan), penghematan mengalir setiap bulan — balik modal dalam 18 bulan, dan setelah itu sistem ini "berbayar" ke keluarga alih-alih ke vendor.
+
+Pelajaran. Keberhasilan sistem ini tidak ditentukan oleh model terbesar, melainkan oleh tiga keputusan kecil: memisahkan konteks per anggota keluarga, menjaga data sensitif tetap di rumah, dan memilih hardware yang tidak menuntut perawatan. Itulah karakteristik sistem yang benar-benar melayani rumah tangga, bukan sebaliknya.

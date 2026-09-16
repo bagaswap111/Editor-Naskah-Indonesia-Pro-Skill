@@ -1,0 +1,27 @@
+# Bab 10.4: Local vs Cloud
+
+Setelah membaca sub-bab ini, Anda akan mampu:
+
+- Menentukan threshold kapan deployment lokal lebih ekonomis daripada cloud API melalui analisis break-even
+- Mengevaluasi faktor keputusan: compliance, sensitivitas data, user concurrency, dan anggaran
+- Menyusun klasifikasi data berjenjang, pipeline anonymization, dan audit log untuk skenario hybrid yang aman (UU PDP)
+
+### Model Lokal (On-premise): Kontrol Penuh, Biaya Di Muka
+
+Deployment lokal berarti LLM berjalan di hardware milik Anda sendiri — laptop workstation, server GPU di kantor, atau edge device. Keunggulan pertamanya adalah kontrol penuh: Anda bebas memilih model, versi, quantization, dan kebijakan keamanan tanpa campur tangan pihak ketiga. Privasi menjadi maksimal karena data tidak pernah meninggalkan perimeter jaringan Anda — sebuah keuntungan krusial saat berhadapan dengan data pasien, kontrak, atau catatan keuangan. Konsekuensinya, biaya awal (CAPEX) menjadi tinggi: Anda harus membeli GPU, server, cooling, dan membayar listrik serta tim maintenance. Model-model open-weight unggulan era 2026 — DeepSeek V4 Pro (49B aktif dari 1,6T total, context 1M), Mistral Large 3 (41B aktif, 256K context, multimodal), hingga Qwen3.7-Max — membuat jalur ini semakin menarik karena kualitasnya mendekati model proprietary tanpa biaya per token.
+
+### Cloud API: Skalabilitas Tanpa Batas, Kualitas Tertinggi
+
+Cloud API adalah model distribusi klasik: Anda membayar per token dan menyerahkan urusan infrastruktur kepada provider seperti OpenAI, Anthropic, atau Google. Tidak ada CAPEX, skala naik-turun instan mengikuti traffic, dan kualitas model tetap menjadi yang tertinggi — GPT-5.5, Claude Fable 5, dan Gemini 2.5 Pro masih memimpin untuk tugas creative writing dan reasoning kompleks. Di sisi lain, biaya bulanan (OPEX) berbentuk per-token dan bisa melonjak seiring volume; data Anda dikirim keluar jaringan; dan latency harus berbagi ruang dengan jaringan internet. Untuk startup yang belum punya modal besar atau yang mengalami traffic spike, jalur ini adalah batu loncatan paling murah.
+
+### Hybrid: Keseimbangan Optimal
+
+Arsitektur hybrid menggabungkan keduanya secara sadar: model lokal melayani tugas sederhana dan data sensitif, model cloud menangani tugas kompleks yang membutuhkan kualitas tertinggi. Inilah sweet spot untuk perusahaan menengah-besar — biaya terkendali, privasi terjaga, dan kualitas tidak pernah diturunkan. Sebuah router atau classifier di depan sistem memutuskan ke mana setiap permintaan dikirim, dan mekanisme fallback menjamin layanan tetap berjalan meskipun salah satu sisi gagal. Sebagian besar isi sub-bab ini berfokus pada bagaimana membangun pola hybrid yang benar.
+
+### Konteks Indonesia: Listrik, Bandwidth, dan Regulasi
+
+Keputusan deployment di Indonesia memiliki karakteristik khusus. Biaya listrik berada di kisaran Rp 1.500-2.500/kWh dan asumsi kanonik buku ini Rp 1.600/kWh, cukup rendah untuk membuat server lokal ekonomis bila dimanfaatkan penuh, tetapi bandwidth internet yang bervariasi antar wilayah menambah latency cloud secara tidak merata. Regulatori menjadi penentu: UU PDP (Undang-Undang Pelindungan Data Pribadi, UU No. 27 Tahun 2022) — khususnya pasal-pasal terkait perlindungan data — mewajibkan pengendali data menjaga kerahasiaan dan keamanan data pribadi, sehingga data sensitif umumnya wajib diproses lokal atau dengan mekanisme yang terdokumentasi (misalnya Data Processing Agreement/DPA) bila memakai pihak ketiga.
+
+### Tabel 1: Model Open-Weight Terbaru untuk Deployment Lokal
+
+Argumen "model lokal kualitasnya jadul" sudah gugur. Tabel berikut membandingkan enam model open-weight terdepan yang mengubah kalkulasi local deployment di tahun 2026.

@@ -1,0 +1,25 @@
+Diagram kedua menunjukkan network segmentation yang melindungi server AI. Hanya network developer yang mendapat jalur padat; network admin dan tamu digambar dengan garis putus-putus yang berakhir di aturan iptables DROP. Ini adalah contoh sederhana bagaimana kebijakan privasi diterjemahkan menjadi baris perintah — dan sekaligus screenshot mental untuk Langkah 2.
+
+### Langkah 1: Setup Reverse Proxy untuk Multi-Layanan
+
+Satu alamat HTTPS untuk semua layanan AI — inilah tugas Nginx berikut. Simpan konfigurasi ini sebagai /etc/nginx/sites-available/ai-office.conf lalu aktifkan dengan ln -s ke sites-enabled.
+
+Dengan pola ini, menambah layanan baru cukup menambah blok location — misalnya nanti Qdrant di port 6333 atau panel monitoring di port 9090. Sertifikat self-signed cukup untuk LAN kantor; jika ingin sertifikat resmi untuk akses VPN, ganti dengan Let's Encrypt yang lebih maju (Bab 7.6). Setelah konfigurasi disimpan, uji dengan nginx -t lalu systemctl reload nginx.
+
+### Langkah 2: Setup Network Segmentation
+
+Segmen jaringan memastikan bahwa hanya tim developer yang bisa menyentuh server AI. Skrip berikut adalah contoh setup di switch managed (misalnya Ubiquiti atau Mikrotik) beserta aturan firewall-nya.
+
+Dua baris iptables ini adalah jantung kebijakan data privacy kita: data dari VLAN admin dan tamu tidak akan pernah sampai ke GPU. Ingat bahwa di switch managed, konfigurasi VLAN dilakukan di antarmuka web switch; skrip di atas hanya bagian firewall. Untuk produksi, tambahkan aturan stateful dan simpan aturan dengan iptables-save agar hidup kembali setelah restart.
+
+### Langkah 3: Monitoring Multi-User dengan Prometheus
+
+Anda tidak akan tahu SLA terpenuhi tanpa mengukur. Prometheus adalah pilihan standar karena ekosistemnya luas dan konfigurasinya sederhana.
+
+Tiga job di atas menceritakan kesehatan sistem: vllm mengumpulkan metrik throughput dan queue request (untuk menguji target >100 tok/s), openwebui memantau aktivitas pengguna dan latensi, dan node_exporter memantau CPU, RAM, dan disk server. Dengan Grafana di atasnya (opsional), Anda bisa membuat dashboard yang menunjukkan dua gunung beban 09:00-12:00 dan 14:00-17:00 sesuai analisis di Seksi 4 — bukti bahwa load pattern bukan teori.
+
+PT KodeKreatif adalah startup software house dengan 18 developer, 2 project manager, dan 1 DevOps. Permasalahannya klasik: setiap developer punya akun masing-masing di layanan cloud — sebagian Copilot, sebagian ChatGPT, sebagian menyerah dan hanya memakai autocomplete bawaan IDE. Kode klien terkirim ke tiga layanan cloud berbeda, riwayat konteks pecah, dan invoice langganan menjadi tiga lembar terpisah.
+
+Keputusan mereka: membangun platform AI sendiri. Hardware yang dibeli adalah workstation dual RTX 4090 (48GB VRAM), AMD Threadripper 7960X, 128GB RAM, dan 4TB NVMe RAID. Software yang dipasang: Open WebUI + vLLM dengan Qwen 3.6 (27B) Q4_K_M untuk chat dan code review, Tabby dengan DeepSeek V4 Flash (284B/13B) untuk completion, Qdrant untuk RAG, serta Authentik yang terhubung OAuth Google Workspace. Di jaringan, mereka membuat VLAN khusus developer dan WireGuard untuk 5 karyawan remote, dengan Nginx reverse proxy ber-SSL self-signed sebagai pintu masuk.
+
+Pipeline RAG KodeKreatif membagi pengetahuan menjadi tiga folder: /rag/sop/ berisi SOP HR, keuangan, dan operasional; /rag/docs/ berisi dokumentasi API internal dan eksternal; /rag/codebase/ berisi kode legacy yang sudah tidak aktif tetapi masih perlu dirujuk. Hasilnya diukur tiga bulan kemudian: code completion latency turun di bawah 300 ms, masa onboarding developer baru turun dari 2 minggu menjadi 3 hari, dan code review cycle turun 40% — karena review awal sudah dilakukan model sebelum manusia ikut bicara.

@@ -1,0 +1,25 @@
+Bagi keluarga yang ingin kontrol lebih ketat, Pi-hole adalah peningkatan yang layak: selain menjadi DNS server lokal dengan custom record (misalnya memetakan llm.internal ke IP server), Pi-hole sekaligus memblokir tracker dan iklan di seluruh jaringan — manfaat yang langsung dirasakan semua perangkat keluarga. Kombinasi mDNS untuk kenyamanan dan DNS lokal untuk kontrol adalah standar emas jaringan rumah.
+
+Satu catatan teknis untuk record kustom: pastikan nama yang dipilih tidak bertabrakan dengan nama mDNS, karena dua mekanisme berbeda ini bisa saling "memperebutkan" jawaban. Pakailah domain yang jelas berbeda, misalnya llm.internal untuk DNS dan llm-server.local untuk mDNS — dua nama, dua jalur, satu server. Jika suatu hari kedua mekanisme memberi jawaban berbeda, perangkat tertentu akan mengikuti yang pertama kali dijawab; konsistensi nama menghindari kebingungan yang sulit dideteksi ini.
+
+Suatu sore, Ayah yang sedang dinas luar kota perlu mengakses LLM server — mungkin untuk mengambil dokumen, atau hanya memastikan server hidup. Inilah saatnya keunggulan Tailscale bekerja: mesh VPN berbasis WireGuard yang membangun terowongan terenkripsi end-to-end antar perangkat Anda, tanpa port forwarding, tanpa DDNS, tanpa IP statis publik.
+
+Cara kerjanya menyerupai grup keluarga tertutup: setiap perangkat yang di-login ke akun Tailscale yang sama menjadi anggota "jaringan pribadi" yang saling bisa menemukan — bahkan di balik NAT rumah, hotel, atau jaringan kantor. Yang membuat Tailscale unggul untuk keluarga adalah ACL (Access Control List): Anda bisa membatasi perangkat anak hanya boleh mengakses llm-server:11434, sementara perangkat orang tua menikmati akses penuh. Parental control pun berpindah dari level aplikasi ke level jaringan.
+
+WireGuard, sebagai protokol fondasinya, tetap relevan bagi power user yang ingin membangun situs-ke-situs sendiri tanpa perantara koordinasi Tailscale, tetapi biaya administrasinya jauh lebih tinggi, dan untuk kebutuhan keluarga, Tailscale hampir selalu pilihan yang lebih bijak.
+
+Pilihan antara Tailscale dan WireGuard murni WireGuard sebenarnya bukan pertarungan teknologi, melainkan pertarungan waktu luang keluarga: WireGuard menuntut Anda mengelola key per perangkat, memastikan NAT traversal, dan menulis konfigurasi di tiap ujung — pekerjaan yang mengasyikkan bagi enthusiast, tetapi menjadi tech debt bagi keluarga yang pengurusnya sibuk. Ukurannya sederhana: jika Anda menikmati menulis konfigurasi di akhir pekan, WireGuard adalah taman bermain Anda; jika tidak, Tailscale memberikan 90% manfaat dengan 10% pekerjaan.
+
+### Tabel 1: Metode Akses ke LLM Server
+
+Berbagai jalur menuju server — dari yang termudah hingga yang paling terkunci.
+
+| Metode | Kecepatan | Keamanan | Setup | Ideal Untuk |
+|:---|:---:|:---:|:---:|:---|
+| LAN langsung (HTTP) | Sangat Cepat | Rendah | Mudah | Perangkat di rumah |
+| mDNS (hostname.local) | Cepat | Rendah | Mudah | Akses lokal tanpa IP |
+| Tailscale (mesh VPN) | Sedang | Sangat Tinggi | Sedang | Akses remote aman |
+| WireGuard (site-to-site) | Tinggi | Tinggi | Sulit | Power user |
+| Cloudflare Tunnel | Lambat | Tinggi | Sedang | Tidak direkomendasikan |
+
+Bacaan pentingnya adalah pertukaran kecepatan versus keamanan. Untuk perangkat di rumah, LAN langsung dan mDNS adalah raja, tetapi keamanannya rendah karena apa pun di jaringan yang sama dapat berbicara langsung ke port. Tailscale menawarkan kompromi terbaik untuk akses remote: keamanan sangat tinggi dengan setup hanya sedang. Cloudflare Tunnel ditempatkan di daftar ini sebagai peringatan: meski teknisnya berfungsi, rute yang membawa traffic keluarga keluar ke edge pihak ketiga bertentangan dengan pilar privacy yang kita bangun di sub-bab 6.1.

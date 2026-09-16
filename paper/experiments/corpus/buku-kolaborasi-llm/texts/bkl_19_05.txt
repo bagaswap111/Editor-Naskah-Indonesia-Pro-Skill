@@ -1,0 +1,21 @@
+Jantung arsitektur hybrid adalah routing logic — aturan yang menentukan ke mana setiap permintaan dikirim. Dua dimensi utama: sensitivitas data (jika mengandung PII atau data rahasia → lokal) dan kompleksitas tugas (jika menuntut reasoning mendalam → cloud). Aturan ini bisa sederhana — daftar kata kunci seperti "saldo", "diagnosis", "NIK" — atau berbasis classifier yang dilatih khusus, seperti pendekatan unified routing yang diusulkan Wang et al. [5]. Local-first adalah pola default paling aman: kirim ke lokal dulu, dan hanya jika lokal ragu (skor confidence rendah), tugas diteruskan ke cloud.
+
+### Local-First Approach
+
+Prinsip local-first menjawab pertanyaan "kapan pindah ke cloud?" — bukan "kapan pakai lokal?". Semua permintaan berangkat dari model lokal; model cloud adalah escalation path. Keuntungannya ganda: mayoritas permintaan (estimasi 80%+) terlayani tanpa biaya token, dan data sensitif hampir tidak pernah keluar jaringan karena sistem "default aman". Model lokal modern cukup mampu memberi confidence score untuk memutuskan kapan harus escalate — misalnya saat jawaban mengandung permintaan klarifikasi, atau saat token yang dihasilkan berputar tanpa arah.
+
+### Framework Hybrid
+
+Membangun router sendiri dari nol bisa mahal; gunakan framework yang sudah matang. LiteLLM menyediakan proxy dengan routing dan fallback antar ratusan model — lokal dan cloud dalam satu antarmuka OpenAI-compatible. OpenRouter adalah agregator API yang memungkinkan fallback strategy antar provider cloud secara virtual. Keduanya bisa dikombinasikan: LiteLLM di depan (mengelola lokal + cloud), OpenRouter sebagai lapisan cadangan antar provider. Langkah 1 di Seksi 8 memperlihatkan implementasi nyatanya.
+
+### Teknik Offloading dari Riset
+
+Riset 2024-2025 memperkaya pola hybrid dengan mekanisme offloading adaptif. TMO [1] memperkenalkan offloading inference lokal-cloud untuk setting multi-modal, multi-task, multi-dialogue — cocok untuk asisten yang menangani teks, gambar, dan percakapan bergantian. MINIONS [2] membangun kolaborasi hemat-biaya antara model on-device dan cloud melalui task decomposition: model kecil menyelesaikan subtask yang murah, dan hanya subtask sulit yang didelegasikan ke cloud. ADASWITCH [3] menggunakan agen adaptif untuk memutuskan switching lokal-cloud berdasarkan kondisi runtime — tepat untuk beban kerja yang berubah-ubah. Sementara itu, HERA [4] menunjukkan bahwa dengan scheduler edge-cloud yang cerdas, 45,67% subtask dapat diselesaikan di sisi lokal — penghematan biaya yang langsung terasa.
+
+### Sinkronisasi Cache Respons
+
+Satu trik yang sering dilupakan: cache respons. Pertanyaan yang identik atau serupa — "Bagaimana cara reset password?", prosedur refund, penjelasan kebijakan — sering diulang pengguna. Dengan men-cache respons cloud di penyimpanan lokal (keyed by hash prompt), permintaan berulang tidak perlu lagi mengeluarkan biaya token maupun latency jaringan. Pada sistem dengan 30-40% pertanyaan berulang, response cache saja bisa memangkas tagihan cloud hingga sepertiga.
+
+### Tabel 3: Perbandingan Local vs Cloud vs Hybrid
+
+Tabel ini merangkum kontras tiga pilihan deployment dari sepuluh aspek yang dibahas di seksi sebelumnya — perhatikan bagaimana setiap kolom memiliki "harga" yang harus dibayar di kolom lainnya.

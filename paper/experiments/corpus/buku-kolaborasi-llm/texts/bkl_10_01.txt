@@ -1,0 +1,38 @@
+# Bab 5.4: Continuous Batching
+
+Setelah membaca sub-bab ini, Anda akan mampu:
+
+- Menerangkan mekanisme selective batching yang dipakai untuk menangani variasi panjang sequence antar-request dalam satu batch
+- Mengukur dampak continuous batching terhadap latensi dan throughput di berbagai inference engine seperti vLLM, TGI, TensorRT-LLM, Aphrodite, dan SGLang
+- Mengonfigurasi parameter batching di vLLM (--max-num-seqs, --max-num-batched-tokens, --enable-chunked-prefill) untuk skenario multi-user nyata
+
+### Head-of-Line Blocking: yang Pendek Menunggu yang Panjang
+
+Sebelum continuous batching diperkenalkan, hampir semua inference engine beroperasi dengan pola yang disebut static batching (atau request-level batching). Polanya sederhana: GPU mengumpulkan beberapa request dalam satu batch, memproses semuanya bersama-sama, dan — inilah kata kuncinya — batch tersebut hanya dianggap selesai ketika request terlambat selesai juga. Satu batch yang berisi permintaan "tulis email singkat" (output 50 token) dan "rangkum dokumen 100 halaman" (output 2.000 token) akan berjalan selambat permintaan yang paling panjang.
+
+Dampaknya adalah fenomena yang dalam dunia jaringan komputer dikenal sebagai head-of-line blocking: request pendek yang sudah selesai dikerjakan harus "membeku" menunggu request panjang di batch yang sama tuntas, padahal GPU tidak bisa memulai batch berikutnya. Bayangkan antrean empat mobil di palang pintu tol yang hanya bisa dibuka sekaligus — mobil pertama yang sudah membayar harus menunggu mobil terakhir yang masih mencari uang receh. Semakin bervariasi panjang output antar-user, semakin parah kemacetannya.
+
+### GPU yang Menganggur di Tengah Kesibukan
+
+Ada kesalahpahaman umum bahwa static batching berarti GPU selalu bekerja penuh. Faktanya justru sebaliknya. Karena batch harus menunggu request paling lambat, GPU mengalami apa yang disebut pipeline bubble — periode di mana unit komputasi tidak punya pekerjaan. Saat satu batch selesai dan batch berikutnya sedang disiapkan (menunggu request baru terkumpul), GPU kosong total. Saat request dalam satu batch selesai tidak bersamaan, utilisasi GPU turun drastis, membentuk pola naik-turun yang mirip gergaji.
+
+Ukurannya mengejutkan: penelitian Yu et al. (2022) pada paper Orca menunjukkan bahwa static batching hanya mencapai 20-40% utilisasi GPU [1]. Lebih dari setengah kemampuan komputasi—yang sudah dibayar mahal—terbuang percuma. Inilah masalah yang coba dipecahkan oleh Orca dan kemudian diadopsi oleh semua engine modern.
+
+Ada satu fakta lanjutan yang memperparah keadaan: static batching memperbesar batch secara membabi buta justru merugikan. Batch yang lebih besar berarti waktu tunggu yang lebih lama menunggu request terlambat — scale tidak menyelesaikan masalah, hanya memindahkannya ke level yang lebih tinggi. Solusi sejatinya bukan memperbesar batch, melainkan mengubah cara batch itu dikelola: dari satu kesatuan yang kaku menjadi kumpulan individu yang bergerak bebas.
+
+### Tabel 1: Static vs Continuous Batching (Model 7B, GPU A100 80 GB)
+
+Tabel berikut membandingkan performa kedua pendekatan pada model 7B di satu GPU A100 80 GB, dirangkum dari paper Orca dan benchmark Anyscale [1][3]:
+
+| Metrik | Static Batching | Continuous Batching | Improvement |
+|:---|:---:|:---:|:---:|
+| GPU Utilization | 28% | 85% | 3x |
+| Throughput (req/s) | 4,2 | 28,5 | 6,8x |
+| TTFT P50 (ms) | 180 | 210 | -17% |
+| Latency P99 (ms) | 12.500 | 2.800 | 4,5x lebih baik |
+| Max Batch Size | 8 | 64 | 8x |
+| VRAM Waste | ~50% | ~4% | 12,5x lebih baik |
+
+!Continuous batching menggandakan utilisasi GPU (28% → 85%), throughput hampir 7x (4,2 → 28,5 req/s), dan memangkas latency P99 dari 12,5 detik menjadi 2,8 detik
+
+Gambar 5.4-1 — Continuous batching menukar TTFT yang sedikit lebih lambat (+17%) dengan kemenangan besar di ekor latensi: P99 membaik 4,5x dan utilisasi GPU naik 3x — pola yang justru paling penting untuk pengalaman multi-user.
