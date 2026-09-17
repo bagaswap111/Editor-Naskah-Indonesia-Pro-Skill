@@ -1,0 +1,23 @@
+# Bab 1.1: Evolusi Transformer ke Lokal
+
+Setelah membaca bab ini, Anda akan mampu:
+
+Pada awal 2017, dunia kecerdasan buatan masih didominasi oleh arsitektur RNN (Recurrent Neural Network) dan LSTM (Long Short-Term Memory) untuk pemrosesan bahasa alami. Model-model ini lambat, sulit dilatih, dan tidak bisa menangani konteks panjang. Kemudian datanglah sebuah makalah yang tidak hanya mengubah NLP, tetapi juga seluruh lanskap AI. Makalah "Attention Is All You Need" dari Vaswani et al. memperkenalkan arsitektur Transformer, sebuah pendekatan revolusioner yang murni berbasis mekanisme self-attention, tanpa RNN sama sekali.
+
+Dalam waktu kurang dari satu dekade, arsitektur ini berevolusi dari model 0.1 miliar parameter (GPT-1) menjadi model 1,6 triliun parameter (DeepSeek V4 Pro) yang bisa diunduh dan dijalankan di workstation kelas menengah. Perjalanan ini bukan sekadar cerita tentang parameter yang semakin besar — ini adalah cerita tentang demokratisasi AI, tentang bagaimana teknologi yang awalnya hanya dikuasai oleh raksasa teknologi akhirnya bisa dimiliki oleh siapa pun dengan sebuah laptop.
+
+### Transformer: Attention Is All You Need
+
+Pada bulan Juni 2017, tim peneliti Google — Ashish Vaswani, Noam Shazeer, Niki Parmar, dan rekan-rekan — mempublikasikan makalah yang menjadi fondasi semua LLM modern. Transformer memperkenalkan arsitektur encoder-decoder yang sepenuhnya mengandalkan mekanisme self-attention, di mana setiap token dalam sebuah urutan dapat "memperhatikan" token lainnya tanpa batasan jarak. Ini adalah terobosan fundamental: RNN dan LSTM memproses token secara sekuensial (token ke-5 harus menunggu token ke-1 sampai 4), sementara Transformer memproses semua token secara paralel.
+
+Keunggulan Transformer tidak hanya pada kecepatan training. Mekanisme self-attention memungkinkan model menangkap ketergantungan jarak jauh yang sebelumnya mustahil bagi RNN. Dalam praktiknya, ini berarti Transformer bisa memahami konteks kalimat dengan lebih baik — misalnya, menghubungkan kata ganti "dia" dengan subjek yang disebutkan lima kalimat sebelumnya.
+
+### BERT dan GPT-1: Dua Cabang Evolusi
+
+Makalah Transformer membuka jalan bagi dua garis keturunan arsitektur yang berbeda. Pertama, BERT (Bidirectional Encoder Representations from Transformers) yang dirilis oleh Google pada 2018. BERT adalah encoder-only — ia membaca teks secara dua arah (kiri-ke-kanan dan kanan-ke-kiri) dan unggul dalam tugas pemahaman seperti klasifikasi teks, menjawab pertanyaan, dan analisis sentimen. Dengan 340 juta parameter, BERT menjadi standar baru untuk NLP pada masanya.
+
+Kedua, GPT-1 (Generative Pre-trained Transformer) yang dirilis oleh OpenAI pada Juni 2018. GPT-1 adalah decoder-only — ia membaca teks secara searah (kiri-ke-kanan) dan unggul dalam tugas generasi seperti menulis teks, percakapan, dan kode. Dengan hanya 117 juta parameter, GPT-1 adalah model kecil, tetapi ia memperkenalkan konsep penting: pre-training pada data besar tanpa label, diikuti fine-tuning untuk tugas spesifik.
+
+Kedua arsitektur ini — encoder-only (BERT) dan decoder-only (GPT) — menjadi fondasi semua LLM modern. Pada tahun-tahun berikutnya, arsitektur decoder-only terbukti lebih skalabel dan menjadi pilihan dominan untuk model generatif.
+
+### Tabel 1: Timeline Evolusi Model (2017-2026)

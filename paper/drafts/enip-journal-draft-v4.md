@@ -1,10 +1,10 @@
 ---
 title: "ENIP: A Portable Three-Layer Editorial Skill for Indonesian Manuscripts"
 authors:
-  - name: "Bagas Korosaputro"
-    affiliation: "Independent Researcher"
-    email: "bagaskorosaputro@example.com"
-    orcid: "0000-0000-0000-0000"
+  - name: "Bagaskoro Saputro"
+    affiliation: "BINUS University, Indonesia"
+    email: "bagaskoro.saputro@binus.ac.id"
+    orcid: "0000-0001-5300-2921"
 keywords:
   - "Indonesian language editing"
   - "PUEBI"
