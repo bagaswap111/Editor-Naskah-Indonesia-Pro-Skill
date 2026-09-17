@@ -1,0 +1,9 @@
+Saya perlu detail lebih lanjut untuk membuatkan alarm otomatis notifikasi email:
+
+1. **Platform/OS**: Linux, macOS, atau Windows?
+2. **Bahasa pemrograman**: Python, JavaScript/Node.js, atau yang lain?
+3. **Jenis alarm**: 
+   - Berbasis waktu (cron/scheduler)?
+   - Berbasis event (ketika file berubah, server down, dll)?
+4. **Layanan email**: SMTP lokal, Gmail, SendGrid, atau lainnya?
+5. **Apa yang ingin dipantau/dialarmkan?** Contoh: backup selesai, server down, jatuh tempo pembayaran, dll.

@@ -1,0 +1,65 @@
+# Diagram Alur Proses Rekrutmen Karyawan
+
+Berikut adalah diagram alur untuk proses rekrutmen karyawan:
+
+```mermaid
+flowchart TD
+    A[🔐 Pengajuan Kebutuhan<br/>Karyawan] --> B[📋 Persiapan Job Description<br/>& Kualifikasi]
+    B --> C[📢 Publikasi Lowongan<br/>Karir / Portal Kerja]
+    C --> D[📥 Penerimaan Lamaran]
+    D --> E{📅 Batas Waktu<br/>Terkumpul?}
+    E -->|Ya| F[🔍 Screening CV<br/>& Portofolio]
+    E -->|Tidak| D
+    F --> G{✅ Lolos<br/>Screening?}
+    G -->|Ya| H[📝 Tes Tertulis<br/>/ Online Assessment]
+    G -->|Tidak| I[❌ Pemberitahuan<br/>Tidak Lolos]
+    H --> J{🎯 Lolos<br/>Tes Tertulis?}
+    J -->|Ya| K[👥 Wawancara<br/>HR & Psychotest]
+    J -->|Tidak| I
+    K --> L{🗣️ Lolos<br/>Wawancara HR?}
+    L -->|Ya| M[💻 Wawancara<br/>Teknis / Bidang]
+    L -->|Tidak| I
+    M --> N{✅ Lolos<br/>Wawancara Teknis?}
+    N -->|Ya| O[🤝 Wawancara<br/>User / Manager]
+    N -->|Tidak| I
+    O --> P{📊 Kandidat<br/>Dipilih?}
+    P -->|Ya| Q[💰 Penawaran<br/>Gaji & Benefits]
+    P -->|Tidak| I
+    Q --> R{📝 Diterima<br/>Penawaran?}
+    R -->|Ya| S[📋 Proses<br/>Rekrutmen<br/>/ Administrasi]
+    R -->|Tidak| T[🔄 Cari Kandidat<br/>Lainnya]
+    T --> F
+    S --> U[🎉 Karyawan Baru<br/>Mulai Bekerja]
+    U --> V[📚 Onboarding &<br/>Training]
+    V --> W[✅ Selesai]
+
+    I --> Z[📂 Database<br/>Kandidat]
+
+    style A fill:#2196F3,color:#fff
+    style W fill:#4CAF50,color:#fff
+    style I fill:#f44336,color:#fff
+    style Z fill:#9C27B0,color:#fff
+```
+
+---
+
+## Penjelasan Tahapan
+
+| Tahap | Deskripsi |
+|-------|-----------|
+| **1. Pengajuan Kebutuhan** | Dept. terkait mengajukan permohonan lowongan ke HRD |
+| **2. Persiapan JD** | HRD menyusun deskripsi pekerjaan, kualifikasi, dan persyaratan |
+| **3. Publikasi Lowongan** | Lowongan dipublikasikan di portal kerja, media sosial, atau situs karir |
+| **4. Penerimaan Lamaran** | Kandidat mengirimkan lamaran melalui email/portal |
+| **5. Screening CV** | HRD menyeleksi CV berdasarkan kualifikasi minimum |
+| **6. Tes Tertulis** | Kandidat mengerjakan tes kemampuan (online/offline) |
+| **7. Wawancara HR** | HRD melakukan wawancara umum dan psikotes |
+| **8. Wawancara Teknis** | Tim teknis/bidang menguji kompetensi spesifik |
+| **9. Wawancara User** | User/manager langsung melakukan interview final |
+| **10. Penawaran Gaji** | HRD menawarkan kompensasi dan benefits |
+| **11. Rekrutmen** | Proses administrasi (SKCK, medical check-up, dll.) |
+| **12. Onboarding** | Orientasi dan pelatihan karyawan baru |
+
+---
+
+**Tips:** Diagram ini dapat disesuaikan dengan kebutuhan perusahaan (misalnya: tambah tahap interview panel, background check, atau psychotest).

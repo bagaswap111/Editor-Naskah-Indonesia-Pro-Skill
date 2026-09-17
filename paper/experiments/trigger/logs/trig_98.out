@@ -1,0 +1,27 @@
+**Quantum Computing** bekerja memanfaatkan prinsip fisika kuantum untuk memproses informasi:
+
+**Qubit vs Bit Klasik**
+- Bit klasik: hanya 0 atau 1
+- Qubit: bisa dalam **superposisi** (0 dan 1 secara bersamaan)
+
+**Prinsip Utama:**
+
+1. **Superposisi** — Qubit eksis dalam banyak state sekaligus, memungkinkan eksplorasi banyak kemungkinan secara paralel.
+
+2. **Entanglement** — Dua qubit bisa saling terkait; mengubah satu langsung memengaruhi yang lain, mempercepat komputasi terdistribusi.
+
+3. **Interferensi** — Menggabungkan probabilitas untuk memperkuat jawaban benar dan memperlemah yang salah.
+
+**Cara Kerja:**
+1. Inisialisasi qubit ke state awal
+2. Terapkan **quantum gates** (operasi kuantum) untuk manipulasi
+3. Ukur hasil → qubit "collapse" ke 0 atau 1
+
+**Contoh Algoritma:**
+- **Shor's** — Faktorisasi bilangan besar (ancaman untuk RSA)
+- **Grover's** — Pencarian database lebih cepat (speedup sqrt(N))
+
+**Keterbatasan:**
+- Butuh suhu mendekati 0 Kelvin
+- Sangat sensitif terhadap noise (decoherence)
+- Saat ini masih dalam tahap eksperimental untuk banyak kasus

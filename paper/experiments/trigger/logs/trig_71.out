@@ -1,0 +1,15 @@
+Tidak ada file JavaScript yang ada. Saya akan buatkan algoritma sorting dalam JavaScript dengan beberapa variasi:
+File `sorting.js` sudah dibuat dengan 5 algoritma sorting:
+
+| Algoritma | Kompleksitas Waktu | Keterangan |
+|-----------|-------------------|------------|
+| Bubble Sort | O(n²) | Sederhana, cocok untuk data kecil |
+| Selection Sort | O(n²) | Minim swap, efisien untuk memory |
+| Insertion Sort | O(n²) | Bagus untuk data hampir terurut |
+| Quick Sort | O(n log n) | Cepat rata-rata, populer digunakan |
+| Merge Sort | O(n log n) | Stabil, konsisten untuk semua kasus |
+
+Jalankan dengan:
+```bash
+node sorting.js
+```

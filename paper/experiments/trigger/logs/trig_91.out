@@ -1,0 +1,41 @@
+Berikut langkah-langkah install Docker di Ubuntu:
+
+**1. Update package index**
+```bash
+sudo apt-get update
+```
+
+**2. Install dependencies**
+```bash
+sudo apt-get install ca-certificates curl gnupg lsb-release
+```
+
+**3. Add Docker's official GPG key**
+```bash
+sudo mkdir -m 0755 -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+
+**4. Set up repository**
+```bash
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+**5. Install Docker Engine**
+```bash
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+**6. (Opsional) Agar tanpa sudo**
+```bash
+sudo usermod -aG docker $USER
+# Lalu logout & login ulang
+```
+
+**7. Verifikasi**
+```bash
+sudo docker run hello-world
+```
+
+Jika muncul pesan "Hello from Docker!", instalasi berhasil.

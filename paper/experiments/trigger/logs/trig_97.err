@@ -1,0 +1,15 @@
+[0m
+> build · mimo-v2.5-free
+[0m
+[0m→ [0mRead .
+[0m✱ [0mGlob "**/{package.json,*.yml,*.yaml,Dockerfile,.github}"[90m 0 matches[0m
+[0m
+[0m← [0mWrite .github/workflows/ci.yml
+Wrote file successfully.
+[0m
+[0m← [0mWrite Dockerfile
+Wrote file successfully.
+[0m
+[0m← [0mWrite nginx.conf
+Wrote file successfully.
+[0m

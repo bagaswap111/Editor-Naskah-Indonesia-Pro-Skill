@@ -1,0 +1,629 @@
+[
+  {
+    "condition": "enip_no_puebi",
+    "id": "aca_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 10,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan sudah cukup baik untuk naskah singkat tetapi masih dapat diperkaya dengan analogi atau contoh konkret."
+    },
+    "timestamp": "2026-09-17T03:20:38"
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "aca_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 10,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan sudah cukup baik untuk esai singkat, namun ruang untuk analogi dan contoh konkret masih bisa diperkaya."
+    },
+    "timestamp": "2026-09-17T03:20:39"
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "jur_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0020",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:20:40"
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "jur_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0002",
+    "skor": {
+      "Kejelasan": 10,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 9
+    },
+    "justifikasi": {
+      "Kedalaman": "Informasi berita sudah cukup mendalam untuk standar rilis pers, namun tidak ada penambahan data analitis baru."
+    },
+    "timestamp": "2026-09-17T03:20:41"
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "sas_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:20:42"
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "sas_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:20:43"
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "pop_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Kedalaman penjelasan bersifat standar untuk artikel populer singkat tanpa penambahan lapis analisis yang mendalam."
+    },
+    "timestamp": "2026-09-17T03:20:44"
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "pop_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan tentang proses kopi masih bersifat permukaan tanpa analogi yang mendalam pada naskah utama."
+    },
+    "timestamp": "2026-09-17T03:20:45"
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "per_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan sudah cukup baik dengan penambahan analogi fondasi rumah, namun dapat diperkaya dengan contoh atau data dampak yang lebih mendalam."
+    },
+    "timestamp": "2026-09-17T03:20:47"
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "per_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:20:48"
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "aca_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan sudah memadai untuk naskah singkat tetapi belum mencapai lapis teoretis yang mendalam."
+    },
+    "timestamp": "2026-09-17T03:20:49"
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "aca_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:20:50"
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "jur_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0020",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:20:51"
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "jur_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0002",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:20:52"
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "sas_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:20:53"
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "sas_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:20:54"
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "pop_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:22:26"
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "pop_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 10,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 10,
+      "Gaya": 10,
+      "Mekanik": 10,
+      "Engagement": 9
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:22:27"
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "per_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan sudah mencakup contoh konkret namun belum mendalami akar masalah struktural secara komprehensif.",
+      "Akurasi": "Ada penyebutan data umum tanpa referensi spesifik yang dapat diverifikasi."
+    },
+    "timestamp": "2026-09-17T03:22:28"
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "per_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:22:30"
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "aca_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:22:31"
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "aca_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:22:32"
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "jur_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0020",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:22:34"
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "jur_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0002",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Naskah berupa laporan berita pendek yang tidak memerlukan analisis mendalam atau lapis penjelasan yang kompleks."
+    },
+    "timestamp": "2026-09-17T03:22:36"
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "sas_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Narasi pendek berfokus pada suasana dan emosi pembuka, sehingga lapis kedalaman dan analogi belum dieksplorasi secara mendalam."
+    },
+    "timestamp": "2026-09-17T03:22:37"
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "sas_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 9
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:22:38"
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "pop_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan mengenai cara kerja memori masih berada pada tingkat permukaan tanpa contoh atau penjabaran lapis yang lebih dalam."
+    },
+    "timestamp": "2026-09-17T03:22:40"
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "pop_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan mengenai pengolahan kopi masih bersifat permukaan tanpa detail lapis yang mendalam."
+    },
+    "timestamp": "2026-09-17T03:22:41"
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "per_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:22:42"
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "per_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 7,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan argumen mempertahankan tingkat kedalaman naskah asli tanpa penambahan analisis yang lebih luas."
+    },
+    "timestamp": "2026-09-17T03:22:43"
+  }
+]

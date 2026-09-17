@@ -1,0 +1,20 @@
+Tidak ada project React di direktori ini. Saya akan buatkan CI/CD pipeline lengkap untuk React project menggunakan GitHub Actions.
+Pipeline sudah dibuat. Berikut file yang dihasilkan:
+
+| File | Fungsi |
+|------|--------|
+| `.github/workflows/ci.yml` | GitHub Actions workflow |
+| `Dockerfile` | Build image production |
+| `nginx.conf` | Config nginx untuk SPA |
+
+**Pipeline mencakup:**
+
+1. **Test** - lint + unit test coverage
+2. **Build** - production build artifact
+3. **Deploy Preview** - preview deploy saat PR (otomatis)
+4. **Deploy Production** - deploy ke production saat merge ke `main`
+5. **Docker** - build & push image ke GHCR
+
+**Yang perlu di-setup:**
+- Secret `NETLIFY_AUTH_TOKEN` dan `NETLIFY_SITE_ID` di GitHub repo settings
+- Atau ganti provider deployment sesuai kebutuhan (Vercel, AWS S3, dll)

@@ -1,0 +1,424 @@
+[
+  {
+    "condition": "natural",
+    "id": "bkl_01_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0019",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Mekanik": "Ada sedikit ruang untuk memastikan seluruh penulisan istilah asing sepenuhnya konsisten dengan pedoman KBBI terbaru."
+    },
+    "timestamp": "2026-09-17T03:24:43"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_03_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0014",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 9
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:24:44"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_05_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0020",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 9,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 9
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:24:45"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_07_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0002",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 9
+    },
+    "justifikasi": {
+      "Akurasi": "Ada catatan dari editor bahwa rujukan Acharya et al. (2025) perlu diverifikasi pada daftar pustaka."
+    },
+    "timestamp": "2026-09-17T03:24:46"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_09_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0010",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:24:47"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_02_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0007",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:24:48"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_04_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0006",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Akurasi": "perlu verifikasi referensi"
+    },
+    "timestamp": "2026-09-17T03:24:49"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_08_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0013",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:24:50"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_10_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0009",
+    "skor": {
+      "Kejelasan": 10,
+      "Koherensi": 10,
+      "Kedalaman": 9,
+      "Akurasi": 10,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 9
+    },
+    "justifikasi": {
+      "Mekanik": "Penggunaan tanda baca dan kaidah PUEBI sudah sangat rapi, namun diberikan skor 9 karena masih ada potensi konsistensi cetak miring pada istilah teknis tertentu yang dapat disempurnakan."
+    },
+    "timestamp": "2026-09-17T03:24:52"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_15_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0016",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Mekanik": "Ada sedikit variasi dalam penggunaan huruf miring pada istilah teknis di daftar poin yang bisa diseragamkan lebih lanjut."
+    },
+    "timestamp": "2026-09-17T03:24:53"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_06_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0012",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan sudah solid namun merupakan terjemahan langsung tanpa penambahan lapis analisis baru dari naskah asli."
+    },
+    "timestamp": "2026-09-17T03:24:54"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_12_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0011",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 9
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:24:55"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_06_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0004",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:24:56"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_12_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0003",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Mekanik": "Penggunaan PUEBI sangat baik dan konsisten, namun masih menyisakan beberapa istilah asing yang diberi padanan lokal sekaligus bentuk aslinya tanpa standar yang sepenuhnya kaku di setiap kemunculan."
+    },
+    "timestamp": "2026-09-17T03:24:57"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_06_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0017",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 8,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:24:59"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_18_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0005",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan sudah mendalam sesuai naskah asli namun tidak ada penambahan lapis analisis baru dari editor."
+    },
+    "timestamp": "2026-09-17T03:25:00"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_19_01",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0018",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 10,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan sudah mencakup analisis teknis dan ekonomi yang memadai."
+    },
+    "timestamp": "2026-09-17T03:26:32"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_18_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0015",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Mekanik": "Ada sedikit keraguan dalam penyesuaian tanda baca khusus pada istilah teknis bercetak miring."
+    },
+    "timestamp": "2026-09-17T03:26:33"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_19_02",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0008",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {
+      "Kedalaman": "Penjelasan sudah solid dan terstruktur dengan baik, namun bagian akhir sub-bab Skalabilitas terpotong sehingga ruang analisis mendalam belum sepenuhnya tuntas."
+    },
+    "timestamp": "2026-09-17T03:26:34"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_18_03",
+    "judge": "J1",
+    "trial": 0,
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "anon": "OUT-0001",
+    "skor": {
+      "Kejelasan": 9,
+      "Koherensi": 9,
+      "Kedalaman": 8,
+      "Akurasi": 9,
+      "Gaya": 9,
+      "Mekanik": 9,
+      "Engagement": 8
+    },
+    "justifikasi": {},
+    "timestamp": "2026-09-17T03:26:35"
+  }
+]

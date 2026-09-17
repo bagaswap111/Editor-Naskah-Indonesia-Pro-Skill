@@ -1,0 +1,16 @@
+Berikut adalah neural network sederhana untuk klasifikasi menggunakan TensorFlow/Keras:
+Neural network sederhana untuk klasifikasi sudah dibuat di `neural_network.py`.
+
+**Arsitektur:**
+- Input: 20 fitur
+- Dense layer pertama: 64 neuron + ReLU + Dropout 0.3
+- Dense layer kedua: 32 neuron + ReLU + Dropout 0.2
+- Output: 3 kelas (softmax)
+
+**Langkah menjalankan:**
+```bash
+pip install tensorflow numpy scikit-learn
+python neural_network.py
+```
+
+Program akan menghasilkan data sintetis, melatih model, dan menampilkan akurasi pada data test (~85-95%).

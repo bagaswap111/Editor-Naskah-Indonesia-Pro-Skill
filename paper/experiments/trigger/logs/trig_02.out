@@ -1,20 +1,15 @@
-Terima kasih! Saya siap membantu menyunting naskah skripsi Anda sesuai PUEBI.
+Saya siap membantu menyunting naskah skripsi Anda sesuai PUEBI. Sebelum memulai, saya perlu beberapa informasi:
 
-**Yang saya perlukan:**
+1. **Naskah**: Silakan tempelkan atau unggah file naskah skripsi yang ingin disunting
+2. **Mode output**: Pilih salah satu:
+   - **Clean** — hanya naskah bersih tanpa catatan
+   - **Edit + Catatan** — naskah hasil editan + penjelasan perubahan (default)
+   - **Track Changes** — perubahan ditandai seperti Microsoft Word
+   - **Konsultasi** — daftar masalah & saran tanpa mengedit langsung
 
-1. **Naskah skripsi** — mohon salin tempel teksnya di sini atau berikan path file-nya (misal: `skripsi.txt`, `skripsi.docx`, `skripsi.md`)
+3. **Parameter lain** (opsional, saya gunakan default jika tidak diisi):
+   - Gaya bahasa: Akademis Formal (default untuk skripsi)
+   - Formalitas: 7 (tinggi, untuk naskah akademis)
+   - Format referensi: APA 7 / yang lain?
 
-2. **Parameter sesi** — mohon konfirmasi atau sesuaikan:
-
-| Parameter | Default |
-|---|---|
-| Gaya bahasa | Akademis (sesuai skripsi) |
-| Tingkat formalitas | 7–8 (sangat formal) |
-| Panjang kalimat | Sedang (15–25 kata) |
-| Densitas terminologi | Tinggi (ilmiah) |
-| Format referensi | APA 7 |
-| Mode output | Edit + Catatan |
-
-> Jika ada parameter yang ingin diubah, sebutkan saja. Jika setuju dengan default, cukup kirimkan naskahnya.
-
-Silakan kirimkan naskah skripsi Anda!
+Silakan kirim naskah Anda, saya akan langsung mulai menyunting.

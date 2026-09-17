@@ -1,0 +1,35 @@
+Saya akan membantu Anda merencanakan pembuatan API untuk mobile app. Sebelum membuat rencana, saya perlu memahami beberapa hal:
+
+## Pertanyaan Klarifikasi
+
+1. **Jenis mobile app apa yang Anda bangun?**
+   - E-commerce, social media, chat, productivity, dll?
+
+2. **Tech stack backend yang diinginkan?**
+   - Node.js (Express/Fastify/NestJS)
+   - Python (FastAPI/Flask/Django)
+   - Go
+   - Java/Kotlin (Spring Boot)
+   - Lainnya?
+
+3. **Database yang akan digunakan?**
+   - PostgreSQL, MySQL, MongoDB, SQLite, atau lainnya?
+
+4. **Fitur utama yang dibutuhkan?**
+   - Authentication (JWT, OAuth, API key)
+   - CRUD operations
+   - File upload
+   - Real-time (WebSocket)
+   - Push notifications
+   - Payment integration
+
+5. **Struktur proyek yang diinginkan?**
+   - Monorepo dengan mobile app?
+   - Backend saja (API only)?
+   - Sudah ada mobile app yang perlu diintegrasikan?
+
+6. **Dokumentasi API?**
+   - Swagger/OpenAPI
+   - Postman collection
+
+Silakan berikan informasi agar saya bisa membuat rencana yang tepat! 🚀

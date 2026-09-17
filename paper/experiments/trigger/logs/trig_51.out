@@ -1,0 +1,11 @@
+Database SQL untuk toko online sudah dibuat di `online_store.sql`. Struktur tabel:
+
+| Tabel | Fungsi |
+|---|---|
+| `users` | Akun pengguna |
+| `addresses` | Alamat pengiriman |
+| `categories` | Kategori produk (hierarchical) |
+| `products` | Produk |
+| `orders` | Pesanan |
+| `order_items` | Item dalam pesanan |
+| `payments` | Pembayaran |

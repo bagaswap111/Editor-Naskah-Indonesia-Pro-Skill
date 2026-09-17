@@ -926,5 +926,365 @@
     "temperature": 0,
     "timestamp": "2026-08-23T03:01:48",
     "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "aca_01",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T01:57:47",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "PUEBI.md"
+    ]
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "aca_02",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T01:58:01",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "PUEBI.md"
+    ]
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "jur_01",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T01:58:20",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "PUEBI.md"
+    ]
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "jur_02",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T01:58:37",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "PUEBI.md"
+    ]
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "sas_01",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T01:58:53",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "PUEBI.md"
+    ]
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "sas_02",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T01:59:08",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "PUEBI.md"
+    ]
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "pop_01",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T01:59:23",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "PUEBI.md"
+    ]
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "pop_02",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T01:59:37",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "PUEBI.md"
+    ]
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "per_01",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T01:59:51",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "PUEBI.md"
+    ]
+  },
+  {
+    "condition": "enip_no_puebi",
+    "id": "per_02",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:00:05",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "PUEBI.md"
+    ]
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "aca_01",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:00:36",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "STYLE_GUIDE.md"
+    ]
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "aca_02",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:00:51",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "STYLE_GUIDE.md"
+    ]
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "jur_01",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:01:18",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "STYLE_GUIDE.md"
+    ]
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "jur_02",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:01:32",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "STYLE_GUIDE.md"
+    ]
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "sas_01",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:01:46",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "STYLE_GUIDE.md"
+    ]
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "sas_02",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:02:00",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "STYLE_GUIDE.md"
+    ]
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "pop_01",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:02:15",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "STYLE_GUIDE.md"
+    ]
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "pop_02",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:02:31",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "STYLE_GUIDE.md"
+    ]
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "per_01",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:02:44",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "STYLE_GUIDE.md"
+    ]
+  },
+  {
+    "condition": "enip_no_style",
+    "id": "per_02",
+    "provider": "gemini",
+    "model": "gemini-3-flash-preview",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:02:58",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "STYLE_GUIDE.md"
+    ]
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "aca_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:38:36",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "WORKFLOW.md"
+    ]
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "aca_02",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:38:41",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "WORKFLOW.md"
+    ]
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "jur_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:38:47",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "WORKFLOW.md"
+    ]
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "jur_02",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:38:52",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "WORKFLOW.md"
+    ]
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "sas_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:38:58",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "WORKFLOW.md"
+    ]
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "sas_02",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:39:03",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "WORKFLOW.md"
+    ]
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "pop_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:39:08",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "WORKFLOW.md"
+    ]
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "pop_02",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:39:13",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "WORKFLOW.md"
+    ]
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "per_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:39:19",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "WORKFLOW.md"
+    ]
+  },
+  {
+    "condition": "enip_no_workflow",
+    "id": "per_02",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:39:25",
+    "prompt_hash": "8d2541f87c17",
+    "ablation_excluded": [
+      "WORKFLOW.md"
+    ]
   }
 ]

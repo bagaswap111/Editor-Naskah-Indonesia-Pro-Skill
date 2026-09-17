@@ -1,0 +1,11 @@
+[0m
+> build · mimo-v2.5-free
+[0m
+[0m→ [0mRead .
+[0m✱ [0mGlob "**/*.md"[90m 0 matches[0m
+[0m✱ [0mGlob "**/*.txt"[90m 1 match[0m
+[0m✱ [0mGlob "**/*.docx"[90m 0 matches[0m
+[0m✱ [0mGlob "**/*.pdf"[90m 0 matches[0m
+[0m→ [0mRead online_store.sql
+[0m→ [0mRead queries.txt
+[0m→ [0mRead sorting.js

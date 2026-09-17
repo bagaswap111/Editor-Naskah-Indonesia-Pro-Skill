@@ -1,9 +1,12 @@
-Siap! Saya akan perbaiki teks Bahasa Indonesia yang kurang baku.
+Saya sudah memuat skill editor Bahasa Indonesia (ENIP). 
 
-Tapi saya belum melihat teks yang ingin diperbaiki. **Silakan tempelkan naskah/teks yang ingin disunting**, dan saya akan langsung memprosesnya.
+Silakan tempel teks yang ingin Anda perbaiki, dan saya akan mengoreksinya agar sesuai PUEBI & KBBI. Saya juga perlu tahu beberapa parameter:
 
-Saya juga perlu beberapa parameter singkat — atau cukup bilang **"terserah kamu"** untuk default otomatis:
+1. **Gaya bahasa**: Akademis, Jurnalistik, Sastrawi, Populer, atau Persuasif?
+2. **Tingkat formalitas**: 1 (sangat santai) – 10 (sangat formal)?
+3. **Mode output**: 
+   - **Clean** (teks bersih saja)
+   - **Edit + Catatan** (teks + penjelasan perubahan)
+   - **Track Changes** (perubahan ditandai)
 
-1. **Gaya bahasa**: Akademis / Jurnalistik / Sastrawi / Populer / Persuasif / Hybrid?
-2. **Target pembaca**: Umum / Akademisi / Profesional / Anak muda?
-3. **Mode output**: Clean (bersih tanpa catatan) / Edit + Catatan / Track Changes / Konsultasi?
+Atau, jika ingin cepat, cukup tempel teksnya — saya akan menggunakan default yang sesuai dengan gaya naskah Anda.

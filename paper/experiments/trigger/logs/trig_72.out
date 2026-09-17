@@ -1,0 +1,24 @@
+Berikut rekomendasi laptop untuk mahasiswa teknik informatika:
+
+## Spesifikasi Minimum
+- **Processor**: Intel Core i5 / AMD Ryzen 5 (generasi terbaru)
+- **RAM**: 8GB minimum (16GB lebih baik untuk VM dan IDE berat)
+- **Storage**: SSD 256GB+ (NVLe lebih cepat)
+- **GPU**: Integrated sudah cukup, kecuali ada kebutuhan ML/game development
+
+## Rekomendasi Berdasarkan Budget
+
+| Budget | Laptop | Harga Approx |
+|--------|--------|--------------|
+| Entry | ASUS VivoBook 14/15 | Rp 7-9 juta |
+| Mid | Lenovo IdeaPad 5 Pro | Rp 10-13 juta |
+| High | MacBook Air M2/M3 | Rp 14-18 juta |
+| Premium | ThinkPad X1 Carbon | Rp 18-25 juta |
+
+## Yang Perlu Diperhatikan
+- **Battery life** penting untuk kuliah seharian
+- **Keyboard** nyaman untuk coding lama
+- **Bobot** ringan untuk mobilitas tinggi
+- **Port** USB-C/Thunderbolt untuk docking
+
+**Pilihan terbaik untuk fleksibilitas**: MacBook Air M2/M3 atau ThinkPad X1 Carbon (Linux-friendly).

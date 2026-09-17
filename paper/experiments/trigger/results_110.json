@@ -1,0 +1,672 @@
+{
+  "total_queries": 110,
+  "tp": 33,
+  "fp": 2,
+  "fn": 27,
+  "tn": 48,
+  "precision": 0.9428571428571428,
+  "recall": 0.55,
+  "f1": 0.6947368421052631,
+  "details": [
+    {
+      "id": "trig_01",
+      "expected": true,
+      "activated": false,
+      "output_size": 32
+    },
+    {
+      "id": "trig_02",
+      "expected": true,
+      "activated": true,
+      "output_size": 792
+    },
+    {
+      "id": "trig_03",
+      "expected": true,
+      "activated": false,
+      "output_size": 71
+    },
+    {
+      "id": "trig_04",
+      "expected": true,
+      "activated": false,
+      "output_size": 119
+    },
+    {
+      "id": "trig_05",
+      "expected": true,
+      "activated": false,
+      "output_size": 236
+    },
+    {
+      "id": "trig_06",
+      "expected": true,
+      "activated": true,
+      "output_size": 612
+    },
+    {
+      "id": "trig_07",
+      "expected": true,
+      "activated": false,
+      "output_size": 145
+    },
+    {
+      "id": "trig_08",
+      "expected": true,
+      "activated": false,
+      "output_size": 115
+    },
+    {
+      "id": "trig_09",
+      "expected": true,
+      "activated": false,
+      "output_size": 126
+    },
+    {
+      "id": "trig_10",
+      "expected": true,
+      "activated": true,
+      "output_size": 539
+    },
+    {
+      "id": "trig_11",
+      "expected": false,
+      "activated": false,
+      "output_size": 329
+    },
+    {
+      "id": "trig_12",
+      "expected": false,
+      "activated": false,
+      "output_size": 668
+    },
+    {
+      "id": "trig_13",
+      "expected": false,
+      "activated": false,
+      "output_size": 524
+    },
+    {
+      "id": "trig_14",
+      "expected": false,
+      "activated": false,
+      "output_size": 361
+    },
+    {
+      "id": "trig_15",
+      "expected": false,
+      "activated": false,
+      "output_size": 1872
+    },
+    {
+      "id": "trig_16",
+      "expected": false,
+      "activated": false,
+      "output_size": 487
+    },
+    {
+      "id": "trig_17",
+      "expected": false,
+      "activated": false,
+      "output_size": 296
+    },
+    {
+      "id": "trig_18",
+      "expected": false,
+      "activated": false,
+      "output_size": 76
+    },
+    {
+      "id": "trig_19",
+      "expected": false,
+      "activated": false,
+      "output_size": 473
+    },
+    {
+      "id": "trig_20",
+      "expected": false,
+      "activated": false,
+      "output_size": 1037
+    },
+    {
+      "id": "trig_21",
+      "expected": true,
+      "activated": false,
+      "output_size": 102
+    },
+    {
+      "id": "trig_22",
+      "expected": true,
+      "activated": true,
+      "output_size": 131
+    },
+    {
+      "id": "trig_23",
+      "expected": true,
+      "activated": true,
+      "output_size": 360
+    },
+    {
+      "id": "trig_24",
+      "expected": true,
+      "activated": false,
+      "output_size": 115
+    },
+    {
+      "id": "trig_25",
+      "expected": true,
+      "activated": false,
+      "output_size": 233
+    },
+    {
+      "id": "trig_26",
+      "expected": true,
+      "activated": true,
+      "output_size": 396
+    },
+    {
+      "id": "trig_27",
+      "expected": true,
+      "activated": true,
+      "output_size": 422
+    },
+    {
+      "id": "trig_28",
+      "expected": true,
+      "activated": false,
+      "output_size": 135
+    },
+    {
+      "id": "trig_29",
+      "expected": true,
+      "activated": true,
+      "output_size": 273
+    },
+    {
+      "id": "trig_30",
+      "expected": true,
+      "activated": false,
+      "output_size": 86
+    },
+    {
+      "id": "trig_31",
+      "expected": false,
+      "activated": false,
+      "output_size": 719
+    },
+    {
+      "id": "trig_32",
+      "expected": false,
+      "activated": false,
+      "output_size": 7
+    },
+    {
+      "id": "trig_33",
+      "expected": false,
+      "activated": false,
+      "output_size": 1633
+    },
+    {
+      "id": "trig_34",
+      "expected": false,
+      "activated": false,
+      "output_size": 612
+    },
+    {
+      "id": "trig_35",
+      "expected": false,
+      "activated": false,
+      "output_size": 479
+    },
+    {
+      "id": "trig_36",
+      "expected": false,
+      "activated": false,
+      "output_size": 1016
+    },
+    {
+      "id": "trig_37",
+      "expected": false,
+      "activated": false,
+      "output_size": 918
+    },
+    {
+      "id": "trig_38",
+      "expected": false,
+      "activated": false,
+      "output_size": 576
+    },
+    {
+      "id": "trig_39",
+      "expected": false,
+      "activated": true,
+      "output_size": 672
+    },
+    {
+      "id": "trig_40",
+      "expected": false,
+      "activated": false,
+      "output_size": 1290
+    },
+    {
+      "id": "trig_41",
+      "expected": true,
+      "activated": true,
+      "output_size": 485
+    },
+    {
+      "id": "trig_42",
+      "expected": true,
+      "activated": true,
+      "output_size": 670
+    },
+    {
+      "id": "trig_43",
+      "expected": true,
+      "activated": true,
+      "output_size": 239
+    },
+    {
+      "id": "trig_44",
+      "expected": true,
+      "activated": false,
+      "output_size": 63
+    },
+    {
+      "id": "trig_45",
+      "expected": true,
+      "activated": false,
+      "output_size": 486
+    },
+    {
+      "id": "trig_46",
+      "expected": true,
+      "activated": false,
+      "output_size": 100
+    },
+    {
+      "id": "trig_47",
+      "expected": true,
+      "activated": false,
+      "output_size": 272
+    },
+    {
+      "id": "trig_48",
+      "expected": true,
+      "activated": true,
+      "output_size": 345
+    },
+    {
+      "id": "trig_49",
+      "expected": true,
+      "activated": false,
+      "output_size": 204
+    },
+    {
+      "id": "trig_50",
+      "expected": true,
+      "activated": true,
+      "output_size": 496
+    },
+    {
+      "id": "trig_51",
+      "expected": false,
+      "activated": false,
+      "output_size": 340
+    },
+    {
+      "id": "trig_52",
+      "expected": false,
+      "activated": false,
+      "output_size": 333
+    },
+    {
+      "id": "trig_53",
+      "expected": false,
+      "activated": false,
+      "output_size": 6
+    },
+    {
+      "id": "trig_54",
+      "expected": false,
+      "activated": false,
+      "output_size": 1012
+    },
+    {
+      "id": "trig_55",
+      "expected": false,
+      "activated": false,
+      "output_size": 335
+    },
+    {
+      "id": "trig_56",
+      "expected": false,
+      "activated": false,
+      "output_size": 870
+    },
+    {
+      "id": "trig_57",
+      "expected": false,
+      "activated": false,
+      "output_size": 2619
+    },
+    {
+      "id": "trig_58",
+      "expected": false,
+      "activated": false,
+      "output_size": 497
+    },
+    {
+      "id": "trig_59",
+      "expected": false,
+      "activated": false,
+      "output_size": 0
+    },
+    {
+      "id": "trig_60",
+      "expected": false,
+      "activated": false,
+      "output_size": 620
+    },
+    {
+      "id": "trig_61",
+      "expected": true,
+      "activated": false,
+      "output_size": 264
+    },
+    {
+      "id": "trig_62",
+      "expected": true,
+      "activated": true,
+      "output_size": 134
+    },
+    {
+      "id": "trig_63",
+      "expected": true,
+      "activated": true,
+      "output_size": 450
+    },
+    {
+      "id": "trig_64",
+      "expected": true,
+      "activated": false,
+      "output_size": 244
+    },
+    {
+      "id": "trig_65",
+      "expected": true,
+      "activated": true,
+      "output_size": 388
+    },
+    {
+      "id": "trig_66",
+      "expected": true,
+      "activated": true,
+      "output_size": 578
+    },
+    {
+      "id": "trig_67",
+      "expected": true,
+      "activated": true,
+      "output_size": 595
+    },
+    {
+      "id": "trig_68",
+      "expected": true,
+      "activated": false,
+      "output_size": 196
+    },
+    {
+      "id": "trig_69",
+      "expected": true,
+      "activated": true,
+      "output_size": 117
+    },
+    {
+      "id": "trig_70",
+      "expected": true,
+      "activated": true,
+      "output_size": 159
+    },
+    {
+      "id": "trig_71",
+      "expected": false,
+      "activated": false,
+      "output_size": 628
+    },
+    {
+      "id": "trig_72",
+      "expected": false,
+      "activated": false,
+      "output_size": 933
+    },
+    {
+      "id": "trig_73",
+      "expected": false,
+      "activated": false,
+      "output_size": 617
+    },
+    {
+      "id": "trig_74",
+      "expected": false,
+      "activated": false,
+      "output_size": 64
+    },
+    {
+      "id": "trig_75",
+      "expected": false,
+      "activated": false,
+      "output_size": 397
+    },
+    {
+      "id": "trig_76",
+      "expected": false,
+      "activated": false,
+      "output_size": 542
+    },
+    {
+      "id": "trig_77",
+      "expected": false,
+      "activated": false,
+      "output_size": 105
+    },
+    {
+      "id": "trig_78",
+      "expected": false,
+      "activated": false,
+      "output_size": 0
+    },
+    {
+      "id": "trig_79",
+      "expected": false,
+      "activated": false,
+      "output_size": 0
+    },
+    {
+      "id": "trig_80",
+      "expected": false,
+      "activated": false,
+      "output_size": 1409
+    },
+    {
+      "id": "trig_81",
+      "expected": true,
+      "activated": true,
+      "output_size": 522
+    },
+    {
+      "id": "trig_82",
+      "expected": true,
+      "activated": true,
+      "output_size": 494
+    },
+    {
+      "id": "trig_83",
+      "expected": true,
+      "activated": false,
+      "output_size": 173
+    },
+    {
+      "id": "trig_84",
+      "expected": true,
+      "activated": false,
+      "output_size": 364
+    },
+    {
+      "id": "trig_85",
+      "expected": true,
+      "activated": true,
+      "output_size": 342
+    },
+    {
+      "id": "trig_86",
+      "expected": true,
+      "activated": true,
+      "output_size": 600
+    },
+    {
+      "id": "trig_87",
+      "expected": true,
+      "activated": false,
+      "output_size": 254
+    },
+    {
+      "id": "trig_88",
+      "expected": true,
+      "activated": true,
+      "output_size": 373
+    },
+    {
+      "id": "trig_89",
+      "expected": true,
+      "activated": true,
+      "output_size": 1994
+    },
+    {
+      "id": "trig_90",
+      "expected": true,
+      "activated": true,
+      "output_size": 199
+    },
+    {
+      "id": "trig_91",
+      "expected": false,
+      "activated": false,
+      "output_size": 1049
+    },
+    {
+      "id": "trig_92",
+      "expected": false,
+      "activated": true,
+      "output_size": 3222
+    },
+    {
+      "id": "trig_93",
+      "expected": false,
+      "activated": false,
+      "output_size": 1230
+    },
+    {
+      "id": "trig_94",
+      "expected": false,
+      "activated": false,
+      "output_size": 692
+    },
+    {
+      "id": "trig_95",
+      "expected": false,
+      "activated": false,
+      "output_size": 548
+    },
+    {
+      "id": "trig_96",
+      "expected": false,
+      "activated": false,
+      "output_size": 972
+    },
+    {
+      "id": "trig_97",
+      "expected": false,
+      "activated": false,
+      "output_size": 811
+    },
+    {
+      "id": "trig_98",
+      "expected": false,
+      "activated": false,
+      "output_size": 1072
+    },
+    {
+      "id": "trig_99",
+      "expected": false,
+      "activated": false,
+      "output_size": 494
+    },
+    {
+      "id": "trig_100",
+      "expected": false,
+      "activated": false,
+      "output_size": 82
+    },
+    {
+      "id": "trig_101",
+      "expected": true,
+      "activated": false,
+      "output_size": 129
+    },
+    {
+      "id": "trig_102",
+      "expected": true,
+      "activated": true,
+      "output_size": 231
+    },
+    {
+      "id": "trig_103",
+      "expected": true,
+      "activated": false,
+      "output_size": 142
+    },
+    {
+      "id": "trig_104",
+      "expected": true,
+      "activated": false,
+      "output_size": 134
+    },
+    {
+      "id": "trig_105",
+      "expected": true,
+      "activated": true,
+      "output_size": 289
+    },
+    {
+      "id": "trig_106",
+      "expected": true,
+      "activated": true,
+      "output_size": 574
+    },
+    {
+      "id": "trig_107",
+      "expected": true,
+      "activated": true,
+      "output_size": 540
+    },
+    {
+      "id": "trig_108",
+      "expected": true,
+      "activated": false,
+      "output_size": 128
+    },
+    {
+      "id": "trig_109",
+      "expected": true,
+      "activated": true,
+      "output_size": 748
+    },
+    {
+      "id": "trig_110",
+      "expected": true,
+      "activated": true,
+      "output_size": 589
+    }
+  ]
+}

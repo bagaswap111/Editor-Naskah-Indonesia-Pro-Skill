@@ -1,0 +1,182 @@
+[
+  {
+    "condition": "natural",
+    "id": "bkl_01_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:40:51",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_03_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:40:59",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_05_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:41:07",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_07_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:41:15",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_09_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:41:23",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_02_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:41:30",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_04_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:41:37",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_08_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:41:45",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_10_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:41:52",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_15_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:42:00",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_06_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:42:08",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_12_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:42:16",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_06_02",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:42:25",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_12_02",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:42:33",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_06_03",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:42:41",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_18_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:42:48",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_19_01",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:42:58",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_18_02",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:43:05",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_19_02",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:43:13",
+    "prompt_hash": "8d2541f87c17"
+  },
+  {
+    "condition": "natural",
+    "id": "bkl_18_03",
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": 0,
+    "timestamp": "2026-09-17T02:43:21",
+    "prompt_hash": "8d2541f87c17"
+  }
+]

@@ -1,5 +1,5 @@
 #!/bin/bash
-# D2 — Trigger reliability: jalankan 20 query di runtime utama (OpenCode).
+# D2 — Trigger reliability: jalankan 110 query di runtime utama (OpenCode).
 # Tiap query = sesi BARU (opencode run tanpa --continue), direktori netral,
 # sehingga aktivasi murni ditentukan oleh deskripsi skill (SKILL.md).
 # Output mentah disimpan di trigger/logs/ untuk audit.

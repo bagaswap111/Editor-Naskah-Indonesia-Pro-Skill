@@ -1,0 +1,6 @@
+[0m
+> build · mimo-v2.5-free
+[0m
+[93m[1m! [0mpermission requested: external_directory (/private/var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode/*); auto-rejecting
+[0m✗ [0mWrite /private/var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode/quiz-sejarah-indonesia.html failed
+[91m[1mError: [0mThe user rejected permission to use this specific tool call.

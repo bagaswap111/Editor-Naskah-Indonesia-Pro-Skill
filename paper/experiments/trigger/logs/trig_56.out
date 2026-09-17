@@ -1,0 +1,16 @@
+Blockchain adalah buku besar terdistribusi yang mencatat semua transaksi cryptocurrency secara berurutan. Berikut cara kerjanya:
+
+1. **Transaksi dibuat** - Pengguna mengirim cryptocurrency ke alamat lain
+2. **Transaksi di-broadcast** ke jaringan node (komputer)
+3. **Node memverifikasi** transaksi menggunakan konsensus (misalnya Proof of Work atau Proof of Stake)
+4. **Transaksi terverifikasi** dikumpulkan dalam blok
+5. **Blok ditambahkan** ke rantai blok sebelumnya menggunakan hash kriptografi
+6. **Seluruh jaringan** memiliki salinan identik buku besar
+
+Setiap blok berisi:
+- Daftar transaksi
+- Hash blok sebelumnya
+- Timestamp
+- Nonce (untuk Proof of Work)
+
+Sifat utama blockchain: **tidak dapat diubah** (immutability) karena mengubah satu blok akan mempengaruhi semua blok berikutnya, dan **terdesentralisasi** - tidak ada satu otoritas yang mengontrol jaringan.

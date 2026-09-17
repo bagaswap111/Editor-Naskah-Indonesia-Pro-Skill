@@ -1,0 +1,21 @@
+Jika tidak ada bunga berbunga (flat): bunga = pokok × suku bunga × waktu.
+
+Contoh:
+- Pokok Rp 10.000.000
+- Suku bunga tetap 6% per tahun (0,06)
+- Waktu 1 tahun
+- Bunga = 10.000.000 × 0,06 × 1 = Rp 600.000
+
+Jika ada bunga berbunga (compounding) per tahun:
+- Hasil akhir = pokok × (1 + suku bunga)^jumlah periode
+- Misal pokok Rp 10.000.000, suku bunga 6% per tahun, 1 tahun:
+  Hasil akhir = 10.000.000 × (1 + 0,06)^1 = Rp 10.600.000
+  Bunga = Rp 600.000
+
+Kalau mau, kirim:
+- besaran pokok deposito (Rp)
+- suku bunga (% per tahun)
+- cara penghitungan: flat atau berbunga (compounding)
+- dan periode penghitungan bunga (per tahun, per bulan, atau per hari)
+
+Saya akan hitungkan sesuai pilihanmu.

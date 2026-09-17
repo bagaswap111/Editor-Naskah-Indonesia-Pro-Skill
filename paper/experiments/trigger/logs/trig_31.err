@@ -1,0 +1,68 @@
+[0m
+> build · mimo-v2.5-free
+[0m
+[0m$ [0mpip3 list 2>/dev/null | grep -i pptx
+(no output)
+[0m
+[0m$ [0mpip3 install python-pptx 2>/dev/null | tail -5
+(no output)
+[0m
+[0m$ [0mpip install python-pptx 2>&1 | tail -3
+[notice] A new release of pip is available: 24.3.1 -> 26.2.1
+[notice] To update, run: python3.11 -m pip install --upgrade pip
+[0m
+[0m← [0mWrite /var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode/pemanasan_global.py
+Wrote file successfully.
+[0m
+[0m$ [0mcd /var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode && python3 pemanasan_global.py
+Traceback (most recent call last):
+  File "/private/var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode/pemanasan_global.py", line 1, in <module>
+    from pptx import Presentation
+ModuleNotFoundError: No module named 'pptx'
+[0m
+[0m$ [0mwhich python3 && python3 --version
+/opt/homebrew/bin/python3
+Python 3.14.7
+[0m
+[0m$ [0mpython3 -m pip install python-pptx 2>&1 | tail -5
+Read more about this behavior here: <https://peps.python.org/pep-0668/>
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+[0m
+[0m$ [0mpython3 -m pip install python-pptx --break-system-packages 2>&1 | tail -5
+File "/opt/homebrew/lib/python3.14/site-packages/pip/_vendor/truststore/_api.py", line 22, in <module>
+    from ._macos import _configure_context, _verify_peercerts_impl
+  File "/opt/homebrew/lib/python3.14/site-packages/pip/_vendor/truststore/_macos.py", line 22, in <module>
+    _mac_version_info = tuple(map(int, _mac_version.split(".")))
+ValueError: invalid literal for int() with base 10: ''
+[0m
+[0m$ [0mpython3 -m venv /var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode/venv && source /var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode/venv/bin/activate && pip install python-pptx 2>&1 | tail -3
+Error: Command '['/var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode/venv/bin/python3.14', '-m', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1.
+[0m
+[0m$ [0mls /opt/homebrew/bin/python3* 2>/dev/null; which python 2>/dev/null; which python3.11 2>/dev/null; which python3.12 2>/dev/null
+/opt/homebrew/bin/python3
+/opt/homebrew/bin/python3-config
+/opt/homebrew/bin/python3.11
+/opt/homebrew/bin/python3.11-config
+/opt/homebrew/bin/python3.13
+/opt/homebrew/bin/python3.13-config
+/opt/homebrew/bin/python3.14
+/opt/homebrew/bin/python3.14-config
+/opt/homebrew/bin/python3.9
+/opt/homebrew/bin/python3.9-config
+python not found
+/opt/homebrew/bin/python3.11
+python3.12 not found
+[0m
+[0m$ [0mpython3.11 -m venv /var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode/venv311 && source /var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode/venv311/bin/activate && pip install python-pptx 2>&1 | tail -3
+[notice] A new release of pip is available: 23.2.1 -> 26.2.1
+[notice] To update, run: python3.11 -m pip install --upgrade pip
+[0m
+[0m$ [0msource /var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode/venv311/bin/activate && cd /var/folders/ff/qc5nzz0s76q108sfm51dxgb80000gn/T/opencode && python pemanasan_global.py
+Presentasi berhasil disimpan: /Users/bagaskorosaputro/Pemanasan_Global.pptx
+Total slide: 10
+[0m
+[0m$ [0mls -lh ~/Pemanasan_Global.pptx
+-rw-r--r--@ 1 bagaskorosaputro  staff    46K Sep 17 02:51 /Users/bagaskorosaputro/Pemanasan_Global.pptx
+[0m
