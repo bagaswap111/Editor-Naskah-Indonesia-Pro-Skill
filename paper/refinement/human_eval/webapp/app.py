@@ -190,7 +190,9 @@ def evaluate(page):
 
     completed = Evaluation.query.filter_by(
         evaluator_id=evaluator_id,
-        is_draft=False
+        is_draft=True
+    ).filter(
+        Evaluation.score_kejelasan.isnot(None)
     ).count()
 
     # Check which output types exist for this manuscript
@@ -363,6 +365,89 @@ def save_general_comments():
 
     db.session.commit()
     return jsonify({'success': True})
+
+
+@app.route('/admin/evaluations')
+def admin_evaluations():
+    """Export all evaluation data as JSON for admin."""
+    evaluations = Evaluation.query.all()
+    data = []
+    for e in evaluations:
+        data.append({
+            'evaluator_id': e.evaluator_id,
+            'manuscript_id': e.manuscript_id,
+            'output_type': e.output_type,
+            'page_number': e.page_number,
+            'is_draft': e.is_draft,
+            'completed_at': e.completed_at.isoformat() if e.completed_at else None,
+            'score_kejelasan': e.score_kejelasan,
+            'score_koherensi': e.score_koherensi,
+            'score_kedalaman': e.score_kedalaman,
+            'score_akurasi': e.score_akurasi,
+            'score_gaya': e.score_gaya,
+            'score_mekanik': e.score_mekanik,
+            'score_engagement': e.score_engagement,
+            'comment_kejelasan': e.comment_kejelasan,
+            'comment_koherensi': e.comment_koherensi,
+            'comment_kedalaman': e.comment_kedalaman,
+            'comment_akurasi': e.comment_akurasi,
+            'comment_gaya': e.comment_gaya,
+            'comment_mekanik': e.comment_mekanik,
+            'comment_engagement': e.comment_engagement
+        })
+    return jsonify(data)
+
+
+@app.route('/admin/evaluations/csv')
+def admin_evaluations_csv():
+    """Export all evaluation data as CSV for admin."""
+    import csv
+    import io
+    
+    evaluations = Evaluation.query.all()
+    
+    output = io.StringIO()
+    writer = csv.writer(output)
+    
+    # Header
+    writer.writerow([
+        'evaluator_id', 'manuscript_id', 'output_type', 'page_number', 'is_draft', 'completed_at',
+        'score_kejelasan', 'score_koherensi', 'score_kedalaman', 'score_akurasi', 'score_gaya', 'score_mekanik', 'score_engagement',
+        'comment_kejelasan', 'comment_koherensi', 'comment_kedalaman', 'comment_akurasi', 'comment_gaya', 'comment_mekanik', 'comment_engagement'
+    ])
+    
+    for e in evaluations:
+        writer.writerow([
+            e.evaluator_id, e.manuscript_id, e.output_type, e.page_number, e.is_draft,
+            e.completed_at.isoformat() if e.completed_at else None,
+            e.score_kejelasan, e.score_koherensi, e.score_kedalaman, e.score_akurasi, e.score_gaya, e.score_mekanik, e.score_engagement,
+            e.comment_kejelasan, e.comment_koherensi, e.comment_kedalaman, e.comment_akurasi, e.comment_gaya, e.comment_mekanik, e.comment_engagement
+        ])
+    
+    response = app.response_class(
+        response=output.getvalue(),
+        mimetype='text/csv',
+        headers={'Content-Disposition': 'attachment; filename=evaluations.csv'}
+    )
+    return response
+
+
+@app.route('/admin')
+def admin_dashboard():
+    """Admin dashboard to view all evaluators and their progress."""
+    evaluators = Evaluator.query.all()
+    stats = []
+    for ev in evaluators:
+        total = Evaluation.query.filter_by(evaluator_id=ev.id).count()
+        submitted = Evaluation.query.filter_by(evaluator_id=ev.id, is_draft=False).count()
+        stats.append({
+            'id': ev.id,
+            'name': ev.name,
+            'created_at': ev.created_at.strftime('%Y-%m-%d %H:%M') if ev.created_at else '-',
+            'total': total,
+            'submitted': submitted
+        })
+    return render_template('admin.html', evaluators=stats)
 
 
 if __name__ == '__main__':

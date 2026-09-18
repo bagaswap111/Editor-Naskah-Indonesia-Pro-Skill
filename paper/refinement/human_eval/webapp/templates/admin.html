@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block body_class %}admin-page{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <header class="admin-header">
+        <span class="logo-small">ENIP</span>
+        <h1>Admin Dashboard</h1>
+        <div class="header-right">
+            <a href="/admin/evaluations" class="btn-download">Download JSON</a>
+            <a href="/admin/evaluations/csv" class="btn-download">Download CSV</a>
+        </div>
+    </header>
+    
+    <div class="admin-stats">
+        <div class="stat-card">
+            <h3>Total Evaluators</h3>
+            <p class="stat-number">{{ evaluators|length }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Submissions</h3>
+            <p class="stat-number">{{ evaluators|sum(attribute='submitted') }}</p>
+        </div>
+    </div>
+    
+    <div class="evaluator-list">
+        <h2>Evaluator Progress</h2>
+        <table class="evaluator-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Registered</th>
+                    <th>Drafts</th>
+                    <th>Submitted</th>
+                    <th>Progress</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ev in evaluators %}
+                <tr>
+                    <td>{{ ev.id }}</td>
+                    <td>{{ ev.name }}</td>
+                    <td>{{ ev.created_at }}</td>
+                    <td>{{ ev.total - ev.submitted }}</td>
+                    <td>{{ ev.submitted }}</td>
+                    <td>
+                        <div class="progress-bar-small">
+                            <div class="progress-fill-small" style="width: {{ (ev.submitted / 15 * 100) if ev.submitted > 0 else 0 }}%"></div>
+                        </div>
+                        <span>{{ ev.submitted }}/15</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
