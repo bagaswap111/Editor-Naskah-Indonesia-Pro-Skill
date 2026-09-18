@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Panduan Evaluasi - ENIP Human Evaluation{% endblock %}
+{% block body_class %}instructions-page{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="art-deco-header">
+        <div class="header-decoration"></div>
+        <h1>Panduan Evaluasi</h1>
+        <div class="header-decoration"></div>
+    </div>
+    
+    <div class="instructions-container">
+        <section class="instruction-section">
+            <h2>1. Tujuan Evaluasi</h2>
+            <p>Anda akan menilai kualitas naskah bahasa Indonesia yang telah disunting oleh sistem ENIP (Editor Naskah Indonesia Pro). Tugas Anda adalah membandingkan output sistem dengan naskah asli.</p>
+        </section>
+        
+        <section class="instruction-section">
+            <h2>2. Yang Perlu Anda Lakukan</h2>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <div class="step-content">
+                    <h3>Baca Naskah Asli</h3>
+                    <p>Setiap paket berisi 10 naskah. Baca naskah asli terlebih dahulu.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <div class="step-content">
+                    <h3>Baca Output Sistem</h3>
+                    <p>Baca output sistem yang sesuai. Gunakan tab untuk beralih antara output ENIP dan B1.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <div class="step-content">
+                    <h3>Skor 7 Dimensi</h3>
+                    <p>Untuk setiap pasangan naskah + output, berikan skor 1-10 untuk 7 dimensi:</p>
+                    <ol class="dimension-list">
+                        <li><strong>Kejelasan</strong> - Apakah kalimat mudah dipahami?</li>
+                        <li><strong>Koherensi</strong> - Apakah paragraf mengalir logis?</li>
+                        <li><strong>Kedalaman</strong> - Apakah topik dibahas mendalam?</li>
+                        <li><strong>Akurasi</strong> - Apakah informasi akurat?</li>
+                        <li><strong>Gaya</strong> - Apakah gaya bahasa konsisten?</li>
+                        <li><strong>Mekanik</strong> - Apakah ejaan dan tanda baca benar?</li>
+                        <li><strong>Engagement</strong> - Apakah menarik dibaca?</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <div class="step-content">
+                    <h3>Berikan Komentar</h3>
+                    <p>Untuk skor &le;6, berikan komentar penjelasan.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <div class="step-content">
+                    <h3>Isi Evaluasi Lengkap</h3>
+                    <p>Isi semua kolom di lembar evaluasi.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="instruction-section">
+            <h2>3. Kriteria Skoring</h2>
+            <table class="scoring-table">
+                <thead>
+                    <tr>
+                        <th>Skor</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1-3</td>
+                        <td>Kualitas rendah, banyak masalah</td>
+                    </tr>
+                    <tr>
+                        <td>4-6</td>
+                        <td>Kualitas sedang, beberapa masalah</td>
+                    </tr>
+                    <tr>
+                        <td>7-8</td>
+                        <td>Kualitas baik, sedikit masalah</td>
+                    </tr>
+                    <tr>
+                        <td>9-10</td>
+                        <td>Kualitas sangat baik, hampir sempurna</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="instruction-section">
+            <h2>4. Tips Evaluasi</h2>
+            <ul class="tips-list">
+                <li>Bandingkan output dengan naskah asli, bukan dengan naskah lain</li>
+                <li>Fokus pada perubahan yang dibuat sistem</li>
+                <li>Jika ragu, berikan skor tengah (5-6)</li>
+                <li>Komentar harus spesifik dan dapat ditindaklanjuti</li>
+                <li>Jangan terpengaruh oleh identitas anonim sistem</li>
+            </ul>
+        </section>
+        
+        <section class="instruction-section">
+            <h2>5. Waktu Evaluasi</h2>
+            <p>Diperkirakan 3-4 jam untuk 10 naskah. Anda dapat beristirahat kapan saja.</p>
+        </section>
+        
+        <a href="/evaluate/1" class="btn-submit">
+            Mulai Evaluasi
+            <span class="btn-arrow">&rarr;</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

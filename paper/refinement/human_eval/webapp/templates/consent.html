@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Consent - ENIP Human Evaluation{% endblock %}
+{% block body_class %}consent-page{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="art-deco-header">
+        <div class="header-decoration"></div>
+        <h1>Consent</h1>
+        <div class="header-decoration"></div>
+    </div>
+    
+    <div class="form-container">
+        <form method="POST" action="/consent" id="consent-form">
+            <div class="form-group">
+                <label for="name">Nama Lengkap</label>
+                <input type="text" id="name" name="name" required 
+                       placeholder="Masukkan nama lengkap Anda">
+            </div>
+            
+            <div class="form-group">
+                <label for="date">Tanggal</label>
+                <input type="text" id="date" name="date" readonly
+                       value="">
+            </div>
+            
+            <div class="form-group">
+                <label class="consent-label">Pernyataan Persetujuan</label>
+                
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="consent" required>
+                        <span class="checkmark"></span>
+                        <span>Saya telah membaca dan memahami deskripsi penelitian</span>
+                    </label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="consent2" required>
+                        <span class="checkmark"></span>
+                        <span>Saya setuju untuk berpartisipasi secara sukarela</span>
+                    </label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="consent3" required>
+                        <span class="checkmark"></span>
+                        <span>Saya memahami bahwa saya dapat berhenti kapan saja</span>
+                    </label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="consent4" required>
+                        <span class="checkmark"></span>
+                        <span>Saya setuju untuk menilai naskah sesuai panduan yang diberikan</span>
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-submit" id="submit-btn" disabled>
+                Lanjutkan ke Panduan
+                <span class="btn-arrow">&rarr;</span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const submitBtn = document.getElementById('submit-btn');
+        const nameInput = document.getElementById('name');
+        const dateInput = document.getElementById('date');
+        
+        var today = new Date().toISOString().split('T')[0];
+        dateInput.value = today;
+        
+        function checkAll() {
+            var allChecked = true;
+            checkboxes.forEach(function(cb) {
+                if (!cb.checked) allChecked = false;
+            });
+            var nameFilled = nameInput.value.trim() !== '';
+            submitBtn.disabled = !(allChecked && nameFilled);
+        }
+        
+        checkboxes.forEach(function(cb) {
+            cb.addEventListener('change', checkAll);
+        });
+        nameInput.addEventListener('input', checkAll);
+    });
+</script>
+{% endblock %}

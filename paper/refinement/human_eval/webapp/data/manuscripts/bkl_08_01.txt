@@ -1,0 +1,30 @@
+# Bab 4.3: Planning & Reasoning — Chain-of-Thought (CoT) Lokal
+
+Setelah membaca sub-bab ini, Anda akan mampu:
+
+- Menerapkan CoT, ReAct, dan Tree-of-Thought pada LLM lokal seperti Llama 3.1, Qwen 2.5, dan DeepSeek V4 Flash
+- Membedakan reasoning (memecahkan masalah) dan planning (menyusun aksi), serta mengevaluasi kualitas penalaran model lokal
+
+### Berpikir dengan Suara
+
+Pada tahun 2022, tim peneliti Google Brain yang dipimpin Jason Wei menemukan sesuatu yang tampak sepele, tetapi mengubah cara kita menggunakan LLM: jika model diminta menuliskan langkah-langkah penalarannya sebelum memberikan jawaban akhir, akurasinya melonjak drastis [1]. Teknik ini disebut Chain-of-Thought (CoT) — rantai pemikiran — dan efeknya paling kuat pada model di atas 100 miliar parameter, sebuah fenomena yang oleh para peneliti disebut emergent ability: kemampuan yang tidak dilatih secara eksplisit, tetapi muncul dengan sendirinya seiring ukuran model.
+
+Contohnya sederhana. Pertanyaan "Hitung 25 × 4 + 10": tanpa CoT, model menebak jawaban dalam satu langkah dan sering salah. Dengan CoT, model menulis: "25 × 4 = 100, lalu 100 + 10 = 110, jadi jawabannya 110". Setiap langkah dijalankan sebagai langkah komputasi yang bisa diperiksa — dan kesalahan, bila terjadi, bisa ditelusuri di langkah mana. CoT tidak membuat model "lebih pintar" secara fundamental; ia mengubah model menjadi pekerja yang menunjukkan pekerjaannya — dan cara itu mengurangi kesalahan secara drastis.
+
+### Mengapa Ini Berpengaruh Besar
+
+Alasan mengapa CoT bekerja masih diperdebatkan, tetapi hipotesis yang paling kuat adalah ini: LLM dilatih pada teks yang umumnya runtut langkah demi langkah (artikel, buku, kode), bukan pada jawaban singkat. Dengan menuliskan langkah-langkah, model menyalurkan pengetahuan proseduralnya — yang memang ada di bobotnya — ke jalur yang sama dengan distribusi data latihnya. CoT juga membuat attention model bekerja lebih efisien: setiap token baru dapat "menunjuk" ke hasil antara yang baru ditulis, seperti aritmetika di atas kertas yang mencegah pikiran kacau. Bagi agen lokal, dampaknya praktis: model 7-14B yang menjawab salah dalam single shot sering kali menjawab benar setelah dipaksa menulis langkah demi langkah — dengan biaya beberapa ratus token tambahan.
+
+### Few-shot CoT
+
+Few-shot CoT bekerja dengan menyertakan dua-tiga contoh soal beserta langkah-langkah penyelesaiannya di dalam prompt, sebelum memberikan soal sebenarnya. Contoh yang baik harus mencerminkan struktur soal yang akan dijawab: jika soalnya aritmetika, berikan contoh aritmetika; jika logika berurutan, berikan contoh logika. Dari paper asli Wei et al. [1], pola ini menghasilkan akurasi GSM8K sekitar 58% pada model besar — jauh di atas standard prompting yang hanya ~20%. Kelemahannya: prompt menjadi panjang, dan kualitas jawaban sangat sensitif terhadap kualitas contoh.
+
+### Zero-shot CoT
+
+Zero-shot CoT adalah varian yang paling murah: tanpa contoh sama sekali, cukup akhiri pertanyaan dengan kalimat ajaib "Let's think step by step" (dalam bahasa Indonesia: "Mari kita berpikir langkah demi langkah"). Kojima et al. (2022) menunjukkan bahwa frasa sederhana ini memicu model menghasilkan rantai penalaran sendiri [6]. Pada GSM8K, zero-shot CoT mencapai ~43% — dua kali lipat standard prompting — dengan biaya token yang rendah. Ini adalah teknik pertama yang harus dicoba: satu kalimat, nol contoh, perbaikan signifikan.
+
+### Self-Consistency
+
+Self-Consistency (konsistensi diri) membawa ide "tanya banyak ahli, ambil suara terbanyak" ke ranah CoT. Model diminta menghasilkan beberapa rantai penalaran independen untuk pertanyaan yang sama (biasanya lima kali, dengan temperature lebih tinggi), lalu jawaban akhir ditentukan dengan majority voting [3]. Di kertas aslinya, teknik ini menaikkan akurasi GSM8K hingga ~72% — perbaikan besar di atas CoT tunggal. Harganya jelas: lima kali inference berarti lima kali biaya token dan latensi. Self-Consistency paling masuk akal untuk keputusan high-stakes yang kebetulan murah untuk dihitung ulang — misalnya verifikasi logika bisnis, bukan untuk percakapan real-time.
+
+### Tree-of-Thoughts (ToT)

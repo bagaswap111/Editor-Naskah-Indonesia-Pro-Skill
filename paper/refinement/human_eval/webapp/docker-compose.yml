@@ -1,0 +1,11 @@
+services:
+  webapp:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./instance:/app/instance
+    environment:
+      - FLASK_SECRET_KEY=${FLASK_SECRET_KEY:-enip-eval-secret-key-2026}
+      - DATABASE_URL=sqlite:///instance/evaluations.db
+    restart: unless-stopped
