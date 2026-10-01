@@ -1,0 +1,56 @@
+{
+  "tool": "LanguageTool",
+  "endpoint": "https://api.languagetool.org/v2",
+  "probed_at": "2026-10-01T13:49:27+00:00",
+  "indonesian_supported": false,
+  "language_codes": [
+    "ar",
+    "ast",
+    "be",
+    "br",
+    "ca",
+    "crh",
+    "da",
+    "de",
+    "de-DE-x-simple-language",
+    "el",
+    "en",
+    "eo",
+    "es",
+    "fa",
+    "fr",
+    "ga",
+    "gl",
+    "it",
+    "ja",
+    "km",
+    "nb",
+    "nl",
+    "no",
+    "pl",
+    "pt",
+    "ro",
+    "ru",
+    "sk",
+    "sl",
+    "sv",
+    "ta",
+    "tl",
+    "uk",
+    "zh"
+  ],
+  "probe_error": null,
+  "manuscripts": [],
+  "notes": [
+    "LanguageTool does not ship Indonesian rules: 'id' is absent from the supported-language inventory and a check request with language=id is rejected. No manuscript-level run is possible; see RESULTS.md."
+  ],
+  "id_check_probe": {
+    "payload": null,
+    "error": {
+      "status": 400,
+      "reason": "Bad Request",
+      "body": "Error: 'id' is not a language code known to LanguageTool. Supported language codes are: ar, ast-ES, be-BY, br-FR, ca-ES, ca-ES-balear, ca-ES-valencia, crh-UA, da-DK, de, de-AT, de-CH, de-DE, de-DE-x-simple-language, de-DE-x-simple-language-DE, de-LU, el-GR, en, en-AU, en-CA, en-GB, en-NZ, en-US, en-ZA, eo, es, es-AR, es-ES, fa, fa-IR, fr, fr-BE, fr-CA, fr-CH, fr-FR, ga-IE, gl-ES, it, it-IT, ja-JP, km-KH, nb, nl, nl-BE, nl-NL, no, pl-PL, pt, pt-AO, pt-BR, pt-MZ, pt-PT, ro-RO, ru-RU, sk-SK, sl-SI,"
+    },
+    "interpretation": "HTTP 400 = language 'id' rejected by LanguageTool"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "generated_at": "2026-10-01T13:57:16+00:00",
+  "judge": "J1 (gemini-3.5-flash-lite)",
+  "baseline": "enip_full",
+  "baseline_trial": 0,
+  "manuscripts": [
+    "aca_01",
+    "aca_02",
+    "jur_01",
+    "jur_02",
+    "per_01",
+    "per_02",
+    "pop_01",
+    "pop_02",
+    "sas_01",
+    "sas_02"
+  ],
+  "n_manuscripts": 10,
+  "bootstrap": {
+    "n": 10000,
+    "seed": 42,
+    "ci": 0.95
+  },
+  "conditions": {
+    "enip_no_puebi": {
+      "n": 10,
+      "mean": 8.8571,
+      "std": 0.1905,
+      "delta_vs_enip_full": 1.6857,
+      "per_dimension": {
+        "Kejelasan": 9.3,
+        "Koherensi": 9.0,
+        "Kedalaman": 7.8,
+        "Akurasi": 8.8,
+        "Gaya": 9.0,
+        "Mekanik": 10.0,
+        "Engagement": 8.1
+      },
+      "ci95": {
+        "lo": 0.8286,
+        "hi": 2.6571,
+        "n_bootstrap": 10000,
+        "seed": 42
+      },
+      "ci_excludes_zero": true,
+      "significant": true
+    },
+    "enip_no_style": {
+      "n": 10,
+      "mean": 8.9,
+      "std": 0.2239,
+      "delta_vs_enip_full": 1.7286,
+      "per_dimension": {
+        "Kejelasan": 9.1,
+        "Koherensi": 9.0,
+        "Kedalaman": 8.0,
+        "Akurasi": 9.0,
+        "Gaya": 9.1,
+        "Mekanik": 10.0,
+        "Engagement": 8.1
+      },
+      "ci95": {
+        "lo": 0.8143,
+        "hi": 2.7571,
+        "n_bootstrap": 10000,
+        "seed": 42
+      },
+      "ci_excludes_zero": true,
+      "significant": true
+    },
+    "enip_no_workflow": {
+      "n": 10,
+      "mean": 8.6857,
+      "std": 0.1756,
+      "delta_vs_enip_full": 1.5143,
+      "per_dimension": {
+        "Kejelasan": 9.0,
+        "Koherensi": 9.0,
+        "Kedalaman": 7.5,
+        "Akurasi": 8.8,
+        "Gaya": 9.0,
+        "Mekanik": 9.4,
+        "Engagement": 8.1
+      },
+      "ci95": {
+        "lo": 0.6571,
+        "hi": 2.4714,
+        "n_bootstrap": 10000,
+        "seed": 42
+      },
+      "ci_excludes_zero": true,
+      "significant": true
+    },
+    "enip_full": {
+      "n": 10,
+      "mean": 7.1714,
+      "std": 1.5368,
+      "delta_vs_enip_full": 0.0,
+      "per_dimension": {
+        "Kejelasan": 7.4,
+        "Koherensi": 7.4,
+        "Kedalaman": 6.5,
+        "Akurasi": 6.9,
+        "Gaya": 7.6,
+        "Mekanik": 7.5,
+        "Engagement": 6.9
+      },
+      "ci95": null,
+      "significant": false,
+      "ci_excludes_zero": false
+    }
+  },
+  "pairwise_within_ablation": [
+    {
+      "a": "enip_no_puebi",
+      "b": "enip_no_style",
+      "delta": -0.0429,
+      "ci95": {
+        "lo": -0.2429,
+        "hi": 0.1143,
+        "n_bootstrap": 10000,
+        "seed": 42
+      },
+      "significant": false
+    },
+    {
+      "a": "enip_no_puebi",
+      "b": "enip_no_workflow",
+      "delta": 0.1714,
+      "ci95": {
+        "lo": 0.0857,
+        "hi": 0.2714,
+        "n_bootstrap": 10000,
+        "seed": 42
+      },
+      "significant": true
+    },
+    {
+      "a": "enip_no_style",
+      "b": "enip_no_workflow",
+      "delta": 0.2143,
+      "ci95": {
+        "lo": 0.0286,
+        "hi": 0.4286,
+        "n_bootstrap": 10000,
+        "seed": 42
+      },
+      "significant": true
+    }
+  ],
+  "significant_vs_enip_full": true,
+  "significant_within_ablation": true
+}

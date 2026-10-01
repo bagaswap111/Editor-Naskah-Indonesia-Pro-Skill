@@ -39,7 +39,11 @@ DEFAULT_MODEL = {
 }
 
 # Ablation conditions: which references to exclude
+# enip_full = control condition (no exclusion). Wajib dijalankan dengan
+# editor & model yang SAMA seperti kondisi ablations lain, agar perbandingan
+# entirely within-study (tidak confounded oleh perbedaan model).
 ABLATION_EXCLUDE = {
+    "enip_full": [],
     "enip_no_puebi": ["PUEBI.md"],
     "enip_no_style": ["STYLE_GUIDE.md"],
     "enip_no_workflow": ["WORKFLOW.md"],

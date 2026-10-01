@@ -1,11 +1,15 @@
+Berikut adalah hasil penyuntingan naskah Anda yang telah disesuaikan dengan kaidah PUEBI (EYD) dan KBBI, serta diperhalus tata bahasanya agar lebih koheren dan profesional dengan gaya persuasi-argumentatif.
+
+---
+
 ### Diagnosis Awal
-Naskah ini memiliki gagasan yang kuat dan runtut mengenai pentingnya literasi keuangan bagi generasi muda dan perlunya gerakan bersama. Namun, naskah ini memerlukan perbaikan mekanik yang signifikan terkait penulisan huruf kapital, kata depan, gabungan kata, dan tanda baca sesuai PUEBI, serta perbaikan struktur kalimat dan penghilangan pleonasme (seperti *adalah merupakan*).
+Naskah memiliki argumen yang kuat mengenai pentingnya literasi keuangan bagi generasi muda, tetapi masih terkendala oleh sejumlah kesalahan mekanik (penulisan huruf kapital, kata depan, gabungan kata, dan tanda baca) serta beberapa struktur kalimat yang kurang efektif (pleonasme dan kurangnya transisi yang mulus).
 
 ---
 
 ### Naskah Hasil Editan (Mode: Edit + Catatan)
 
-Literasi keuangan sering kali dianggap sebagai urusan orang dewasa yang bekerja di kantor. Pandangan ini bukan hanya keliru, melainkan justru berbahaya bagi generasi muda. Lima tahun terakhir memperlihatkan peningkatan utang konsumtif di kalangan mahasiswa, dan kebiasaan ini diprediksi akan berlanjut. Data dari lembaga survei menunjukkan bahwa delapan dari sepuluh mahasiswa tidak memahami perbedaan antara kebutuhan dan keinginan. Kondisi ini diperparah oleh kemudahan akses pinjaman daring (*online*) yang menawarkan proses cepat tanpa penjelasan risiko. Dua kasus gagal bayar di kampus besar bahkan berujung pada masalah hukum yang berkepanjangan.
+Literasi keuangan sering kali dianggap sebagai urusan orang dewasa yang bekerja di kantor. Pandangan ini bukan hanya keliru, melainkan juga berbahaya bagi generasi muda. Lima tahun terakhir memperlihatkan peningkatan utang konsumtif di kalangan mahasiswa, dan kebiasaan ini diprediksi akan berlanjut. Data dari lembaga survei menunjukkan bahwa delapan dari sepuluh mahasiswa tidak memahami perbedaan antara kebutuhan dan keinginan. Kondisi ini diperparah oleh kemudahan akses pinjaman *online* yang menawarkan proses cepat tanpa penjelasan risiko. Dua kasus gagal bayar di kampus besar bahkan berujung pada masalah hukum yang berkepanjangan.
 
 Kita perlu menanamkan literasi keuangan sejak dini, mulai dari bangku sekolah dasar. Pendidikan ini tidak harus rumit. Sekolah dapat mengajarkan cara membedakan kebutuhan, menyusun anggaran sederhana, dan menabung secara teratur. Walaupun mata pelajaran tersebut belum menjadi kurikulum wajib, beberapa daerah telah memulai program percontohan. Empat sekolah di Yogyakarta, misalnya, berhasil menurunkan angka jajan berlebihan melalui program kantin sehat. Bukti sederhana ini menunjukkan bahwa perubahan mungkin dilakukan tanpa menunggu kebijakan besar. Tiga perguruan tinggi juga telah menambahkan mata kuliah literasi keuangan, dan jumlah pendaftarnya meningkat setiap semester.
 
@@ -15,35 +19,38 @@ Komitmen ini tidak dapat dibebankan kepada satu lembaga saja, melainkan harus me
 
 ---
 
-### Catatan Editor
+### Catatan Editor (Perubahan Signifikan)
 
-1. **Ejaan dan Penulisan Kata (PUEBI):**
-   * **Kata Depan (`di-`):** Diperbaiki dari *dikantor*, *dikampus*, *disekolah*, *dikota*, dan *disekolah* menjadi **di kantor**, **di kampus**, **di sekolah**, **di kota**, dan **di sekolah** karena menunjukkan tempat.
-   * **Kata Depan Terikat (`antar-`):** Diperbaiki dari *antarlembaga* (sudah benar digabung karena bentuk terikat).
-   * **Partikel Gabungan / Penulisan Angka:** 
-     * Penulisan *2 kasus* dan *4 sekolah* di awal kalimat diubah menjadi **Dua kasus** dan **Empat sekolah** (angka di bawah sepuluh yang terletak di awal kalimat wajib ditulis dengan huruf).
-     * Penulisan *2.026* diubah menjadi **2026** (tahun tidak menggunakan titik pemisah ribuan).
-   * **Istilah Asing:** Penulisan *pinjaman online* dicetak miring atau diganti padanan bakunya *pinjaman daring*. Dipertahankan dengan penambahan huruf miring jika mempertahankan istilah aslinya.
-
-2. **Tata Bahasa dan Diksi:**
-   * **Pleonasme:** Frasa *adalah merupakan* dihapus dan disederhanakan menjadi **merupakan**. Frasa *disebabkan karena* diperbaiki menjadi **disebabkan oleh**.
-   * **Kelengkapan Kalimat:** Pada paragraf pertama, kalimat *"Pandangan ini keliru melainkan..."* disempurnakan menjadi *"Pandangan ini bukan hanya keliru, melainkan justru..."* agar konjungsi korelatifnya tepat.
-   * **Tanda Baca:** Penambahan koma sebelum kata hubung pertentangan (seperti *sedangkan*, *melainkan*, *tetapi*) untuk memperjelas struktur kalimat majemuk bertingkat/setara.
+1. **Penulisan Angka di Awal Kalimat / Di Bawah Sepuluh:** 
+   * `2 kasus` diubah menjadi `Dua kasus` (angka di bawah sepuluh ditulis dengan huruf jika tidak berupa rincian statistik).
+   * `4 sekolah` diubah menjadi `Empat sekolah`.
+   * Penulisan tahun `2.026` diperbaiki menjadi `2026` (penulisan tahun tidak menggunakan titik).
+2. **Koreksi PUEBI (Kata Depan vs Awalan & Partikel):**
+   * `dikantor` diperbaiki menjadi `di kantor` (kata depan penunjuk tempat dipisah).
+   * `diambang` / `dikampus` / `disekolah` / `dikota` diperbaiki menjadi `di kampus`, `di sekolah`, dan `di kota`.
+   * `di bangun` diperbaiki menjadi `dibangun` (awalan *di-* digabung karena kata kerja pasif).
+   * `di ubah` / `praktek` diperbaiki menjadi `praktik` (bentuk baku sesuai KBBI).
+   * `resiko` diperbaiki menjadi `risiko`.
+3. **Penghilangan Pleonasme (Kata Berlebihan):**
+   * `adalah merupakan` dipangkas menjadi `merupakan` untuk menghindari pemborosan kata.
+   * `disebabkan karena` diperbaiki menjadi `disebabkan oleh`.
+4. **Tanda Baca & Konjungsi:**
+   * Penambahan koma sebelum kata hubung pertentangan/penegas (`melainkan`, `sedangkan`, `tetapi`) untuk memperjelas jeda dan struktur kalimat majemuk.
 
 ---
 
 ### Style Sheet
 
-* **Ejaan Baku (KBBI):** Risiko (bukan *resiko*), praktik (bukan *praktek*), daring (bukan *online* — jika disesuaikan).
-* **Format Angka:** Tahun ditulis tanpa titik (2026); angka di bawah 10 di awal kalimat ditulis dengan huruf (Dua, Empat).
-* **Gaya Penulisan:** Jurnalistik-Informatif (objektif, lugas, dan terstruktur).
+* **Ejaan Baku (KBBI):** *risiko* (bukan resiko), *praktik* (bukan praktek).
+* **Format Angka:** Angka 1–10 ditulis dengan huruf kecuali untuk tahun (2026) dan data statistik pecahan/persentase.
+* **Istilah Asing:** Kata *online* ditulis miring (*italic*) karena merupakan bahasa asing.
 
 ---
 
 ### Skor Kualitas (Skala 1–10)
 
-1. **Ketepatan Mekanik (PUEBI/KBBI):** 9.5 / 10
-2. **Kohesi & Koherensi:** 9 / 10
-3. **Diksi & Gaya Bahasa:** 8.5 / 10
-4. **Kejelasan Struktur Kalimat:** 9 / 10
-5. **Kekuatan Argumen/Logika:** 9 / 10
+1. **Ejaan & Tata Bahasa (PUEBI/KBBI):** 9.5 / 10
+2. **Koherensi & Alur Paragraf:** 9.0 / 10
+3. **Ketepatan Diksi:** 9.0 / 10
+4. **Kekuatan Argumen/Persuasif:** 9.0 / 10
+5. **Gaya Bahasa:** 9.0 / 10

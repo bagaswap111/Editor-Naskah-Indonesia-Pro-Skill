@@ -47,9 +47,9 @@
                     <td>{{ ev.submitted }}</td>
                     <td>
                         <div class="progress-bar-small">
-                            <div class="progress-fill-small" style="width: {{ (ev.submitted / 15 * 100) if ev.submitted > 0 else 0 }}%"></div>
+                            <div class="progress-fill-small" style="width: {{ (ev.submitted / ev.target * 100) if ev.target > 0 else 0 }}%"></div>
                         </div>
-                        <span>{{ ev.submitted }}/15</span>
+                        <span>{{ ev.submitted }}/{{ ev.target }}</span>
                     </td>
                 </tr>
                 {% endfor %}

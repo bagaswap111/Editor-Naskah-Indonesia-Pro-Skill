@@ -1,5 +1,5 @@
-### Diagnosis Awal
-Naskah populer mengenai psikologi memori ini memiliki alur yang menarik dan mudah dipahami, tetapi memerlukan koreksi mendasar pada aspek mekanik (PUEBI/EYD), seperti kesalahan penggunaan huruf kapital di awal kalimat, penulisan angka, penulisan kata depan, serta penghilangan bentuk pleonasme ("banyak para").
+**Diagnosis Awal**
+Naskah pop-edukatif ini memiliki alur dan substansi yang menarik, tetapi memerlukan sejumlah perbaikan mekanik sesuai PUEBI/EYD (huruf kapital, tanda baca, penulisan angka, dan partikel) serta perapian diksi agar lebih kohesif tanpa menghilangkan kesan kasualnya.
 
 ---
 
@@ -11,38 +11,35 @@ Tahap penyandian terjadi ketika informasi baru masuk. Semakin kuat perhatian yan
 
 Selain perhatian, emosi juga memengaruhi ingatan. Peristiwa yang memicu emosi kuat, seperti pernikahan atau kecelakaan, biasanya diingat lebih jelas. Namun, ingatan emosional juga rentan terhadap distorsi, sehingga kesaksian saksi mata sering kali tidak akurat. Para ahli menyarankan agar orang mencatat informasi penting karena menulis ulang membantu memperkuat jejak memori. Risiko salah ingat pun dapat ditekan dengan cara ini. Pada praktiknya, kebiasaan mencatat kecil ini terbukti efektif bagi siswa dan pekerja profesional. Sistem pengingat berbasis aplikasi kini juga banyak digunakan, walaupun efektivitasnya masih diperdebatkan.
 
-Ada juga fenomena yang disebut *tip-of-the-tongue effect*, yaitu kondisi ketika informasi terasa di ujung lidah tetapi tidak berhasil diucapkan. Kondisi ini meningkat seiring bertambahnya usia, namun tidak selalu menandakan gangguan serius. Otak yang sehat tetap melewati proses ini sebagai bagian dari *refresh* alami. Yang penting adalah memahami cara kerja memori sehingga kita tidak mudah panik ketika lupa. Sistem latihan mengingat, seperti pengulangan berjarak, dapat membantu menjaga daya ingat. Dengan pendekatan yang sederhana, kualitas hidup kita pun meningkat, dan kebiasaan lupa yang membuat frustrasi dapat dikelola dengan lebih tenang.
+Ada juga fenomena yang disebut efek *tip-of-the-tongue*, yaitu kondisi ketika informasi terasa di ujung lidah tetapi tidak berhasil diucapkan. Kondisi ini meningkat seiring bertambahnya usia, namun tidak selalu menandakan gangguan serius. Otak yang sehat tetap melewati proses ini sebagai bagian dari *refresh* alami. Yang penting adalah memahami cara kerja memori sehingga kita tidak mudah panik ketika lupa. Sistem latihan mengingat, seperti pengulangan berjarak, dapat membantu menjaga daya ingat. Dengan pendekatan yang sederhana, kualitas hidup kita pun meningkat, dan kebiasaan lupa yang membuat frustrasi dapat dikelola dengan lebih tenang.
 
 ---
 
 ### Catatan Editor
 
-1. **Kaidah PUEBI/EYD & Kapitalisasi**: 
-   - Memperbaiki huruf kapital di awal kalimat pada setiap awal paragraf yang sebelumnya berhuruf kecil (*pernahkah*, *proses*, *yang*).
-   - Memperbaiki penulisan kata depan "di-" pada kata "diambil" dan "dikelola" (digabung karena merupakan kata kerja pasif).
-   - Memperbaiki penulisan gabungan kata "walaupun" dan "walaupun" (sebelumnya terpisah *walau pun*).
-   - Mengubah kata baku *kwalitas* menjadi **kualitas**.
-2. **Penulisan Angka**: 
-   - Angka 2, 4, dan 5 di awal atau tengah kalimat diubah menjadi bentuk huruf (*Dua*, *Empat*, *Lima*) sesuai kaidah umum PUEBI untuk angka di bawah sepuluh yang tidak berupa rincian statistik kompleks.
-3. **Penyuntingan Gaya & Pleonasme**:
-   - Menghapus bentuk pleonasme "banyak para" menjadi "banyak ahli".
-   - Menghilangkan kata "agar supaya" menjadi "agar" untuk menghindari pemborosan kata.
-   - Memperbaiki tanda baca koma dan titik koma (`;`) untuk memperjelas jeda antarklausa yang panjang.
+1. **Ejaan & Tanda Baca (PUEBI):**
+   * **Huruf Kapital:** Awal kalimat dan unsur nama jenis yang mengikutinya telah disesuaikan (misalnya: *Pernahkah*, *Fenomena*, *Dua*, *Empat*, *Lima*, *Yang*).
+   * **Penulisan Angka:** Angka 2, 4, dan 5 di awal kalimat atau bilangan di bawah sepuluh yang tidak diikuti satuan diubah menjadi bentuk huruf (*Dua*, *Empat*, *Lima*) sesuai kaidah umum PUEBI.
+   * **Kata Depan & Imbuhan:** Memperbaiki penulisan *"di ambil"* menjadi *"diambil"* (kata depan vs awalan pasif) dan *"di kelola"* menjadi *"dikelola"*.
+   * **Kata Serapan & Baku:** Mengubah *"walau pun"* menjadi *"walaupun"* (gabungan kata yang ditulis serangkai) dan *"kwalitas"* menjadi *"kualitas"*.
+2. **Penghilangan Pleonasme:**
+   * Frasa *"banyak para ahli"* disederhanakan menjadi *"banyak ahli"* atau *"para ahli"* untuk menghindari kemubaziran (kata *banyak* dan *para* memiliki fungsi jamak yang sama).
+   * Frasa *"agar supaya"* disederhanakan menjadi *"agar"*.
+3. **Kohesi & Transisi:**
+   * Menambahkan koma sebelum konjungsi penjelas/pertentangan (*tetapi*, *sedangkan*, *namun*) untuk memperjelas jeda baca dan struktur klausa.
 
 ---
 
 ### Style Sheet
-* **Ejaan Baku**: kualitas (bukan *kwalitas*), walaupun (bukan *walau pun*).
-* **Istilah Asing**: *hard disk* dan *tip-of-the-tongue effect* dicetak miring karena merupakan istilah asing/ilmiah.
-* **Angka**: Angka di bawah 10 ditulis dengan huruf kecuali untuk persentase (40 persen).
+* **Gaya:** Populer-Edukatif.
+* **Format Angka:** Bilangan di bawah sepuluh ditulis dengan huruf (kecuali jika menyatakan persentase seperti *40 persen*).
+* **Istilah Asing:** Menggunakan huruf miring untuk istilah teknis atau asing yang belum diserap sepenuhnya (misalnya: *hard disk*, *tip-of-the-tongue*, *refresh*).
 
 ---
 
 ### Skor Kualitas (Skala 1–10)
-1. **Kejelasan Mekanik (PUEBI/KBBI)**: 9/10
-2. **Kohesi & Koherensi**: 9/10
-3. **Struktur Paragraf & Alur**: 8.5/10
-4. **Kesesuaian Gaya (Populer)**: 9/10
-5. **Ketepatan Diksi**: 9/10
-6. **Kekuatan Transisi**: 8.5/10
-7. **Preservasi Suara Penulis**: 9/10
+1. **Kejelasan Mekanik (PUEBI/KBBI):** 9.5/10
+2. **Kohesi & Koherensi:** 9/10
+3. **Struktur Paragraf:** 9/10
+4. **Kesesuaian Gaya (Populer):** 9/10
+5. **Akurasi & Konsistensi:** 9/10

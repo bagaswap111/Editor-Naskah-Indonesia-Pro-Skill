@@ -23,7 +23,7 @@ pages: "XX-XX"
 doi: "10.XXXX/XXXXXX.XXXXXXX"
 copyright: "CC BY 4.0"
 abstract: |
-  Indonesian manuscript editing lacks structured editorial support spanning mechanical, structural, and substantive layers. We present ENIP (Editor Naskah Indonesia Pro), a portable SKILL.md skill encoding a three-layer editorial methodology with a PUEBI-grounded style engine and a 7-dimension quality protocol. ENIP formalizes PUEBI/KBBI rules for on-demand LLM loading, provides a style engine with hybrid weighting (primary/secondary/tertiary = 60/30/10), and includes a 7-stage editing workflow with four output modes. As a system description, we report artifact characteristics, trigger reliability, progressive disclosure costs, preliminary quality evaluation, error analysis, and ethics considerations. Trigger reliability reached precision 0.943 and recall 0.550 on a 110-query test set stratified across 10 trigger patterns. Context overhead measurements show progressive disclosure costs of 382 tokens (discovery), 2,266 tokens (activation), and 10,589 tokens (full bundle). In a 20-manuscript evaluation using LLM judges, ENIP produced quality scores within 0.15 points of an unguided LLM baseline (7.84 vs. 7.99, not significant) while providing structured editorial methodology and cross-runtime portability demonstrated on 2 agent runtimes. An ablation study isolating component contributions reveals that removing individual components (PUEBI reference, style engine, workflow) does not significantly degrade quality, suggesting that ENIP's value lies in its integrated architecture rather than individual components. Natural manuscript evaluation on 20 texts shows consistent quality across four styles (mean 8.81), with academic texts scoring slightly higher (8.89) and journalistic/persuasive texts slightly lower (8.74). Error analysis identifies four failure modes: over-correction of register, conservative flagging on ambiguous cases, structural incompleteness, and self-assessment bias. We discuss ethics considerations including PUEBI bias, environmental cost, and human editor displacement. ENIP's contribution is structured methodology and portability for under-resourced languages without model fine-tuning.
+  Indonesian manuscript editing lacks structured editorial support spanning mechanical, structural, and substantive layers. We present ENIP (Editor Naskah Indonesia Pro), a portable SKILL.md skill encoding a three-layer editorial methodology with a PUEBI-grounded style engine and a 7-dimension quality protocol. ENIP formalizes PUEBI/KBBI rules for on-demand LLM loading, provides a style engine with hybrid weighting (primary/secondary/tertiary = 60/30/10), and includes a 7-stage editing workflow with four output modes. As a system description, we report artifact characteristics, trigger reliability, progressive disclosure costs, preliminary quality evaluation, error analysis, and ethics considerations. Trigger reliability reached precision 0.943 and recall 0.550 on a 110-query test set stratified across 10 trigger patterns. Context overhead measurements show progressive disclosure costs of 382 tokens (discovery), 2,266 tokens (activation), and 10,589 tokens (full bundle). In a 20-manuscript evaluation using LLM judges, ENIP produced quality scores within 0.15 points of an unguided LLM baseline (7.84 vs. 7.99, not significant) while providing structured editorial methodology and cross-runtime portability demonstrated on 2 agent runtimes. An ablation study on 10 injected manuscripts shows that removing the 7-stage workflow significantly reduces judged quality (paired bootstrap Δ 0.17–0.21, 95% CI excluding zero), while removing the PUEBI reference or the style engine leaves judged quality statistically indistinguishable from the other ablation conditions; contrasts against ENIP-full are confounded by editor and judge differences and are reported as such. Natural manuscript evaluation on 20 texts shows consistent quality across four styles (mean 8.81), with academic texts scoring slightly higher (8.89) and journalistic/persuasive texts slightly lower (8.74). Error analysis identifies four failure modes: over-correction of register, conservative flagging on ambiguous cases, structural incompleteness, and self-assessment bias. We discuss ethics considerations including PUEBI bias, environmental cost, and human editor displacement. ENIP's contribution is structured methodology and portability for under-resourced languages without model fine-tuning.
 ---
 
 # ENIP: A Portable Three-Layer Editorial Skill for Indonesian Manuscripts
@@ -70,7 +70,7 @@ This paper makes four contributions:
 
 Rule-based and neural grammatical error correction (GEC) systems have achieved strong performance on English and other high-resource languages [11,12]. Recent work has extended GEC to low-resource languages, including Indonesian. Lin et al. [5] presented a corpus construction framework for Indonesian GEC, demonstrating that LLMs like GPT-3.5-Turbo and GPT-4 can streamline corpus annotation. Musyafa et al. [1] proposed the first end-to-end neural-based Indonesian GEC system using Transformers, achieving state-of-the-art performance. Marier [3] provided a comprehensive survey of GEC for low-resource languages, highlighting challenges including synthetic data generation and multilingual pre-trained models.
 
-LanguageTool supports over 20 languages [13], and recent versions have added Indonesian support. However, existing tools still focus primarily on mechanical layer checking and cannot enforce PUEBI-specific conventions, style selection, coherence structure, or factual verification [14].
+LanguageTool supports over 30 languages [13] but ships no Indonesian rules: its published language inventory contains no `id` code, and a check request with `language=id` is rejected with HTTP 400 (verified against the public API, 2026-10-01). Existing open-source tools therefore remain unavailable for Indonesian mechanical editing and cannot enforce PUEBI-specific conventions, style selection, coherence structure, or factual verification [14].
 
 **GEC Evaluation Methodologies**: Existing GEC evaluation follows two paradigms: (1) automatic metrics (F0.5 score, accuracy) computed against gold-standard corrections, and (2) human evaluation of output quality. The F0.5 score, which weights precision higher than recall, is the standard metric for GEC tasks [11,12]. However, F0.5 measures surface-level correction accuracy and does not capture structural or substantive quality. ENIP's 7-dimension rubric extends evaluation beyond mechanical accuracy to include coherence, depth, style, and engagement — dimensions that GEC metrics do not address.
 
@@ -98,7 +98,7 @@ ENIP formalizes PUEBI/KBBI rules into a modular reference file loaded on demand,
 
 **Comparison to Existing Indonesian GEC Systems**: Musyafa et al. [1] proposed the first end-to-end neural-based Indonesian GEC system using Transformers, achieving state-of-the-art performance on their evaluation corpus. Lin et al. [5] presented a corpus construction framework that uses LLMs to streamline annotation. These systems focus exclusively on Layer 1 (mechanical) editing: they correct spelling, grammar, and punctuation but do not address structural coherence, style adaptation, or fact verification. ENIP complements these systems by providing Layers 2-3 (structural and substantive) editing, with Layer 1 as a foundation. A natural extension would be to integrate a fine-tuned GEC model for Layer 1 mechanical editing, with ENIP's workflow and style engine for Layers 2-3.
 
-**Comparison to LanguageTool Indonesian Support**: LanguageTool [13] recently added Indonesian support, but its coverage is limited to basic spell checking and simple grammar rules. It does not enforce PUEBI-specific conventions (e.g., italic formatting for loanwords, comma before conjunctions, number formatting), does not support style selection, and does not provide structural or substantive editing. ENIP's PUEBI rule base is more comprehensive than LanguageTool's Indonesian rules, though LanguageTool operates deterministically (no LLM variability) and is faster for simple corrections.
+**Comparison to LanguageTool**: LanguageTool [13] does not support Indonesian. We verified this against the public API on 2026-10-01: the `/v2/languages` inventory lists 34 language codes with no `id`, and a `POST /check` with `language=id` returns HTTP 400 ("'id' is not a language code known to LanguageTool"). A LanguageTool baseline is therefore not applicable to this corpus. The mechanical open-source baseline used instead is hunspell id-ID (B3), which detects spelling errors but produces no corrected text, so fix rates are not defined for it. ENIP's PUEBI rule base covers conventions such as comma before conjunction, italicized loanwords, and number formatting that no available Indonesian rule set provides. Deterministic checkers, where available, remain faster and free of LLM variability for simple corrections.
 
 ## 3. Methodology
 
@@ -387,30 +387,38 @@ To address the synthetic corpus ceiling effect, we extracted 137 natural manuscr
 
 ### 4.8 Ablation Study
 
-To isolate component contributions, we evaluated ENIP with three ablation conditions: (1) ENIP without PUEBI reference, (2) ENIP without style engine, and (3) ENIP without workflow. Each condition was evaluated on 10 injected manuscripts using Gemini 3.5 Flash Lite as both editor and judge.
+To isolate component contributions, we evaluated ENIP with three ablation conditions: (1) ENIP without PUEBI reference, (2) ENIP without style engine, and (3) ENIP without workflow. Each condition was run on the 10 injected manuscripts with Gemini 3.5 Flash Lite as both editor and judge (single judge, temperature 0). For reference, ENIP-full is restricted to the same 10 manuscripts from the main experiment (Groq gpt-oss-120b editor, judge J1). Uncertainty is the 95% percentile bootstrap CI of the paired per-manuscript difference (10,000 resamples, seed 42).
 
-**Ablation Results** (mean quality scores):
+**Ablation Results** (mean of 7 dimensions per manuscript):
 
-| Condition | Mean Score | Δ vs ENIP-full |
-|-----------|------------|----------------|
-| ENIP-full (existing) | 7.84 | — |
-| ENIP without PUEBI | 8.86 | +1.02 |
-| ENIP without style engine | 8.90 | +1.06 |
-| ENIP without workflow | 8.69 | +0.85 |
+| Condition | n | Mean | Std | Δ vs ENIP-full | 95% CI (Δ) |
+|-----------|---|------|-----|----------------|------------|
+| ENIP w/o PUEBI | 10 | 8.86 | 0.19 | +1.69 | [0.83, 2.66] |
+| ENIP w/o style engine | 10 | 8.90 | 0.22 | +1.73 | [0.81, 2.76] |
+| ENIP w/o workflow | 10 | 8.69 | 0.18 | +1.51 | [0.66, 2.47] |
+| ENIP-full (matched 10, main study) | 10 | 7.17 | 1.54 | — | — |
 
 **Per-Dimension Ablation Scores**:
 
-| Dimension | No-PUEBI | No-Style | No-Workflow |
-|-----------|----------|----------|-------------|
-| Kejelasan | 9.30 | 9.10 | 9.00 |
-| Koherensi | 9.00 | 9.00 | 9.00 |
-| Kedalaman | 7.80 | 8.00 | 7.50 |
-| Akurasi | 8.80 | 9.00 | 8.80 |
-| Gaya | 9.00 | 9.10 | 9.00 |
-| Mekanik | 10.00 | 10.00 | 9.40 |
-| Engagement | 8.10 | 8.10 | 8.10 |
+| Dimension | No-PUEBI | No-Style | No-Workflow | ENIP-full (matched) |
+|-----------|----------|----------|-------------|---------------------|
+| Kejelasan | 9.30 | 9.10 | 9.00 | 7.40 |
+| Koherensi | 9.00 | 9.00 | 9.00 | 7.40 |
+| Kedalaman | 7.80 | 8.00 | 7.50 | 6.50 |
+| Akurasi | 8.80 | 9.00 | 8.80 | 6.90 |
+| Gaya | 9.00 | 9.10 | 9.00 | 7.60 |
+| Mekanik | 10.00 | 10.00 | 9.40 | 7.50 |
+| Engagement | 8.10 | 8.10 | 8.10 | 6.90 |
 
-**Interpretation**: Counterintuitively, ablation conditions score higher than ENIP-full. This is likely due to two factors: (1) the ablation study used a different LLM (Gemini 3.5 Flash Lite) than the original evaluation, introducing model variability, and (2) the smaller sample size (10 manuscripts vs. 100) may not be representative. The Mekanik scores of 10.00 for No-PUEBI and No-Style suggest the judge may be scoring simpler outputs more favorably, as these conditions produce less structured (and potentially less noisy) edits. The workflow ablation shows the largest drop in Kedalaman (7.50 vs. 7.80-8.00), suggesting that the structured workflow contributes to substantive editing quality.
+**Within-ablation contrasts** (same editor and judge, therefore the only causally interpretable comparison):
+
+| Contrast (A − B) | Δ | 95% CI | Significant |
+|------------------|---|--------|-------------|
+| No-PUEBI − No-Style | −0.04 | [−0.24, 0.11] | no |
+| No-PUEBI − No-Workflow | +0.17 | [0.09, 0.27] | yes |
+| No-Style − No-Workflow | +0.21 | [0.03, 0.43] | yes |
+
+**Interpretation**: Two readings must be kept separate. (1) *Within the ablation*, removing the workflow significantly lowers judged quality relative to the other two conditions, consistent with the Kedalaman drop (7.50 vs. 7.80–8.00): the structured 7-stage workflow contributes to substantive editing quality, while PUEBI-reference removal and style-engine removal are statistically indistinguishable from each other. (2) *Against ENIP-full*, all ablation conditions score higher, but that contrast is confounded — the ablation used a different editor and a different judge than the main experiment — so it reflects model/judge artefacts rather than a benefit from removing components. The Mekanik scores of 10.00 for No-PUEBI and No-Style further indicate judge leniency on simpler, less structured outputs. Limitations: single judge, 10 manuscripts, and reference removal simulated through exclusion notes appended to SKILL.md; an extension to 3 judges × 20 manuscripts under the main evaluation's LLM is listed as future work.
 
 ### 4.9 Natural Manuscript Quality Evaluation (20 Manuscripts)
 
@@ -477,9 +485,8 @@ The progressive disclosure measurements reveal a fundamental trade-off: richer i
 
 **Near-term** (3-6 months):
 1. Human editor validation study with 2-3 senior Indonesian editors on 10+ natural manuscripts
-2. Ablation study isolating component contributions (PUEBI reference, style engine, workflow)
+2. Expanded ablation study with the full judge ensemble (3 judges × 20 manuscripts) using the same LLM as the main evaluation
 3. Extended portability testing to 4-5 additional agent runtimes
-4. Compare against LanguageTool's Indonesian support for mechanical layer baselines
 
 **Medium-term** (6-12 months):
 1. Integration of KBBI API for real-time dictionary lookups
@@ -510,7 +517,7 @@ ENIP demonstrates that portable domain skills can provide structured editing sup
 
 This paper presented ENIP, a portable three-layer editorial skill for Indonesian manuscripts. ENIP formalizes PUEBI/KBBI rules for on-demand LLM loading, provides a style engine with hybrid weighting, and includes a 7-stage editing workflow with four output modes.
 
-In evaluation against two LLM baselines on a 20-manuscript synthetic corpus, ENIP produced quality scores within 0.15 points of the unguided baseline (not significant) while providing structured editorial methodology, PUEBI grounding, and cross-runtime portability demonstrated on 2 agent runtimes. Trigger reliability reached precision 0.943 and recall 0.550 on a 110-query test set stratified across 10 trigger patterns. An ablation study isolating component contributions reveals that removing individual components (PUEBI reference, style engine, workflow) does not significantly degrade quality, suggesting that ENIP's value lies in its integrated architecture rather than individual components. Natural manuscript evaluation on 20 texts shows consistent quality across four styles (mean 8.81), with academic texts scoring slightly higher (8.89) and journalistic/persuasive texts slightly lower (8.74). Error analysis identified four failure modes (over-correction of register, conservative flagging, structural incompleteness, self-assessment bias) with actionable mitigation strategies. Ethics considerations address PUEBI bias, environmental cost, and human editor displacement. A full reproducibility package is provided including source code, evaluation corpus (20 synthetic + 137 natural manuscripts), and raw evaluation scores.
+In evaluation against two LLM baselines on a 20-manuscript synthetic corpus, ENIP produced quality scores within 0.15 points of the unguided baseline (not significant) while providing structured editorial methodology, PUEBI grounding, and cross-runtime portability demonstrated on 2 agent runtimes. Trigger reliability reached precision 0.943 and recall 0.550 on a 110-query test set stratified across 10 trigger patterns. An ablation study on 10 injected manuscripts shows that removing the 7-stage workflow significantly reduces judged quality (paired bootstrap Δ 0.17–0.21, 95% CI excluding zero), while removing the PUEBI reference or the style engine leaves judged quality statistically indistinguishable from the other ablation conditions; contrasts against ENIP-full are confounded by editor and judge differences and are reported as such. Natural manuscript evaluation on 20 texts shows consistent quality across four styles (mean 8.81), with academic texts scoring slightly higher (8.89) and journalistic/persuasive texts slightly lower (8.74). Error analysis identified four failure modes (over-correction of register, conservative flagging, structural incompleteness, self-assessment bias) with actionable mitigation strategies. Ethics considerations address PUEBI bias, environmental cost, and human editor displacement. A full reproducibility package is provided including source code, evaluation corpus (20 synthetic + 137 natural manuscripts), and raw evaluation scores.
 
 ENIP's primary contribution is not quality improvement but the combination of structured methodology, rule-based PUEBI grounding, and portable skill packaging for an under-resourced language. We position ENIP as a deployment architecture — a portable skill artifact that works across 7+ agent runtimes — rather than a quality improvement over optimized single-shot prompts.
 
@@ -528,7 +535,7 @@ The broader significance of this work extends beyond Indonesian editing. ENIP de
 **Remaining work** (future):
 1. **Human editor validation study** with 2-3 senior Indonesian editors on 10+ natural manuscripts — addresses the most critical evaluation gap.
 2. **Extended portability testing** to 4-5 additional agent runtimes (Cursor, Codex, Cline, Antigravity, VS Code Copilot) — strengthens the portability claim.
-3. **Compare against LanguageTool's Indonesian support** for mechanical layer baselines.
+3. **Expanded ablation study** with the full judge ensemble (3 judges × 20 manuscripts) under the same LLM as the main evaluation.
 4. **Per-layer quality breakdowns** for Layer 2 (structural) and Layer 3 (substantive).
 
 ## 7. Ethics and Broader Impact

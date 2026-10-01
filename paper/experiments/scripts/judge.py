@@ -41,6 +41,7 @@ CORPUS = ROOT / "corpus"
 SCORES = METRICS / "scores.json"
 ANON_MAP = METRICS / "judge_anon_map.json"
 ANON_MAP_SRC = METRICS / "judge_anon_map_source.json"
+DEFAULT_CONDITIONS = ("b1", "b2", "enip")
 
 QUALITY = Path(__file__).resolve().parents[3] / "skill" / "enip-editor" / "references" / "QUALITY_METRICS.md"
 
@@ -141,10 +142,13 @@ def call(provider, model, messages, temperature, timeout=600):
                           timeout=timeout)
         if r.status_code == 429:
             body = (r.text or "").lower()
-            # kuota HARIAN: percuma diulang hari ini — gagal cepat,
-            # putaran berikutnya (judge_loop) yang mengisi ulang
+            # Kuota HARIAN: percuma diulang hari ini — gagal cepat,
+            # putaran berikutnya (judge_loop) yang mengisi ulang.
+            # PENTING: 429 rate-limit per menit (mis. Gemini free tier
+            # 20 req/menit) juga memuat frasa "exceeded your current quota",
+            # jadi hanyaAberi label HARD_QUOTA bila memang menyebut "/day".
             if "tokens per day" in body or "tpd" in body or \
-                    "exceeded your current quota" in body:
+                    "requests per day" in body or "per day" in body:
                 raise RuntimeError(f"HARD_QUOTA {provider} {model}")
             last = "429"
             reset = parse_duration(
@@ -188,7 +192,7 @@ def norm_skor(obj):
     return skor, {str(k): str(v) for k, v in jus.items()}
 
 
-def load(seed, conditions=("b1", "b2", "enip")):
+def load(seed, conditions=DEFAULT_CONDITIONS):
     meta = json.loads((CORPUS / "metadata.json").read_text(encoding="utf-8"))
     ids = [m["id"] for m in meta["corpus"]]
     if ANON_MAP.exists():
@@ -242,12 +246,20 @@ def save_rows(rows):
 
 
 def main():
+    global SCORES
     ap = argparse.ArgumentParser()
     ap.add_argument("--judges", default="J1,J2,J3")
     ap.add_argument("--seed", type=int, default=20260815)
     ap.add_argument("--full", action="store_true",
                     help="abaikan scores.json yang sudah ada (mulai ulang)")
+    ap.add_argument("--conditions", default=",".join(DEFAULT_CONDITIONS),
+                    help="kondisi yang dinilai (default: b1,b2,enip)")
+    ap.add_argument("--scores-file", default=None,
+                    help="tulis hasil ke file lain (mis. metrics/ablation_scores.json)")
     a = ap.parse_args()
+
+    if a.scores_file:
+        SCORES = Path(a.scores_file)
 
     envfile = ROOT / ".env"
     if envfile.exists():
@@ -258,8 +270,9 @@ def main():
             k, v = line.split("=", 1)
             os.environ.setdefault(k.strip(), v.strip())
 
-    tasks = load(a.seed)
-    judges = a.judges.split(",")
+    tasks = load(a.seed, conditions=tuple(
+        c.strip() for c in a.conditions.split(",") if c.strip()))
+    judges = [j.strip() for j in a.judges.split(",") if j.strip()]
     needed = {JUDGES[j]["provider"] for j in judges}
     if "groq" in needed and not os.environ["GROQ_API_KEY"]:
         sys.exit("GROQ_API_KEY tidak ditemukan (cek paper/experiments/.env)")

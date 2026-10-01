@@ -310,13 +310,13 @@ def get_progress():
     if not evaluator_id:
         return jsonify({'error': 'Not authenticated'}), 401
 
-    total = Evaluation.query.filter_by(evaluator_id=evaluator_id).count()
+    target = len(build_page_list())
     completed = Evaluation.query.filter_by(evaluator_id=evaluator_id, is_draft=False).count()
 
     return jsonify({
-        'total': total,
+        'total': target,
         'completed': completed,
-        'percentage': (completed / 30 * 100) if total > 0 else 0
+        'percentage': (completed / target * 100) if target > 0 else 0
     })
 
 
@@ -436,6 +436,7 @@ def admin_evaluations_csv():
 def admin_dashboard():
     """Admin dashboard to view all evaluators and their progress."""
     evaluators = Evaluator.query.all()
+    target = len(build_page_list())
     stats = []
     for ev in evaluators:
         total = Evaluation.query.filter_by(evaluator_id=ev.id).count()
@@ -445,9 +446,10 @@ def admin_dashboard():
             'name': ev.name,
             'created_at': ev.created_at.strftime('%Y-%m-%d %H:%M') if ev.created_at else '-',
             'total': total,
+            'target': target,
             'submitted': submitted
         })
-    return render_template('admin.html', evaluators=stats)
+    return render_template('admin.html', evaluators=stats, target=target)
 
 
 if __name__ == '__main__':

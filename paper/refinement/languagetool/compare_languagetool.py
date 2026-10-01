@@ -1,105 +1,87 @@
 #!/usr/bin/env python3
 """
-Compare LanguageTool results with ENIP results.
+Compare LanguageTool results with the ENIP evaluation results.
+
+Reads the artifacts produced by run_languagetool.py / analyze_languagetool.py
+and prints the per-category table. When LanguageTool has no Indonesian rules the
+LanguageTool column is reported as n/a rather than fabricated counts.
+
+Usage:
+    python compare_languagetool.py [--results DIR] [--puebi-report PATH]
 """
 
+import argparse
 import json
+import sys
 from pathlib import Path
-from typing import Dict, List
 
-def load_enip_results(results_dir: Path) -> Dict[str, int]:
-    """Load ENIP results from results directory."""
-    # This is a placeholder - in practice, you would load actual ENIP results
-    # For now, we'll use the ablation scores as a proxy
-    results_file = results_dir / "ablation_scores.json"
-    if results_file.exists():
-        with open(results_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            # Extract mechanical scores
-            return {
-                "E1": 0,
-                "E2": 0,
-                "E3": 0,
-                "E4": 0,
-                "E5": 0,
-                "E6": 0,
-                "E7": 0,
-                "E8": 0,
-                "E9": 0,
-                "E10": 0,
-            }
-    return {}
+from analyze_languagetool import CAT_ORDER, parse_puebi_report
 
-def compare_results(lt_categories: Dict[str, int], enip_categories: Dict[str, int]) -> Dict:
-    """Compare LanguageTool and ENIP results."""
-    comparison = {}
-    for category in set(list(lt_categories.keys()) + list(enip_categories.keys())):
-        lt_count = lt_categories.get(category, 0)
-        enip_count = enip_categories.get(category, 0)
-        comparison[category] = {
-            "languagetool": lt_count,
-            "enip": enip_count,
-            "difference": enip_count - lt_count,
-            "winner": "ENIP" if enip_count > lt_count else "LanguageTool" if lt_count > enip_count else "Tie"
-        }
-    return comparison
+HERE = Path(__file__).resolve().parent
+DEFAULT_RESULTS = HERE / "results"
+DEFAULT_PUEBI = HERE.parent.parent / "experiments" / "metrics" / "puebi_report.md"
 
-def print_comparison(comparison: Dict):
-    """Print comparison table."""
-    print("\n=== Perbandingan ENIP vs LanguageTool ===")
-    print(f"{'Kategori':<10} {'LanguageTool':<15} {'ENIP':<10} {'Selisih':<10} {'Pemenang':<15}")
-    print("-" * 60)
-    
-    for category, data in sorted(comparison.items()):
-        print(f"{category:<10} {data['languagetool']:<15} {data['enip']:<10} {data['difference']:<10} {data['winner']:<15}")
-    
-    # Calculate totals
-    lt_total = sum(data['languagetool'] for data in comparison.values())
-    enip_total = sum(data['enip'] for data in comparison.values())
-    print("-" * 60)
-    print(f"{'Total':<10} {lt_total:<15} {enip_total:<10} {enip_total - lt_total:<10}")
 
-def main():
-    """Main function."""
-    # Example comparison
-    lt_categories = {
-        "E1": 5,
-        "E2": 3,
-        "E3": 2,
-        "E4": 1,
-        "E5": 0,
-        "E6": 4,
-        "E7": 2,
-        "E8": 8,
-        "E9": 1,
-        "E10": 3,
-        "other": 7
-    }
-    
-    enip_categories = {
-        "E1": 8,
-        "E2": 5,
-        "E3": 3,
-        "E4": 2,
-        "E5": 1,
-        "E6": 6,
-        "E7": 3,
-        "E8": 10,
-        "E9": 2,
-        "E10": 4,
-        "other": 5
-    }
-    
-    comparison = compare_results(lt_categories, enip_categories)
-    print_comparison(comparison)
-    
-    # Summary
-    lt_total = sum(lt_categories.values())
-    enip_total = sum(enip_categories.values())
-    print(f"\nRingkasan:")
-    print(f"  LanguageTool menemukan {lt_total} masalah")
-    print(f"  ENIP menemukan {enip_total} masalah")
-    print(f"  ENIP menemukan {enip_total - lt_total} masalah lebih banyak")
+def load_lt_totals(results_dir: Path):
+    """Aggregate LanguageTool category counts across manuscripts, if any run happened."""
+    path = results_dir / "languagetool_results.json"
+    if not path.exists():
+        return None, None
+    record = json.loads(path.read_text(encoding="utf-8"))
+    if not record.get("indonesian_supported"):
+        return record, None
+    totals = {}
+    for m in record.get("manuscripts", []):
+        for cat, n in (m.get("categories") or {}).items():
+            totals[cat] = totals.get(cat, 0) + n
+    return record, totals
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--results", type=Path, default=DEFAULT_RESULTS)
+    ap.add_argument("--puebi-report", type=Path, default=DEFAULT_PUEBI)
+    args = ap.parse_args()
+
+    record, lt_totals = load_lt_totals(args.results)
+    if record is None:
+        print(f"Missing {args.results / 'languagetool_results.json'} — run run_languagetool.py first.")
+        return 1
+
+    fix_rates = parse_puebi_report(args.puebi_report)
+    if not fix_rates:
+        print(f"Warning: no fix-rate table parsed from {args.puebi_report}")
+
+    supported = record.get("indonesian_supported", False)
+    print("=== Perbandingan ENIP vs LanguageTool ===")
+    print(f"LanguageTool Indonesian support: {'YES' if supported else 'NO'} "
+          f"({len(record.get('language_codes', []))} language codes)")
+    print()
+    header = f"{'Kat':<6}{'LT':>10}{'input':>10}{'B3':>10}{'ENIP':>10}{'B1':>10}{'B2':>10}"
+    print(header)
+    print("-" * len(header))
+
+    lt_total = 0
+    for cat in CAT_ORDER:
+        row = fix_rates.get(cat, {})
+        if lt_totals is None:
+            lt_cell = "n/a"
+        else:
+            n = lt_totals.get(cat, 0)
+            lt_cell = str(n)
+            lt_total += n
+        print(f"{cat:<6}{lt_cell:>10}{row.get('input', '-'):>10}{row.get('b3', '-'):>10}"
+              f"{row.get('enip', '-'):>10}{row.get('b1', '-'):>10}{row.get('b2', '-'):>10}")
+
+    print("-" * len(header))
+    if lt_totals is None:
+        print("LanguageTool: tidak dapat dijadikan baseline bahasa Indonesia "
+              "(lihat results/RESULTS.md untuk bukti HTTP 400).")
+        print("Baseline mekanis yang tersedia: B3 (hunspell id-ID, deteksi tanpa teks hasil edit).")
+    else:
+        print(f"LanguageTool total temuan: {lt_total}")
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

@@ -1,0 +1,9 @@
+﻿node.exe : Please set an Auth method in your C:\Users\bagas\.gemini\settings.json or specify one of the following 
+environment variables before running: GEMINI_API_KEY, GOOGLE_GENAI_USE_VERTEXAI, GOOGLE_GENAI_USE_GCA
+At C:\nvm4w\nodejs\gemini.ps1:16 char:5
++     & "$basedir/node$exe"  "$basedir/node_modules/@google/gemini-cli/ ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Please set an A...E_GENAI_USE_GCA:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+

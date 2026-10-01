@@ -1,51 +1,60 @@
-Berikut adalah hasil penyuntingan naskah Anda dengan penerapan standar PUEBI, KBBI, dan penguatan struktur naratif.
+Berikut adalah hasil penyuntingan naskah sastrawi tersebut. Sesuai instruksi Anda (ablasi *Style Guide*), fokus utama diletakkan pada perbaikan mekanik (PUEBI/KBBI) serta penyempurnaan struktur kalimat tanpa mengubah gaya narasi aslinya.
+
+---
 
 ### 1. Diagnosis Awal
-Naskah memiliki kekuatan naratif yang hangat dan mengalir baik. Namun, terdapat banyak kesalahan mekanik dasar seperti penulisan angka di awal kalimat, penggunaan huruf kapital, penulisan kata depan, serta beberapa bentuk kata tidak baku dan pleonasme (pemborosan kata) yang menghambat kelancaran membaca.
+Naskah memiliki daya tarik emosional yang kuat dan gaya narasi sastrawi yang hangat. Namun, terdapat beberapa kesalahan mekanik yang berulang, seperti penulisan angka di awal kalimat, penggunaan huruf kapital yang tidak tepat setelah tanda titik, penggunaan pleonasme (*agar supaya*), serta beberapa kesalahan ejaan baku seperti *kwalitas* dan *ijin*. Struktur paragraf juga perlu sedikit dirapikan agar alur cerita mengalir lebih mulus.
 
 ---
 
-### 2. Naskah Hasil Editan (Mode: Clean)
+### 2. Naskah Hasil Editan (Mode: Edit + Catatan)
 
-Setiap sore pukul lima, Pak Karta membuka lapak roti di depan pintu masuk stasiun. Roti yang ia jual dibuat oleh istrinya di dapur rumah sejak subuh. Tiga orang satpam stasiun sudah mengenalnya dan mereka selalu menyapa ketika gerbong pertama tiba. Pak Karta tersenyum, kemudian menyusun roti di rak kayu yang sudah usang. "Roti hangat, harganya tetap," ia berteriak pelan kepada penumpang yang bergegas. Dua orang penumpang berhenti sejenak, tetapi lebih memilih kopi daripada roti.
+Setiap sore pukul lima, Pak Karta membuka lapak roti di depan pintu masuk stasiun. Roti yang ia jual dibuat oleh istrinya di dapur rumah sejak subuh. Tiga orang satpam stasiun sudah mengenalnya, dan mereka selalu menyapa ketika gerbong pertama tiba. Pak Karta tersenyum, kemudian menyusun roti di rak kayu yang sudah usang. 
 
-Banyak penumpang membeli roti, tetapi tidak sedikit pula yang hanya menoleh. Pak Karta tidak pernah kehilangan akal. Ia mengganti kemasan roti dengan kertas cokelat karena kualitas kemasan menentukan kesan pertama pembeli. Istri Pak Karta menyarankan agar ia mencoba berjualan secara daring, tetapi Pak Karta merasa lebih nyaman bertemu pembeli langsung. Dua tahun lalu, sebuah toko besar menawarinya izin berjualan di mal, namun ia menolak. Ia lebih memilih bertahan di stasiun, dekat dengan orang-orang yang berlalu-lalang setiap hari. Empat penumpang tetap setia membeli roti setiap pagi, walaupun jumlahnya berkurang di musim hujan.
+"Roti hangat, harganya tetap," ia berteriak pelan kepada penumpang yang bergegas. Dua orang penumpang berhenti sejenak, tetapi lebih memilih kopi daripada roti.
 
-Pada suatu senja, seorang gadis membeli dua roti dan membayar dengan uang lebih. "Kembaliannya simpan saja," kata gadis itu. Pak Karta mengembalikan uang dengan halus, kemudian menceritakan kisah masa mudanya ketika bekerja di pelabuhan. Gadis itu tersenyum mendengar cerita tersebut, walaupun ia harus segera mengejar kereta terakhir. Sejak hari itu, gadis tersebut mampir setiap minggu dan mereka berbincang tentang banyak hal, mulai dari harga beras hingga rencana liburan. Tiga kali ia terlambat mengejar kereta karena terlalu asyik mendengar cerita. Beberapa pembeli menanyakan roti pisang, tetapi Pak Karta hanya tersenyum dan menunjuk rak kosong. Tiga kios di pasar sebelah kini turut memesan roti setiap pagi sehingga pesanan bertambah sejak tahun 2025. Ia berencana meminta bantuan keponakannya di akhir pekan, walaupun istrinya lebih suka mengerjakannya sendiri. Roti Pak Karta tetap hangat dan stasiun tetap ramai. Suatu sore, hujan turun deras, tetapi Pak Karta memilih menutup lapaknya lebih awal. Ia memikirkan istrinya yang sedang sakit dan langkahnya berubah cepat. Ia berjanji, esok pagi, roti akan kembali dibawa ke stasiun.
+Banyak penumpang membeli roti, tetapi tidak sedikit pula yang hanya menoleh. Pak Karta tidak pernah kehilangan akal. Ia mengganti kemasan roti dengan kertas cokelat karena kualitas kemasan menentukan kesan pertama pembeli. Istri Pak Karta menyarankan agar ia mencoba berjualan secara daring (*online*), tetapi Pak Karta merasa lebih nyaman bertemu pembeli secara langsung. Dua tahun lalu, sebuah toko besar menawarinya izin berjualan di mal, namun ia menolak. Ia lebih memilih bertahan di stasiun, dekat dengan orang-orang yang berlalu lalang setiap hari. Empat penumpang tetap setia membeli roti setiap pagi, walaupun jumlahnya berkurang di musim hujan.
+
+Pada suatu senja, seorang gadis membeli dua roti dan membayar dengan uang lebih. "Kembaliannya simpan saja," kata gadis itu. Pak Karta mengembalikan uang dengan halus, kemudian menceritakan kisah masa mudanya ketika bekerja di pelabuhan. Gadis itu tersenyum mendengar cerita, walaupun ia harus segera mengejar kereta terakhir. Sejak hari itu, gadis tersebut mampir setiap minggu, dan mereka berbincang tentang banyak hal, mulai dari harga beras hingga rencana liburan. Tiga kali ia terlambat mengejar kereta karena terlalu asyik mendengar cerita. 
+
+Beberapa pembeli menanyakan roti pisang, tetapi Pak Karta hanya tersenyum dan menunjuk rak kosong. Tiga kios di pasar sebelah kini turut memesan roti setiap pagi, sehingga pesanan bertambah sejak tahun 2025. Ia berencana meminta bantuan keponakannya di akhir pekan, walaupun istrinya lebih suka mengerjakannya sendiri. Roti Pak Karta tetap hangat, dan stasiun tetap ramai. 
+
+Suatu sore, hujan turun deras, tetapi Pak Karta memilih menutup lapaknya lebih awal. Ia memikirkan istrinya yang sedang sakit, dan langkahnya berubah cepat. Ia berjanji, esok pagi, roti akan kembali dibawa ke stasiun.
 
 ---
 
-### 3. Catatan Editor
-*   **Penulisan Angka:** Sesuai PUEBI, angka di awal kalimat harus ditulis dengan huruf (misal: *Tiga orang*, bukan *3 orang*). Angka yang dapat dinyatakan dengan satu atau dua kata dalam teks naratif juga sebaiknya ditulis dengan huruf agar lebih estetis.
-*   **Kata Baku:** Mengubah *kwalitas* menjadi **kualitas** dan *ijin* menjadi **izin** sesuai KBBI.
-*   **Kata Depan:** Memperbaiki penulisan *distasiun* menjadi **di stasiun** dan *dipasar* menjadi **di pasar**. Kata depan "di" yang menunjukkan tempat harus dipisah.
-*   **Pleonasme:** Menghapus kata "supaya" dalam frasa *agar supaya*. Cukup gunakan salah satu karena keduanya memiliki fungsi yang sama.
-*   **Tanda Baca:** Menambahkan koma sebelum konjungsi pertentangan (*tetapi, namun*) dan memperbaiki penulisan tahun *2.025* menjadi **2025** (tahun tidak menggunakan titik pemisah ribuan).
-*   **Huruf Kapital:** Memperbaiki huruf kapital pada awal kalimat dan nama diri/sapaan (Pak Karta).
+### 3. Catatan Editor (Perubahan Signifikan & Alasan)
+
+*   **Angka di Awal Kalimat:** Diubah dari bentuk angka numerik menjadi kata (misal: *3 orang* $\rightarrow$ *Tiga orang*, *2 orang* $\rightarrow$ *Dua orang*, *4 penumpang* $\rightarrow$ *Empat penumpang*, *3 kali* $\rightarrow$ *Tiga kali*). Berdasarkan PUEBI, angka yang terletak di awal kalimat harus ditulis dengan huruf.
+*   **Huruf Kapital:** Memperbaiki huruf kapital setelah tanda titik, seperti pada *"pak Karta"* $\rightarrow$ *"Pak Karta"* dan *"ia mengganti"* $\rightarrow$ *"Ia mengganti"*.
+*   **PenyᱮleSAIAN Pleonasme:** Frasa *"agar supaya"* disederhanakan menjadi *"agar"* untuk menghindari pemborosan kata.
+*   **Koreksi KBBI / Kata Baku:**
+    *   *kwalitas* $\rightarrow$ *kualitas*
+    *   *ijin* $\rightarrow$ *izin*
+    *   *distasiun* $\rightarrow$ dipisah menjadi *di stasiun* (karena menyatakan tempat/lokasi).
+    *   *dipasar* $\rightarrow$ dipisah menjadi *di pasar*.
+    *   *online* $\rightarrow$ dismiringkan sebagai kata asing atau diganti padanannya menjadi *daring*. (Dipakai *daring* dalam teks agar konsisten berbahasa Indonesia baku).
+*   **Penulisan Tahun:** *2.025* diperbaiki menjadi *2025* (tahun tidak menggunakan tanda titik).
+*   **Tanda Baca:** Penambahan koma sebelum kata hubung pertentangan (*tetapi*) guna menjaga keterbacaan kalimat majemuk bertingkat/setara.
 
 ---
 
 ### 4. Style Sheet
-| Unsur | Keputusan |
-|---|---|
-| **Sapaan** | Pak Karta (Kapital karena diikuti nama) |
-| **Kata Serapan** | Kualitas (bukan kwalitas), Izin (bukan ijin) |
-| **Istilah Asing** | Daring (sebagai pengganti *online*) |
-| **Penulisan Tahun** | 2025 (tanpa titik) |
-| **Konjungsi** | Walaupun (digabung, bukan dipisah) |
+
+*   **Ejaan Baku:** Kualitas, izin, daring, di stasiun, di pasar.
+*   **Angka:** Di bawah 10 ditulis dengan huruf kecuali dalam konteks statistik/tahun (misal: *2025*).
+*   **Nama Tokoh:** Pak Karta (huruf kapital pada sapaan dan nama diri).
 
 ---
 
-### 5. Skor Kualitas
-| Dimensi | Skor (1-10) | Catatan |
-|---|---|---|
-| **Ejaan (PUEBI)** | 10 | Semua kesalahan mekanik telah diperbaiki. |
-| **Diksi (KBBI)** | 9 | Penggunaan kata sudah baku dan sesuai konteks. |
-| **Struktur Kalimat** | 9 | Kalimat lebih efektif dengan penghapusan pleonasme. |
-| **Koherensi** | 9 | Alur antarparagraf terjaga dengan baik. |
-| **Gaya Bahasa** | 9 | Nuansa sastrawi tetap terjaga tanpa terasa kaku. |
-| **Logika Narasi** | 9 | Urutan kejadian logis. |
-| **Ketepatan Tanda Baca** | 10 | Penggunaan koma dan titik sudah presisi. |
+### 5. Skor Kualitas (Skala 1–10)
 
-**Saran Pengembangan:**
-Naskah ini sudah sangat menyentuh. Untuk memperkuat karakter Pak Karta, Anda bisa menambahkan satu atau dua kalimat dialog yang menunjukkan dialek atau cara bicara khasnya saat bercerita kepada si gadis, agar pembaca merasa lebih dekat dengan tokoh tersebut.
+1. **Ejaan & Tata Bahasa (PUEBI):** 9/10 (Kesalahan mekanik awal telah dibersihkan total)
+2. **Kohesi & Koherensi:** 9/10 (Alur antarparagraf mengalir rapi dengan transisi yang wajar)
+3. **Diksi & Kosakata:** 8.5/10 (Mempertahankan nuansa sastrawi dan kehangatan lokal)
+4. **Struktur Kalimat:** 8.5/10 (Variasi panjang kalimat seimbang)
+5. **Preservasi Suara Penulis:** 9.5/10 (Gaya narasi asli tidak mengalami perombakan drastis)
+6. **Kejelasan & Logika:** 9/10 (Tidak ada lagi ambiguitas penulisan tempat atau angka)
+7. **Ketepatan Fakta/Klaim:** 9/10 (Aman secara naratif fiktif/sastrawi)
+
+**Skor Rata-rata:** **8.9 / 10**
