@@ -1,0 +1,39 @@
+# DEV/LOCAL ONLY. Production integrates into the Caddy that already owns :80/:443
+# on the VPS, by having that Caddyfile `import ./Caddyfile.site`.
+#
+# Deliberately published on :8090, NOT :80/:443, so it cannot fight the Caddy that
+# already holds those ports on the server.
+#
+#   docker network create caddy-proxy      # once
+#   cp .env.example .env                   # fill SECRET_KEY, ADMIN_PASSWORD_HASH
+#   docker compose -f docker-compose.yml -f docker-compose.caddy.yml up -d --build
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      webapp:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8090:8090"
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:-:8090}
+      ACME_EMAIL: ${ACME_EMAIL:-bagas_wap@outlook.com}
+      ADMIN_USER: ${ADMIN_USER:-admin}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH:?set ADMIN_PASSWORD_HASH in .env (see .env.example)}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - proxy
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  proxy:
+    external: true
+    name: caddy-proxy

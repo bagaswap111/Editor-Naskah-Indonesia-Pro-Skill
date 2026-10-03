@@ -1,0 +1,16 @@
+# Standalone Caddy config: global options + the shared site block.
+#
+# Production runs inside the Caddy that already owns :80/:443 on the VPS, which
+# should `import` ./Caddyfile.site instead of this file. This file exists for
+# local/dev use (docker-compose.caddy.yml) and for `caddy validate`.
+#
+# The ACME contact address lives here rather than in the site block because
+# `email` is a global option and the imported file must stay standalone-valid.
+{
+	email {$ACME_EMAIL:bagas_wap@outlook.com}
+
+	# Uncomment for Let's Encrypt staging while testing, to avoid rate limits.
+	# acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+import Caddyfile.site

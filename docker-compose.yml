@@ -2,10 +2,31 @@ services:
   webapp:
     build: .
     ports:
-      - "8080:8080"
+      # Loopback only: Caddy is the public entry point (see docker-compose.caddy.yml).
+      - "127.0.0.1:8080:8080"
     volumes:
       - ./instance:/app/instance
     environment:
-      - FLASK_SECRET_KEY=${FLASK_SECRET_KEY:-enip-eval-secret-key-2026}
+      # app.py reads SECRET_KEY, not FLASK_SECRET_KEY. The old FLASK_SECRET_KEY
+      # default was silently ignored, leaving the hardcoded fallback in app.py:9
+      # active. Required now, because a known key lets anyone forge session cookies.
+      - SECRET_KEY=${SECRET_KEY:?set SECRET_KEY in .env (see .env.example)}
       - DATABASE_URL=sqlite:///instance/evaluations.db
+    networks:
+      - proxy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; s=socket.create_connection(('127.0.0.1', 8080), 3); s.close()"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
     restart: unless-stopped
+
+networks:
+  # Created once: docker network create caddy-proxy
+  # The Caddy container serving enip-human.duckdns.org must join it too, so that
+  # `reverse_proxy webapp:8080` resolves. Nothing else needs to be published:
+  # the 127.0.0.1:8080 mapping below is for host-side debugging only.
+  proxy:
+    external: true
+    name: caddy-proxy

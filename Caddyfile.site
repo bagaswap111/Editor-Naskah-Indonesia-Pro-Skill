@@ -1,0 +1,66 @@
+# Drop-in site block for an EXISTING Caddy instance.
+#
+# Add one line to the running Caddy's Caddyfile:
+#
+#   import /opt/enip/Caddyfile.site
+#
+# Only ADMIN_PASSWORD_HASH must be supplied to the Caddy container; every other
+# placeholder below has a default baked in.
+#
+# BEFORE reloading: delete any existing site block for enip-human.duckdns.org in
+# that Caddyfile. Two blocks for the same host is a fatal "ambiguous site
+# definition" error. The current setup already has an HTTP->HTTPS redirect for
+# this host and no certificate for it, which is why :443 fails TLS handshake.
+#
+# Reaches the app by container name, so the app's compose file and this Caddy
+# container must share the external `caddy-proxy` network:
+#   docker network create caddy-proxy
+#   docker network connect caddy-proxy <existing-caddy-container>
+
+{$SITE_ADDRESS:enip-human.duckdns.org} {
+	log {
+		output stdout
+		format json
+	}
+
+	encode zstd gzip
+
+	request_body {
+		max_size 10MB
+	}
+
+	header {
+		-Server
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "same-origin"
+		Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+	}
+
+	# Liveness endpoint served by Caddy itself (no upstream dependency).
+	@healthz path /healthz
+	respond @healthz "ok" 200
+
+	# The Flask app has NO authentication on /admin, so it would otherwise publish
+	# all raw evaluation data (evaluator names, consent dates, scores, comments) to
+	# anyone. Password is the real control; generate the hash with:
+	#   docker run --rm caddy:2-alpine caddy hash-password --plaintext 'your-password'
+	@admin path /admin /admin/*
+	basic_auth @admin {
+		{$ADMIN_USER:admin} {$ADMIN_PASSWORD_HASH}
+	}
+
+	# Extra layer, best-effort only. Docker's userland proxy (docker-proxy) replaces
+	# the client IP with the bridge gateway, so remote_ip is often 172.17.0.1 for
+	# EVERY visitor and this rule matches nothing. Verify the real client_ip in
+	# `docker compose logs caddy` before trusting it; basic_auth above is the guard.
+	@adminBlocked {
+		path /admin /admin/*
+		not remote_ip private_ranges
+	}
+	respond @adminBlocked "Forbidden" 403
+
+	reverse_proxy webapp:8080
+}
