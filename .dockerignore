@@ -5,4 +5,5 @@ instance
 .git
 .env
 Caddyfile
+Caddyfile.site
 docker-compose*.yml
