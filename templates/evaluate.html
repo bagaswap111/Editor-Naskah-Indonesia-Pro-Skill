@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+{% block title %}Evaluasi - {{ manuscript.file_id }} ({{ output_type|upper }}){% endblock %}
+{% block body_class %}evaluate-page{% endblock %}
+
+{% block content %}
+<div class="evaluate-container">
+    <header class="evaluate-header">
+        <div class="header-left">
+            <span class="logo-small">ENIP</span>
+            <span class="header-title">Human Evaluation</span>
+        </div>
+        <div class="header-center">
+            <span class="evaluator-name">{{ evaluator.name }}</span>
+        </div>
+        <div class="header-right">
+            <button class="btn-draft" onclick="saveDraft()">Simpan Draft</button>
+            <button class="btn-submit-eval" onclick="submitAll()">Submit Semua</button>
+        </div>
+    </header>
+    
+    <nav class="page-navigation">
+        <div class="page-numbers">
+            {% for p in pages %}
+            <a href="/evaluate/{{ p.page }}" 
+               class="page-link {% if p.page == page %}active{% endif %}">
+                {{ p.manuscript.file_id }}<br><small>{{ p.output_type|upper }}</small>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: {{ (completed / total_pages * 100) }}%"></div>
+        </div>
+        <div class="progress-text">{{ completed }}/{{ total_pages }} selesai</div>
+    </nav>
+    
+    <div class="evaluate-content">
+        <div class="panel manuscript-panel">
+            <div class="panel-header">
+                <h3>Naskah Asli</h3>
+                <span class="manuscript-info">{{ manuscript.file_id }} | {{ manuscript.style }}</span>
+            </div>
+            <div class="panel-body scrollable markdown-body">
+                <div id="original-content"></div>
+            </div>
+        </div>
+        
+        <div class="panel output-panel">
+            <div class="panel-header">
+                <h3>Output Sistem</h3>
+                {% if available_outputs|length > 1 %}
+                <div class="output-tabs">
+                    {% for ot in available_outputs %}
+                    <button class="tab-btn {% if ot == output_type %}active{% endif %}" 
+                            id="tab-{{ ot }}" onclick="switchTab('{{ ot }}')">{{ ot|upper }}</button>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <span class="output-type-label">{{ output_type|upper }}</span>
+                {% endif %}
+            </div>
+            <div class="panel-body scrollable markdown-body">
+                <div id="output-content"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="evaluate-form">
+        <h3>Form Penilaian</h3>
+        
+        <form id="evaluation-form">
+            <input type="hidden" name="manuscript_id" value="{{ manuscript.id }}">
+            <input type="hidden" name="output_type" value="{{ output_type }}">
+            <input type="hidden" name="page_number" value="{{ page }}">
+            
+            <div class="dimension-group">
+                <div class="dimension-header">
+                    <h4>Dimensi 1: Kejelasan (Clarity)</h4>
+                    <p class="dimension-desc">Kalimat mudah dipahami, tidak ada ambiguitas</p>
+                </div>
+                <div class="score-buttons">
+                    {% for i in range(1, 11) %}
+                    <button type="button" class="score-btn" data-dimension="kejelasan" data-score="{{ i }}">
+                        {{ i }}
+                    </button>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="score_kejelasan" class="score-input" data-dimension="kejelasan">
+                <div class="comment-group" id="comment-kejelasan" style="display: none;">
+                    <label>Komentar (jika skor &le;6):</label>
+                    <textarea name="comment_kejelasan" rows="2" placeholder="Berikan komentar..."></textarea>
+                </div>
+            </div>
+            
+            <div class="dimension-group">
+                <div class="dimension-header">
+                    <h4>Dimensi 2: Koherensi (Coherence)</h4>
+                    <p class="dimension-desc">Paragraf mengalir logis, transisi jelas</p>
+                </div>
+                <div class="score-buttons">
+                    {% for i in range(1, 11) %}
+                    <button type="button" class="score-btn" data-dimension="koherensi" data-score="{{ i }}">
+                        {{ i }}
+                    </button>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="score_koherensi" class="score-input" data-dimension="koherensi">
+                <div class="comment-group" id="comment-koherensi" style="display: none;">
+                    <label>Komentar (jika skor &le;6):</label>
+                    <textarea name="comment_koherensi" rows="2" placeholder="Berikan komentar..."></textarea>
+                </div>
+            </div>
+            
+            <div class="dimension-group">
+                <div class="dimension-header">
+                    <h4>Dimensi 3: Kedalaman (Depth)</h4>
+                    <p class="dimension-desc">Topik dibahas mendalam, ada bukti dan contoh</p>
+                </div>
+                <div class="score-buttons">
+                    {% for i in range(1, 11) %}
+                    <button type="button" class="score-btn" data-dimension="kedalaman" data-score="{{ i }}">
+                        {{ i }}
+                    </button>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="score_kedalaman" class="score-input" data-dimension="kedalaman">
+                <div class="comment-group" id="comment-kedalaman" style="display: none;">
+                    <label>Komentar (jika skor &le;6):</label>
+                    <textarea name="comment_kedalaman" rows="2" placeholder="Berikan komentar..."></textarea>
+                </div>
+            </div>
+            
+            <div class="dimension-group">
+                <div class="dimension-header">
+                    <h4>Dimensi 4: Akurasi (Accuracy)</h4>
+                    <p class="dimension-desc">Informasi akurat, tidak ada kesalahan fakta</p>
+                </div>
+                <div class="score-buttons">
+                    {% for i in range(1, 11) %}
+                    <button type="button" class="score-btn" data-dimension="akurasi" data-score="{{ i }}">
+                        {{ i }}
+                    </button>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="score_akurasi" class="score-input" data-dimension="akurasi">
+                <div class="comment-group" id="comment-akurasi" style="display: none;">
+                    <label>Komentar (jika skor &le;6):</label>
+                    <textarea name="comment_akurasi" rows="2" placeholder="Berikan komentar..."></textarea>
+                </div>
+            </div>
+            
+            <div class="dimension-group">
+                <div class="dimension-header">
+                    <h4>Dimensi 5: Gaya (Style)</h4>
+                    <p class="dimension-desc">Gaya bahasa konsisten, sesuai register</p>
+                </div>
+                <div class="score-buttons">
+                    {% for i in range(1, 11) %}
+                    <button type="button" class="score-btn" data-dimension="gaya" data-score="{{ i }}">
+                        {{ i }}
+                    </button>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="score_gaya" class="score-input" data-dimension="gaya">
+                <div class="comment-group" id="comment-gaya" style="display: none;">
+                    <label>Komentar (jika skor &le;6):</label>
+                    <textarea name="comment_gaya" rows="2" placeholder="Berikan komentar..."></textarea>
+                </div>
+            </div>
+            
+            <div class="dimension-group">
+                <div class="dimension-header">
+                    <h4>Dimensi 6: Mekanik (Mechanics)</h4>
+                    <p class="dimension-desc">Tidak ada kesalahan ejaan, tanda baca benar</p>
+                </div>
+                <div class="score-buttons">
+                    {% for i in range(1, 11) %}
+                    <button type="button" class="score-btn" data-dimension="mekanik" data-score="{{ i }}">
+                        {{ i }}
+                    </button>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="score_mekanik" class="score-input" data-dimension="mekanik">
+                <div class="comment-group" id="comment-mekanik" style="display: none;">
+                    <label>Komentar (jika skor &le;6):</label>
+                    <textarea name="comment_mekanik" rows="2" placeholder="Berikan komentar..."></textarea>
+                </div>
+            </div>
+            
+            <div class="dimension-group">
+                <div class="dimension-header">
+                    <h4>Dimensi 7: Engagement</h4>
+                    <p class="dimension-desc">Menarik dibaca, mempertahankan perhatian pembaca</p>
+                </div>
+                <div class="score-buttons">
+                    {% for i in range(1, 11) %}
+                    <button type="button" class="score-btn" data-dimension="engagement" data-score="{{ i }}">
+                        {{ i }}
+                    </button>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="score_engagement" class="score-input" data-dimension="engagement">
+                <div class="comment-group" id="comment-engagement" style="display: none;">
+                    <label>Komentar (jika skor &le;6):</label>
+                    <textarea name="comment_engagement" rows="2" placeholder="Berikan komentar..."></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div class="navigation-buttons">
+        {% if page > 1 %}
+        <a href="/evaluate/{{ page - 1 }}" class="btn-nav btn-prev">
+            <span class="btn-arrow">&larr;</span> Sebelumnya
+        </a>
+        {% else %}
+        <span class="btn-nav btn-prev disabled">&larr; Sebelumnya</span>
+        {% endif %}
+        
+        <button class="btn-nav btn-save" onclick="saveDraft()">Simpan Draft</button>
+        
+        {% if page < total_pages %}
+        <a href="/evaluate/{{ page + 1 }}" class="btn-nav btn-next">
+            Selanjutnya <span class="btn-arrow">&rarr;</span>
+        </a>
+        {% else %}
+        <span class="btn-nav btn-next disabled">Selanjutnya &rarr;</span>
+        {% endif %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    var pageData = {
+        manuscriptId: {{ manuscript.id }},
+        outputType: '{{ output_type }}',
+        pageNumber: {{ page }},
+        totalPages: {{ total_pages }},
+        currentOutputType: '{{ output_type }}',
+        availableOutputs: {{ available_outputs | tojson }}
+    };
+    
+    var existingScores = {
+        kejelasan: {{ evaluation.score_kejelasan or 'null' }},
+        koherensi: {{ evaluation.score_koherensi or 'null' }},
+        kedalaman: {{ evaluation.score_kedalaman or 'null' }},
+        akurasi: {{ evaluation.score_akurasi or 'null' }},
+        gaya: {{ evaluation.score_gaya or 'null' }},
+        mekanik: {{ evaluation.score_mekanik or 'null' }},
+        engagement: {{ evaluation.score_engagement or 'null' }}
+    };
+    
+    var existingComments = {
+        kejelasan: '{{ evaluation.comment_kejelasan or '' }}',
+        koherensi: '{{ evaluation.comment_koherensi or '' }}',
+        kedalaman: '{{ evaluation.comment_kedalaman or '' }}',
+        akurasi: '{{ evaluation.comment_akurasi or '' }}',
+        gaya: '{{ evaluation.comment_gaya or '' }}',
+        mekanik: '{{ evaluation.comment_mekanik or '' }}',
+        engagement: '{{ evaluation.comment_engagement or '' }}'
+    };
+    
+    var originalMarkdown = {{ original_content | tojson }};
+    var outputMarkdown = {{ output_content | tojson }};
+    
+    function renderMarkdown(element, text) {
+        if (typeof marked !== 'undefined') {
+            element.innerHTML = marked.parse(text);
+        } else {
+            element.innerHTML = text.replace(/\n/g, '<br>');
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        var originalEl = document.getElementById('original-content');
+        var outputEl = document.getElementById('output-content');
+        
+        renderMarkdown(originalEl, originalMarkdown);
+        renderMarkdown(outputEl, outputMarkdown);
+    });
+    
+    function switchTab(type) {
+        if (type === pageData.currentOutputType) return;
+        
+        pageData.currentOutputType = type;
+        
+        pageData.availableOutputs.forEach(function(ot) {
+            var tab = document.getElementById('tab-' + ot);
+            if (tab) {
+                tab.classList.toggle('active', ot === type);
+            }
+        });
+        
+        fetch('/api/output/' + pageData.manuscriptId + '/' + type)
+            .then(function(response) { return response.json(); })
+            .then(function(data) {
+                if (data.content) {
+                    outputMarkdown = data.content;
+                    var outputEl = document.getElementById('output-content');
+                    renderMarkdown(outputEl, data.content);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error loading output:', error);
+            });
+    }
+</script>
+{% endblock %}
