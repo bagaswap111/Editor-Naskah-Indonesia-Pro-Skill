@@ -11,10 +11,10 @@ services:
       # app.py reads SECRET_KEY, not FLASK_SECRET_KEY. The old FLASK_SECRET_KEY
       # default was silently ignored, leaving the hardcoded fallback in app.py:9
       # active. Required now, because a known key lets anyone forge session cookies.
-      - SECRET_KEY=${SECRET_KEY:?set SECRET_KEY in .env (see .env.example)}
       # Set to 0 only for local testing over plain HTTP; the session cookie will
       # not be sent back otherwise and login appears to loop.
       - ADMIN_COOKIE_SECURE=${ADMIN_COOKIE_SECURE:-1}
+      #- SECRET_KEY=${SECRET_KEY:?set SECRET_KEY in .env (see .env.example)}
       - DATABASE_URL=sqlite:///instance/evaluations.db
     networks:
       - proxy
