@@ -10,12 +10,18 @@ from werkzeug.security import check_password_hash
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'enip-eval-secret-key-2026')
-if app.config['SECRET_KEY'] == 'enip-eval-secret-key-2026':
-    app.logger.warning(
-        'SECRET_KEY is using the hardcoded fallback. Anyone who knows it can forge '
-        'session cookies; set SECRET_KEY in the environment.'
+
+# No default on purpose. Flask signs session cookies with SECRET_KEY, so a value
+# that is published in this repository lets anyone mint an `is_admin` cookie and
+# walk straight into /admin without the password. Refuse to start instead.
+SECRET_KEY = os.environ.get('SECRET_KEY')
+if not SECRET_KEY:
+    raise RuntimeError(
+        'SECRET_KEY is not set. Generate one with `openssl rand -hex 32` and put it '
+        'in .env (see .env.example). The app will not start without it, because a '
+        'guessable key allows forging admin session cookies.'
     )
+app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'instance', 'evaluations.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SESSION_COOKIE_SECURE'] = os.environ.get('ADMIN_COOKIE_SECURE', '1') == '1'
@@ -433,6 +439,15 @@ def load_admin_password_hash():
     try:
         with open(ADMIN_PASSWORD_HASH_FILE, encoding='utf-8') as handle:
             digest = handle.read().strip()
+    except IsADirectoryError:
+        # Docker creates a directory at the bind-mount source when the file does
+        # not exist yet, so this means the hash was never generated.
+        app.logger.error(
+            'Admin password hash path %s is a directory, so it was never generated. '
+            'Remove it and run the generate command in docker-compose.caddy.yml.',
+            ADMIN_PASSWORD_HASH_FILE
+        )
+        return None
     except (OSError, UnicodeDecodeError):
         # Never let a bad secrets file stop the app from booting: that would take
         # the evaluator flow offline too. A shell redirect in PowerShell writes

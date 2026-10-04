@@ -14,7 +14,10 @@ services:
       # Set to 0 only for local testing over plain HTTP; the session cookie will
       # not be sent back otherwise and login appears to loop.
       - ADMIN_COOKIE_SECURE=${ADMIN_COOKIE_SECURE:-1}
-      #- SECRET_KEY=${SECRET_KEY:?set SECRET_KEY in .env (see .env.example)}
+      # app.py refuses to start without this, because Flask signs session cookies
+      # with it and a guessable key allows forging an admin cookie. Do not
+      # comment this out to work around a missing .env.
+      - SECRET_KEY=${SECRET_KEY:?set SECRET_KEY in .env (see .env.example)}
       - DATABASE_URL=sqlite:///instance/evaluations.db
     networks:
       - proxy
