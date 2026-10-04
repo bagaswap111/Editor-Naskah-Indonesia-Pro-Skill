@@ -1,19 +1,16 @@
-import json
 import os
-import time
 from datetime import datetime, timedelta
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from werkzeug.middleware.proxy_fix import ProxyFix
-from werkzeug.security import check_password_hash
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 
 # No default on purpose. Flask signs session cookies with SECRET_KEY, so a value
-# that is published in this repository lets anyone mint an `is_admin` cookie and
-# walk straight into /admin without the password. Refuse to start instead.
+# that is published in this repository lets anyone mint a session cookie holding
+# someone else's evaluator_id and submit evaluations as them. Refuse to start.
 SECRET_KEY = os.environ.get('SECRET_KEY')
 if not SECRET_KEY:
     raise RuntimeError(
@@ -390,184 +387,6 @@ def save_general_comments():
 
     db.session.commit()
     return jsonify({'success': True})
-
-
-# ---------------------------------------------------------------------------
-# Admin authentication
-#
-# The password hash is read from a bind-mounted file rather than an environment
-# variable on purpose: Compose interpolates `$NAME` in both `.env` and
-# `environment:` entries, which silently truncates any password hash containing
-# `$` followed by a letter. Files are never interpolated, so the hash is safe
-# here regardless of its contents.
-#
-# Generate the file with (note --entrypoint: the image ENTRYPOINT is
-# entrypoint.sh, which ends in `exec gunicorn` and would never return).
-# Run `docker compose build webapp` first, or BuildKit writes its progress to
-# stdout and that output lands in the hash file:
-#   docker compose run --rm --entrypoint python webapp -c \
-#     "import getpass;from werkzeug.security import generate_password_hash;print(generate_password_hash(getpass.getpass()))" \
-#     > secrets/admin_password_hash
-#
-# Non-interactive equivalent (CI, scripts), which keeps the password out of the
-# shell history:
-#   printf '%s' "$ADMIN_PW" | docker compose run --rm -T --entrypoint python webapp -c \
-#     "import sys;from werkzeug.security import generate_password_hash;print(generate_password_hash(sys.stdin.read().strip()))" \
-#     > secrets/admin_password_hash
-#
-# On PowerShell, `>` writes UTF-16, which this file is read as UTF-8; the app
-# then refuses the hash and keeps /admin locked. Use Out-File -Encoding utf8, or
-# write it from inside the container as above.
-#
-# .env must already contain SECRET_KEY: Compose interpolates the whole file
-# before running anything, so the command fails without it.
-# ---------------------------------------------------------------------------
-
-ADMIN_PASSWORD_HASH_FILE = os.environ.get(
-    'ADMIN_PASSWORD_HASH_FILE', '/run/secrets/admin_password_hash'
-)
-LOGIN_MAX_ATTEMPTS = 5
-LOGIN_LOCKOUT_SECONDS = 300
-# Shared by every gunicorn worker via a file: entrypoint.sh runs four workers, and
-# an in-process dict would split attempts across them so the lockout never fires.
-LOGIN_STATE_FILE = os.environ.get(
-    'ADMIN_LOGIN_STATE_FILE', os.path.join(app.instance_path, 'admin_login_failures.json')
-)
-
-
-def load_admin_password_hash():
-    try:
-        with open(ADMIN_PASSWORD_HASH_FILE, encoding='utf-8') as handle:
-            digest = handle.read().strip()
-    except IsADirectoryError:
-        # Docker creates a directory at the bind-mount source when the file does
-        # not exist yet, so this means the hash was never generated.
-        app.logger.error(
-            'Admin password hash path %s is a directory, so it was never generated. '
-            'Remove it and run the generate command in docker-compose.caddy.yml.',
-            ADMIN_PASSWORD_HASH_FILE
-        )
-        return None
-    except (OSError, UnicodeDecodeError):
-        # Never let a bad secrets file stop the app from booting: that would take
-        # the evaluator flow offline too. A shell redirect in PowerShell writes
-        # UTF-16, which fails to decode as UTF-8, so this is easy to hit by accident.
-        app.logger.error(
-            'Admin password hash not readable as UTF-8 text at %s; /admin stays locked.',
-            ADMIN_PASSWORD_HASH_FILE
-        )
-        return None
-    if not digest:
-        app.logger.error(
-            'Admin password hash at %s is empty; /admin stays locked.',
-            ADMIN_PASSWORD_HASH_FILE
-        )
-        return None
-    if len(digest.split()) > 1:
-        app.logger.error(
-            'Admin password hash at %s contains %d lines; /admin stays locked. '
-            'Regenerate it without shell redirection.',
-            ADMIN_PASSWORD_HASH_FILE, len(digest.split())
-        )
-        return None
-    return digest
-
-
-ADMIN_PASSWORD_HASH = load_admin_password_hash()
-
-
-def read_login_state():
-    try:
-        with open(LOGIN_STATE_FILE, encoding='utf-8') as handle:
-            state = json.load(handle)
-    except (OSError, ValueError):
-        return {}
-    return state if isinstance(state, dict) else {}
-
-
-def write_login_state(state):
-    tmp_path = LOGIN_STATE_FILE + '.tmp'
-    try:
-        with open(tmp_path, 'w', encoding='utf-8') as handle:
-            json.dump(state, handle)
-        os.replace(tmp_path, LOGIN_STATE_FILE)
-    except OSError:
-        app.logger.warning('could not persist admin login state', exc_info=True)
-
-
-def login_locked(ip):
-    now = time.time()
-    entry = read_login_state().get(ip)
-    if entry is None:
-        return False
-    failures, window_start = entry
-    return failures >= LOGIN_MAX_ATTEMPTS and now - window_start <= LOGIN_LOCKOUT_SECONDS
-
-
-def record_login_failure(ip):
-    now = time.time()
-    state = read_login_state()
-    for key in [k for k, v in state.items() if now - v[1] > LOGIN_LOCKOUT_SECONDS]:
-        del state[key]
-    failures, window_start = state.get(ip, [0, now])
-    if now - window_start > LOGIN_LOCKOUT_SECONDS:
-        failures, window_start = 0, now
-    state[ip] = [failures + 1, window_start]
-    write_login_state(state)
-
-
-def clear_login_failures(ip):
-    state = read_login_state()
-    if state.pop(ip, None) is not None:
-        write_login_state(state)
-
-
-@app.before_request
-def require_admin():
-    """Gate every /admin path, including the JSON and CSV exports."""
-    if not request.path.startswith('/admin'):
-        return None
-    if request.endpoint in ('admin_login', 'admin_logout'):
-        return None
-    if session.get('is_admin'):
-        return None
-    return redirect(url_for('admin_login', next=request.path))
-
-
-@app.route('/admin/login', methods=['GET', 'POST'])
-def admin_login():
-    if session.get('is_admin'):
-        return redirect(url_for('admin_dashboard'))
-
-    error = None
-    if request.method == 'POST':
-        client_ip = request.remote_addr or 'unknown'
-        if ADMIN_PASSWORD_HASH is None:
-            error = 'Admin password is not configured on the server.'
-        elif login_locked(client_ip):
-            error = 'Terlalu banyak percobaan. Coba lagi dalam 5 menit.'
-        elif check_password_hash(ADMIN_PASSWORD_HASH, request.form.get('password', '')):
-            clear_login_failures(client_ip)
-            session['is_admin'] = True
-            session.permanent = True
-            # Only ever redirect back into /admin. This also rejects
-            # protocol-relative targets such as //evil.example.
-            target = request.args.get('next', '')
-            if not target.startswith('/admin'):
-                target = url_for('admin_dashboard')
-            return redirect(target)
-        else:
-            record_login_failure(client_ip)
-            error = 'Password salah.'
-
-    return render_template('admin_login.html', error=error), (401 if error else 200)
-
-
-@app.route('/admin/logout', methods=['GET', 'POST'])
-def admin_logout():
-    # Pop only the admin flag: session.clear() would also drop evaluator_id.
-    session.pop('is_admin', None)
-    return redirect(url_for('admin_login'))
 
 
 @app.route('/admin/evaluations')

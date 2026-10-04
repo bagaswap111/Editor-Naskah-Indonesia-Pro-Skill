@@ -6,17 +6,12 @@ services:
       - "127.0.0.1:8080:8080"
     volumes:
       - ./instance:/app/instance
-      - ./secrets/admin_password_hash:/run/secrets/admin_password_hash:ro
     environment:
-      # app.py reads SECRET_KEY, not FLASK_SECRET_KEY. The old FLASK_SECRET_KEY
-      # default was silently ignored, leaving the hardcoded fallback in app.py:9
-      # active. Required now, because a known key lets anyone forge session cookies.
-      # Set to 0 only for local testing over plain HTTP; the session cookie will
-      # not be sent back otherwise and login appears to loop.
+      # Session cookie flag. Set to 0 only for local testing over plain HTTP; the
+      # browser will not send the cookie back otherwise.
       - ADMIN_COOKIE_SECURE=${ADMIN_COOKIE_SECURE:-1}
       # app.py refuses to start without this, because Flask signs session cookies
-      # with it and a guessable key allows forging an admin cookie. Do not
-      # comment this out to work around a missing .env.
+      # with it and a guessable key allows forging a session cookie.
       - SECRET_KEY=${SECRET_KEY:?set SECRET_KEY in .env (see .env.example)}
       - DATABASE_URL=sqlite:///instance/evaluations.db
     networks:
