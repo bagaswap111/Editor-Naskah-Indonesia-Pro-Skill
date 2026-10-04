@@ -5,7 +5,11 @@
 # already holds those ports on the server.
 #
 #   docker network create caddy-proxy      # once
-#   cp .env.example .env                   # fill SECRET_KEY, ADMIN_PASSWORD_HASH
+#   cp .env.example .env                   # fill SECRET_KEY
+#   mkdir -p secrets
+#   docker compose run --rm webapp python -c \
+#     "import getpass;from werkzeug.security import generate_password_hash;print(generate_password_hash(getpass.getpass()))" \
+#     > secrets/admin_password_hash
 #   docker compose -f docker-compose.yml -f docker-compose.caddy.yml up -d --build
 
 services:
@@ -20,8 +24,6 @@ services:
     environment:
       SITE_ADDRESS: ${SITE_ADDRESS:-:8090}
       ACME_EMAIL: ${ACME_EMAIL:-bagas_wap@outlook.com}
-      ADMIN_USER: ${ADMIN_USER:-admin}
-      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH:?set ADMIN_PASSWORD_HASH in .env (see .env.example)}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       # Required: Caddyfile does `import Caddyfile.site`. Without this mount the

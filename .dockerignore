@@ -4,6 +4,7 @@ __pycache__
 instance
 .git
 .env
+secrets
 Caddyfile
 Caddyfile.site
 docker-compose*.yml

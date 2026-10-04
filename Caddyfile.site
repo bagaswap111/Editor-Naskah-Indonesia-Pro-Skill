@@ -4,8 +4,9 @@
 #
 #   import /opt/enip/Caddyfile.site
 #
-# Only ADMIN_PASSWORD_HASH must be supplied to the Caddy container; every other
-# placeholder below has a default baked in.
+# No variables are required here. /admin is protected by the app itself, and the
+# password hash is mounted from a file rather than passed through Compose -- an
+# env var would be interpolated and any '$' in the hash silently dropped.
 #
 # BEFORE reloading: delete any existing site block for enip-human.duckdns.org in
 # that Caddyfile. Two blocks for the same host is a fatal "ambiguous site
@@ -43,24 +44,9 @@
 	@healthz path /healthz
 	respond @healthz "ok" 200
 
-	# The Flask app has NO authentication on /admin, so it would otherwise publish
-	# all raw evaluation data (evaluator names, consent dates, scores, comments) to
-	# anyone. Password is the real control; generate the hash with:
-	#   docker run --rm caddy:2-alpine caddy hash-password --plaintext 'your-password'
-	@admin path /admin /admin/*
-	basic_auth @admin {
-		{$ADMIN_USER:admin} {$ADMIN_PASSWORD_HASH}
-	}
-
-	# Extra layer, best-effort only. Docker's userland proxy (docker-proxy) replaces
-	# the client IP with the bridge gateway, so remote_ip is often 172.17.0.1 for
-	# EVERY visitor and this rule matches nothing. Verify the real client_ip in
-	# `docker compose logs caddy` before trusting it; basic_auth above is the guard.
-	@adminBlocked {
-		path /admin /admin/*
-		not remote_ip private_ranges
-	}
-	respond @adminBlocked "Forbidden" 403
+	# /admin needs no proxy-side protection: app.py gates it with a real login
+	# (templates/admin_login.html) and the password hash is mounted from a file,
+	# never passed through Compose, so no secret can be mangled here.
 
 	reverse_proxy webapp:8080
 }

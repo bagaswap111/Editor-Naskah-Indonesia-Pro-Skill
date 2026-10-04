@@ -965,6 +965,16 @@ body {
     background: var(--color-white);
 }
 
+.error-message {
+    background: rgba(180, 60, 60, 0.12);
+    border-left: 3px solid #b43c3c;
+    color: #8a2b2b;
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
 .admin-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

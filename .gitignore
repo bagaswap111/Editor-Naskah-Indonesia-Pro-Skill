@@ -6,5 +6,6 @@ __pycache__/
 instance/
 *.db
 .env
+secrets/
 .DS_Store
 *.log
