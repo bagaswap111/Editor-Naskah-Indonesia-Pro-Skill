@@ -12,7 +12,7 @@ services:
       - ADMIN_COOKIE_SECURE=${ADMIN_COOKIE_SECURE:-1}
       # app.py refuses to start without this, because Flask signs session cookies
       # with it and a guessable key allows forging a session cookie.
-      - SECRET_KEY=${SECRET_KEY:?set SECRET_KEY in .env (see .env.example)}
+      #- SECRET_KEY=${SECRET_KEY:?set SECRET_KEY in .env (see .env.example)}
       - DATABASE_URL=sqlite:///instance/evaluations.db
     networks:
       - proxy
