@@ -395,10 +395,26 @@ def save_general_comments():
 # `$` followed by a letter. Files are never interpolated, so the hash is safe
 # here regardless of its contents.
 #
-# Generate the file with:
-#   docker compose run --rm webapp python -c \
+# Generate the file with (note --entrypoint: the image ENTRYPOINT is
+# entrypoint.sh, which ends in `exec gunicorn` and would never return).
+# Run `docker compose build webapp` first, or BuildKit writes its progress to
+# stdout and that output lands in the hash file:
+#   docker compose run --rm --entrypoint python webapp -c \
 #     "import getpass;from werkzeug.security import generate_password_hash;print(generate_password_hash(getpass.getpass()))" \
 #     > secrets/admin_password_hash
+#
+# Non-interactive equivalent (CI, scripts), which keeps the password out of the
+# shell history:
+#   printf '%s' "$ADMIN_PW" | docker compose run --rm -T --entrypoint python webapp -c \
+#     "import sys;from werkzeug.security import generate_password_hash;print(generate_password_hash(sys.stdin.read().strip()))" \
+#     > secrets/admin_password_hash
+#
+# On PowerShell, `>` writes UTF-16, which this file is read as UTF-8; the app
+# then refuses the hash and keeps /admin locked. Use Out-File -Encoding utf8, or
+# write it from inside the container as above.
+#
+# .env must already contain SECRET_KEY: Compose interpolates the whole file
+# before running anything, so the command fails without it.
 # ---------------------------------------------------------------------------
 
 ADMIN_PASSWORD_HASH_FILE = os.environ.get(
@@ -417,9 +433,12 @@ def load_admin_password_hash():
     try:
         with open(ADMIN_PASSWORD_HASH_FILE, encoding='utf-8') as handle:
             digest = handle.read().strip()
-    except OSError:
+    except (OSError, UnicodeDecodeError):
+        # Never let a bad secrets file stop the app from booting: that would take
+        # the evaluator flow offline too. A shell redirect in PowerShell writes
+        # UTF-16, which fails to decode as UTF-8, so this is easy to hit by accident.
         app.logger.error(
-            'Admin password hash not readable at %s; /admin stays locked.',
+            'Admin password hash not readable as UTF-8 text at %s; /admin stays locked.',
             ADMIN_PASSWORD_HASH_FILE
         )
         return None
@@ -427,6 +446,13 @@ def load_admin_password_hash():
         app.logger.error(
             'Admin password hash at %s is empty; /admin stays locked.',
             ADMIN_PASSWORD_HASH_FILE
+        )
+        return None
+    if len(digest.split()) > 1:
+        app.logger.error(
+            'Admin password hash at %s contains %d lines; /admin stays locked. '
+            'Regenerate it without shell redirection.',
+            ADMIN_PASSWORD_HASH_FILE, len(digest.split())
         )
         return None
     return digest

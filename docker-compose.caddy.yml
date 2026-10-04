@@ -6,11 +6,17 @@
 #
 #   docker network create caddy-proxy      # once
 #   cp .env.example .env                   # fill SECRET_KEY
+#   docker compose build webapp            # else BuildKit progress lands in the hash file
 #   mkdir -p secrets
-#   docker compose run --rm webapp python -c \
+#   docker compose run --rm --entrypoint python webapp -c \
 #     "import getpass;from werkzeug.security import generate_password_hash;print(generate_password_hash(getpass.getpass()))" \
 #     > secrets/admin_password_hash
 #   docker compose -f docker-compose.yml -f docker-compose.caddy.yml up -d --build
+#
+# --entrypoint is required: the image ENTRYPOINT is entrypoint.sh, which ends in
+# `exec gunicorn`, so a bare `compose run webapp python -c ...` never returns and
+# leaves a 0-byte hash file behind. On PowerShell, `>` writes UTF-16 and the app
+# will reject the hash -- use the non-interactive form in app.py instead.
 
 services:
   caddy:
